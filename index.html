@@ -1403,6 +1403,7 @@ body {
           <div class="date-input-wrapper"><input type="date" id="toDate" class="w-full border-2 border-blue-100 p-3 rounded-xl shadow-sm focus:border-blue-500 outline-none"></div>
         </div>
       </div>
+      
       <div id="bit-assignment-list" class="space-y-3 mb-4"></div>
       <button onclick="generatePreview()" id="generate-btn" style="display: none;"
         class="w-full bg-blue-700 text-white py-4 rounded-2xl font-bold hover:bg-blue-800 shadow-xl transition-all active:scale-95 flex items-center justify-center gap-2 mt-4">
@@ -5147,6 +5148,9 @@ function setupForm() {
   const container = document.getElementById('bit-assignment-list');
   if (!container) return;
 
+  // Get duty numbers for this type
+  const dutyNumbers = type === 'night' ? nightDutyNumbers : keymanDutyNumbers;
+
   container.innerHTML = currentBitData.map((bit, i) => `
     <div class="flex flex-col md:flex-row gap-3 items-center p-3 bg-white/60 border rounded-2xl shadow-sm">
       <div class="flex-1 w-full relative">
@@ -5160,6 +5164,11 @@ function setupForm() {
         <label for="emp-phone-${i}" class="block text-[10px] uppercase font-bold text-gray-400 mb-1 ml-1">Mobile No.</label>
         <input type="text" id="emp-phone-${i}" readonly class="w-full p-2 bg-blue-50 border rounded-xl text-center text-sm font-semibold text-blue-800">
       </div>
+      <div class="w-full md:w-36">
+        <label for="gps-number-${i}" class="block text-[10px] uppercase font-bold text-gray-400 mb-1 ml-1">📍 GPS</label>
+        <input type="text" id="gps-number-${i}" value="${dutyNumbers[i] || ''}" placeholder="GPS Duty No."
+          class="w-full p-2 border-2 border-blue-300 rounded-xl text-sm font-semibold focus:border-blue-500 outline-none" onchange="saveGpsNumbers()">
+      </div>
     </div>`).join('');
 
   if (currentDutyType === 'keyman' && toContainer) {
@@ -5168,6 +5177,55 @@ function setupForm() {
     toContainer.style.display = 'block';
   }
 }
+
+// 📍 Save GPS duty numbers (when user edits them)
+function saveGpsNumbers() {
+  const type = currentDutyType || 'night';
+  const dutyNumbers = type === 'night' ? nightDutyNumbers : keymanDutyNumbers;
+  const maxGps = dutyNumbers.length;
+  
+  // Read edited values from form
+  for (let idx = 0; idx < maxGps; idx++) {
+    const input = document.getElementById(`gps-number-${idx}`);
+    if (input) {
+      dutyNumbers[idx] = input.value;
+    }
+  }
+  
+  console.log('✅ GPS Duty Numbers Saved:', dutyNumbers);
+  showToast('✅ GPS numbers updated!');
+}
+
+// ↻ Reset GPS duty numbers to default
+function resetGpsNumbers() {
+  const type = currentDutyType || 'night';
+  
+  // Define defaults
+  const defaults = type === 'night' 
+    ? ["# 103011","# 103249","# 103237","# 303121","# 103098","# 103116"]
+    : ["80083","86639","85437","86484","102861","80444","85195","80374"];
+  
+  // Update the arrays
+  if (type === 'night') {
+    nightDutyNumbers.length = 0;
+    nightDutyNumbers.push(...defaults);
+  } else {
+    keymanDutyNumbers.length = 0;
+    keymanDutyNumbers.push(...defaults);
+  }
+  
+  // Update form fields
+  defaults.forEach((num, idx) => {
+    const input = document.getElementById(`gps-number-${idx}`);
+    if (input) {
+      input.value = num;
+    }
+  });
+  
+  console.log('↻ GPS Duty Numbers Reset to Defaults:', defaults);
+  showToast('↻ GPS numbers reset to default!');
+}
+
 
 async function filterDropdownEmployees(i) {
   const input = document.getElementById(`emp-search-${i}`);
