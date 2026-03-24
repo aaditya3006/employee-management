@@ -6410,17 +6410,19 @@ function buildSummaryOverlay(summaryGroupArr, grandTotalRs, grandTotalPaise, gra
 
   const ff = "font-family:Arial,sans-serif;font-size:6.5pt;line-height:1.1;";
 
-  let summaryLines = summaryGroupArr.map((g, idx) => {
+  let summaryLines = '';
+  summaryGroupArr.forEach((g, idx) => {
     const gTotal = g.total;
     const gRs    = Math.floor(gTotal);
     const gPaise = Math.round((gTotal - gRs) * 100);
     const gDisplay = `${gRs}.${String(gPaise).padStart(2,'0')}`;
     const perEntry = parseFloat(g.rate) * parseFloat(g.pct) / 100;
     const perEntryDisplay = perEntry.toFixed(2);
-    const label = idx === 0 ? '<u><b>SUMMARY:</b></u>&nbsp;&nbsp;' : '';
-    const padding = idx === 0 ? '20px' : '40px';
-    return `<div style="${ff}padding-left:${padding};font-weight:normal;margin:0;padding-top:1px;padding-bottom:1px;">${label}${g.count} × ${perEntryDisplay} = ${gDisplay}</div>`;
-  }).join('');
+    if (idx === 0) {
+      summaryLines += `<div style="${ff}padding-left:20px;font-weight:bold;margin:0;padding-top:1px;padding-bottom:1px;"><u><b>SUMMARY:</b></u></div>`;
+    }
+    summaryLines += `<div style="${ff}padding-left:40px;font-weight:normal;margin:0;padding-top:1px;padding-bottom:1px;">${g.count} × ${perEntryDisplay} = ${gDisplay}</div>`;
+  });
 
   const uline = `<div style="border-top:1px solid #000;margin:1px 0;"></div>`;
 
@@ -6442,7 +6444,7 @@ function buildSummaryOverlay(summaryGroupArr, grandTotalRs, grandTotalPaise, gra
         TOTAL = ${firstTotalVal}
       </div>
       <div style="${ff} padding-left:40px; font-family:'Courier New', monospace; font-weight:normal; margin:0; line-height:1.2;">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ .${String(addPaise).padStart(2,'0')}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ .${String(addPaise).padStart(2,'0')}
       </div>
     ${uline}
       <div style="${ff} padding-left:40px; font-weight:bold; margin:0; padding-top:1px;">
