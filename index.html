@@ -1495,11 +1495,13 @@ body {
             </div>
             <div>
               <label class="ta-label">CR Details (optional)</label>
-              <div class="flex gap-2">
-                <input type="text" id="ta-cr-name-header" placeholder="CR Name" class="ta-input flex-1">
+              <input type="text" id="ta-cr-name-header" placeholder="CR Name" class="ta-input w-full mb-2">
+              <div class="flex gap-2 mb-2">
                 <div class="date-input-wrapper flex-1"><input type="date" id="ta-cr-date-header" class="ta-input" style="padding:10px 36px 10px 12px;"></div>
+                <button type="button" onclick="addCrDetail()" class="bg-purple-600 text-white px-3 py-2 rounded-lg font-bold text-sm hover:bg-purple-700 transition-all whitespace-nowrap">+ Add CR</button>
               </div>
-              <p class="text-xs text-slate-400 mt-1"></p>
+              <div id="ta-cr-details-list" class="flex flex-wrap gap-1 mt-1"></div>
+              <input type="hidden" id="ta-cr-details-json" value="[]">
             </div>
             <div>
               <label class="ta-label">PF Number</label>
@@ -6130,6 +6132,42 @@ function renderLeaveDateTags(dates) {
   }).join('');
 }
 
+function addCrDetail() {
+  const nameInput = document.getElementById('ta-cr-name-header');
+  const dateInput = document.getElementById('ta-cr-date-header');
+  const crName = nameInput.value.trim();
+  const crDate = dateInput.value;
+  if (!crName || !crDate) { customAlert("Please enter both CR Name and CR Date"); return; }
+  const existing = JSON.parse(document.getElementById('ta-cr-details-json').value || '[]');
+  const crEntry = crName + '|' + crDate;
+  if (existing.includes(crEntry)) { customAlert("This CR detail is already added."); return; }
+  existing.push(crEntry);
+  document.getElementById('ta-cr-details-json').value = JSON.stringify(existing);
+  nameInput.value = '';
+  dateInput.value = '';
+  renderCrDetailTags(existing);
+}
+
+function removeCrDetail(crEntry) {
+  const existing = JSON.parse(document.getElementById('ta-cr-details-json').value || '[]');
+  const updated = existing.filter(c => c !== crEntry);
+  document.getElementById('ta-cr-details-json').value = JSON.stringify(updated);
+  renderCrDetailTags(updated);
+}
+
+function renderCrDetailTags(crArray) {
+  const container = document.getElementById('ta-cr-details-list');
+  if (!crArray || crArray.length === 0) { container.innerHTML = ''; return; }
+  container.innerHTML = crArray.map(c => {
+    const [name, dateVal] = c.split('|');
+    const [y,m,day] = dateVal.split('-');
+    return `<span style="background:#e9d5ff;color:#6b21a8;border:1px solid #d8b4fe;padding:3px 8px;border-radius:20px;font-size:12px;font-weight:bold;display:inline-flex;align-items:center;gap:4px;">
+      CR: ${name} (${day}/${m}/${y})
+      <span onclick="removeCrDetail('${c}')" style="cursor:pointer;color:#ef4444;font-weight:bold;margin-left:2px;">×</span>
+    </span>`;
+  }).join('');
+}
+
 function deleteTaEntry(dateKey) {
   if (confirm(`Remove entry for ${formatTaDate(dateKey)}?`)) {
     delete taPageEntries[dateKey];
@@ -6196,8 +6234,15 @@ function getTaHeaderData() {
   const restDatesFmt = restDatesRaw.map(d => { const [y,m,day] = d.split('-'); return `${day}/${m}/${y}`; });
   const leaveDatesRaw = JSON.parse(document.getElementById('ta-leave-dates-json').value || '[]');
   const leaveDatesFmt = leaveDatesRaw.map(d => { const [y,m,day] = d.split('-'); return `${day}/${m}/${y}`; });
-  const crNameHeader = document.getElementById('ta-cr-name-header').value;
-  const crDateHeader = document.getElementById('ta-cr-date-header').value;
+  let crEntries = '';
+  const crDetailsRaw = JSON.parse(document.getElementById('ta-cr-details-json').value || '[]');
+  if (crDetailsRaw.length > 0) {
+    crEntries = crDetailsRaw.map(c => {
+      const [crName, dateVal] = c.split('|');
+      const crDateFormatted = dateVal ? dateVal.split('-').reverse().join('/') : '';
+      return `CR: ${crName} (${crDateFormatted})`;
+    }).join(', ');
+  }
   const pfNumber  = document.getElementById('ta-pf-number').value;
   const mon = document.getElementById('ta-month-sel').value;
   const yr  = document.getElementById('ta-year-sel').value;
@@ -6215,14 +6260,13 @@ function getTaHeaderData() {
     const apptRaw = document.getElementById('ta-appointment-date') ? document.getElementById('ta-appointment-date').value : '';
     apptDate = apptRaw ? apptRaw.split('-').reverse().join('/') : '';
   }
-  const crDateFmt = crDateHeader ? crDateHeader.split('-').reverse().join('/') : '';
   const reportUnit = document.getElementById('ta-report-unit').value;
   const claimedType = document.getElementById('ta-claimed-type').value || 'T.A';
   return {
     name, firstLine, branch, hqStation,
     restDates: restDatesFmt, restDatesCount: restDatesRaw.length,
     leaveDates: leaveDatesFmt, leaveDatesCount: leaveDatesRaw.length,
-    crNameHeader, crDate: crDateFmt,
+    crEntries,
     pfNumber, allowanceFor, post, pay, scale, level, apptDate,
     designation: claimedType, rule: 'SR',
     reportUnit
@@ -6551,14 +6595,11 @@ function generateTaPreview() {
   if (header.restDatesCount > 0) restParts.push(`Rest - ${header.restDatesCount} (${header.restDates.join(', ')})`);
   if (header.leaveDatesCount > 0) leaveParts.push(`Leave - ${header.leaveDatesCount} (${header.leaveDates.join(', ')})`);
   const combined = [...restParts, ...leaveParts];
+  if (header.crEntries) combined.push(header.crEntries);
   restLeaveText = combined.join(', ');
-  if (header.crNameHeader) {
-    restLeaveText += (restLeaveText ? '&nbsp;&nbsp;&nbsp;' : '') + `CR: ${header.crNameHeader}`;
-    if (header.crDate) restLeaveText += ` (${header.crDate})`;
-  }
 
   const metaFF = "font-family:'Noto Sans Devanagari',Arial,sans-serif;";
-  const crLeft = header.crNameHeader ? `CR: ${header.crNameHeader}` : '&nbsp;';
+  const crLeft = '&nbsp;';
 
   const topBarHTML = `<div style="display:flex;justify-content:space-between;align-items:baseline;width:100%;margin-bottom:1px;${metaFF}font-size:7.5pt;line-height:1.8;">
     <span style="font-weight:bold;min-height:12px;">${restLeaveText || '&nbsp;'}</span>
