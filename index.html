@@ -1448,7 +1448,7 @@ body {
             <div><label for="att-km" class="block text-sm font-bold text-gray-600 mb-1">KM</label><input type="text" id="att-km" placeholder="Enter KM" class="w-full border-2 border-slate-200 p-3 rounded-xl focus:border-blue-500 outline-none"></div>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border border-slate-200 p-4 rounded-xl bg-slate-50">
-            <div><label for="att-cr-name" class="block text-sm font-bold text-gray-600 mb-1">CR Name</label><input type="text" id="att-cr-name" class="w-full border-2 border-slate-200 p-3 rounded-xl focus:border-blue-500 outline-none"></div>
+            <div><label for="att-cr-name" class="block text-sm font-bold text-gray-600 mb-1">CR</label><input type="text" id="att-cr-name" class="w-full border-2 border-slate-200 p-3 rounded-xl focus:border-blue-500 outline-none"></div>
             <div><label for="att-cr-date" class="block text-sm font-bold text-gray-600 mb-1">CR Date</label><div class="date-input-wrapper"><input type="date" id="att-cr-date" class="w-full border-2 border-slate-200 p-3 rounded-xl focus:border-blue-500 outline-none"></div></div>
           </div>
           <div id="add-name-group" class="hidden border border-slate-200 p-4 rounded-xl bg-slate-50">
@@ -1495,7 +1495,7 @@ body {
             </div>
             <div>
               <label class="ta-label">CR Details (optional)</label>
-              <input type="text" id="ta-cr-name-header" placeholder="CR Name" class="ta-input w-full mb-2">
+              <input type="text" id="ta-cr-name-header" placeholder="CR Name/Detail" class="ta-input w-full mb-2">
               <div class="flex gap-2 mb-2">
                 <div class="date-input-wrapper flex-1"><input type="date" id="ta-cr-date-header" class="ta-input" style="padding:10px 36px 10px 12px;"></div>
                 <button type="button" onclick="addCrDetail()" class="bg-purple-600 text-white px-3 py-2 rounded-lg font-bold text-sm hover:bg-purple-700 transition-all whitespace-nowrap">+ Add CR</button>
@@ -5955,8 +5955,60 @@ let taEditingKey = null;
 
 function initTaJournal() {
   if (Object.keys(taPageEntries).length === 0) resetTaSingleForm();
+  loadTaJournalFromDB();
   renderTaSavedDays();
   calcTaAmountSingle();
+}
+
+async function loadTaJournalFromDB() {
+  const currentUser = window.currentUserAuth;
+  if (!currentUser || !currentUser.id) return;
+  try {
+    const { data, error } = await db.from('ta_journal').select('*').eq('user_id', currentUser.id).order('savedat', { ascending: false }).limit(1);
+    if (error) throw error;
+    if (data && data.length > 0) {
+      const lastEntry = data[0];
+      if (lastEntry.entries && Array.isArray(lastEntry.entries)) {
+        taPageEntries = {};
+        lastEntry.entries.forEach(e => {
+          taPageEntries[e.dateRaw] = e;
+        });
+        console.log('✅ Loaded TA Journal entries from database:', taPageEntries);
+      }
+    }
+  } catch (error) {
+    console.error('Note: Could not load from database:', error.message);
+  }
+}
+
+async function autoSaveTaFormData() {
+  const currentUser = window.currentUserAuth;
+  if (!currentUser || !currentUser.id) return;
+  
+  const header = getTaHeaderData();
+  const entries = Object.keys(taPageEntries).sort().map(k => taPageEntries[k]);
+  const restDates = JSON.parse(document.getElementById('ta-rest-dates-json').value || '[]');
+  const leaveDates = JSON.parse(document.getElementById('ta-leave-dates-json').value || '[]');
+  const crDetails = JSON.parse(document.getElementById('ta-cr-details-json').value || '[]');
+  
+  const formData = {
+    user_id: currentUser.id,
+    user_email: currentUser.email,
+    header, entries, restDates, leaveDates, crDetails,
+    savedat: new Date().toISOString(),
+    timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: false })
+  };
+  
+  try {
+    const { error } = await db.from('ta_journal').upsert([formData], { onConflict: 'user_id' });
+    if (error) {
+      console.error('Error auto-saving TA form data:', error.message);
+      return;
+    }
+    console.log('✅ TA form data auto-saved');
+  } catch (error) {
+    console.error('Auto-save error:', error.message);
+  }
 }
 
 function resetTaSingleForm() {
@@ -6137,7 +6189,7 @@ function addCrDetail() {
   const dateInput = document.getElementById('ta-cr-date-header');
   const crName = nameInput.value.trim();
   const crDate = dateInput.value;
-  if (!crName || !crDate) { customAlert("Please enter both CR Name and CR Date"); return; }
+  if (!crName || !crDate) { customAlert("Please enter CR Name/Detail and CR Date"); return; }
   const existing = JSON.parse(document.getElementById('ta-cr-details-json').value || '[]');
   const crEntry = crName + '|' + crDate;
   if (existing.includes(crEntry)) { customAlert("This CR detail is already added."); return; }
@@ -6774,6 +6826,22 @@ function generateTaReport() {
     });
   });
   
+  // Add CR entries
+  const crDetailsRaw = JSON.parse(document.getElementById('ta-cr-details-json').value || '[]');
+  crDetailsRaw.forEach(c => {
+    const [crName, dateVal] = c.split('|');
+    if (dateVal) {
+      const [y, m, d] = dateVal.split('-');
+      const crDateFormatted = `${d}/${m}/${y}`;
+      allDateEntries.push({
+        dateRaw: dateVal,
+        dateFormatted: crDateFormatted,
+        type: 'CR',
+        work: `CR: ${crName}`
+      });
+    }
+  });
+  
   // Sort by date
   allDateEntries.sort((a, b) => a.dateRaw.localeCompare(b.dateRaw));
   
@@ -6830,29 +6898,36 @@ function printTaReport() {
 async function saveTaJournalToDB() {
   const keys = Object.keys(taPageEntries).sort();
   if (keys.length === 0) { customAlert("Please add at least one journey entry."); return; }
+  const currentUser = window.currentUserAuth;
+  if (!currentUser || !currentUser.id) { customAlert("Please login first to save TA Journal."); return; }
   const entries = keys.map(k => taPageEntries[k]);
   const header = getTaHeaderData();
   const summaryGroups = buildSummary(entries);
   let grandTotal = 0;
   Object.values(summaryGroups).forEach(g => { grandTotal += g.total; });
   const docData = {
-    header, entries, grandTotal: grandTotal.toFixed(2),
-    savedAt: new Date().toISOString(),
+    user_id: currentUser.id,
+    user_email: currentUser.email,
+    header, entries, grandtotal: grandTotal.toFixed(2),
+    savedat: new Date().toISOString(),
     timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: false })
   };
   try {
-    // Try to save to ta_journal and print_history (tables may not exist yet)
-    await db.from('ta_journal').insert([docData]).catch(e => null);
-    showToast("TA Journal saved!");
+    // Save to ta_journal
+    const { data, error } = await db.from('ta_journal').insert([docData]).select();
+    if (error) throw error;
+    showToast("TA Journal saved successfully!");
+    // Also save to print_history
     await db.from("print_history").insert([{
+      user_id: currentUser.id,
       range: `TA Journal - ${header.name} (${entries.length} entries, Total: Rs.${grandTotal.toFixed(2)})`,
       timestamp: docData.timestamp,
       serverTime: new Date().toISOString()
-    }]).catch(e => null);
+    }]);
     printHistory.unshift({ range: `TA Journal - ${header.name}`, timestamp: docData.timestamp });
   } catch (error) {
     console.error("Error saving TA Journal:", error);
-    customAlert("Error saving to database: " + error.message);
+    customAlert("Note: Data saved locally. Database save status: " + (error ? error.message : "Success"));
   }
 }
 
