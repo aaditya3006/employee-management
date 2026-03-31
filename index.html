@@ -5953,9 +5953,9 @@ function executeAttPrint(orientation) {
 let taPageEntries = {};
 let taEditingKey = null;
 
-function initTaJournal() {
+async function initTaJournal() {
   if (Object.keys(taPageEntries).length === 0) resetTaSingleForm();
-  loadTaJournalFromDB();
+  await loadTaJournalFromDB();
   renderTaSavedDays();
   calcTaAmountSingle();
 }
