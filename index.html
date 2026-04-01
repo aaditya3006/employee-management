@@ -1495,10 +1495,9 @@ body {
             </div>
             <div>
               <label class="ta-label">CR Details (optional)</label>
-              <input type="text" id="ta-cr-name-header" placeholder="CR Name/Detail" class="ta-input w-full mb-2">
               <div class="flex gap-2 mb-2">
                 <div class="date-input-wrapper flex-1"><input type="date" id="ta-cr-date-header" class="ta-input" style="padding:10px 36px 10px 12px;"></div>
-                <button type="button" onclick="addCrDetail()" class="bg-purple-600 text-white px-3 py-2 rounded-lg font-bold text-sm hover:bg-purple-700 transition-all whitespace-nowrap">+ Add CR</button>
+                <button type="button" onclick="addCrDetail()" class="bg-purple-600 text-white px-3 py-2 rounded-lg font-bold text-sm hover:bg-purple-700 transition-all whitespace-nowrap">+ Add Date</button>
               </div>
               <div id="ta-cr-details-list" class="flex flex-wrap gap-1 mt-1"></div>
               <input type="hidden" id="ta-cr-details-json" value="[]">
@@ -1658,15 +1657,19 @@ body {
                 <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="30" onchange="calcTaAmountSingle()"> 30%</label>
                 <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="70" onchange="calcTaAmountSingle()" checked> 70%</label>
                 <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="100" onchange="calcTaAmountSingle()"> 100%</label>
+                <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="30+70" onchange="calcTaAmountSingle()"> 30%+70%</label>
+                <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="70+30" onchange="calcTaAmountSingle()"> 70%+30%</label>
               </div>
             </div>
             <div><label class="ta-label">Object of Journey</label><input type="text" id="ta-obj-single" placeholder="Purpose of journey" class="ta-input"></div>
             <div>
               <label class="ta-label">Rate</label>
               <div class="ta-radio-group">
-                <label class="ta-radio-label"><input type="radio" name="ta-rate-single" value="625" onchange="calcTaAmountSingle()" checked> 625</label>
-                <label class="ta-radio-label"><input type="radio" name="ta-rate-single" value="1000" onchange="calcTaAmountSingle()"> 1000</label>
+                <label class="ta-radio-label"><input type="radio" name="ta-rate-single" value="625" onchange="handleRateChange()" checked> 625</label>
+                <label class="ta-radio-label"><input type="radio" name="ta-rate-single" value="1000" onchange="handleRateChange()"> 1000</label>
+                <label class="ta-radio-label"><input type="radio" name="ta-rate-single" value="other" onchange="handleRateChange()"> Other</label>
               </div>
+              <input type="number" id="ta-rate-custom" placeholder="Enter custom rate" class="ta-input hidden" onchange="calcTaAmountSingle()" oninput="calcTaAmountSingle()" style="font-size:15px;font-weight:bold;margin-top:8px;">
             </div>
             <div class="md:col-span-2">
               <label class="ta-label">Calculated Amount</label>
@@ -1978,7 +1981,7 @@ body {
   <div id="ta-pdf-content" style="width:277mm;background:white;box-shadow:0 6px 40px rgba(0,0,0,0.28);padding:6mm 7mm;display:none;"></div>
   <div id="ta-report-content" style="width:210mm;background:white;box-shadow:0 6px 40px rgba(0,0,0,0.28);padding:10mm;display:none;"></div>
   <div class="no-print" style="position:fixed;bottom:0;left:0;width:100%;background:rgba(255,255,255,0.97);backdrop-filter:blur(16px);border-top:1px solid #e5e7eb;padding:14px 20px;z-index:9999;display:flex;justify-content:center;gap:14px;flex-wrap:wrap;">
-    <button onclick="showSection('form-section'); handleMenuSelect('tajournal');" style="background:white;border:2px solid #d1d5db;padding:13px 30px;border-radius:50px;font-weight:bold;font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;">← Edit Form</button>
+    <button onclick="showSection('form-section'); handleMenuSelect('tajournal');" style="background:white;border:2px solid #d1d5db;padding:13px 30px;border-radius:50px;font-weight:bold;font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;">← Back</button>
     <button onclick="switchToTaJournal()" id="btn-ta-journal-view" style="background:#d97706;color:white;padding:13px 24px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(217,119,6,0.35);cursor:pointer;">TA Journal</button>
     <button onclick="switchToTaReport()" id="btn-ta-report-view" style="background:#7c3aed;color:white;padding:13px 24px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(124,58,237,0.35);cursor:pointer;">Generate Report</button>
     <button onclick="printCurrentTaView()" id="btn-ta-print" style="background:#059669;color:white;padding:13px 24px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(5,150,105,0.35);cursor:pointer;">🖨️ Print</button>
@@ -6025,6 +6028,8 @@ function resetTaSingleForm() {
   document.querySelector('input[name="ta-pct-single"][value="70"]').checked = true;
   document.getElementById('ta-obj-single').value = '';
   document.querySelector('input[name="ta-rate-single"][value="625"]').checked = true;
+  document.getElementById('ta-rate-custom').value = '';
+  document.getElementById('ta-rate-custom').classList.add('hidden');
   calcTaAmountSingle();
   taEditingKey = null;
   document.getElementById('ta-editing-date-key').value = '';
@@ -6039,12 +6044,41 @@ function toggleTrainNoSingle() {
   document.getElementById('ta-train-no-single').classList.toggle('hidden', mode !== 'bytrain');
 }
 
+function handleRateChange() {
+  const selectedRate = document.querySelector('input[name="ta-rate-single"]:checked').value;
+  const customRateInput = document.getElementById('ta-rate-custom');
+  if (selectedRate === 'other') {
+    customRateInput.classList.remove('hidden');
+    customRateInput.focus();
+  } else {
+    customRateInput.classList.add('hidden');
+  }
+  calcTaAmountSingle();
+}
+
 function calcTaAmountSingle() {
   const pctEl = document.querySelector('input[name="ta-pct-single"]:checked');
-  const rateEl = document.querySelector('input[name="ta-rate-single"]:checked');
-  if (!pctEl || !rateEl) return;
-  const pct = parseFloat(pctEl.value) / 100;
-  const rate = parseFloat(rateEl.value);
+  const selectedRate = document.querySelector('input[name="ta-rate-single"]:checked').value;
+  
+  if (!pctEl) return;
+  
+  let rate;
+  if (selectedRate === 'other') {
+    rate = parseFloat(document.getElementById('ta-rate-custom').value);
+    if (isNaN(rate)) return;
+  } else {
+    rate = parseFloat(selectedRate);
+  }
+  
+  let pct = pctEl.value;
+  
+  // Handle combination percentages
+  if (pct === '30+70' || pct === '70+30') {
+    pct = 1.0; // Both combinations equal 100%
+  } else {
+    pct = parseFloat(pct) / 100;
+  }
+  
   const total = rate * pct;
   const rs = Math.floor(total);
   const paise = Math.round((total - rs) * 100);
@@ -6069,7 +6103,11 @@ function addTaEntryToPage() {
   const toStn    = document.getElementById('ta-to-stn-single').value;
   const pct      = document.querySelector('input[name="ta-pct-single"]:checked').value;
   const obj      = document.getElementById('ta-obj-single').value;
-  const rate     = document.querySelector('input[name="ta-rate-single"]:checked').value;
+  
+  // Get rate from either radio selection or custom input
+  const selectedRate = document.querySelector('input[name="ta-rate-single"]:checked').value;
+  const rate = selectedRate === 'other' ? document.getElementById('ta-rate-custom').value : selectedRate;
+  
   const rs       = document.getElementById('ta-rs-single').value;
   const paise    = document.getElementById('ta-paise-single').value;
   const modeLabel = mode === 'bytrain' ? `By Train${trainNo ? ' '+trainNo : ''}` : 'By Road';
@@ -6112,8 +6150,19 @@ function editTaEntry(dateKey) {
   const pctEl = document.querySelector(`input[name="ta-pct-single"][value="${e.pct}"]`);
   if (pctEl) pctEl.checked = true;
   document.getElementById('ta-obj-single').value = e.obj || '';
-  const rateEl = document.querySelector(`input[name="ta-rate-single"][value="${e.rate}"]`);
-  if (rateEl) rateEl.checked = true;
+  
+  // Handle rate - check if it's one of the standard options or custom
+  const rateOption = document.querySelector(`input[name="ta-rate-single"][value="${e.rate}"]`);
+  if (rateOption) {
+    rateOption.checked = true;
+    document.getElementById('ta-rate-custom').classList.add('hidden');
+  } else {
+    // It's a custom rate
+    document.querySelector('input[name="ta-rate-single"][value="other"]').checked = true;
+    document.getElementById('ta-rate-custom').classList.remove('hidden');
+    document.getElementById('ta-rate-custom').value = e.rate || '';
+  }
+  
   calcTaAmountSingle();
   document.getElementById('ta-editing-badge').classList.remove('hidden');
   document.getElementById('ta-entry-form-title').innerText = `✏️ Editing: ${formatTaDate(dateKey)}`;
@@ -6185,24 +6234,20 @@ function renderLeaveDateTags(dates) {
 }
 
 function addCrDetail() {
-  const nameInput = document.getElementById('ta-cr-name-header');
   const dateInput = document.getElementById('ta-cr-date-header');
-  const crName = nameInput.value.trim();
   const crDate = dateInput.value;
-  if (!crName || !crDate) { customAlert("Please enter CR Name/Detail and CR Date"); return; }
+  if (!crDate) { customAlert("Please select a CR date"); return; }
   const existing = JSON.parse(document.getElementById('ta-cr-details-json').value || '[]');
-  const crEntry = crName + '|' + crDate;
-  if (existing.includes(crEntry)) { customAlert("This CR detail is already added."); return; }
-  existing.push(crEntry);
+  if (existing.includes(crDate)) { customAlert("This CR date is already added."); return; }
+  existing.push(crDate);
   document.getElementById('ta-cr-details-json').value = JSON.stringify(existing);
-  nameInput.value = '';
   dateInput.value = '';
   renderCrDetailTags(existing);
 }
 
-function removeCrDetail(crEntry) {
+function removeCrDetail(dateVal) {
   const existing = JSON.parse(document.getElementById('ta-cr-details-json').value || '[]');
-  const updated = existing.filter(c => c !== crEntry);
+  const updated = existing.filter(d => d !== dateVal);
   document.getElementById('ta-cr-details-json').value = JSON.stringify(updated);
   renderCrDetailTags(updated);
 }
@@ -6210,12 +6255,11 @@ function removeCrDetail(crEntry) {
 function renderCrDetailTags(crArray) {
   const container = document.getElementById('ta-cr-details-list');
   if (!crArray || crArray.length === 0) { container.innerHTML = ''; return; }
-  container.innerHTML = crArray.map(c => {
-    const [name, dateVal] = c.split('|');
+  container.innerHTML = crArray.map(dateVal => {
     const [y,m,day] = dateVal.split('-');
     return `<span style="background:#e9d5ff;color:#6b21a8;border:1px solid #d8b4fe;padding:3px 8px;border-radius:20px;font-size:12px;font-weight:bold;display:inline-flex;align-items:center;gap:4px;">
-      CR: ${name} (${day}/${m}/${y})
-      <span onclick="removeCrDetail('${c}')" style="cursor:pointer;color:#ef4444;font-weight:bold;margin-left:2px;">×</span>
+      CR: ${day}/${m}/${y}
+      <span onclick="removeCrDetail('${dateVal}')" style="cursor:pointer;color:#ef4444;font-weight:bold;margin-left:2px;">×</span>
     </span>`;
   }).join('');
 }
@@ -6289,11 +6333,27 @@ function getTaHeaderData() {
   let crEntries = '';
   const crDetailsRaw = JSON.parse(document.getElementById('ta-cr-details-json').value || '[]');
   if (crDetailsRaw.length > 0) {
-    crEntries = crDetailsRaw.map(c => {
-      const [crName, dateVal] = c.split('|');
-      const crDateFormatted = dateVal ? dateVal.split('-').reverse().join('/') : '';
-      return `CR: ${crName} (${crDateFormatted})`;
-    }).join(', ');
+    const restParts = [];
+    const leaveParts = [];
+    const crParts = [];
+    if (restDatesFmt.length > 0) restParts.push(`Rest - ${restDatesFmt.length} (${restDatesFmt.join(', ')})`);
+    if (leaveDatesFmt.length > 0) leaveParts.push(`Leave - ${leaveDatesFmt.length} (${leaveDatesFmt.join(', ')})`);
+    if (crDetailsRaw.length > 0) {
+      const crDatesFmt = crDetailsRaw.map(dateVal => {
+        const [y, m, d] = dateVal.split('-');
+        return `${d}/${m}/${y}`;
+      });
+      crParts.push(`CR - ${crDatesFmt.length} (${crDatesFmt.join(', ')})`);
+    }
+    const allParts = [...restParts, ...leaveParts, ...crParts];
+    crEntries = allParts.join(', ');
+  } else {
+    // Even without CR, show Rest/Leave if they exist
+    const restParts = [];
+    const leaveParts = [];
+    if (restDatesFmt.length > 0) restParts.push(`Rest - ${restDatesFmt.length} (${restDatesFmt.join(', ')})`);
+    if (leaveDatesFmt.length > 0) leaveParts.push(`Leave - ${leaveDatesFmt.length} (${leaveDatesFmt.join(', ')})`);
+    crEntries = [...restParts, ...leaveParts].join(', ');
   }
   const pfNumber  = document.getElementById('ta-pf-number').value;
   const mon = document.getElementById('ta-month-sel').value;
@@ -6418,8 +6478,8 @@ function buildTaTableHeader() {
 function makeSplitCell(topLeft, bottomRight) {
   if (!topLeft && !bottomRight) return `<td style="border:1px solid #000;height:24px;padding:0;"></td>`;
   return `<td style="border:1px solid #000;height:24px;padding:0;position:relative;overflow:hidden;">
-    <div style="position:absolute;top:2px;left:3px;font-size:8pt;line-height:1;white-space:nowrap;">${topLeft || ''}</div>
-    <div style="position:absolute;bottom:2px;right:3px;font-size:8pt;line-height:1;white-space:nowrap;text-align:right;">${bottomRight || ''}</div>
+    <div style="position:absolute;top:2px;left:3px;font-size:8pt;line-height:1;white-space:nowrap;font-weight:bold;">${topLeft || ''}</div>
+    <div style="position:absolute;bottom:2px;right:3px;font-size:8pt;line-height:1;white-space:nowrap;text-align:right;font-weight:bold;">${bottomRight || ''}</div>
   </td>`;
 }
 
@@ -6429,7 +6489,7 @@ function makeStationCell(fromStn, toStn, colType) {
   if (!topVal && !bottomVal) return `<td style="border:1px solid #000;height:24px;padding:0;"></td>`;
   return `<td style="border:1px solid #000;height:24px;padding:0;position:relative;overflow:hidden;">
     <div style="position:absolute;top:2px;left:3px;font-size:8pt;line-height:1;white-space:nowrap;text-align:left;font-weight:bold;">${topVal}</div>
-    <div style="position:absolute;bottom:2px;right:3px;font-size:8pt;line-height:1;white-space:nowrap;text-align:right;">${bottomVal}</div>
+    <div style="position:absolute;bottom:2px;right:3px;font-size:8pt;line-height:1;white-space:nowrap;text-align:right;font-weight:bold;">${bottomVal}</div>
   </td>`;
 }
 
@@ -6442,13 +6502,13 @@ function buildTaDataRows(entries) {
     const toStnCell   = makeStationCell(e.fromStn, e.toStn, 'to');
     const pctLabel = e.pct ? e.pct + '%' : '';
     rows += `<tr>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;">${e.monthDate || ''}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;">${e.modeLabel}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;font-weight:bold;">${e.monthDate || ''}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;font-weight:bold;">${e.modeLabel}</td>
       ${timeLeftCell}${timeArrivedCell}${fromStnCell}${toStnCell}
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;"></td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;">${pctLabel}</td>
-      <td style="border:1px solid #000;padding:2px 3px;font-size:6pt;height:24px;text-align:left;text-align-last:center;vertical-align:middle;overflow:hidden;word-wrap:break-word;word-break:break-word;white-space:normal;line-height:1.2;">${e.obj}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;">${e.rate}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;font-weight:bold;"></td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;font-weight:bold;">${pctLabel}</td>
+      <td style="border:1px solid #000;padding:2px 3px;font-size:6pt;height:24px;text-align:left;text-align-last:center;vertical-align:middle;overflow:hidden;word-wrap:break-word;word-break:break-word;white-space:normal;line-height:1.2;font-weight:bold;">${e.obj}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;font-weight:bold;">${e.rate}</td>
       <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;height:24px;text-align:center;vertical-align:middle;">${e.rs}</td>
       <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;height:24px;text-align:center;vertical-align:middle;">${e.paise}</td>
     </tr>`;
@@ -6828,8 +6888,7 @@ function generateTaReport() {
   
   // Add CR entries
   const crDetailsRaw = JSON.parse(document.getElementById('ta-cr-details-json').value || '[]');
-  crDetailsRaw.forEach(c => {
-    const [crName, dateVal] = c.split('|');
+  crDetailsRaw.forEach(dateVal => {
     if (dateVal) {
       const [y, m, d] = dateVal.split('-');
       const crDateFormatted = `${d}/${m}/${y}`;
@@ -6837,7 +6896,7 @@ function generateTaReport() {
         dateRaw: dateVal,
         dateFormatted: crDateFormatted,
         type: 'CR',
-        work: `CR: ${crName}`
+        work: 'CR'
       });
     }
   });
@@ -6847,20 +6906,20 @@ function generateTaReport() {
   
   let reportRows = allDateEntries.map((e) => {
     return `<tr>
-      <td style="border:none;padding:5px 12px 5px 0;font-size:9pt;font-weight:normal;${ff}text-align:left;vertical-align:top;width:22%;white-space:nowrap;">${e.dateFormatted}</td>
-      <td style="border:none;padding:5px 0 5px 12px;font-size:9pt;font-weight:normal;${ff}text-align:left;vertical-align:top;">${e.work || '-'}</td>
+      <td style="border:none;padding:2px 12px 2px 0;font-size:8.5pt;font-weight:normal;${ff}text-align:left;vertical-align:top;width:22%;white-space:nowrap;line-height:1;">${e.dateFormatted}</td>
+      <td style="border:none;padding:2px 0 2px 12px;font-size:8.5pt;font-weight:normal;${ff}text-align:left;vertical-align:top;line-height:1;">${e.work || '-'}</td>
     </tr>`;
   }).join('');
 
-  const reportHTML = `<div style="background:white;width:100%;${ff}color:#000;border:2px solid #000;padding:16px 20px 20px 20px;">
-    <div style="text-align:center;font-size:12pt;font-weight:bold;text-decoration:underline;text-underline-offset:3px;letter-spacing:0.08em;margin-bottom:14px;${ff}color:#000;">T.A MOVEMENT (${monthYear})</div>
-    <div style="font-size:9pt;${ff}line-height:2;color:#000;"><span style="font-weight:bold;">Name</span> &nbsp;:&nbsp; ${header.name || ''}</div>
-    <div style="font-size:9pt;${ff}line-height:2;color:#000;"><span style="font-weight:bold;">Designation</span> &nbsp;:&nbsp; ${header.post || header.designation || ''}</div>
-    <div style="font-size:9pt;${ff}line-height:2;color:#000;"><span style="font-weight:bold;">Station</span> &nbsp;:&nbsp; ${header.reportUnit || ''}</div>
-    <div style="font-size:9pt;${ff}line-height:2;color:#000;"><span style="font-weight:bold;">PF Number</span> &nbsp;:&nbsp; ${header.pfNumber || ''}</div>
-    <div style="font-size:9pt;${ff}line-height:2;color:#000;margin-bottom:10px;"><span style="font-weight:bold;">Month</span> &nbsp;:&nbsp; ${monthYear}</div>
-    <div style="border-top:2px dashed #000;width:100%;margin:6px 0 10px 0;"></div>
-    <table style="width:100%;border-collapse:collapse;border:none;">
+  const reportHTML = `<div style="background:white;width:100%;${ff}color:#000;border:2px solid #000;padding:12px 16px 16px 16px;">
+    <div style="text-align:center;font-size:11pt;font-weight:bold;text-decoration:underline;text-underline-offset:2px;letter-spacing:0.08em;margin-bottom:8px;${ff}color:#000;">T.A MOVEMENT (${monthYear})</div>
+    <div style="font-size:8.5pt;${ff}line-height:1.4;color:#000;"><span style="font-weight:bold;">Name</span> &nbsp;:&nbsp; ${header.name || ''}</div>
+    <div style="font-size:8.5pt;${ff}line-height:1.4;color:#000;"><span style="font-weight:bold;">Designation</span> &nbsp;:&nbsp; ${header.post || header.designation || ''}</div>
+    <div style="font-size:8.5pt;${ff}line-height:1.4;color:#000;"><span style="font-weight:bold;">Station</span> &nbsp;:&nbsp; ${header.reportUnit || ''}</div>
+    <div style="font-size:8.5pt;${ff}line-height:1.4;color:#000;"><span style="font-weight:bold;">PF Number</span> &nbsp;:&nbsp; ${header.pfNumber || ''}</div>
+    <div style="font-size:8.5pt;${ff}line-height:1.4;color:#000;margin-bottom:6px;"><span style="font-weight:bold;">Month</span> &nbsp;:&nbsp; ${monthYear}</div>
+    <div style="border-top:2px dashed #000;width:100%;margin:4px 0 6px 0;"></div>
+    <table style="width:100%;border-collapse:collapse;border:none;line-height:1;">
       <tbody>${reportRows}</tbody>
     </table>
   </div>`;
