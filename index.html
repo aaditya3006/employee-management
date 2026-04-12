@@ -310,7 +310,7 @@ body {
   width: 100%;
   background: white;
   font-family: Arial, 'Noto Sans Devanagari', sans-serif;
-  font-size: 5pt;
+  font-size: 7pt;
   color: #000;
   line-height: 0.95;
 }
@@ -328,17 +328,17 @@ body {
   font-family: Arial, 'Noto Sans Devanagari', sans-serif;
   overflow: hidden;
   word-break: break-word;
-  font-size: 4pt;
+  font-size: 8pt;
 }
 .ta-j-table th {
   font-weight: bold;
-  font-size: 5pt;
+  font-size: 9pt;
   line-height: 1.15;
   background: white;
 }
 .ta-j-table td {
-  height: 22px;
-  font-size: 5pt;
+  height: 24px;
+  font-size: 9pt;
   margin: 0;
 }
 
@@ -906,18 +906,18 @@ body {
 }
 
 .ta-section-card {
-  background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 16px; margin-bottom: 12px;
+  background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 12px; margin-bottom: 8px;
 }
 .ta-section-title {
-  font-size: 13px; font-weight: 700; color: #1e40af; margin-bottom: 10px; display: flex; align-items: center; gap: 2px;
+  font-size: 13px; font-weight: 700; color: #1e40af; margin-bottom: 6px; display: flex; align-items: center; gap: 2px;
 }
 .ta-input {
-  width: 100%; border: 2px solid #cbd5e1; border-radius: 10px; padding: 10px 12px;
+  width: 100%; border: 2px solid #cbd5e1; border-radius: 10px; padding: 8px 10px;
   font-size: 14px; color: #1e293b; outline: none; transition: border-color 0.2s;
 }
 .ta-input:focus { border-color: #3b82f6; }
-.ta-label { font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px; display: block; }
-.ta-radio-group { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+.ta-label { font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 2px; display: block; }
+.ta-radio-group { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 3px; }
 .ta-radio-label { display: flex; align-items: center; gap: 6px; cursor: pointer; font-weight: 600; font-size: 13px; color: #334155; }
 
 .ta-day-card {
@@ -1340,7 +1340,7 @@ body {
       </h1>
     </div>
     <div class="flex gap-1 text-xs md:text-sm items-center">
-      <button id="topbar-approve-btn" style="display:none;" onclick="handleMenuSelect('approve'); showSection('approve-section')" class="px-3 py-2 rounded-full hover:bg-white/20 transition font-medium">Approve</button>
+      <button id="topbar-approve-btn" style="display:none;" onclick="handleMenuSelect('approve'); showSection('approve-section')" class="px-3 py-2 rounded-full hover:bg-white/20 transition font-medium">Users</button>
       <button onclick="showSection('admin-section')"   class="px-3 py-2 rounded-full hover:bg-white/20 transition font-medium">Employees</button>
       <button onclick="showSection('history-section')" class="px-3 py-2 rounded-full hover:bg-white/20 transition font-medium">History</button>
 
@@ -1477,7 +1477,7 @@ body {
             <div>
               <label class="ta-label">Rest (optional)</label>
               <div class="flex gap-2 mb-2">
-                <div class="date-input-wrapper flex-1"><input type="date" id="ta-rest-date-picker" class="ta-input" style="padding:10px 36px 10px 12px;"></div>
+                <div class="date-input-wrapper flex-1"><input type="date" id="ta-rest-date-picker" class="ta-input" style="padding:8px 36px 8px 10px;"></div>
                 <button type="button" onclick="addRestDate()" class="bg-blue-600 text-white px-3 py-2 rounded-lg font-bold text-sm hover:bg-blue-700 transition-all whitespace-nowrap">+ Add Rest</button>
               </div>
               <div id="ta-rest-dates-list" class="flex flex-wrap gap-1 mt-1"></div>
@@ -1486,7 +1486,7 @@ body {
             <div>
               <label class="ta-label">Leave (optional)</label>
               <div class="flex gap-2 mb-2">
-                <div class="date-input-wrapper flex-1"><input type="date" id="ta-leave-date-picker" class="ta-input" style="padding:10px 36px 10px 12px;"></div>
+                <div class="date-input-wrapper flex-1"><input type="date" id="ta-leave-date-picker" class="ta-input" style="padding:8px 36px 8px 10px;"></div>
                 <button type="button" onclick="addLeaveDate()" class="bg-orange-500 text-white px-3 py-2 rounded-lg font-bold text-sm hover:bg-orange-600 transition-all whitespace-nowrap">+ Add Leave</button>
               </div>
               <div id="ta-leave-dates-list" class="flex flex-wrap gap-1 mt-1"></div>
@@ -1496,7 +1496,7 @@ body {
             <div>
               <label class="ta-label">CR Details (optional)</label>
               <div class="flex gap-2 mb-2">
-                <div class="date-input-wrapper flex-1"><input type="date" id="ta-cr-date-header" class="ta-input" style="padding:10px 36px 10px 12px;"></div>
+                <div class="date-input-wrapper flex-1"><input type="date" id="ta-cr-date-header" class="ta-input" style="padding:8px 36px 8px 10px;"></div>
                 <button type="button" onclick="addCrDetail()" class="bg-purple-600 text-white px-3 py-2 rounded-lg font-bold text-sm hover:bg-purple-700 transition-all whitespace-nowrap">+ Add Date</button>
               </div>
               <div id="ta-cr-details-list" class="flex flex-wrap gap-1 mt-1"></div>
@@ -1609,7 +1609,7 @@ body {
             <span id="ta-editing-badge" class="hidden bg-amber-500 text-white text-xs px-2 py-1 rounded-full font-bold">✏️ Editing</span>
           </div>
           <input type="hidden" id="ta-editing-date-key">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="ta-single-entry-fields">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2" id="ta-single-entry-fields">
             <div><label class="ta-label">📅 Date</label><div class="date-input-wrapper"><input type="date" id="ta-date-single" class="ta-input" required></div></div>
             <div>
               <label class="ta-label">Mode of Travel</label>
@@ -1617,7 +1617,7 @@ body {
                 <label class="ta-radio-label"><input type="radio" name="ta-mode-single" value="byroad" checked onchange="toggleTrainNoSingle()"> By Road</label>
                 <label class="ta-radio-label"><input type="radio" name="ta-mode-single" value="bytrain" onchange="toggleTrainNoSingle()"> By Train</label>
               </div>
-              <input type="text" id="ta-train-no-single" placeholder="Train Number" class="ta-input hidden" style="margin-top:4px;">
+              <input type="text" id="ta-train-no-single" placeholder="Train Number" class="ta-input hidden" style="margin-top:2px;">
             </div>
             <div>
               <label class="ta-label">Time Left from Source Station</label>
@@ -1661,7 +1661,7 @@ body {
                 <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="70+30" onchange="calcTaAmountSingle()"> 70%+30%</label>
               </div>
             </div>
-            <div><label class="ta-label">Object of Journey</label><input type="text" id="ta-obj-single" placeholder="Purpose of journey" class="ta-input"></div>
+            <div><label class="ta-label">Object of Journey</label><div style="position:relative;"><textarea id="ta-obj-single" placeholder="Purpose of journey" class="ta-input" style="font-size:14px;padding:15px 10px;height:80px;width:100%;resize:none;overflow:hidden;white-space:normal;word-wrap:break-word;font-family:inherit;" maxlength="102" oninput="updateCharCount()"></textarea><span id="ta-char-count" style="position:absolute;bottom:15px;right:8px;font-size:11px;color:#999;font-weight:bold;">0/102</span></div></div>
             <div>
               <label class="ta-label">Rate</label>
               <div class="ta-radio-group">
@@ -1669,25 +1669,58 @@ body {
                 <label class="ta-radio-label"><input type="radio" name="ta-rate-single" value="1000" onchange="handleRateChange()"> 1000</label>
                 <label class="ta-radio-label"><input type="radio" name="ta-rate-single" value="other" onchange="handleRateChange()"> Other</label>
               </div>
-              <input type="number" id="ta-rate-custom" placeholder="Enter custom rate" class="ta-input hidden" onchange="calcTaAmountSingle()" oninput="calcTaAmountSingle()" style="font-size:15px;font-weight:bold;margin-top:8px;">
+              <input type="number" id="ta-rate-custom" placeholder="Enter custom rate" class="ta-input hidden" onchange="calcTaAmountSingle()" oninput="calcTaAmountSingle()" style="font-size:15px;font-weight:bold;margin-top:2px;">
             </div>
             <div class="md:col-span-2">
               <label class="ta-label">Calculated Amount</label>
-              <div class="grid grid-cols-2 gap-3">
+              <div class="grid grid-cols-2 gap-2">
                 <div><label class="text-xs text-slate-400 block mb-1">Rs. (Rupees)</label><input type="text" id="ta-rs-single" readonly class="ta-input bg-green-50 font-bold text-green-800"></div>
                 <div><label class="text-xs text-slate-400 block mb-1">P. (Paise)</label><input type="text" id="ta-paise-single" readonly class="ta-input bg-green-50 font-bold text-green-800"></div>
               </div>
             </div>
           </div>
-          <div class="flex gap-3 mt-4">
-            <button onclick="addTaEntryToPage()" id="ta-add-page-btn" class="flex-1 bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2">➕ Add to Page</button>
-            <button onclick="cancelTaEdit()" id="ta-cancel-edit-btn" class="hidden flex-1 bg-slate-200 text-slate-700 py-3 rounded-xl font-bold hover:bg-slate-300 shadow transition-all active:scale-95">✕ Cancel Edit</button>
+          <div class="flex gap-2 mt-2">
+            <button onclick="addTaEntryToPage()" id="ta-add-page-btn" class="flex-1 bg-blue-600 text-white py-2 rounded-xl font-bold hover:bg-blue-700 shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2">➕ Add to Page</button>
+            <button onclick="cancelTaEdit()" id="ta-cancel-edit-btn" class="hidden flex-1 bg-slate-200 text-slate-700 py-2 rounded-xl font-bold hover:bg-slate-300 shadow transition-all active:scale-95">✕ Cancel Edit</button>
           </div>
         </div>
 
         <div class="ta-section-card" id="ta-saved-days-card">
-          <div class="ta-section-title flex justify-between items-center">
-            <span>📋 Saved Entries (<span id="ta-days-count">0</span> days)</span>
+          <div class="ta-section-title flex justify-between items-center flex-wrap gap-2">
+            <div class="flex items-center gap-3">
+              <span>📋 Saved Entries (<span id="ta-days-count">0</span> days)</span>
+              <div class="flex gap-3 items-center">
+                <div class="flex gap-1 items-center">
+                  <label class="text-xs font-bold text-slate-600 whitespace-nowrap">Year:</label>
+                  <select id="ta-filter-year-selector" onchange="showMonthDropdown()" class="text-xs font-bold px-1 py-1 rounded-md border border-blue-400 bg-white hover:border-blue-500 transition cursor-pointer bg-blue-50 w-20">
+                    <option value="">--</option>
+                    <option value="2026">2026</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                  </select>
+                </div>
+                
+                <div class="flex gap-1 items-center hidden" id="ta-month-dropdown-container">
+                  <label class="text-xs font-bold text-slate-600 whitespace-nowrap">Month:</label>
+                  <select id="ta-filter-month-selector" onchange="loadTaEntriesByMonth()" class="text-xs font-bold px-1 py-1 rounded-md border border-green-400 bg-white hover:border-green-500 transition cursor-pointer bg-green-50 w-24">
+                    <option value="">--</option>
+                    <option value="january">January</option>
+                    <option value="february">February</option>
+                    <option value="march">March</option>
+                    <option value="april">April</option>
+                    <option value="may">May</option>
+                    <option value="june">June</option>
+                    <option value="july">July</option>
+                    <option value="august">August</option>
+                    <option value="september">September</option>
+                    <option value="october">October</option>
+                    <option value="november">November</option>
+                    <option value="december">December</option>
+                  </select>
+                </div>
+              </div>
+            </div>
             <button onclick="clearAllTaEntries()" class="text-red-500 text-xs font-bold hover:text-red-700 bg-red-50 px-2 py-1 rounded-lg border border-red-100">🗑 Clear All</button>
           </div>
           <div id="ta-saved-days-list" class="space-y-2">
@@ -1695,9 +1728,9 @@ body {
           </div>
         </div>
 
-        <div class="flex gap-3 mt-4">
-          <button onclick="saveTaJournalToDB()" class="flex-1 bg-green-600 text-white py-3 rounded-xl font-bold hover:bg-green-700 shadow-lg transition-all active:scale-95">💾 Save to DB</button>
-          <button onclick="generateTaPreview()" class="flex-1 bg-amber-600 text-white py-3 rounded-xl font-bold hover:bg-amber-700 shadow-lg transition-all active:scale-95">👁️ Preview &amp; Print</button>
+        <div class="flex gap-2 mt-2">
+          <button onclick="saveTaJournalToDB()" class="flex-1 bg-green-600 text-white py-2 rounded-xl font-bold hover:bg-green-700 shadow-lg transition-all active:scale-95">💾 Save to DB</button>
+          <button onclick="generateTaPreview()" class="flex-1 bg-amber-600 text-white py-2 rounded-xl font-bold hover:bg-amber-700 shadow-lg transition-all active:scale-95">👁️ Preview &amp; Print</button>
         </div>
       </div>
     </div>
@@ -1994,27 +2027,17 @@ body {
       
       <!-- Header -->
       <div class="mb-6 sm:mb-8">
-        <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-2">Account Management</h1>
-        <p class="text-sm sm:text-base text-slate-600">Monitor and authorize system access</p>
-      </div>
-
-      <!-- Tabs -->
-      <div class="flex gap-2 mb-8 bg-slate-200 p-1 rounded-lg w-full sm:w-fit overflow-x-auto">
-        <button onclick="switchAdminTab('pending')" id="admin-pending-tab" class="px-4 sm:px-6 py-2 rounded-md font-semibold text-slate-900 bg-white shadow-sm transition whitespace-nowrap text-sm sm:text-base">Pending</button>
-        <button onclick="switchAdminTab('active')" id="admin-active-tab" class="px-4 sm:px-6 py-2 rounded-md font-semibold text-slate-600 hover:bg-white/50 transition whitespace-nowrap text-sm sm:text-base">All Accounts</button>
+        <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-2">User Management</h1>
+        <p class="text-sm sm:text-base text-slate-600">View and manage user accounts</p>
       </div>
 
       <!-- Stats -->
-      <div id="admin-approval-stats" class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-6 mb-8">
-        <div class="bg-white p-3 sm:p-6 rounded-xl sm:rounded-2xl border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition cursor-pointer" onclick="filterAdminUsers('pending')">
-          <div class="text-2xl sm:text-4xl font-bold text-amber-600 mb-2">0</div>
-          <p class="text-xs sm:text-sm font-semibold text-slate-600 uppercase tracking-wider">Pending</p>
-        </div>
+      <div id="admin-approval-stats" class="grid grid-cols-2 gap-3 sm:gap-6 mb-8">
         <div class="bg-white p-3 sm:p-6 rounded-xl sm:rounded-2xl border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition cursor-pointer" onclick="filterAdminUsers('active')">
           <div class="text-2xl sm:text-4xl font-bold text-green-600 mb-2">0</div>
           <p class="text-xs sm:text-sm font-semibold text-slate-600 uppercase tracking-wider">Active</p>
         </div>
-        <div class="bg-white p-3 sm:p-6 rounded-xl sm:rounded-2xl border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition cursor-pointer col-span-2 sm:col-span-1" onclick="filterAdminUsers('blocked')">
+        <div class="bg-white p-3 sm:p-6 rounded-xl sm:rounded-2xl border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition cursor-pointer" onclick="filterAdminUsers('blocked')">
           <div class="text-2xl sm:text-4xl font-bold text-red-600 mb-2">0</div>
           <p class="text-xs sm:text-sm font-semibold text-slate-600 uppercase tracking-wider">Blocked</p>
         </div>
@@ -2023,8 +2046,8 @@ body {
       <!-- Users Section -->
       <div class="bg-white rounded-lg sm:rounded-2xl border border-slate-200 overflow-hidden">
         <div class="p-4 sm:p-6 border-b border-slate-200 flex items-center justify-between">
-          <h2 class="text-lg sm:text-xl font-bold text-slate-900">User Directory</h2>
-          <button onclick="loadAdminUsers(document.getElementById('admin-pending-tab').classList.contains('bg-white') ? 'pending' : 'active')" class="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center gap-1" title="Refresh user list">
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900">Users</h2>
+          <button onclick="loadAdminUsers('active')" class="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center gap-1" title="Refresh user list">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
             <span class="hidden sm:inline">Refresh</span>
           </button>
@@ -2133,9 +2156,13 @@ function initSupabase() {
 
 // Initialize as soon as Supabase SDK is available
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initSupabase);
+  document.addEventListener('DOMContentLoaded', () => {
+    initSupabase();
+    setTimeout(setupAuthFormListeners, 100);
+  });
 } else {
   initSupabase();
+  setTimeout(setupAuthFormListeners, 100);
 }
 
 /* ==========================================
@@ -3110,90 +3137,27 @@ function setupAuthFormListeners() {
             
             dismissLoginScreen();
           } else {
-            // For non-admin users, check approval status from Supabase
-            console.log('⏳ Checking user approval status for:', email);
-            const { data: docSnap, error: statusError } = await db.from('users')
-              .select('*')
-              .eq('uid', userCredential.id)
-              .single();
+            // For non-admin users, allow them to login
+            console.log('✅ User is logged in - allowing access');
             
-            if (!statusError && docSnap) {
-              const userStatus = docSnap.status;
-              console.log('📋 User status:', userStatus);
-              
-              if (userStatus === 'approved') {
-                console.log('✅ User is approved - allowing access');
+            // 🧹 Clear caches on successful login
+            await clearAllCaches();
+            
+            btnText.textContent = 'SIGN IN';
+            loader.style.display = 'none';
+            submitBtn.disabled = false;
+            
+            // Update UI visibility for non-admin users
+            updateAdminUIVisibility();
+            updateSidebarForAdmin(userCredential);
                 
-                // 🧹 Clear caches on successful login
-                await clearAllCaches();
-                
-                btnText.textContent = 'SIGN IN';
-                loader.style.display = 'none';
-                submitBtn.disabled = false;
-                
-                // Update UI visibility for non-admin users
-                updateAdminUIVisibility();
-                updateSidebarForAdmin(userCredential);
-                    
-                // Pre-load user data in background
-                setTimeout(() => {
-                  loadDataFromDB();
-                }, 100);
-                
-                dismissLoginScreen();
-              } else if (!userStatus) {
-                console.log('⚠️ User has no status field');
-                btnText.textContent = 'SIGN IN';
-                loader.style.display = 'none';
-                submitBtn.disabled = false;
-                
-                await window.auth.signOut();
-                showLoginError('⚠️ Your account status is unknown. Please contact admin.');
-              } else if (userStatus === 'pending') {
-                console.log('⏳ User account pending approval');
-                btnText.textContent = 'SIGN IN';
-                loader.style.display = 'none';
-                submitBtn.disabled = false;
-                
-                // Sign out immediately
-                await window.auth.signOut();
-                showLoginError(`⏳ <strong>Your account is PENDING ADMIN APPROVAL</strong><br><br>✅ The admin has been notified of your request.<br><br>⏰ Please wait while the admin reviews your account.<br><br><span style="color: #fbbf24; font-weight: bold;">You can try logging in again after approval.</span>`);
-              } else if (userStatus === 'rejected') {
-                console.log('❌ User account has been rejected');
-                btnText.textContent = 'SIGN IN';
-                loader.style.display = 'none';
-                submitBtn.disabled = false;
-                
-                // Sign out immediately
-                await window.auth.signOut();
-                showLoginError('❌ Your account has been rejected. Please contact admin.');
-              } else {
-                console.log('❌ Unknown user status:', userStatus);
-                btnText.textContent = 'SIGN IN';
-                loader.style.display = 'none';
-                submitBtn.disabled = false;
-                
-                await window.auth.signOut();
-                showLoginError('⚠️ Account status unknown. Please contact admin.');
-              }
-            } else if (statusError) {
-              console.error('❌ ERROR checking user status:', statusError);
-              btnText.textContent = 'SIGN IN';
-              loader.style.display = 'none';
-              submitBtn.disabled = false;
-              
-              await window.auth.signOut();
-              showLoginError('⚠️ Database error: ' + statusError.message);
-            } else {
-              console.warn('⚠️ User document not found in database');
-              btnText.textContent = 'SIGN IN';
-              loader.style.display = 'none';
-              submitBtn.disabled = false;
-              
-              await window.auth.signOut();
-              showLoginError('⚠️ Database error: user not found.');
-            }
-        }
+            // Pre-load user data in background
+            setTimeout(() => {
+              loadDataFromDB();
+            }, 100);
+            
+            dismissLoginScreen();
+          }
       } catch (err) {
         console.error('❌ LOGIN ERROR:', err.code, err.message);
         
@@ -3280,7 +3244,7 @@ function setupAuthFormListeners() {
             uid: user.id,
             email: email.toLowerCase(),
             role: 'employee',  // Default role is employee (NEW SECURITY FIX)
-            status: 'pending',
+            status: 'approved',
             created_at: new Date().toISOString()
           });
         
@@ -3292,7 +3256,7 @@ function setupAuthFormListeners() {
           .from('employees')
           .upsert({
             email: email.toLowerCase(),
-            status: 'pending'
+            status: 'approved'
           });
         
         console.log('✅ ADMIN NOTIFIED - USER READY FOR APPROVAL');
@@ -3300,43 +3264,43 @@ function setupAuthFormListeners() {
         // 🔹 STEP 4: Email verification handled by Supabase
         console.log('📧 Supabase will handle email verification if configured');
         
-        // 🔹 SUCCESS: Account creation complete, awaiting admin approval
-        console.log('✅ ACCOUNT FULLY CREATED - PENDING ADMIN APPROVAL');
+        // 🔹 SUCCESS: Account creation complete
+        console.log('✅ ACCOUNT FULLY CREATED AND ACTIVE');
         createForm.reset();
         errEl.style.display = 'none';
-        toggleLoginModal('createLoginModal', false);
-        
-        // Sign out new user (they cannot login yet - waiting for approval)
-        await window.auth.signOut();
-        console.log('✅ User signed out - account is PENDING APPROVAL');
         
         // Show success message with clear instructions
-        setTimeout(() => {
+        setTimeout(async () => {
           const successMsg = document.getElementById('login-error-msg');
           successMsg.innerHTML = `
             <div style="text-align: center;">
-              <div style="font-size: 18px; margin-bottom: 10px;">✅ Account Created Successfully!</div>
-              <div style="font-size: 14px; line-height: 1.6;">
-                <strong>⏳ Status: PENDING ADMIN APPROVAL</strong><br><br>
-                Your account has been created and is now awaiting<br>
-                admin review and approval.<br><br>
-                <strong>📧 You will be notified once approved.</strong><br><br>
-                <strong style="color: #fbbf24;">Do NOT attempt to login yet.</strong><br>
-                You will only be able to login after the admin approves your account.
+              <div style="font-size: 13px; margin-bottom: 8px;">✅ Account Created Successfully!</div>
+              <div style="font-size: 11px; line-height: 1.5;">
+                <strong>Your account is now active and ready to use.</strong><br><br>
+                Please login with your credentials below.
               </div>
             </div>
           `;
           successMsg.style.display = 'block';
-          successMsg.style.background = 'rgba(59, 130, 246, 0.15)';
-          successMsg.style.borderColor = 'rgba(59, 130, 246, 0.4)';
-          successMsg.style.color = '#3b82f6';
+          successMsg.style.background = 'rgba(34, 197, 94, 0.15)';
+          successMsg.style.borderColor = 'rgba(34, 197, 94, 0.4)';
+          successMsg.style.color = '#22c55e';
           successMsg.style.padding = '20px';
           
-          // Clear login form so user doesn't try automatic login
-          document.getElementById('login-email').value = '';
-          document.getElementById('login-password').value = '';
+          // Close the signup modal
+          toggleLoginModal('createLoginModal', false);
           
-          console.log('✅ REGISTRATION COMPLETE - WAITING FOR ADMIN APPROVAL');
+          // Auto-fill email for convenience
+          document.getElementById('login-email').value = email;
+          document.getElementById('login-password').value = '';
+          document.getElementById('login-password').focus();
+          
+          // Auto-dismiss message after 5 seconds
+          setTimeout(() => {
+            successMsg.style.display = 'none';
+          }, 5000);
+          
+          console.log('✅ REGISTRATION COMPLETE - Ready for login');
         }, 300);
         
       } catch (error) {
@@ -3365,15 +3329,6 @@ function setupAuthFormListeners() {
     });
 
     console.log('✅ Auth forms initialized successfully');
-}
-
-// Initialize when DOM is fully loaded
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', setupAuthFormListeners);
-  console.log('DOM still loading, will initialize on DOMContentLoaded');
-} else {
-  console.log('DOM already loaded, initializing now');
-  setupAuthFormListeners();
 }
 
 // Original login code (kept for backward compatibility)
@@ -3996,59 +3951,19 @@ window.auth?.onAuthStateChange(async (event, session) => {
     if (isAdmin) {
       console.log('✅ Admin user detected - allowing access');
       updateSidebarForAdmin(user);
-      loadAdminUsers('pending');
+      loadAdminUsers('active');
       const loginScreen = document.getElementById('login-screen');
       loginScreen.style.display = 'none';
       loadDataFromDB();
       startMainApp();
     } else {
-      // For non-admin users, CHECK approval status BEFORE loading app
-      console.log('⏳ Checking user approval status...');
-      try {
-        const { data: userDoc, error } = await db.from('users').select('status').eq('uid', user.id).single();
-        
-        if (!error && userDoc) {
-          const userStatus = userDoc.status;
-          console.log('📋 User status from DB:', userStatus);
-          
-          if (userStatus === 'approved') {
-            console.log('✅ User is approved - loading app');
-            updateSidebarForAdmin(user);
-            const loginScreen = document.getElementById('login-screen');
-            loginScreen.style.display = 'none';
-            await loadDataFromDB();
-            startMainApp();
-          } else if (!userStatus) {
-            console.log('⚠️ User has no status field');
-            window.auth.signOut().then(() => {
-              showLoginError('⚠️ Your account status is unknown. Please contact admin.');
-              const loginScreen = document.getElementById('login-screen');
-              loginScreen.style.display = 'flex';
-            });
-          } else {
-            console.log('❌ User not approved (status: ' + userStatus + ') - signing out');
-            window.auth.signOut().then(() => {
-              showLoginError('⏳ Your account is pending admin approval.\n\nTry logging in again in a few moments.');
-              const loginScreen = document.getElementById('login-screen');
-              loginScreen.style.display = 'flex';
-            });
-          }
-        } else {
-          console.warn('⚠️ User document not found in database');
-          window.auth.signOut().then(() => {
-            showLoginError('⚠️ Database error: user not found.');
-            const loginScreen = document.getElementById('login-screen');
-            loginScreen.style.display = 'flex';
-          });
-        }
-      } catch (err) {
-        console.error('❌ ERROR checking user status:', err);
-        window.auth.signOut().then(() => {
-          showLoginError('⚠️ Database error: ' + err.message);
-          const loginScreen = document.getElementById('login-screen');
-          loginScreen.style.display = 'flex';
-        });
-      }
+      // For non-admin users, allow direct access
+      console.log('✅ User is authorized - loading app');
+      updateSidebarForAdmin(user);
+      const loginScreen = document.getElementById('login-screen');
+      loginScreen.style.display = 'none';
+      await loadDataFromDB();
+      startMainApp();
     }
   } else {
     console.log('User not logged in - showing login screen');
@@ -4085,28 +4000,11 @@ function updateSidebarForAdmin(user) {
 }
 
 // Track current admin tab
-let currentAdminTab = 'pending';
+let currentAdminTab = 'all';
 
 function switchAdminTab(tab) {
-  // Update current tab tracker
+  // Keep track of current tab
   currentAdminTab = tab;
-  
-  // Update tab buttons
-  const pendingBtn = document.getElementById('admin-pending-tab');
-  const activeBtn = document.getElementById('admin-active-tab');
-  
-  if (tab === 'pending') {
-    pendingBtn.classList.add('bg-white', 'shadow-sm');
-    pendingBtn.classList.remove('text-slate-600', 'hover:bg-white/50');
-    activeBtn.classList.remove('bg-white', 'shadow-sm');
-    activeBtn.classList.add('text-slate-600', 'hover:bg-white/50');
-  } else {
-    activeBtn.classList.add('bg-white', 'shadow-sm');
-    activeBtn.classList.remove('text-slate-600', 'hover:bg-white/50');
-    pendingBtn.classList.remove('bg-white', 'shadow-sm');
-    pendingBtn.classList.add('text-slate-600', 'hover:bg-white/50');
-  }
-  
   loadAdminUsers(tab);
 }
 
@@ -4119,7 +4017,7 @@ let adminUsersUnsubscribe = null;
 let previousPendingCount = 0;
 let listenerInitialized = false;  // Track if this is the first listener fire
 
-function loadAdminUsers(filterStatus = 'pending') {
+function loadAdminUsers(filterStatus = 'active') {
   console.log('Loading admin users for filter:', filterStatus);
 
   if (adminUsersUnsubscribe) {
@@ -4137,15 +4035,12 @@ function loadAdminUsers(filterStatus = 'pending') {
       const { data: users, error } = await db.from('users').select('*').order('email');
       if (error) throw error;
 
-      let pending = 0, active = 0, blocked = 0;
+      let active = 0, blocked = 0;
       const renderedUsers = [];
 
       (users || []).forEach(user => {
-        const status = user.status || 'pending';
-        if (status === 'pending') {
-          pending++;
-          renderedUsers.push({ ...user, displayStatus: 'pending' });
-        } else if (status === 'approved' && user.email !== 'nandkishor24714@gmail.com') {
+        const status = user.status || 'approved';
+        if (status === 'approved' && user.email !== 'nandkishor24714@gmail.com') {
           active++;
           renderedUsers.push({ ...user, displayStatus: 'active' });
         } else if (status === 'blocked' || status === 'suspended') {
@@ -4155,11 +4050,9 @@ function loadAdminUsers(filterStatus = 'pending') {
       });
 
       const statDivs = document.querySelectorAll('#admin-approval-stats > div');
-      if (statDivs[0]) statDivs[0].querySelector('div').textContent = pending;
-      if (statDivs[1]) statDivs[1].querySelector('div').textContent = active;
-      if (statDivs[2]) statDivs[2].querySelector('div').textContent = blocked;
+      if (statDivs[0]) statDivs[0].querySelector('div').textContent = active;
+      if (statDivs[1]) statDivs[1].querySelector('div').textContent = blocked;
 
-      previousPendingCount = pending;
       listenerInitialized = true;
 
       const usersList = document.getElementById('admin-users-list');
@@ -4177,12 +4070,11 @@ function loadAdminUsers(filterStatus = 'pending') {
         const dateStr = createdDate.toLocaleDateString();
         const initials = (user.name || 'U').split(' ').map(n => n[0]).join('').toUpperCase();
         const statusColors = {
-          pending: { bg: 'bg-amber-100', text: 'text-amber-700', label: 'PENDING' },
           active: { bg: 'bg-green-100', text: 'text-green-700', label: 'ACTIVE' },
           blocked: { bg: 'bg-red-100', text: 'text-red-700', label: 'BLOCKED' }
         };
         const colors = statusColors[user.displayStatus];
-        const avatarColors = { pending: 'bg-amber-500', active: 'bg-green-500', blocked: 'bg-red-500' };
+        const avatarColors = { active: 'bg-green-500', blocked: 'bg-red-500' };
 
         const userCard = document.createElement('div');
         userCard.className = 'flex flex-col gap-4 p-4 sm:p-6 hover:bg-slate-50 transition cursor-pointer border-b border-slate-100 last:border-b-0';
@@ -4197,15 +4089,12 @@ function loadAdminUsers(filterStatus = 'pending') {
             <div class="${colors.bg} ${colors.text} text-xs font-bold px-2 sm:px-3 py-1 rounded-full flex-shrink-0">${colors.label}</div>
           </div>
           <div class="flex flex-col sm:flex-row gap-2 flex-wrap">
-            ${user.displayStatus === 'pending' ? `
-              <button class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-indigo-700 transition active:scale-95" onclick="approveAdminUser('${user.id}')">Approve</button>
-              <button class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-red-700 transition active:scale-95" onclick="blockAdminUser('${user.id}')">Reject</button>
-            ` : user.displayStatus === 'active' ? `
-              <button class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-amber-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-amber-700 transition active:scale-95" onclick="suspendAdminUser('${user.id}', '${user.email || 'User'}')">Suspend</button>
-              <button class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-red-700 transition active:scale-95" onclick="deleteAdminUser('${user.id}', '${user.email || 'User'}')">Delete</button>
+            ${user.displayStatus === 'active' ? `
+              <button class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-red-700 transition active:scale-95" onclick="blockAdminUser('${user.id}')">Block</button>
+              <button class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-slate-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-slate-700 transition active:scale-95" onclick="deleteAdminUser('${user.id}', '${user.email || 'User'}')">Delete</button>
             ` : `
               <button class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-indigo-700 transition active:scale-95" onclick="activateAdminUser('${user.id}')">Activate</button>
-              <button class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-red-700 transition active:scale-95" onclick="deleteAdminUser('${user.id}', '${user.email || 'User'}')">Delete</button>
+              <button class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-slate-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-slate-700 transition active:scale-95" onclick="deleteAdminUser('${user.id}', '${user.email || 'User'}')">Delete</button>
             `}
           </div>
         `;
@@ -4390,13 +4279,13 @@ window.deleteAdminUser = function(uid, email) {
 }
 
 window.blockAdminUser = function(uid) {
-  if (!confirm('Reject this account?')) return;
-  console.log('❌ Rejecting account:', uid);
+  if (!confirm('Block this user?')) return;
+  console.log('❌ Blocking user:', uid);
   
   db.from('users').update({ status: 'blocked' }).eq('uid', uid)
     .then(async (response) => {
-      console.log('✅ Account rejected successfully:', response);
-      showToast('✅ Account rejected!');
+      console.log('✅ User blocked successfully:', response);
+      showToast('✅ User blocked!');
       
       try {
         await logActivity('account_blocked', { uid: uid });
@@ -4404,48 +4293,47 @@ window.blockAdminUser = function(uid) {
         console.warn('⚠️ Activity logging failed:', logErr);
       }
       
-      loadAdminUsers('pending');
+      loadAdminUsers('active');
     })
     .catch(err => {
-      console.error('❌ Error rejecting account:', err.code, err.message);
+      console.error('❌ Error blocking user:', err.code, err.message);
       showToast('❌ Error: ' + (err.message || 'Unknown error'));
     });
 }
 
 window.suspendAdminUser = function(uid, email) {
-  if (!confirm('Suspend ' + email + '?')) return;
-  console.log('⏸️ Suspending account:', uid, email);
+  if (!confirm('Block ' + email + '?')) return;
+  console.log('❌ Blocking account:', uid, email);
   
-  db.from('users').update({ status: 'suspended' }).eq('uid', uid)
+  db.from('users').update({ status: 'blocked' }).eq('uid', uid)
     .then(async (response) => {
-      console.log('✅ Account suspended successfully:', response);
-      showToast('✅ Account suspended!');
+      console.log('✅ Account blocked successfully:', response);
+      showToast('✅ Account blocked!');
       
       // Make logging non-blocking (was causing cascading failures)
       try {
-        await logActivity('account_suspended', { uid: uid, email: email, action: 'admin_suspended_account' });
+        await logActivity('account_blocked', { uid: uid, email: email, action: 'admin_blocked_account' });
       } catch (logErr) {
         console.warn('⚠️ Activity logging failed (non-critical):', logErr);
-        // Don't fail the suspension if logging fails
+        // Don't fail the block if logging fails
       }
       
-      switchAdminTab('suspended');
-      setTimeout(() => loadAdminUsers('suspended'), 500);
+      setTimeout(() => loadAdminUsers('blocked'), 500);
     })
     .catch(err => {
-      console.error('❌ ERROR SUSPENDING ACCOUNT:', err.code, err.message);
+      console.error('❌ ERROR BLOCKING ACCOUNT:', err.code, err.message);
       showToast('❌ Error: ' + (err.message || 'Unknown error'));
     });
 }
 
 window.activateAdminUser = function(uid) {
-  if (!confirm('Activate this account?')) return;
-  console.log('✅ Activating account:', uid);
+  if (!confirm('Activate this user?')) return;
+  console.log('✅ Activating user:', uid);
   
   db.from('users').update({ status: 'approved' }).eq('uid', uid)
     .then(async (response) => {
-      console.log('✅ Account activated successfully:', response);
-      showToast('✅ Account activated!');
+      console.log('✅ User activated successfully:', response);
+      showToast('✅ User activated!');
       
       // Make logging non-blocking (was causing cascading failures)
       try {
@@ -4455,17 +4343,16 @@ window.activateAdminUser = function(uid) {
         // Don't fail the activation if logging fails
       }
       
-      switchAdminTab('active');
-      setTimeout(() => loadAdminUsers('active'), 500);
+      setTimeout(() => loadAdminUsers('blocked'), 500);
     })
     .catch(err => {
-      console.error('❌ ERROR ACTIVATING ACCOUNT:', err.code, err.message);
+      console.error('❌ ERROR ACTIVATING USER:', err.code, err.message);
       showToast('❌ Error: ' + (err.message || 'Unknown error'));
     });
 }
 
 function showApproveSection() {
-  console.log('Loading Approve Section');
+  console.log('Loading User Management Section');
   
   // Security check - only admin can view this
   const currentUser = window.currentUserAuth;
@@ -4484,8 +4371,8 @@ function showApproveSection() {
   const approveSection = document.getElementById('approve-section');
   if (approveSection) approveSection.style.display = 'block';
   
-  // Load users with default pending filter
-  switchAdminTab('pending');
+  // Load active users
+  loadAdminUsers('active');
 }
 
 function showApprovedAccounts() {
@@ -4791,7 +4678,7 @@ async function loadDataFromDB() {
     renderEmployeeTable();
     renderHistory();
     // loadAllAttendanceRecords();  // Tables not yet created
-    // loadAllTaRecords();           // Tables not yet created
+    loadAllTaRecords();           // Load TA records from database
     setupForm();
   } catch (error) {
     console.error("Error loading data from database:", error);
@@ -4819,11 +4706,27 @@ async function loadAllAttendanceRecords() {
 
 async function loadAllTaRecords() {
   try {
-    // ta_journal table not yet created in Supabase
-    taJournalRecords = [];
-    console.log('Loaded TA journal records: 0 (table not created)');
+    const user = window.currentUserAuth;
+    if (!user) {
+      console.log('No user logged in, skipping TA records load');
+      taJournalRecords = [];
+      return;
+    }
+    
+    // Load TA journal records from Supabase
+    const { data: records, error } = await window.db.from('ta_journal').select('*').eq('user_id', user.id).order('savedat', { ascending: false });
+    
+    if (error) {
+      console.error('Error loading TA records:', error);
+      taJournalRecords = [];
+      return;
+    }
+    
+    taJournalRecords = records || [];
+    console.log('✅ Loaded TA journal records:', taJournalRecords.length, 'records');
   } catch (error) {
     console.error("Error loading TA records:", error);
+    taJournalRecords = [];
   }
 }
 
@@ -6031,6 +5934,7 @@ function resetTaSingleForm() {
   document.getElementById('ta-rate-custom').value = '';
   document.getElementById('ta-rate-custom').classList.add('hidden');
   calcTaAmountSingle();
+  updateCharCount();
   taEditingKey = null;
   document.getElementById('ta-editing-date-key').value = '';
   document.getElementById('ta-editing-badge').classList.add('hidden');
@@ -6054,6 +5958,14 @@ function handleRateChange() {
     customRateInput.classList.add('hidden');
   }
   calcTaAmountSingle();
+}
+
+function updateCharCount() {
+  const input = document.getElementById('ta-obj-single');
+  const counter = document.getElementById('ta-char-count');
+  if (input && counter) {
+    counter.textContent = input.value.length + '/102';
+  }
 }
 
 function calcTaAmountSingle() {
@@ -6103,6 +6015,7 @@ function addTaEntryToPage() {
   const toStn    = document.getElementById('ta-to-stn-single').value;
   const pct      = document.querySelector('input[name="ta-pct-single"]:checked').value;
   const obj      = document.getElementById('ta-obj-single').value;
+  const km       = 0;
   
   // Get rate from either radio selection or custom input
   const selectedRate = document.querySelector('input[name="ta-rate-single"]:checked').value;
@@ -6110,13 +6023,13 @@ function addTaEntryToPage() {
   
   const rs       = document.getElementById('ta-rs-single').value;
   const paise    = document.getElementById('ta-paise-single').value;
-  const modeLabel = mode === 'bytrain' ? `By Train${trainNo ? ' '+trainNo : ''}` : 'By Road';
+  const modeLabel = mode === 'bytrain' ? `By Train${trainNo ? '<br/>('+trainNo+')' : ''}` : 'By Road';
   const dateObj = new Date(dateVal + 'T00:00:00');
   const monthDate = formatTaDate(dateVal);
   taPageEntries[dateVal] = {
     dateRaw: dateVal, monthDate, mode, trainNo, modeLabel,
     leftSrc, arrDest, leftDest, arrSrc, fromStn, toStn,
-    pct, obj, rate, rs, paise
+    pct, obj, km, rate, rs, paise
   };
   showToast(taEditingKey ? `Entry for ${formatTaDate(dateVal)} updated!` : `Entry for ${formatTaDate(dateVal)} added to page!`);
   resetTaSingleForm();
@@ -6150,6 +6063,7 @@ function editTaEntry(dateKey) {
   const pctEl = document.querySelector(`input[name="ta-pct-single"][value="${e.pct}"]`);
   if (pctEl) pctEl.checked = true;
   document.getElementById('ta-obj-single').value = e.obj || '';
+  updateCharCount();
   
   // Handle rate - check if it's one of the standard options or custom
   const rateOption = document.querySelector(`input[name="ta-rate-single"][value="${e.rate}"]`);
@@ -6283,6 +6197,185 @@ function clearAllTaEntries() {
   }
 }
 
+// Edit TA entry from database
+function editDbTaEntry(dateKey) {
+  // Find the entry in the currently loaded filtered entries
+  // We need to search through the list to find the matching entry
+  const list = document.getElementById('ta-saved-days-list');
+  const entryCards = list.querySelectorAll('[data-entry-key]');
+  
+  // For now, we'll refetch from the database to get fresh data
+  const monthSelect = document.getElementById('ta-filter-month-selector');
+  const yearSelect = document.getElementById('ta-filter-year-selector');
+  const monthNum = monthSelect && monthSelect.value ? monthMap[monthSelect.value] : new Date().getMonth() + 1;
+  const year = yearSelect && yearSelect.value ? parseInt(yearSelect.value) : new Date().getFullYear();
+  
+  (async () => {
+    try {
+      const user = window.currentUserAuth;
+      if (!user) {
+        customAlert('Not logged in');
+        return;
+      }
+      
+      // Query the database record
+      const { data: records, error: queryErr } = await db
+        .from('ta_journal')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('month', monthNum)
+        .eq('year', year);
+      
+      if (queryErr || !records || records.length === 0) {
+        customAlert('Entry not found in database');
+        return;
+      }
+      
+      const record = records[0];
+      let entries = Array.isArray(record.entries) ? record.entries : [];
+      const entry = entries.find(e => e.dateKey === dateKey);
+      
+      if (!entry) {
+        customAlert('Entry data not found');
+        return;
+      }
+      
+      // Populate form fields with entry data
+      document.getElementById('ta-editing-date-key').value = dateKey;
+      document.getElementById('ta-date-single').value = dateKey;
+      
+      const modeVal = entry.mode || 'byroad';
+      document.querySelector(`input[name="ta-mode-single"][value="${modeVal}"]`).checked = true;
+      toggleTrainNoSingle();
+      
+      document.getElementById('ta-train-no-single').value = entry.trainNo || '';
+      document.getElementById('ta-left-src').value = entry.leftSrc || '';
+      document.getElementById('ta-arr-dest').value = entry.arrDest || '';
+      document.getElementById('ta-left-dest').value = entry.leftDest || '';
+      document.getElementById('ta-arr-src').value = entry.arrSrc || '';
+      document.getElementById('ta-from-stn-single').value = entry.fromStn || 'NES';
+      document.getElementById('ta-to-stn-single').value = entry.toStn || '';
+      
+      const pctEl = document.querySelector(`input[name="ta-pct-single"][value="${entry.pct}"]`);
+      if (pctEl) pctEl.checked = true;
+      
+      document.getElementById('ta-obj-single').value = entry.obj || '';
+      updateCharCount();
+      
+      // Handle rate - check if it's one of the standard options or custom
+      const rateOption = document.querySelector(`input[name="ta-rate-single"][value="${entry.rate}"]`);
+      if (rateOption) {
+        rateOption.checked = true;
+        document.getElementById('ta-rate-custom').classList.add('hidden');
+      } else {
+        // It's a custom rate
+        document.querySelector('input[name="ta-rate-single"][value="other"]').checked = true;
+        document.getElementById('ta-rate-custom').classList.remove('hidden');
+        document.getElementById('ta-rate-custom').value = entry.rate || '';
+      }
+      
+      // Set A and P amount fields
+      document.getElementById('ta-amount-rs').value = entry.rs || '0';
+      document.getElementById('ta-amount-paise').value = entry.paise || '0';
+      
+      // Store that we're editing from DB
+      window.taEditingFromDB = true;
+      taEditingKey = dateKey;
+      
+      calcTaAmountSingle();
+      document.getElementById('ta-editing-badge').classList.remove('hidden');
+      document.getElementById('ta-entry-form-title').innerText = `✏️ Editing: ${formatTaDate(dateKey)}`;
+      document.getElementById('ta-add-page-btn').innerText = '💾 Save Edit';
+      document.getElementById('ta-cancel-edit-btn').classList.remove('hidden');
+      document.getElementById('ta-single-entry-card').scrollIntoView({ behavior: 'smooth' });
+      
+      console.log('🖊️ Editing DB entry:', dateKey, entry);
+    } catch (err) {
+      console.error('Error loading entry for edit:', err);
+      customAlert('Error loading entry: ' + err.message);
+    }
+  })();
+}
+
+// Delete TA entry from database
+async function deleteDbTaEntry(dateKey) {
+  if (!confirm('Delete this entry?')) return;
+  
+  const user = window.currentUserAuth;
+  if (!user) {
+    customAlert('Not logged in');
+    return;
+  }
+  
+  try {
+    showToast('⏳ Deleting entry...');
+    
+    // Get the month and year from the current filtered view
+    const monthSelect = document.getElementById('ta-filter-month-selector');
+    const yearSelect = document.getElementById('ta-filter-year-selector');
+    const monthNum = monthSelect && monthSelect.value ? monthMap[monthSelect.value] : new Date().getMonth() + 1;
+    const year = yearSelect && yearSelect.value ? parseInt(yearSelect.value) : new Date().getFullYear();
+    
+    // Query the database record
+    const { data: records, error: queryErr } = await db
+      .from('ta_journal')
+      .select('*')
+      .eq('user_id', user.id)
+      .eq('month', monthNum)
+      .eq('year', year);
+    
+    if (queryErr || !records || records.length === 0) {
+      customAlert('Entry not found in database');
+      return;
+    }
+    
+    const record = records[0];
+    let entries = Array.isArray(record.entries) ? record.entries : [];
+    
+    // Remove the entry with matching dateKey
+    entries = entries.filter(e => e.dateKey !== dateKey);
+    
+    // Recalculate total amount
+    let newTotal = 0;
+    entries.forEach(e => {
+      newTotal += parseFloat(e.rs || 0) + (parseFloat(e.paise || 0) / 100);
+    });
+    
+    // Update or delete record based on remaining entries
+    if (entries.length === 0) {
+      // Delete the entire record if no entries left
+      const { error: deleteErr } = await db
+        .from('ta_journal')
+        .delete()
+        .eq('id', record.id);
+      
+      if (deleteErr) throw deleteErr;
+    } else {
+      // Update record with filtered entries
+      const { error: updateErr } = await db
+        .from('ta_journal')
+        .update({
+          entries: entries,
+          total_amount: newTotal,
+          savedat: new Date().toISOString()
+        })
+        .eq('id', record.id);
+      
+      if (updateErr) throw updateErr;
+    }
+    
+    showToast('✅ Entry deleted successfully');
+    console.log('🗑️ DB entry deleted:', dateKey);
+    
+    // Reload the filtered entries
+    loadTaEntriesByMonth();
+    
+  } catch (err) {
+    console.error('Error deleting entry:', err);
+    customAlert('Error deleting entry: ' + err.message);
+  }
+}
+
 function renderTaSavedDays() {
   const container = document.getElementById('ta-saved-days-list');
   const countEl = document.getElementById('ta-days-count');
@@ -6292,20 +6385,162 @@ function renderTaSavedDays() {
     container.innerHTML = `<p class="text-slate-400 text-sm text-center py-4 italic">No entries yet. Add a day above.</p>`;
     return;
   }
+  
   container.innerHTML = keys.map((key, i) => {
     const e = taPageEntries[key];
-    const isEditing = taEditingKey === key;
-    return `<div class="ta-day-card ${isEditing ? 'editing' : ''}">
-      <div>
-        <div class="font-bold text-slate-800 text-sm">${i + 1}. ${formatTaDate(key)} &nbsp;<span class="text-slate-400 text-xs">${e.modeLabel}</span></div>
-        <div class="text-xs text-slate-500 mt-0.5">${e.fromStn || 'NES'} → ${e.toStn || '?'} | Rs. ${e.rs}.${e.paise} | ${e.pct}% of ${e.rate} | ${e.obj || '-'}</div>
+    const dateObj = new Date(key + 'T00:00:00');
+    const dayNum = parseInt(key.split('-')[2]);
+    const monthNum = parseInt(key.split('-')[1]);
+    const yearNum = parseInt(key.split('-')[0]);
+    
+    return `
+    <div style="background: #f8f9fa; border: 1px solid #d1d5db; border-radius: 6px; padding: 6px 8px; margin-bottom: 4px; overflow: hidden;">
+      
+      <!-- ROW 1: Entry # + Date + Mode on left, Buttons on right -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 12px;">
+          <span style="font-weight: 700; color: #0f172a; min-width: 20px;">${i + 1}.</span>
+          <span style="color: #0f172a; font-weight: 600;">${dayNum}/${monthNum.toString().padStart(2, '0')}/${yearNum}</span>
+          <span style="color: #6b7280; text-transform: capitalize; font-size: 12px; font-weight: 500;">${e.mode === 'bytrain' ? 'By Train' : 'By Road'}</span>
+        </div>
+        
+        <div style="display: flex; gap: 4px;">
+          <button onclick="editTaEntry('${key}')" style="background: #fbbf24; color: #78350f; border: none; padding: 3px 8px; border-radius: 4px; font-weight: 600; font-size: 11px; cursor: pointer; white-space: nowrap;">
+            ✏️ Edit
+          </button>
+          <button onclick="deleteTaEntry('${key}')" style="background: #ef4444; color: white; border: none; padding: 3px 6px; border-radius: 4px; font-weight: 600; font-size: 11px; cursor: pointer; white-space: nowrap;">
+            🗑
+          </button>
+        </div>
       </div>
-      <div class="flex gap-2">
-        <button onclick="editTaEntry('${key}')" class="text-amber-600 hover:text-amber-800 bg-amber-50 px-3 py-1.5 rounded-lg text-xs font-bold border border-amber-200 transition-all">✏️ Edit</button>
-        <button onclick="deleteTaEntry('${key}')" class="text-red-500 hover:text-red-700 bg-red-50 px-2 py-1.5 rounded-lg text-xs font-bold border border-red-100 transition-all">🗑</button>
+      
+      <!-- ROW 2: Route | Amount | Rate & Percentage | Objective -->
+      <div style="font-size: 11px; color: #1f2937; font-weight: 500; line-height: 1.1; margin-left: 20px;">
+        ${e.fromStn} → ${e.toStn || '?'} | Rs. ${e.rs}.${e.paise} | ${e.pct}% of ${e.rate} | ${e.obj || '−'}
       </div>
-    </div>`;
+    </div>
+    `;
   }).join('');
+}
+
+function viewTaEntryDetails(dateKey) {
+  const e = taPageEntries[dateKey];
+  if (!e) return;
+  
+  const dateObj = new Date(dateKey + 'T00:00:00');
+  const dayName = dateObj.toLocaleDateString('en-IN', { weekday: 'long' });
+  const fullDate = dateObj.toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  
+  let detailsHtml = `
+  <div style="max-width: 500px; margin: 0 auto;">
+    <!-- HEADER -->
+    <div style="background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%); color: white; padding: 20px; border-radius: 12px 12px 0 0; text-align: center;">
+      <div style="font-size: 28px; margin-bottom: 6px;">📋 Entry Details</div>
+      <div style="font-size: 14px; opacity: 0.9;">${fullDate}</div>
+    </div>
+    
+    <!-- DETAILS TABLE -->
+    <div style="background: white; border: 2px solid #e2e8f0; border-radius: 0 0 12px 12px; overflow: hidden;">
+      <!-- Date Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e2e8f0; padding: 14px 16px;">
+        <div style="font-weight: 700; color: #0f172a; font-size: 13px;">📅 Date</div>
+        <div style="color: #475569; font-size: 14px; font-weight: 500;">${formatTaDate(dateKey)} (${dayName})</div>
+      </div>
+      
+      <!-- Mode Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e2e8f0; padding: 14px 16px; background: #f8fafc;">
+        <div style="font-weight: 700; color: #0f172a; font-size: 13px;">🚀 Mode</div>
+        <div style="color: #475569; font-size: 14px; font-weight: 500;">${e.mode === 'bytrain' ? '🚂 By Train' : '🚗 By Road'}</div>
+      </div>
+      
+      <!-- From Station Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e2e8f0; padding: 14px 16px;">
+        <div style="font-weight: 700; color: #0f172a; font-size: 13px;">🏁 From Station</div>
+        <div style="color: #475569; font-size: 14px; font-weight: 500;">${e.fromStn || 'Not specified'}</div>
+      </div>
+      
+      <!-- To Station Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e2e8f0; padding: 14px 16px; background: #f8fafc;">
+        <div style="font-weight: 700; color: #0f172a; font-size: 13px;">🎯 To Station</div>
+        <div style="color: #475569; font-size: 14px; font-weight: 500;">${e.toStn || 'Not specified'}</div>
+      </div>
+      
+      <!-- Objective Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e2e8f0; padding: 14px 16px;">
+        <div style="font-weight: 700; color: #0f172a; font-size: 13px;">📝 Objective</div>
+        <div style="color: #475569; font-size: 14px; font-weight: 500;">${e.obj || '(Not specified)'}</div>
+      </div>
+      
+      <!-- Daily Rate Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e2e8f0; padding: 14px 16px; background: #f8fafc;">
+        <div style="font-weight: 700; color: #0f172a; font-size: 13px;">💰 Daily Rate</div>
+        <div style="color: #0f172a; font-size: 14px; font-weight: 700;">Rs. ${e.rate}</div>
+      </div>
+      
+      <!-- Percentage Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e2e8f0; padding: 14px 16px;">
+        <div style="font-weight: 700; color: #0f172a; font-size: 13px;">📊 Percentage</div>
+        <div style="color: #0f172a; font-size: 14px; font-weight: 700;">${e.pct}%</div>
+      </div>
+      
+      <!-- Calculation Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e2e8f0; padding: 14px 16px; background: #f0fdf4;">
+        <div style="font-weight: 700; color: #166534; font-size: 13px;">🔢 Calculation</div>
+        <div style="color: #166534; font-size: 13px; font-weight: 500;">Rs. ${e.rate} × ${e.pct}% = <span style="font-weight: 800;">Rs. ${e.rs}.${e.paise}</span></div>
+      </div>
+      
+      <!-- Amount Row (Final) -->
+      <div style="display: grid; grid-template-columns: 35% 65%; padding: 16px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white;">
+        <div style="font-weight: 700; font-size: 14px;">💵 Total Amount</div>
+        <div style="font-size: 18px; font-weight: 800;">Rs. ${e.rs}.${e.paise}</div>
+      </div>
+      
+      ${e.mode === 'bytrain' ? `
+      <!-- TRAIN SECTION HEADER -->
+      <div style="padding: 14px 16px; background: #faf5ff; border-top: 2px solid #e9d5ff;">
+        <div style="font-weight: 700; color: #6b21a8; font-size: 13px;">🚂 TRAIN JOURNEY DETAILS</div>
+      </div>
+      
+      <!-- Train Number Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e9d5ff; padding: 12px 16px;">
+        <div style="font-weight: 600; color: #6b21a8; font-size: 12px;">Train Number</div>
+        <div style="color: #6b21a8; font-size: 13px; font-weight: 500;">${e.trainNo || 'N/A'}</div>
+      </div>
+      
+      <!-- Left Source Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e9d5ff; padding: 12px 16px; background: #faf5ff;">
+        <div style="font-weight: 600; color: #6b21a8; font-size: 12px;">Left Source At</div>
+        <div style="color: #6b21a8; font-size: 13px; font-weight: 500;">${e.leftSrc || 'N/A'}</div>
+      </div>
+      
+      <!-- Arrived Destination Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e9d5ff; padding: 12px 16px;">
+        <div style="font-weight: 600; color: #6b21a8; font-size: 12px;">Arrived Destination</div>
+        <div style="color: #6b21a8; font-size: 13px; font-weight: 500;">${e.arrDest || 'N/A'}</div>
+      </div>
+      
+      <!-- Left Destination Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e9d5ff; padding: 12px 16px; background: #faf5ff;">
+        <div style="font-weight: 600; color: #6b21a8; font-size: 12px;">Left Destination At</div>
+        <div style="color: #6b21a8; font-size: 13px; font-weight: 500;">${e.leftDest || 'N/A'}</div>
+      </div>
+      
+      <!-- Arrived Source Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; padding: 12px 16px;">
+        <div style="font-weight: 600; color: #6b21a8; font-size: 12px;">Arrived Source At</div>
+        <div style="color: #6b21a8; font-size: 13px; font-weight: 500;">${e.arrSrc || 'N/A'}</div>
+      </div>
+      ` : ''}
+    </div>
+    
+    <!-- FOOTER -->
+    <div style="text-align: center; padding: 16px; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0;">
+      ✓ Close this popup and use Edit/Delete buttons to modify or remove entries
+    </div>
+  </div>
+  `;
+  
+  customAlert(detailsHtml);
 }
 
 /* ==========================================
@@ -6420,28 +6655,28 @@ function numberToWords(num) {
 function buildTaTableHeaderPage2(bfValue, page1TotalRs, page1TotalPaise) {
   return `
     <colgroup>
-      <col style="width:9%;"><col style="width:10%;"><col style="width:9%;"><col style="width:9%;">
-      <col style="width:7%;"><col style="width:7%;"><col style="width:5%;"><col style="width:7%;">
-      <col style="width:22%;"><col style="width:7%;"><col style="width:5%;"><col style="width:3%;">
+      <col style="width:9%;"><col style="width:10%;"><col style="width:7%;"><col style="width:7%;">
+      <col style="width:7%;"><col style="width:7%;"><col style="width:3%;"><col style="width:5%;">
+      <col style="width:26%;"><col style="width:7%;"><col style="width:5%;"><col style="width:5%;">
     </colgroup>
     <thead>
       <tr>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">महीना और तारीख<br><span style="font-size:7pt;">Month &amp; Date</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">गाड़ी न.<br><span style="font-size:7pt;">No. of Train<br>Steamer/Plane</span></th>
-        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;">प्रस्थान/पहुँचने का समय<br><span style="font-size:7pt;">Time left / Time arrived</span></th>
-        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;">स्टेशन/Station</th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">किलो<br>मीटर<br><span style="font-size:7pt;">Kms.</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">दिन/रात<br><span style="font-size:7pt;">Day/<br>Night</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">यात्रा के उद्देश्य<br><span style="font-size:7pt;">Object of Journey</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;text-align:center;">दर<br><span style="font-size:7pt;">Rate</span><br><span style="font-size:6.5pt;font-weight:bold;">BF = </span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">रु.<br><span style="font-size:7pt;">Rs.</span><br><span style="font-size:6.5pt;font-weight:bold;">${page1TotalRs}</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">पै.<br><span style="font-size:7pt;">P.</span><br><span style="font-size:6.5pt;font-weight:bold;">${String(page1TotalPaise).padStart(2,'0')}</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">महीना और तारीख<br><span style="font-size:8pt;">Month &amp; Date</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">गाड़ी न.<br><span style="font-size:8pt;">No. of Train<br>Steamer/Plane</span></th>
+        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;">प्रस्थान/पहुँचने का समय<br><span style="font-size:8pt;">Time left / Time arrived</span></th>
+        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;">स्टेशन/Station</th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">किलो<br>मीटर<br><span style="font-size:8pt;">Kms.</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">दिन/रात<br><span style="font-size:8pt;">Day/<br>Night</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">यात्रा के उद्देश्य<br><span style="font-size:8pt;">Object of Journey</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;text-align:center;">दर<br><span style="font-size:8pt;">Rate</span><br><span style="font-size:8pt;font-weight:bold;">BF = </span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">रु.<br><span style="font-size:8pt;">Rs.</span><br><span style="font-size:8pt;font-weight:bold;">${page1TotalRs}</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">पै.<br><span style="font-size:8pt;">P.</span><br><span style="font-size:8pt;font-weight:bold;">${String(page1TotalPaise).padStart(2,'0')}</span></th>
       </tr>
       <tr>
-        <th style="border:1px solid #000;padding:1px;font-size:7pt;font-family:'Noto Sans Devanagari',Arial;">प्रस्थान<br>Time left</th>
-        <th style="border:1px solid #000;padding:1px;font-size:7pt;font-family:'Noto Sans Devanagari',Arial;">पहुँचना<br>Time arrived</th>
-        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;">से<br>/From</th>
-        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;">तक<br>/To</th>
+        <th style="border:1px solid #000;padding:1px;font-size:8pt;font-family:'Noto Sans Devanagari',Arial;">प्रस्थान<br>Time left</th>
+        <th style="border:1px solid #000;padding:1px;font-size:8pt;font-family:'Noto Sans Devanagari',Arial;">पहुँचना<br>Time arrived</th>
+        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;">से<br>/From</th>
+        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;">तक<br>/To</th>
       </tr>
     </thead>`;
 }
@@ -6449,48 +6684,75 @@ function buildTaTableHeaderPage2(bfValue, page1TotalRs, page1TotalPaise) {
 function buildTaTableHeader() {
   return `
     <colgroup>
-      <col style="width:9%;"><col style="width:10%;"><col style="width:9%;"><col style="width:9%;">
-      <col style="width:7%;"><col style="width:7%;"><col style="width:5%;"><col style="width:7%;">
-      <col style="width:22%;"><col style="width:7%;"><col style="width:5%;"><col style="width:3%;">
+      <col style="width:9%;"><col style="width:10%;"><col style="width:7%;"><col style="width:7%;">
+      <col style="width:7%;"><col style="width:7%;"><col style="width:3%;"><col style="width:5%;">
+      <col style="width:26%;"><col style="width:7%;"><col style="width:5%;"><col style="width:5%;">
     </colgroup>
     <thead>
       <tr>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">महीना और तारीख<br><span style="font-size:7pt;">Month &amp; Date</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">गाड़ी न.<br><span style="font-size:7pt;">No. of Train<br>Steamer/Plane</span></th>
-        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;">प्रस्थान/पहुँचने का समय<br><span style="font-size:7pt;">Time left / Time arrived</span></th>
-        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;">स्टेशन/Station</th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">किलो<br>मीटर<br><span style="font-size:7pt;">Kms.</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">दिन/रात<br><span style="font-size:7pt;">Day/<br>Night</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">यात्रा के उद्देश्य<br><span style="font-size:7pt;">Object of Journey</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">दर<br><span style="font-size:7pt;">Rate</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">रु.<br><span style="font-size:7pt;">Rs.</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">पै.<br><span style="font-size:7pt;">P.</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">महीना और तारीख<br><span style="font-size:9pt;">Month &amp; Date</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">गाड़ी न.<br><span style="font-size:9pt;">No. of Train<br>Steamer/Plane</span></th>
+        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;">प्रस्थान/पहुँचने का समय<br><span style="font-size:9pt;">Time left / Time arrived</span></th>
+        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;">स्टेशन/Station</th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">किलो<br>मीटर<br><span style="font-size:9pt;">Kms.</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">दिन/रात<br><span style="font-size:9pt;">Day/<br>Night</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">यात्रा के उद्देश्य<br><span style="font-size:9pt;">Object of Journey</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">दर<br><span style="font-size:9pt;">Rate</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">रु.<br><span style="font-size:9pt;">Rs.</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">पै.<br><span style="font-size:9pt;">P.</span></th>
       </tr>
       <tr>
-        <th style="border:1px solid #000;padding:1px;font-size:7pt;font-family:'Noto Sans Devanagari',Arial;">प्रस्थान<br>Time left</th>
-        <th style="border:1px solid #000;padding:1px;font-size:7pt;font-family:'Noto Sans Devanagari',Arial;">पहुँचना<br>Time arrived</th>
-        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;">से<br>/From</th>
-        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;">तक<br>/To</th>
+        <th style="border:1px solid #000;padding:1px;font-size:9pt;font-family:'Noto Sans Devanagari',Arial;">प्रस्थान<br>Time left</th>
+        <th style="border:1px solid #000;padding:1px;font-size:9pt;font-family:'Noto Sans Devanagari',Arial;">पहुँचना<br>Time arrived</th>
+        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;">से<br>/From</th>
+        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;">तक<br>/To</th>
       </tr>
     </thead>`;
 }
 
 function makeSplitCell(topLeft, bottomRight) {
-  if (!topLeft && !bottomRight) return `<td style="border:1px solid #000;height:24px;padding:0;"></td>`;
-  return `<td style="border:1px solid #000;height:24px;padding:0;position:relative;overflow:hidden;">
-    <div style="position:absolute;top:2px;left:3px;font-size:8pt;line-height:1;white-space:nowrap;font-weight:bold;">${topLeft || ''}</div>
-    <div style="position:absolute;bottom:2px;right:3px;font-size:8pt;line-height:1;white-space:nowrap;text-align:right;font-weight:bold;">${bottomRight || ''}</div>
+  if (!topLeft && !bottomRight) return `<td style="border:1px solid #000;height:36px;padding:0;overflow:hidden;"></td>`;
+  return `<td style="border:1px solid #000;height:36px;padding:0;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:1px;left:3px;font-size:12pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;font-weight:bold;overflow:hidden;">${topLeft || ''}</div>
+    <div style="position:absolute;bottom:1px;right:3px;font-size:12pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;text-align:right;font-weight:bold;overflow:hidden;">${bottomRight || ''}</div>
   </td>`;
 }
 
+function makeKmsCell(kmsValue) {
+  if (kmsValue && kmsValue <= 8) return `<td style="border:1px solid #000;padding:1px 2px;font-size:11pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:visible;"></td>`;
+  return `<td style="border:1px solid #000;padding:1px 2px;font-size:11pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:visible;"></td>`;
+}
+
 function makeStationCell(fromStn, toStn, colType) {
-  const topVal    = colType === 'from' ? (fromStn || '') : (toStn   || '');
-  const bottomVal = colType === 'from' ? (toStn   || '') : (fromStn || '');
-  if (!topVal && !bottomVal) return `<td style="border:1px solid #000;height:24px;padding:0;"></td>`;
-  return `<td style="border:1px solid #000;height:24px;padding:0;position:relative;overflow:hidden;">
-    <div style="position:absolute;top:2px;left:3px;font-size:8pt;line-height:1;white-space:nowrap;text-align:left;font-weight:bold;">${topVal}</div>
-    <div style="position:absolute;bottom:2px;right:3px;font-size:8pt;line-height:1;white-space:nowrap;text-align:right;font-weight:bold;">${bottomVal}</div>
+  const topVal    = colType === 'from' ? (fromStn ? fromStn.toUpperCase() : '') : (toStn ? toStn.toUpperCase() : '');
+  const bottomVal = colType === 'from' ? (toStn ? toStn.toUpperCase() : '') : (fromStn ? fromStn.toUpperCase() : '');
+  if (!topVal && !bottomVal) return `<td style="border:1px solid #000;height:36px;padding:0;overflow:hidden;"></td>`;
+  return `<td style="border:1px solid #000;height:36px;padding:0;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:1px;left:3px;font-size:11pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;text-align:left;font-weight:bold;overflow:hidden;">${topVal}</div>
+    <div style="position:absolute;bottom:1px;right:3px;font-size:11pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;text-align:right;font-weight:bold;overflow:hidden;">${bottomVal}</div>
   </td>`;
+}
+
+function toSentenceCase(text) {
+  if (!text) return '';
+  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+}
+
+function toSentenceCaseWithAcronyms(text) {
+  if (!text) return '';
+  const acronyms = ['KM', 'RMC', 'RGD', 'DFW', 'SEJ', 'NATESAR', 'NES', 'HIS', 'TIA', 'NKPU', 'SILAO'];
+  const stationCodes = ['NES', 'NATESAR', 'DFW', 'SILAO'];
+  
+  // Convert to sentence case
+  let result = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+  
+  // Preserve acronyms - find and replace them case-insensitively to maintain uppercase
+  acronyms.forEach(acronym => {
+    const regex = new RegExp('\\b' + acronym + '\\b', 'gi');
+    result = result.replace(regex, acronym);
+  });
+  
+  return result;
 }
 
 function buildTaDataRows(entries) {
@@ -6501,16 +6763,19 @@ function buildTaDataRows(entries) {
     const fromStnCell = makeStationCell(e.fromStn, e.toStn, 'from');
     const toStnCell   = makeStationCell(e.fromStn, e.toStn, 'to');
     const pctLabel = e.pct ? e.pct + '%' : '';
+    const objText = toSentenceCaseWithAcronyms(e.obj || '');
+    const modeFontSize = e.mode === 'bytrain' ? '10pt' : '12pt';
+    const pctFontSize = String(e.pct).includes('+') ? '10pt' : '12pt';
     rows += `<tr>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;font-weight:bold;">${e.monthDate || ''}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;font-weight:bold;">${e.modeLabel}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;">${e.monthDate || ''}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:${modeFontSize};font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;white-space:normal;line-height:1.2;">${e.modeLabel}</td>
       ${timeLeftCell}${timeArrivedCell}${fromStnCell}${toStnCell}
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;font-weight:bold;"></td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;font-weight:bold;">${pctLabel}</td>
-      <td style="border:1px solid #000;padding:2px 3px;font-size:6pt;height:24px;text-align:left;text-align-last:center;vertical-align:middle;overflow:hidden;word-wrap:break-word;word-break:break-word;white-space:normal;line-height:1.2;font-weight:bold;">${e.obj}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;font-weight:bold;">${e.rate}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;height:24px;text-align:center;vertical-align:middle;">${e.rs}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;height:24px;text-align:center;vertical-align:middle;">${e.paise}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;"></td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:${pctFontSize};font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;">${pctLabel}</td>
+      <td style="border:1px solid #000;padding:2px 3px;font-size:10pt;font-family:'Times New Roman',serif;height:36px;text-align:left !important;vertical-align:middle;overflow:hidden;word-wrap:break-word;word-break:break-word;white-space:normal;line-height:1.3;font-weight:bold;">${objText}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;">${e.rate}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;font-weight:bold;height:36px;text-align:center;vertical-align:middle;overflow:hidden;">${e.rs}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;font-weight:bold;height:36px;text-align:center;vertical-align:middle;overflow:hidden;">${e.paise}</td>
     </tr>`;
   });
   return rows;
@@ -6520,19 +6785,19 @@ function buildBlankRows(n) {
   let rows = '';
   for (let i = 0; i < n; i++) {
     // Create completely blank rows (no diagonal in cells)
-    const regularCells = Array(10).fill('<td style="border:1px solid #000;font-size:8pt;"></td>').join('');
-    const blankRs = '<td style="border:1px solid #000;font-size:8pt;"></td>';
-    const blankPaise = '<td style="border:1px solid #000;font-size:8pt;"></td>';
-    rows += `<tr style="height:24px;" class="blank-row">${regularCells}${blankRs}${blankPaise}</tr>`;
+    const regularCells = Array(10).fill('<td style="border:1px solid #000;font-size:11pt;font-family:\'Times New Roman\',serif;overflow:hidden;"></td>').join('');
+    const blankRs = '<td style="border:1px solid #000;font-size:11pt;font-family:\'Times New Roman\',serif;overflow:hidden;"></td>';
+    const blankPaise = '<td style="border:1px solid #000;font-size:11pt;font-family:\'Times New Roman\',serif;overflow:hidden;"></td>';
+    rows += `<tr style="height:36px;" class="blank-row">${regularCells}${blankRs}${blankPaise}</tr>`;
   }
   return rows;
 }
 
 function buildBlankRowsOverlay(n, numEntriesBefore) {
   if (n === 0) return '';
-  const rowHeight = 24; // each row is 24px
+  const rowHeight = 36; // each row is 36px
   const blankRowsHeight = n * rowHeight;
-  const headerHeight = 52; // Table header height (accounts for colgroup + 2 header rows with padding)
+  const headerHeight = 48; // Table header height (accounts for colgroup + 2 header rows with padding, adjusted for new sizes)
   const startY = headerHeight + (numEntriesBefore * rowHeight); // Y position where blanks start
   // RS column: 92% to 97%
   // P column: 97% to 100%
@@ -6544,11 +6809,11 @@ function buildBlankRowsOverlay(n, numEntriesBefore) {
 }
 
 function buildPage1TotalTableRow(page1TotalRs, page1TotalPaise) {
-  return `<tr style="height:24px;">
-    <td style="border:1px solid #000;font-size:8pt;" colspan="9"></td>
-    <td style="border:1px solid #000;padding:1px 2px;font-size:7.5pt;font-weight:bold;text-align:right;vertical-align:middle;"><b>TOTAL</b></td>
-    <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;">${page1TotalRs}</td>
-    <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;">${String(page1TotalPaise).padStart(2,'0')}</td>
+  return `<tr style="height:36px;">
+    <td style="border:1px solid #000;font-size:11pt;overflow:hidden;" colspan="9"></td>
+    <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:right;vertical-align:middle;overflow:hidden;"><b>TOTAL</b></td>
+    <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">${page1TotalRs}</td>
+    <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">${String(page1TotalPaise).padStart(2,'0')}</td>
   </tr>`;
 }
 
@@ -6556,65 +6821,40 @@ function buildGrandTotalTableRow(grandTotalRs, grandTotalPaise) {
   const hasPaise = grandTotalPaise > 0;
   const addPaise = hasPaise ? (100 - grandTotalPaise) : 0;
   const roundedTotal = hasPaise ? (grandTotalRs + 1) : grandTotalRs;
-
+  
   if (!hasPaise) {
-    return `<tr style="height:24px;">
-      <td style="border:1px solid #000;font-size:8pt;" colspan="9"></td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:7.5pt;font-weight:bold;text-align:center;vertical-align:middle;">TOTAL</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;">${grandTotalRs}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;">00</td>
+    return `<tr style="height:36px;">
+      <td style="border:1px solid #000;font-size:11pt;overflow:hidden;" colspan="9"></td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">TOTAL</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">₹${grandTotalRs}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">00</td>
     </tr>`;
   } else {
-    return `<tr style="height:24px;">
-      <td style="border:1px solid #000;font-size:8pt;" colspan="9"></td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:7.5pt;font-weight:bold;text-align:center;vertical-align:middle;">TOTAL</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;">${grandTotalRs}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;">.${String(grandTotalPaise).padStart(2,'0')}</td>
+    return `<tr style="height:36px;">
+      <td style="border:1px solid #000;font-size:11pt;overflow:hidden;" colspan="9"></td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">TOTAL</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">${grandTotalRs}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">.${String(grandTotalPaise).padStart(2,'0')}</td>
     </tr>
-    <tr style="height:24px;">
-      <td style="border:1px solid #000;font-size:8pt;" colspan="9"></td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:7.5pt;font-weight:bold;text-align:center;vertical-align:middle;"></td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;"></td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;">+ .${String(addPaise).padStart(2,'0')}</td>
+    <tr style="height:36px;">
+      <td style="border:1px solid #000;font-size:11pt;overflow:hidden;" colspan="9"></td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;"></td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;"></td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">+ .${String(addPaise).padStart(2,'0')}</td>
     </tr>
-    <tr style="height:24px;">
-      <td style="border:1px solid #000;font-size:8pt;" colspan="9"></td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:7.5pt;font-weight:bold;text-align:center;vertical-align:middle;">TOTAL</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;">${roundedTotal}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;">00</td>
+    <tr style="height:36px;">
+      <td style="border:1px solid #000;font-size:11pt;overflow:hidden;" colspan="9"></td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">TOTAL</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">₹${roundedTotal}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">00</td>
     </tr>`;
   }
 }
 
 function adjustObjectOfJourneyFontSize() {
-  // Find all td cells that contain Object of Journey text (9th column in the table)
-  // The Object of Journey column is at index 8 (0-based), so it's the 9th td child
-  const tables = document.querySelectorAll('.ta-j-table');
-  console.log('Found tables:', tables.length);
-  
-  tables.forEach(table => {
-    const rows = table.querySelectorAll('tbody tr');
-    console.log('Processing rows:', rows.length);
-    
-    rows.forEach(row => {
-      const cells = row.querySelectorAll('td');
-      if (cells.length >= 9) {
-        // Object of Journey is at index 8 (9th column)
-        const objCell = cells[8];
-        const text = objCell.textContent.trim();
-        
-        console.log('Object of Journey text:', text, 'Length:', text.length);
-        
-        // If text is short (less than 40 characters), it's likely a single line - increase font size
-        // This is a more reliable check than scrollHeight since cells have fixed height
-        if (text.length > 0 && text.length <= 40) {
-          console.log('Setting 8pt font for:', text);
-          objCell.style.setProperty('font-size', '8pt', 'important');
-        }
-        // Otherwise keep the original 6pt
-      }
-    });
-  });
+  // Disabled: Row heights are now fixed and do not increase with text content
+  // All Object of Journey cells maintain consistent height in PDF
+  // Character limit is locked to 102 and enforced in the form input
 }
 
 function buildSummaryOverlay(summaryGroupArr, grandTotalRs, grandTotalPaise, grandTotalWords) {
@@ -6622,7 +6862,7 @@ function buildSummaryOverlay(summaryGroupArr, grandTotalRs, grandTotalPaise, gra
   const addPaise = hasPaise ? (100 - grandTotalPaise) : 0;
   const roundedTotal = hasPaise ? (grandTotalRs + 1) : grandTotalRs;
 
-  const ff = "font-family:Arial,sans-serif;font-size:6.5pt;line-height:1.1;";
+  const ff = "font-family:Arial,sans-serif;font-size:10pt;line-height:1.1;";
 
   let summaryLines = '';
   summaryGroupArr.forEach((g, idx) => {
@@ -6633,9 +6873,17 @@ function buildSummaryOverlay(summaryGroupArr, grandTotalRs, grandTotalPaise, gra
     const perEntry = parseFloat(g.rate) * parseFloat(g.pct) / 100;
     const perEntryDisplay = perEntry.toFixed(2);
     if (idx === 0) {
-      summaryLines += `<div style="${ff}padding-left:20px;font-weight:bold;margin:0;padding-top:1px;padding-bottom:1px;"><u><b>SUMMARY:</b></u></div>`;
+      summaryLines += `<div style="${ff}padding-left:20px;font-weight:600;font-family:'Times New Roman',serif;margin:0;padding-top:1px;padding-bottom:1px;"><u><b>SUMMARY:</b></u></div>`;
     }
-    summaryLines += `<div style="${ff}padding-left:40px;font-weight:normal;margin:0;padding-top:1px;padding-bottom:1px;">${g.count} × ${perEntryDisplay} = ${gDisplay}</div>`;
+    
+    // Check if pct contains multiple percentages (e.g., "30+70")
+    const hasMultiplePcts = String(g.pct).includes('+');
+    if (hasMultiplePcts) {
+      // Format: 70%+30% = 100%×15 = 625×15 = ₹(calculated value)
+      summaryLines += `<div style="${ff}padding-left:40px;font-weight:bold;font-family:'Times New Roman',serif;margin:0;padding-top:1px;padding-bottom:1px;">${g.pct}% <b>=</b> 100% <b>×</b> ${g.count} <b>=</b> ${g.rate} <b>×</b> ${g.count} <b>=</b> ₹${gDisplay}</div>`;
+    } else {
+      summaryLines += `<div style="${ff}padding-left:40px;font-weight:bold;font-family:'Times New Roman',serif;margin:0;padding-top:1px;padding-bottom:1px;">${g.pct}% <b>×</b> ${g.count} <b>=</b> ${perEntryDisplay} <b>×</b> ${g.count} <b>=</b> ₹${gDisplay}</div>`;
+    }
   });
 
   const uline = `<div style="border-top:1px solid #000;margin:1px 0;"></div>`;
@@ -6646,83 +6894,85 @@ function buildSummaryOverlay(summaryGroupArr, grandTotalRs, grandTotalPaise, gra
   let totalBlock = '';
   if (!hasPaise) {
     totalBlock = `${uline}
-      <div style="${ff}padding-left:40px;font-weight:bold;margin:0;padding-top:1px;"><b>TOTAL</b> = ${finalTotalVal} <span style="font-size:5.5pt;font-style:italic;font-weight:normal;margin-left:3px;">(<em>${grandTotalWords}</em>)</span></div>`;
+      <div style="${ff}padding-left:40px;font-weight:600;font-family:'Times New Roman',serif;margin:0;padding-top:1px;"><b>TOTAL</b> = ₹${finalTotalVal} <span style="font-size:9pt;font-style:italic;font-weight:bold;margin-left:3px;">(<b><em>${grandTotalWords}</em></b>)</span></div>`;
   } else {
-    // 1. Determine the length of the integer part to calculate spacing
-    // If the total is 437.50, we want the '+' to sit under 'TOTAL' 
-    // and the '.50' to sit under the '.50'
-    const paddingSpaces = " ".repeat(6); // Adjusted for "TOTAL =" length
+    // Calculate padding based on the TOTAL value to align the decimal
+    const integerPart = firstTotalVal.split('.')[0]; // e.g., "662" from "662.50"
+    const paddingNeeded = "TOTAL = ₹".length + integerPart.length; // Position of the decimal
+    const paddingSpaces = " ".repeat(paddingNeeded - 1); // -1 for the "+" character
 
     totalBlock = `${uline}
-      <div style="${ff} padding-left:40px; font-family:'Courier New', monospace; font-weight:bold; margin:0; line-height:1.2;">
-        TOTAL = ${firstTotalVal}
+      <div style="${ff} padding-left:40px; font-family:'Times New Roman',serif; font-weight:600; margin:0; line-height:1.2;">
+        TOTAL = ₹${firstTotalVal}
       </div>
-      <div style="${ff} padding-left:40px; font-family:'Courier New', monospace; font-weight:normal; margin:0; line-height:1.2;">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ .${String(addPaise).padStart(2,'0')}
+      <div style="${ff} padding-left:40px; font-family:'Times New Roman',serif; font-weight:600; margin:0; line-height:1.2;">
+        ${paddingSpaces}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+.${String(addPaise).padStart(2,'0')}
       </div>
     ${uline}
-      <div style="${ff} padding-left:40px; font-weight:bold; margin:0; padding-top:1px;">
-        <b>TOTAL</b> = ${finalTotalVal} 
-        <span style="font-size:5.5pt; font-style:italic; font-weight:normal; margin-left:3px;">
-          (<em>${grandTotalWords}</em>)
+      <div style="${ff} padding-left:40px; font-weight:600; font-family:'Times New Roman',serif; margin:0; padding-top:1px;">
+        <b>TOTAL</b> = ₹${finalTotalVal} 
+        <span style="font-size:9pt; font-style:italic; font-weight:bold; margin-left:3px;">
+          (<b><em>${grandTotalWords}</em></b>)
         </span>
       </div>`;
   }
 
-  return `<div style="position:absolute;left:8.33%;bottom:0;width:58%;pointer-events:none;z-index:10;background:#fff;border:1.5px solid #000;padding:3px 5px;font-family:Arial,sans-serif;">
+  return `<div style="position:absolute;left:8.33%;bottom:0;width:58%;pointer-events:none;z-index:10;background:#fff;border:1.5px solid #000;padding:3px 5px;font-family:Arial,sans-serif;color:#000;">
     ${summaryLines}
     ${totalBlock}
   </div>`;
 }
 
 function generateTaPreview() {
-  const keys = Object.keys(taPageEntries).sort();
-  if (keys.length === 0) { customAlert("Please add at least one journey entry using 'Add to Page'."); return; }
-  const entries = keys.map(k => taPageEntries[k]);
-  const header = getTaHeaderData();
-  const summaryGroups = buildSummary(entries);
-  let grandTotal = 0;
-  Object.values(summaryGroups).forEach(g => { grandTotal += g.total; });
-  const grandTotalRs    = Math.floor(grandTotal);
-  const grandTotalPaise = Math.round((grandTotal - grandTotalRs) * 100);
-  const hasPaise = grandTotalPaise > 0;
-  const roundedTotal = hasPaise ? (grandTotalRs + 1) : grandTotalRs;
-  const grandTotalWords = numberToWords(roundedTotal);
+  try {
+    console.log('🔍 generateTaPreview() started');
+    const keys = Object.keys(taPageEntries).sort();
+    console.log('✅ taPageEntries keys:', keys.length);
+    if (keys.length === 0) { customAlert("Please add at least one journey entry using 'Add to Page'."); return; }
+    const entries = keys.map(k => taPageEntries[k]);
+    console.log('✅ entries mapped:', entries.length);
+    const header = getTaHeaderData();
+    console.log('✅ header data retrieved');
+    const summaryGroups = buildSummary(entries);
+    console.log('✅ summary groups built');
+    let grandTotal = 0;
+    Object.values(summaryGroups).forEach(g => { grandTotal += g.total; });
+    const grandTotalRs    = Math.floor(grandTotal);
+    const grandTotalPaise = Math.round((grandTotal - grandTotalRs) * 100);
+    const hasPaise = grandTotalPaise > 0;
+    const roundedTotal = hasPaise ? (grandTotalRs + 1) : grandTotalRs;
+    const grandTotalWords = numberToWords(roundedTotal);
+    console.log('✅ totals calculated');
 
-  const ROWS_PAGE1 = 19;
+  const ROWS_PAGE1 = 15;
   const page1Entries = entries.slice(0, ROWS_PAGE1);
   const page1Blanks  = Math.max(0, ROWS_PAGE1 - page1Entries.length);
   const page2Entries = entries.slice(ROWS_PAGE1);
 
   const summaryGroupArr = Object.values(summaryGroups);
-  const summaryRowCount = summaryGroupArr.length + 4;
+  const summaryRowCount = summaryGroupArr.length;
   const totalRowCount = hasPaise ? 3 : 1;
-  const ROWS_PAGE2 = 20;
-  const page2MinBlanks = Math.max(0, ROWS_PAGE2 - page2Entries.length - summaryRowCount);
-  const page2Blanks = Math.max(page2MinBlanks, 0);
+  const ROWS_PAGE2 = 14;
+  const page2Blanks = Math.max(0, (ROWS_PAGE2 - totalRowCount) - page2Entries.length);
 
   let restLeaveText = '';
-  const restParts = [];
-  const leaveParts = [];
-  if (header.restDatesCount > 0) restParts.push(`Rest - ${header.restDatesCount} (${header.restDates.join(', ')})`);
-  if (header.leaveDatesCount > 0) leaveParts.push(`Leave - ${header.leaveDatesCount} (${header.leaveDates.join(', ')})`);
-  const combined = [...restParts, ...leaveParts];
-  if (header.crEntries) combined.push(header.crEntries);
-  restLeaveText = combined.join(', ');
+  if (header.crEntries) {
+    restLeaveText = header.crEntries;
+  }
 
   const metaFF = "font-family:'Noto Sans Devanagari',Arial,sans-serif;";
   const crLeft = '&nbsp;';
 
-  const topBarHTML = `<div style="display:flex;justify-content:space-between;align-items:baseline;width:100%;margin-bottom:1px;${metaFF}font-size:7.5pt;line-height:1.8;">
+  const topBarHTML = `<div style="display:flex;justify-content:space-between;align-items:baseline;width:100%;margin-bottom:1px;${metaFF}font-size:11pt;line-height:1.8;">
     <span style="font-weight:bold;min-height:12px;">${restLeaveText || '&nbsp;'}</span>
     <span style="font-weight:bold;min-height:12px;text-align:center;flex:1;padding:0 8px;">${crLeft}</span>
     <span style="font-weight:bold;min-height:12px;">${header.pfNumber ? 'PF No. ' + header.pfNumber : '&nbsp;'}</span>
   </div>`;
 
-  const titleHTML = `<div style="text-align:center;font-size:10pt;font-weight:bold;margin:1px 0 5px 0;width:100%;${metaFF}letter-spacing:0.04em;">यात्रा भत्ता विवरण / TRAVELLING ALLOWANCE JOURNAL</div>`;
+  const titleHTML = `<div style="text-align:center;font-size:12pt;font-weight:bold;margin:1px 0 5px 0;width:100%;${metaFF}letter-spacing:0.04em;">यात्रा भत्ता विवरण / TRAVELLING ALLOWANCE JOURNAL</div>`;
 
   const mFF = "font-family:'Noto Sans Devanagari',Arial,sans-serif;";
-  const rowStyle = `display:flex;align-items:flex-end;width:calc(100% - 1.6cm);margin-left:0.8cm;margin-right:0.8cm;${mFF}font-size:9.2pt;line-height:1;flex-wrap:nowrap;font-weight:bold;word-spacing:3px;`;
+  const rowStyle = `display:flex;align-items:flex-end;width:calc(100% - 1.6cm);margin-left:0.8cm;margin-right:0.8cm;${mFF}font-size:11pt;line-height:1;flex-wrap:nowrap;font-weight:bold;word-spacing:3px;`;
   const lblStyle = `white-space:nowrap;flex-shrink:0;font-weight:bold;word-spacing:3px;`;
   const val = (text, minW, grow) => {
     const g = grow ? 'flex:1 1 auto;' : `flex:0 0 ${minW};`;
@@ -6739,7 +6989,7 @@ function generateTaPreview() {
 
   const metaRow1 = `<div style="${rowStyle}margin-bottom:4px;">
     <span style="display:inline-flex;flex-direction:column;align-items:center;flex:0 0 auto;min-width:120px;max-width:180px;">
-      <span style="font-size:8.5pt;font-weight:800;letter-spacing:0.06em;line-height:1;white-space:nowrap;align-self:center;">ENGINEERING</span>
+      <span style="font-size:10pt;font-weight:800;letter-spacing:0.06em;line-height:1;white-space:nowrap;align-self:center;">ENGINEERING</span>
       <span style="width:100%;border-bottom:2px dotted #000;display:block;min-height:3px;margin-top:2px;"></span>
     </span>
     ${sp}<span style="${lblStyle}">शाखा/Branch</span>${val(header.branch || 'DANAPUR','110px',false)}${sp}
@@ -6762,8 +7012,8 @@ function generateTaPreview() {
   </div>`;
 
 
-  const kmOverlayHTML = `<div style="position:absolute;top:0;left:51%;width:5%;height:100%;pointer-events:none;z-index:5;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-    <div style="font-size:8pt;font-weight:bold;font-family:Arial,sans-serif;color:#000;white-space:nowrap;transform:rotate(-90deg);transform-origin:center center;letter-spacing:2px;">&#9668;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135; OVER 8 K.M &#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9658;</div>
+  const kmOverlayHTML = `<div style="position:absolute;top:0;left:48.3%;width:3%;height:100%;pointer-events:none;z-index:5;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+    <div style="font-size:10pt;font-weight:bold;font-family:Arial,sans-serif;color:#000;white-space:nowrap;transform:rotate(-90deg);transform-origin:center center;letter-spacing:2px;">&#9668;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135; OVER 8 K.M &#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9658;</div>
   </div>`;
 
   let page1Total = 0;
@@ -6781,7 +7031,7 @@ function generateTaPreview() {
 
   const page1TableHTML = `<div style="position:relative;width:100%;">${kmOverlayHTML}${page1BlankOverlay}<table class="ta-j-table" style="margin-top:0;width:100%;">${buildTaTableHeader()}<tbody>${buildTaDataRows(page1Entries)}${buildBlankRows(page1Blanks)}${buildPage1TotalTableRow(page1TotalRs, page1TotalPaise)}</tbody></table></div>`;
 
-  const ptoHTML = `<div style="display:flex;justify-content:flex-end;font-family:'Courier New',monospace;font-size:4.5pt;font-weight:bold;margin-top:0;margin-bottom:0;padding:0;width:100%;">
+  const ptoHTML = `<div style="display:flex;justify-content:flex-end;font-family:'Courier New',monospace;font-size:12pt;font-weight:bold;margin-top:0;margin-bottom:0;padding:0;width:100%;">
     <span style="letter-spacing:0.08em;">P.T.O.</span>
   </div>`;
 
@@ -6795,17 +7045,17 @@ function generateTaPreview() {
   const dline = (txt, w) =>
     `<span style="display:inline-block;min-width:${w};border-bottom:1.5px dotted #000;font-weight:bold;padding:0 2px 1px 2px;line-height:1.05;vertical-align:bottom;text-align:center;">${txt}</span>`;
 
-  const certHTML = `<div style="width:100%;margin-top:3mm;${certFF}font-size:9pt;font-weight:bold;line-height:1.2;word-spacing:2px;text-align:justify;">
-    <div style="word-spacing:2.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;मैं प्रमाणित करता हूँ कि श्री ${dline(pdfName,'200px')} बिल में दिये गये समय के लिए रेलवे के काम के सदर मुकाम स्टेशन से बाहर गये थे उन्हीं ने रेल / सड़क / जहाज / हवाई जहाज</div>
-    <div style="word-spacing:3.5px;">से जो यात्रा की है उसके लिए उन्हें सरकारी स्थानीय निधि से मुक्त टिकट या मुफ्त सवारी दी गयी/नहीं दी गई I hereby certify that the above mentioned ${dline('','120px')} was absent</div>
-    <div style="word-spacing:0px;">on duty from his headquarters' station during the period mentioned in the bill on railway business and that the officer performed the journey by Rail/Air/Sea/Road and was</div>
-    <div> allowed/not allowed free pass or free locomotion at the expenses of Government/local fund of Indian State.</div>
+  const certHTML = `<div style="width:100%;margin-top:3mm;${certFF}font-size:9.2pt;font-weight:bold;line-height:1.2;word-spacing:4.5px;text-align:justify;">
+    <div style="word-spacing:4.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;मैं प्रमाणित करता हूँ कि श्री ${dline(pdfName,'200px')} बिल में दिये गये समय के लिए रेलवे के काम के सदर मुकाम स्टेशन से बाहर गये थे उन्हीं ने रेल / सड़क / जहाज / हवाई जहाज</div>
+    <div style="word-spacing:5px;">से जो यात्रा की है उसके लिए उन्हें सरकारी स्थानीय निधि से मुक्त टिकट या मुफ्त सवारी दी गयी/नहीं दी गई I hereby certify that the above mentioned ${dline('','120px')} was absent</div>
+    <div style="word-spacing:3.5px;">on duty from his headquarters' station during the period mentioned in the bill on railway business and that the officer performed the journey by Rail / Air / Sea / Road and was</div>
+    <div> allowed / not allowed free pass or free locomotion at the expenses of Government / local fund of Indian State.</div>
     <div style="height:3pt;"></div>
-    <div style="word-spacing:3.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ड्यूटी पास पर की गयी यात्राओं तथा ठहरावों के लिए, जिनके इस बिल में यात्रा भत्ते / दैनिक भत्ते के दावे पेश किये गये हैं, किसी अन्य माध्यम से यात्रा भत्ता/दैनिक भत्ता तथा अन्य पारिश्रमिक </div>
-    <div style="word-spacing:0px;">नहीं लिया गया है / No T.A./D.A. or any other remuneration has been drawn from any other source in respect of the journeys performed on Duty Pass and also for the halts for</div>
-    <div>which T.A./D.A. has been claimed in this bill.</div>
+    <div style="word-spacing:5.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ड्यूटी पास पर की गयी यात्राओं तथा ठहरावों के लिए, जिनके इस बिल में यात्रा भत्ते / दैनिक भत्ते के दावे पेश किये गये हैं, किसी अन्य माध्यम से यात्रा भत्ता/दैनिक भत्ता तथा अन्य पारिश्रमिक </div>
+    <div style="word-spacing:4.5px;">नहीं लिया गया है / No T.A./D.A. or any other remuneration has been drawn from any other source in respect of the journeys performed on Duty Pass and also for the halts</div>
+    <div>for which T.A./D.A. has been claimed in this bill.</div>
     <div style="height:3pt;"></div>
-    <div style="word-spacing:4px;">प्रति हस्ताक्षरित / Countersigned नियंत्रक अफसर/Controlling Officer कार्यालय के प्रधान/Head of Office यात्रा भत्ता लेनेवाले अफसर के हस्ताक्षर / Signature of Officer claiming T.A</div>
+    <div style="word-spacing:5.5px;">प्रति हस्ताक्षरित / Countersigned नियंत्रक अफसर/Controlling Officer कार्यालय के प्रधान/Head of Office यात्रा भत्ता लेनेवाले अफसर के हस्ताक्षर / Signature of Officer claiming T.A</div>
     <div style="margin-top:5pt;">
       <div>नोट :– 1. &nbsp;एक रेलवे से दूसरी रेलवे में बदली होने पर जो यात्रा भत्ता मांगा जाय उसे बिल में यह स्पष्ट लिख देना चाहिए कि सरकार की ओर से यात्रा के लिए मुक्त टिकट या मुफ्त सवारी दी गई है या नहीं दी गई है।</div>
       <div>Note :– 1. &nbsp;On T.A. Bills for transfer from one railway to another, a certificate whether or not a free pass or free locomotion at government expense was allowed should be recorded on the bill.</div>
@@ -6827,10 +7077,20 @@ function generateTaPreview() {
     </div>
   </div>`;
 
-  document.getElementById('ta-pdf-content').innerHTML = fullHTML;
-  document.getElementById('ta-pdf-content').style.display = 'block';
+  console.log('✅ fullHTML constructed, length:', fullHTML.length);
+  const contentDiv = document.getElementById('ta-pdf-content');
+  if (!contentDiv) {
+    console.error('❌ ERROR: ta-pdf-content div not found!');
+    customAlert('Error: Preview container not found. Please reload the page.');
+    return;
+  }
+  console.log('✅ contentDiv found');
+  contentDiv.innerHTML = fullHTML;
+  console.log('✅ innerHTML set');
+  contentDiv.style.display = 'block';
   document.getElementById('ta-report-content').style.display = 'none';
   currentTaViewMode = 'journal';
+  console.log('✅ display styles set');
   
   // Adjust Object of Journey font size based on content wrapping
   setTimeout(() => {
@@ -6838,7 +7098,14 @@ function generateTaPreview() {
     adjustObjectOfJourneyFontSize();
   }, 300);
   
+  console.log('✅ About to show section: ta-preview-section');
   showSection('ta-preview-section');
+  console.log('✅ generateTaPreview() completed successfully');
+  } catch (error) {
+    console.error('❌ ERROR in generateTaPreview:', error);
+    console.error('Stack:', error.stack);
+    customAlert('Error generating preview: ' + error.message);
+  }
 }
 
 function generateTaReport() {
@@ -6956,37 +7223,95 @@ function printTaReport() {
 
 async function saveTaJournalToDB() {
   const keys = Object.keys(taPageEntries).sort();
-  if (keys.length === 0) { customAlert("Please add at least one journey entry."); return; }
+  if (keys.length === 0) { 
+    customAlert("Please add at least one journey entry."); 
+    return; 
+  }
+  
   const currentUser = window.currentUserAuth;
-  if (!currentUser || !currentUser.id) { customAlert("Please login first to save TA Journal."); return; }
-  const entries = keys.map(k => taPageEntries[k]);
-  const header = getTaHeaderData();
-  const summaryGroups = buildSummary(entries);
-  let grandTotal = 0;
-  Object.values(summaryGroups).forEach(g => { grandTotal += g.total; });
-  const docData = {
-    user_id: currentUser.id,
-    user_email: currentUser.email,
-    header, entries, grandtotal: grandTotal.toFixed(2),
-    savedat: new Date().toISOString(),
-    timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: false })
-  };
+  if (!currentUser || !currentUser.id) { 
+    customAlert("Please login first to save TA Journal."); 
+    return; 
+  }
+  
   try {
+    const entries = keys.map(k => taPageEntries[k]);
+    const header = getTaHeaderData();
+    const summaryGroups = buildSummary(entries);
+    let grandTotal = 0;
+    Object.values(summaryGroups).forEach(g => { grandTotal += g.total; });
+    
+    // CRITICAL: Extract month and year from FIRST entry date
+    const firstDateStr = keys[0]; // e.g., "2026-03-15"
+    const dateObj = new Date(firstDateStr);
+    const month = dateObj.getMonth() + 1;  // 0-11 → 1-12
+    const year = dateObj.getFullYear();
+    
+    console.log('\n=== TA SAVE DEBUG ===');
+    console.log('🔍 Entry Keys:', keys);
+    console.log('🔍 First Date String:', firstDateStr);
+    console.log('🔍 Extracted month:', month, 'year:', year);
+    console.log('🔍 Number of entries:', entries.length);
+    console.log('🔍 First entry structure:', entries[0]);
+    console.log('🔍 Grand Total:', grandTotal);
+    
+    const docData = {
+      user_id: currentUser.id,
+      user_email: currentUser.email,
+      entries: entries,
+      month: month,
+      year: year,
+      total_amount: parseFloat(grandTotal.toFixed(2)),
+      notes: document.getElementById('ta-notes')?.value || '',
+      submitted_by: currentUser.id,
+      approval_status: 'pending',
+      savedat: new Date().toISOString(),
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+    
+    console.log('💾 SAVING TO DB - Document structure:');
+    console.log('  user_id:', docData.user_id);
+    console.log('  user_email:', docData.user_email);
+    console.log('  month:', docData.month);
+    console.log('  year:', docData.year);
+    console.log('  entries count:', docData.entries.length);
+    console.log('  entries[0]:', docData.entries[0]);
+    console.log('  total_amount:', docData.total_amount);
+    console.log('  approval_status:', docData.approval_status);
+    
     // Save to ta_journal
     const { data, error } = await db.from('ta_journal').insert([docData]).select();
-    if (error) throw error;
-    showToast("TA Journal saved successfully!");
+    if (error) {
+      console.error('❌ DATABASE ERROR:', error);
+      throw error;
+    }
+    
+    console.log('✅ SAVED SUCCESSFULLY - Returned data:', data);
+    console.log('=== TA SAVE DEBUG - END ===\n');
+    
+    showToast("✅ TA Journal saved! (" + entries.length + " entries, Rs. " + grandTotal.toFixed(2) + ")");
+    
     // Also save to print_history
     await db.from("print_history").insert([{
       user_id: currentUser.id,
-      range: `TA Journal - ${header.name} (${entries.length} entries, Total: Rs.${grandTotal.toFixed(2)})`,
-      timestamp: docData.timestamp,
-      serverTime: new Date().toISOString()
+      document_type: 'TA Journal',
+      month: month,
+      year: year,
+      total_amount: parseFloat(grandTotal.toFixed(2)),
+      printed_at: new Date().toISOString()
     }]);
-    printHistory.unshift({ range: `TA Journal - ${header.name}`, timestamp: docData.timestamp });
+    
+    // Clear entries after successful save
+    taPageEntries = {};
+    const countEl = document.getElementById('ta-days-count');
+    if (countEl) countEl.textContent = '0';
+    const listEl = document.getElementById('ta-saved-days-list');
+    if (listEl) listEl.innerHTML = '<p class="text-slate-400 text-sm text-center py-4 italic">✅ Entries saved to database</p>';
+    
   } catch (error) {
-    console.error("Error saving TA Journal:", error);
-    customAlert("Note: Data saved locally. Database save status: " + (error ? error.message : "Success"));
+    console.error("❌ Error saving TA Journal:", error);
+    customAlert("Error: " + (error?.message || "Unknown error"));
   }
 }
 
@@ -7004,10 +7329,263 @@ function updateTaName() {
 
 function updateTaPay() {}
 
+// ===== TA MONTH FILTER FUNCTIONS - CASCADING DROPDOWNS =====
+const monthMap = {
+  'january': 1, 'february': 2, 'march': 3, 'april': 4, 'may': 5, 'june': 6,
+  'july': 7, 'august': 8, 'september': 9, 'october': 10, 'november': 11, 'december': 12
+};
+
+function showMonthDropdown() {
+  const yearSelector = document.getElementById('ta-filter-year-selector').value;
+  const monthContainer = document.getElementById('ta-month-dropdown-container');
+  
+  if (yearSelector) {
+    // Show month dropdown when year is selected
+    monthContainer.classList.remove('hidden');
+    // Reset month dropdown
+    document.getElementById('ta-filter-month-selector').value = '';
+    clearTaEntriesList();
+  } else {
+    // Hide month dropdown if no year selected
+    monthContainer.classList.add('hidden');
+    clearTaEntriesList();
+  }
+}
+
+async function loadTaEntriesByMonth() {
+  const monthSelector = document.getElementById('ta-filter-month-selector').value;
+  const yearSelector = document.getElementById('ta-filter-year-selector').value;
+  
+  if (!yearSelector || !monthSelector) {
+    clearTaEntriesList();
+    return;
+  }
+  
+  const monthNum = monthMap[monthSelector];
+  const year = parseInt(yearSelector);
+  const currentUser = window.currentUserAuth;
+  
+  console.log('=== TA LOAD DEBUG - START ===');
+  console.log('User ID:', currentUser?.id);
+  console.log('User Email:', currentUser?.email);
+  console.log('Selected Month:', monthSelector, '→ Number:', monthNum);
+  console.log('Selected Year:', year);
+  
+  if (!currentUser) {
+    customAlert("Please login first to view TA entries.");
+    return;
+  }
+  
+  try {
+    // Query database with detailed logging
+    console.log('\n🔍 QUERYING DATABASE (Standard):');
+    console.log('  Table: ta_journal');
+    console.log('  Filter: user_id = ' + currentUser.id);
+    console.log('  Filter: month = ' + monthNum);
+    console.log('  Filter: year = ' + year);
+    
+    let { data: records, error } = await db
+      .from('ta_journal')
+      .select('*')
+      .eq('user_id', currentUser.id)
+      .eq('month', monthNum)
+      .eq('year', year)
+      .order('savedat', { ascending: false });
+    
+    if (error) {
+      console.error('❌ DATABASE ERROR:', error);
+      throw error;
+    }
+    
+    console.log('\n✅ QUERY RESULT (Standard):');
+    console.log('  Records Found:', records ? records.length : 0);
+    
+    // If no records found with proper month/year, try recovery query for NULL values
+    if (!records || records.length === 0) {
+      console.log('\n🔄 NO RECORDS - Attempting RECOVERY QUERY for NULL month/year entries...');
+      
+      const { data: allUserRecords, error: recoveryError } = await db
+        .from('ta_journal')
+        .select('*')
+        .eq('user_id', currentUser.id)
+        .or('month.is.null,year.is.null')
+        .order('savedat', { ascending: false });
+      
+      if (recoveryError) {
+        console.error('❌ Recovery query error:', recoveryError);
+      } else {
+        console.log('  Recovery records found:', allUserRecords?.length || 0);
+        console.log('  Records:', allUserRecords);
+        
+        // Try to extract month/year from entries themselves
+        if (allUserRecords && allUserRecords.length > 0) {
+          console.log('\n🔧 RECOVERY MODE - Extracting dates from entries...');
+          
+          for (let record of allUserRecords) {
+            if (record.entries && Array.isArray(record.entries) && record.entries.length > 0) {
+              // Extract date from first entry
+              const firstEntry = record.entries[0];
+              const dateKey = firstEntry.dateKey || firstEntry.dateRaw || '';
+              
+              if (dateKey) {
+                const [entryYear, entryMonth, entryDay] = dateKey.split('-');
+                const entryMonthNum = parseInt(entryMonth);
+                const entryYearNum = parseInt(entryYear);
+                
+                console.log('  Entry month from data:', entryMonthNum, '| Requested month:', monthNum);
+                console.log('  Entry year from data:', entryYearNum, '| Requested year:', year);
+                
+                // Check if this record matches the requested month/year
+                if (entryMonthNum === monthNum && entryYearNum === year) {
+                  console.log('  ✅ MATCH FOUND! This NULL record contains the requested month/year');
+                  records = [record];
+                  break;
+                }
+              }
+            }
+          }
+          
+          if (!records || records.length === 0) {
+            console.log('  ⚠️ No matching entries found for ' + monthSelector + ' ' + year);
+          }
+        }
+      }
+    }
+    
+    // Extract entries from first record
+    const filteredEntries = [];
+    if (records && records.length > 0) {
+      const record = records[0];
+      console.log('\n📖 SELECTED RECORD:');
+      console.log('  ID:', record.id);
+      console.log('  Month:', record.month, '(DB) / Extracted from entries');
+      console.log('  Year:', record.year, '(DB) / Extracted from entries');
+      console.log('  Total Amount:', record.total_amount);
+      console.log('  Entries Array Length:', record.entries?.length || 0);
+      
+      if (record.entries && Array.isArray(record.entries)) {
+        filteredEntries.push(...record.entries);
+        console.log('  ✓ Extracted', record.entries.length, 'entries from record');
+      } else {
+        console.warn('  ⚠️ Entries is not an array!');
+      }
+    }
+    
+    console.log('\n📊 DISPLAYING ENTRIES:');
+    console.log('  Total entries to display:', filteredEntries.length);
+    displayTaEntriesFromDb(filteredEntries, monthNum, year);
+    console.log('=== TA LOAD DEBUG - END ===\n');
+    
+  } catch (error) {
+    console.error('❌ Error loading TA entries:', error);
+    customAlert('Error loading entries: ' + error.message);
+    clearTaEntriesList();
+  }
+}
+
+function displayTaEntriesFromDb(entries, monthNum, year) {
+  const monthFullNames = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const monthLabel = monthFullNames[monthNum];
+  
+  const countEl = document.getElementById('ta-days-count');
+  countEl.textContent = entries.length;
+  
+  const list = document.getElementById('ta-saved-days-list');
+  list.innerHTML = '';
+  
+  if (entries.length === 0) {
+    list.innerHTML = `<p class="text-slate-400 text-sm text-center py-6 italic">📭 No entries found for ${monthLabel} ${year}</p>`;
+    return;
+  }
+  
+  console.log('=== DISPLAY TA ENTRIES ===');
+  console.log('Entries received:', entries.length);
+  console.log('First entry:', entries[0]);
+  
+  // Entries are already extracted by loadTaEntriesByMonth, so use them directly
+  let allEntries = Array.isArray(entries) ? entries : [];
+  
+  // Sort by dateKey
+  allEntries.sort((a, b) => {
+    const dateA = a.dateKey || a.dateRaw || '';
+    const dateB = b.dateKey || b.dateRaw || '';
+    return new Date(dateA) - new Date(dateB);
+  });
+  
+  console.log('Total entries to display:', allEntries.length);
+  console.log('Entries:', allEntries);
+  
+  let totalAmount = 0;
+  
+  if (allEntries.length === 0) {
+    list.innerHTML = `<p class="text-slate-400 text-sm text-center py-6 italic">⚠️ No individual entries found</p>`;
+  } else {
+    // Render compact entries with Edit/Delete buttons
+    list.innerHTML = allEntries.map((e, i) => {
+      const dateKey = e.dateKey || e.dateRaw || '';
+      const [year2, month2, day2] = dateKey.split('-');
+      const dayNum = parseInt(day2);
+      const monthNum2 = parseInt(month2);
+      const yearNum = parseInt(year2);
+      
+      const amount = parseFloat(e.rs || 0) + (parseFloat(e.paise || 0) / 100);
+      totalAmount += amount;
+      
+      return `
+      <div style="background: #f8f9fa; border: 1px solid #d1d5db; border-radius: 6px; padding: 6px 8px; margin-bottom: 4px; overflow: hidden;">
+        
+        <!-- ROW 1: Entry # + Date + Mode on left, Edit/Delete buttons on right -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+          <div style="display: flex; align-items: center; gap: 8px; font-size: 12px;">
+            <span style="font-weight: 700; color: #0f172a; min-width: 20px;">${i + 1}.</span>
+            <span style="color: #0f172a; font-weight: 600;">${dayNum}/${monthNum2.toString().padStart(2, '0')}/${yearNum}</span>
+            <span style="color: #6b7280; text-transform: capitalize; font-size: 12px; font-weight: 500;">${e.mode === 'bytrain' ? 'By Train' : 'By Road'}</span>
+          </div>
+          
+          <div style="display: flex; gap: 4px;">
+            <button onclick="editDbTaEntry('${dateKey}')" style="background: #fbbf24; color: #78350f; border: none; padding: 3px 8px; border-radius: 4px; font-weight: 600; font-size: 11px; cursor: pointer; white-space: nowrap;">
+              ✏️ Edit
+            </button>
+            <button onclick="deleteDbTaEntry('${dateKey}')" style="background: #ef4444; color: white; border: none; padding: 3px 6px; border-radius: 4px; font-weight: 600; font-size: 11px; cursor: pointer; white-space: nowrap;">
+              🗑
+            </button>
+          </div>
+        </div>
+        
+        <!-- ROW 2: Route | Amount | Rate & Percentage | Objective -->
+        <div style="font-size: 11px; color: #1f2937; font-weight: 500; line-height: 1.1; margin-left: 20px;">
+          ${e.fromStn} → ${e.toStn || '?'} | Rs. ${e.rs || '0'}.${e.paise || '0'} | ${e.pct}% of ${e.rate} | ${e.obj || '−'}
+        </div>
+      </div>
+      `;
+    }).join('');
+  }
+  
+  // Show total
+  const totalDiv = document.createElement('div');
+  totalDiv.style.cssText = 'margin-top: 3px; padding: 3px 4px; background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border: 1px solid #22c55e; border-radius: 4px; text-align: center;';
+  totalDiv.innerHTML = `
+    <div style="font-size: 8px; color: #16a34a; font-weight: 600;">Total ${monthLabel}</div>
+    <div style="font-size: 13px; font-weight: 700; color: #15803d; margin-top: 1px;">Rs. ${totalAmount.toFixed(2)}</div>
+    <div style="font-size: 7px; color: #16a34a; margin-top: 1px;">${allEntries.length} entries</div>
+  `;
+  list.appendChild(totalDiv);
+  
+  console.log('✅ Displayed', allEntries.length, 'entries for', monthLabel, year, '- Total:', totalAmount.toFixed(2));
+}
+
+function clearTaEntriesList() {
+  const list = document.getElementById('ta-saved-days-list');
+  const countEl = document.getElementById('ta-days-count');
+  countEl.textContent = '0';
+  list.innerHTML = '<p class="text-slate-400 text-sm text-center py-6 italic">Select a Year and Month to view entries.</p>';
+}
+
 // Initialize form state only (don't hide mainWrapper here - auth flow handles visibility)
 const dutyTypeRadio = document.querySelector('input[name="dutyType"][value="night"]');
 if (dutyTypeRadio) dutyTypeRadio.checked = true;
 setDutyMode('night');
+
 setupForm();
 const legacyContainers = document.getElementById('legacy-containers');
 if (legacyContainers) legacyContainers.classList.remove('hidden');
