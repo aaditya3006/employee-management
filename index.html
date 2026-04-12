@@ -310,7 +310,7 @@ body {
   width: 100%;
   background: white;
   font-family: Arial, 'Noto Sans Devanagari', sans-serif;
-  font-size: 5pt;
+  font-size: 7pt;
   color: #000;
   line-height: 0.95;
 }
@@ -328,17 +328,17 @@ body {
   font-family: Arial, 'Noto Sans Devanagari', sans-serif;
   overflow: hidden;
   word-break: break-word;
-  font-size: 4pt;
+  font-size: 8pt;
 }
 .ta-j-table th {
   font-weight: bold;
-  font-size: 5pt;
+  font-size: 9pt;
   line-height: 1.15;
   background: white;
 }
 .ta-j-table td {
-  height: 22px;
-  font-size: 5pt;
+  height: 24px;
+  font-size: 9pt;
   margin: 0;
 }
 
@@ -906,18 +906,18 @@ body {
 }
 
 .ta-section-card {
-  background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 16px; margin-bottom: 12px;
+  background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 12px; margin-bottom: 8px;
 }
 .ta-section-title {
-  font-size: 13px; font-weight: 700; color: #1e40af; margin-bottom: 10px; display: flex; align-items: center; gap: 2px;
+  font-size: 13px; font-weight: 700; color: #1e40af; margin-bottom: 6px; display: flex; align-items: center; gap: 2px;
 }
 .ta-input {
-  width: 100%; border: 2px solid #cbd5e1; border-radius: 10px; padding: 10px 12px;
+  width: 100%; border: 2px solid #cbd5e1; border-radius: 10px; padding: 8px 10px;
   font-size: 14px; color: #1e293b; outline: none; transition: border-color 0.2s;
 }
 .ta-input:focus { border-color: #3b82f6; }
-.ta-label { font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px; display: block; }
-.ta-radio-group { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+.ta-label { font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 2px; display: block; }
+.ta-radio-group { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 3px; }
 .ta-radio-label { display: flex; align-items: center; gap: 6px; cursor: pointer; font-weight: 600; font-size: 13px; color: #334155; }
 
 .ta-day-card {
@@ -1403,6 +1403,7 @@ body {
           <div class="date-input-wrapper"><input type="date" id="toDate" class="w-full border-2 border-blue-100 p-3 rounded-xl shadow-sm focus:border-blue-500 outline-none"></div>
         </div>
       </div>
+      
       <div id="bit-assignment-list" class="space-y-3 mb-4"></div>
       <button onclick="generatePreview()" id="generate-btn" style="display: none;"
         class="w-full bg-blue-700 text-white py-4 rounded-2xl font-bold hover:bg-blue-800 shadow-xl transition-all active:scale-95 flex items-center justify-center gap-2 mt-4">
@@ -1447,7 +1448,7 @@ body {
             <div><label for="att-km" class="block text-sm font-bold text-gray-600 mb-1">KM</label><input type="text" id="att-km" placeholder="Enter KM" class="w-full border-2 border-slate-200 p-3 rounded-xl focus:border-blue-500 outline-none"></div>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border border-slate-200 p-4 rounded-xl bg-slate-50">
-            <div><label for="att-cr-name" class="block text-sm font-bold text-gray-600 mb-1">CR Name</label><input type="text" id="att-cr-name" class="w-full border-2 border-slate-200 p-3 rounded-xl focus:border-blue-500 outline-none"></div>
+            <div><label for="att-cr-name" class="block text-sm font-bold text-gray-600 mb-1">CR</label><input type="text" id="att-cr-name" class="w-full border-2 border-slate-200 p-3 rounded-xl focus:border-blue-500 outline-none"></div>
             <div><label for="att-cr-date" class="block text-sm font-bold text-gray-600 mb-1">CR Date</label><div class="date-input-wrapper"><input type="date" id="att-cr-date" class="w-full border-2 border-slate-200 p-3 rounded-xl focus:border-blue-500 outline-none"></div></div>
           </div>
           <div id="add-name-group" class="hidden border border-slate-200 p-4 rounded-xl bg-slate-50">
@@ -1476,7 +1477,7 @@ body {
             <div>
               <label class="ta-label">Rest (optional)</label>
               <div class="flex gap-2 mb-2">
-                <div class="date-input-wrapper flex-1"><input type="date" id="ta-rest-date-picker" class="ta-input" style="padding:10px 36px 10px 12px;"></div>
+                <div class="date-input-wrapper flex-1"><input type="date" id="ta-rest-date-picker" class="ta-input" style="padding:8px 36px 8px 10px;"></div>
                 <button type="button" onclick="addRestDate()" class="bg-blue-600 text-white px-3 py-2 rounded-lg font-bold text-sm hover:bg-blue-700 transition-all whitespace-nowrap">+ Add Rest</button>
               </div>
               <div id="ta-rest-dates-list" class="flex flex-wrap gap-1 mt-1"></div>
@@ -1485,7 +1486,7 @@ body {
             <div>
               <label class="ta-label">Leave (optional)</label>
               <div class="flex gap-2 mb-2">
-                <div class="date-input-wrapper flex-1"><input type="date" id="ta-leave-date-picker" class="ta-input" style="padding:10px 36px 10px 12px;"></div>
+                <div class="date-input-wrapper flex-1"><input type="date" id="ta-leave-date-picker" class="ta-input" style="padding:8px 36px 8px 10px;"></div>
                 <button type="button" onclick="addLeaveDate()" class="bg-orange-500 text-white px-3 py-2 rounded-lg font-bold text-sm hover:bg-orange-600 transition-all whitespace-nowrap">+ Add Leave</button>
               </div>
               <div id="ta-leave-dates-list" class="flex flex-wrap gap-1 mt-1"></div>
@@ -1494,11 +1495,12 @@ body {
             </div>
             <div>
               <label class="ta-label">CR Details (optional)</label>
-              <div class="flex gap-2">
-                <input type="text" id="ta-cr-name-header" placeholder="CR Name" class="ta-input flex-1">
-                <div class="date-input-wrapper flex-1"><input type="date" id="ta-cr-date-header" class="ta-input" style="padding:10px 36px 10px 12px;"></div>
+              <div class="flex gap-2 mb-2">
+                <div class="date-input-wrapper flex-1"><input type="date" id="ta-cr-date-header" class="ta-input" style="padding:8px 36px 8px 10px;"></div>
+                <button type="button" onclick="addCrDetail()" class="bg-purple-600 text-white px-3 py-2 rounded-lg font-bold text-sm hover:bg-purple-700 transition-all whitespace-nowrap">+ Add Date</button>
               </div>
-              <p class="text-xs text-slate-400 mt-1"></p>
+              <div id="ta-cr-details-list" class="flex flex-wrap gap-1 mt-1"></div>
+              <input type="hidden" id="ta-cr-details-json" value="[]">
             </div>
             <div>
               <label class="ta-label">PF Number</label>
@@ -1607,7 +1609,7 @@ body {
             <span id="ta-editing-badge" class="hidden bg-amber-500 text-white text-xs px-2 py-1 rounded-full font-bold">✏️ Editing</span>
           </div>
           <input type="hidden" id="ta-editing-date-key">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="ta-single-entry-fields">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2" id="ta-single-entry-fields">
             <div><label class="ta-label">📅 Date</label><div class="date-input-wrapper"><input type="date" id="ta-date-single" class="ta-input" required></div></div>
             <div>
               <label class="ta-label">Mode of Travel</label>
@@ -1615,7 +1617,7 @@ body {
                 <label class="ta-radio-label"><input type="radio" name="ta-mode-single" value="byroad" checked onchange="toggleTrainNoSingle()"> By Road</label>
                 <label class="ta-radio-label"><input type="radio" name="ta-mode-single" value="bytrain" onchange="toggleTrainNoSingle()"> By Train</label>
               </div>
-              <input type="text" id="ta-train-no-single" placeholder="Train Number" class="ta-input hidden" style="margin-top:4px;">
+              <input type="text" id="ta-train-no-single" placeholder="Train Number" class="ta-input hidden" style="margin-top:2px;">
             </div>
             <div>
               <label class="ta-label">Time Left from Source Station</label>
@@ -1655,27 +1657,31 @@ body {
                 <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="30" onchange="calcTaAmountSingle()"> 30%</label>
                 <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="70" onchange="calcTaAmountSingle()" checked> 70%</label>
                 <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="100" onchange="calcTaAmountSingle()"> 100%</label>
+                <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="30+70" onchange="calcTaAmountSingle()"> 30%+70%</label>
+                <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="70+30" onchange="calcTaAmountSingle()"> 70%+30%</label>
               </div>
             </div>
-            <div><label class="ta-label">Object of Journey</label><input type="text" id="ta-obj-single" placeholder="Purpose of journey" class="ta-input"></div>
+            <div><label class="ta-label">Object of Journey</label><div style="position:relative;"><textarea id="ta-obj-single" placeholder="Purpose of journey" class="ta-input" style="font-size:14px;padding:15px 10px;height:80px;width:100%;resize:none;overflow:hidden;white-space:normal;word-wrap:break-word;font-family:inherit;" maxlength="102" oninput="updateCharCount()"></textarea><span id="ta-char-count" style="position:absolute;bottom:15px;right:8px;font-size:11px;color:#999;font-weight:bold;">0/102</span></div></div>
             <div>
               <label class="ta-label">Rate</label>
               <div class="ta-radio-group">
-                <label class="ta-radio-label"><input type="radio" name="ta-rate-single" value="625" onchange="calcTaAmountSingle()" checked> 625</label>
-                <label class="ta-radio-label"><input type="radio" name="ta-rate-single" value="1000" onchange="calcTaAmountSingle()"> 1000</label>
+                <label class="ta-radio-label"><input type="radio" name="ta-rate-single" value="625" onchange="handleRateChange()" checked> 625</label>
+                <label class="ta-radio-label"><input type="radio" name="ta-rate-single" value="1000" onchange="handleRateChange()"> 1000</label>
+                <label class="ta-radio-label"><input type="radio" name="ta-rate-single" value="other" onchange="handleRateChange()"> Other</label>
               </div>
+              <input type="number" id="ta-rate-custom" placeholder="Enter custom rate" class="ta-input hidden" onchange="calcTaAmountSingle()" oninput="calcTaAmountSingle()" style="font-size:15px;font-weight:bold;margin-top:2px;">
             </div>
             <div class="md:col-span-2">
               <label class="ta-label">Calculated Amount</label>
-              <div class="grid grid-cols-2 gap-3">
+              <div class="grid grid-cols-2 gap-2">
                 <div><label class="text-xs text-slate-400 block mb-1">Rs. (Rupees)</label><input type="text" id="ta-rs-single" readonly class="ta-input bg-green-50 font-bold text-green-800"></div>
                 <div><label class="text-xs text-slate-400 block mb-1">P. (Paise)</label><input type="text" id="ta-paise-single" readonly class="ta-input bg-green-50 font-bold text-green-800"></div>
               </div>
             </div>
           </div>
-          <div class="flex gap-3 mt-4">
-            <button onclick="addTaEntryToPage()" id="ta-add-page-btn" class="flex-1 bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2">➕ Add to Page</button>
-            <button onclick="cancelTaEdit()" id="ta-cancel-edit-btn" class="hidden flex-1 bg-slate-200 text-slate-700 py-3 rounded-xl font-bold hover:bg-slate-300 shadow transition-all active:scale-95">✕ Cancel Edit</button>
+          <div class="flex gap-2 mt-2">
+            <button onclick="addTaEntryToPage()" id="ta-add-page-btn" class="flex-1 bg-blue-600 text-white py-2 rounded-xl font-bold hover:bg-blue-700 shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2">➕ Add to Page</button>
+            <button onclick="cancelTaEdit()" id="ta-cancel-edit-btn" class="hidden flex-1 bg-slate-200 text-slate-700 py-2 rounded-xl font-bold hover:bg-slate-300 shadow transition-all active:scale-95">✕ Cancel Edit</button>
           </div>
         </div>
 
@@ -1689,9 +1695,9 @@ body {
           </div>
         </div>
 
-        <div class="flex gap-3 mt-4">
-          <button onclick="saveTaJournalToDB()" class="flex-1 bg-green-600 text-white py-3 rounded-xl font-bold hover:bg-green-700 shadow-lg transition-all active:scale-95">💾 Save to DB</button>
-          <button onclick="generateTaPreview()" class="flex-1 bg-amber-600 text-white py-3 rounded-xl font-bold hover:bg-amber-700 shadow-lg transition-all active:scale-95">👁️ Preview &amp; Print</button>
+        <div class="flex gap-2 mt-2">
+          <button onclick="saveTaJournalToDB()" class="flex-1 bg-green-600 text-white py-2 rounded-xl font-bold hover:bg-green-700 shadow-lg transition-all active:scale-95">💾 Save to DB</button>
+          <button onclick="generateTaPreview()" class="flex-1 bg-amber-600 text-white py-2 rounded-xl font-bold hover:bg-amber-700 shadow-lg transition-all active:scale-95">👁️ Preview &amp; Print</button>
         </div>
       </div>
     </div>
@@ -1975,7 +1981,7 @@ body {
   <div id="ta-pdf-content" style="width:277mm;background:white;box-shadow:0 6px 40px rgba(0,0,0,0.28);padding:6mm 7mm;display:none;"></div>
   <div id="ta-report-content" style="width:210mm;background:white;box-shadow:0 6px 40px rgba(0,0,0,0.28);padding:10mm;display:none;"></div>
   <div class="no-print" style="position:fixed;bottom:0;left:0;width:100%;background:rgba(255,255,255,0.97);backdrop-filter:blur(16px);border-top:1px solid #e5e7eb;padding:14px 20px;z-index:9999;display:flex;justify-content:center;gap:14px;flex-wrap:wrap;">
-    <button onclick="showSection('form-section'); handleMenuSelect('tajournal');" style="background:white;border:2px solid #d1d5db;padding:13px 30px;border-radius:50px;font-weight:bold;font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;">← Edit Form</button>
+    <button onclick="showSection('form-section'); handleMenuSelect('tajournal');" style="background:white;border:2px solid #d1d5db;padding:13px 30px;border-radius:50px;font-weight:bold;font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;">← Back</button>
     <button onclick="switchToTaJournal()" id="btn-ta-journal-view" style="background:#d97706;color:white;padding:13px 24px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(217,119,6,0.35);cursor:pointer;">TA Journal</button>
     <button onclick="switchToTaReport()" id="btn-ta-report-view" style="background:#7c3aed;color:white;padding:13px 24px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(124,58,237,0.35);cursor:pointer;">Generate Report</button>
     <button onclick="printCurrentTaView()" id="btn-ta-print" style="background:#059669;color:white;padding:13px 24px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(5,150,105,0.35);cursor:pointer;">🖨️ Print</button>
@@ -2127,9 +2133,13 @@ function initSupabase() {
 
 // Initialize as soon as Supabase SDK is available
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initSupabase);
+  document.addEventListener('DOMContentLoaded', () => {
+    initSupabase();
+    setTimeout(setupAuthFormListeners, 100);
+  });
 } else {
   initSupabase();
+  setTimeout(setupAuthFormListeners, 100);
 }
 
 /* ==========================================
@@ -3359,15 +3369,6 @@ function setupAuthFormListeners() {
     });
 
     console.log('✅ Auth forms initialized successfully');
-}
-
-// Initialize when DOM is fully loaded
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', setupAuthFormListeners);
-  console.log('DOM still loading, will initialize on DOMContentLoaded');
-} else {
-  console.log('DOM already loaded, initializing now');
-  setupAuthFormListeners();
 }
 
 // Original login code (kept for backward compatibility)
@@ -4785,7 +4786,7 @@ async function loadDataFromDB() {
     renderEmployeeTable();
     renderHistory();
     // loadAllAttendanceRecords();  // Tables not yet created
-    // loadAllTaRecords();           // Tables not yet created
+    loadAllTaRecords();           // Load TA records from database
     setupForm();
   } catch (error) {
     console.error("Error loading data from database:", error);
@@ -4813,11 +4814,27 @@ async function loadAllAttendanceRecords() {
 
 async function loadAllTaRecords() {
   try {
-    // ta_journal table not yet created in Supabase
-    taJournalRecords = [];
-    console.log('Loaded TA journal records: 0 (table not created)');
+    const user = window.currentUserAuth;
+    if (!user) {
+      console.log('No user logged in, skipping TA records load');
+      taJournalRecords = [];
+      return;
+    }
+    
+    // Load TA journal records from Supabase
+    const { data: records, error } = await window.db.from('ta_journal').select('*').eq('user_id', user.id).order('savedat', { ascending: false });
+    
+    if (error) {
+      console.error('Error loading TA records:', error);
+      taJournalRecords = [];
+      return;
+    }
+    
+    taJournalRecords = records || [];
+    console.log('✅ Loaded TA journal records:', taJournalRecords.length, 'records');
   } catch (error) {
     console.error("Error loading TA records:", error);
+    taJournalRecords = [];
   }
 }
 
@@ -5147,6 +5164,9 @@ function setupForm() {
   const container = document.getElementById('bit-assignment-list');
   if (!container) return;
 
+  // Get duty numbers for this type
+  const dutyNumbers = type === 'night' ? nightDutyNumbers : keymanDutyNumbers;
+
   container.innerHTML = currentBitData.map((bit, i) => `
     <div class="flex flex-col md:flex-row gap-3 items-center p-3 bg-white/60 border rounded-2xl shadow-sm">
       <div class="flex-1 w-full relative">
@@ -5160,6 +5180,11 @@ function setupForm() {
         <label for="emp-phone-${i}" class="block text-[10px] uppercase font-bold text-gray-400 mb-1 ml-1">Mobile No.</label>
         <input type="text" id="emp-phone-${i}" readonly class="w-full p-2 bg-blue-50 border rounded-xl text-center text-sm font-semibold text-blue-800">
       </div>
+      <div class="w-full md:w-36">
+        <label for="gps-number-${i}" class="block text-[10px] uppercase font-bold text-gray-400 mb-1 ml-1">📍 GPS</label>
+        <input type="text" id="gps-number-${i}" value="${dutyNumbers[i] || ''}" placeholder="GPS Duty No."
+          class="w-full p-2 border-2 border-blue-300 rounded-xl text-sm font-semibold focus:border-blue-500 outline-none" onchange="saveGpsNumbers()">
+      </div>
     </div>`).join('');
 
   if (currentDutyType === 'keyman' && toContainer) {
@@ -5168,6 +5193,55 @@ function setupForm() {
     toContainer.style.display = 'block';
   }
 }
+
+// 📍 Save GPS duty numbers (when user edits them)
+function saveGpsNumbers() {
+  const type = currentDutyType || 'night';
+  const dutyNumbers = type === 'night' ? nightDutyNumbers : keymanDutyNumbers;
+  const maxGps = dutyNumbers.length;
+  
+  // Read edited values from form
+  for (let idx = 0; idx < maxGps; idx++) {
+    const input = document.getElementById(`gps-number-${idx}`);
+    if (input) {
+      dutyNumbers[idx] = input.value;
+    }
+  }
+  
+  console.log('✅ GPS Duty Numbers Saved:', dutyNumbers);
+  showToast('✅ GPS numbers updated!');
+}
+
+// ↻ Reset GPS duty numbers to default
+function resetGpsNumbers() {
+  const type = currentDutyType || 'night';
+  
+  // Define defaults
+  const defaults = type === 'night' 
+    ? ["# 103011","# 103249","# 103237","# 303121","# 103098","# 103116"]
+    : ["80083","86639","85437","86484","102861","80444","85195","80374"];
+  
+  // Update the arrays
+  if (type === 'night') {
+    nightDutyNumbers.length = 0;
+    nightDutyNumbers.push(...defaults);
+  } else {
+    keymanDutyNumbers.length = 0;
+    keymanDutyNumbers.push(...defaults);
+  }
+  
+  // Update form fields
+  defaults.forEach((num, idx) => {
+    const input = document.getElementById(`gps-number-${idx}`);
+    if (input) {
+      input.value = num;
+    }
+  });
+  
+  console.log('↻ GPS Duty Numbers Reset to Defaults:', defaults);
+  showToast('↻ GPS numbers reset to default!');
+}
+
 
 async function filterDropdownEmployees(i) {
   const input = document.getElementById(`emp-search-${i}`);
@@ -5893,10 +5967,62 @@ function executeAttPrint(orientation) {
 let taPageEntries = {};
 let taEditingKey = null;
 
-function initTaJournal() {
+async function initTaJournal() {
   if (Object.keys(taPageEntries).length === 0) resetTaSingleForm();
+  await loadTaJournalFromDB();
   renderTaSavedDays();
   calcTaAmountSingle();
+}
+
+async function loadTaJournalFromDB() {
+  const currentUser = window.currentUserAuth;
+  if (!currentUser || !currentUser.id) return;
+  try {
+    const { data, error } = await db.from('ta_journal').select('*').eq('user_id', currentUser.id).order('savedat', { ascending: false }).limit(1);
+    if (error) throw error;
+    if (data && data.length > 0) {
+      const lastEntry = data[0];
+      if (lastEntry.entries && Array.isArray(lastEntry.entries)) {
+        taPageEntries = {};
+        lastEntry.entries.forEach(e => {
+          taPageEntries[e.dateRaw] = e;
+        });
+        console.log('✅ Loaded TA Journal entries from database:', taPageEntries);
+      }
+    }
+  } catch (error) {
+    console.error('Note: Could not load from database:', error.message);
+  }
+}
+
+async function autoSaveTaFormData() {
+  const currentUser = window.currentUserAuth;
+  if (!currentUser || !currentUser.id) return;
+  
+  const header = getTaHeaderData();
+  const entries = Object.keys(taPageEntries).sort().map(k => taPageEntries[k]);
+  const restDates = JSON.parse(document.getElementById('ta-rest-dates-json').value || '[]');
+  const leaveDates = JSON.parse(document.getElementById('ta-leave-dates-json').value || '[]');
+  const crDetails = JSON.parse(document.getElementById('ta-cr-details-json').value || '[]');
+  
+  const formData = {
+    user_id: currentUser.id,
+    user_email: currentUser.email,
+    header, entries, restDates, leaveDates, crDetails,
+    savedat: new Date().toISOString(),
+    timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: false })
+  };
+  
+  try {
+    const { error } = await db.from('ta_journal').upsert([formData], { onConflict: 'user_id' });
+    if (error) {
+      console.error('Error auto-saving TA form data:', error.message);
+      return;
+    }
+    console.log('✅ TA form data auto-saved');
+  } catch (error) {
+    console.error('Auto-save error:', error.message);
+  }
 }
 
 function resetTaSingleForm() {
@@ -5913,7 +6039,10 @@ function resetTaSingleForm() {
   document.querySelector('input[name="ta-pct-single"][value="70"]').checked = true;
   document.getElementById('ta-obj-single').value = '';
   document.querySelector('input[name="ta-rate-single"][value="625"]').checked = true;
+  document.getElementById('ta-rate-custom').value = '';
+  document.getElementById('ta-rate-custom').classList.add('hidden');
   calcTaAmountSingle();
+  updateCharCount();
   taEditingKey = null;
   document.getElementById('ta-editing-date-key').value = '';
   document.getElementById('ta-editing-badge').classList.add('hidden');
@@ -5927,12 +6056,49 @@ function toggleTrainNoSingle() {
   document.getElementById('ta-train-no-single').classList.toggle('hidden', mode !== 'bytrain');
 }
 
+function handleRateChange() {
+  const selectedRate = document.querySelector('input[name="ta-rate-single"]:checked').value;
+  const customRateInput = document.getElementById('ta-rate-custom');
+  if (selectedRate === 'other') {
+    customRateInput.classList.remove('hidden');
+    customRateInput.focus();
+  } else {
+    customRateInput.classList.add('hidden');
+  }
+  calcTaAmountSingle();
+}
+
+function updateCharCount() {
+  const input = document.getElementById('ta-obj-single');
+  const counter = document.getElementById('ta-char-count');
+  if (input && counter) {
+    counter.textContent = input.value.length + '/102';
+  }
+}
+
 function calcTaAmountSingle() {
   const pctEl = document.querySelector('input[name="ta-pct-single"]:checked');
-  const rateEl = document.querySelector('input[name="ta-rate-single"]:checked');
-  if (!pctEl || !rateEl) return;
-  const pct = parseFloat(pctEl.value) / 100;
-  const rate = parseFloat(rateEl.value);
+  const selectedRate = document.querySelector('input[name="ta-rate-single"]:checked').value;
+  
+  if (!pctEl) return;
+  
+  let rate;
+  if (selectedRate === 'other') {
+    rate = parseFloat(document.getElementById('ta-rate-custom').value);
+    if (isNaN(rate)) return;
+  } else {
+    rate = parseFloat(selectedRate);
+  }
+  
+  let pct = pctEl.value;
+  
+  // Handle combination percentages
+  if (pct === '30+70' || pct === '70+30') {
+    pct = 1.0; // Both combinations equal 100%
+  } else {
+    pct = parseFloat(pct) / 100;
+  }
+  
   const total = rate * pct;
   const rs = Math.floor(total);
   const paise = Math.round((total - rs) * 100);
@@ -5957,16 +6123,21 @@ function addTaEntryToPage() {
   const toStn    = document.getElementById('ta-to-stn-single').value;
   const pct      = document.querySelector('input[name="ta-pct-single"]:checked').value;
   const obj      = document.getElementById('ta-obj-single').value;
-  const rate     = document.querySelector('input[name="ta-rate-single"]:checked').value;
+  const km       = 0;
+  
+  // Get rate from either radio selection or custom input
+  const selectedRate = document.querySelector('input[name="ta-rate-single"]:checked').value;
+  const rate = selectedRate === 'other' ? document.getElementById('ta-rate-custom').value : selectedRate;
+  
   const rs       = document.getElementById('ta-rs-single').value;
   const paise    = document.getElementById('ta-paise-single').value;
-  const modeLabel = mode === 'bytrain' ? `By Train${trainNo ? ' '+trainNo : ''}` : 'By Road';
+  const modeLabel = mode === 'bytrain' ? `By Train${trainNo ? '<br/>('+trainNo+')' : ''}` : 'By Road';
   const dateObj = new Date(dateVal + 'T00:00:00');
   const monthDate = formatTaDate(dateVal);
   taPageEntries[dateVal] = {
     dateRaw: dateVal, monthDate, mode, trainNo, modeLabel,
     leftSrc, arrDest, leftDest, arrSrc, fromStn, toStn,
-    pct, obj, rate, rs, paise
+    pct, obj, km, rate, rs, paise
   };
   showToast(taEditingKey ? `Entry for ${formatTaDate(dateVal)} updated!` : `Entry for ${formatTaDate(dateVal)} added to page!`);
   resetTaSingleForm();
@@ -6000,8 +6171,20 @@ function editTaEntry(dateKey) {
   const pctEl = document.querySelector(`input[name="ta-pct-single"][value="${e.pct}"]`);
   if (pctEl) pctEl.checked = true;
   document.getElementById('ta-obj-single').value = e.obj || '';
-  const rateEl = document.querySelector(`input[name="ta-rate-single"][value="${e.rate}"]`);
-  if (rateEl) rateEl.checked = true;
+  updateCharCount();
+  
+  // Handle rate - check if it's one of the standard options or custom
+  const rateOption = document.querySelector(`input[name="ta-rate-single"][value="${e.rate}"]`);
+  if (rateOption) {
+    rateOption.checked = true;
+    document.getElementById('ta-rate-custom').classList.add('hidden');
+  } else {
+    // It's a custom rate
+    document.querySelector('input[name="ta-rate-single"][value="other"]').checked = true;
+    document.getElementById('ta-rate-custom').classList.remove('hidden');
+    document.getElementById('ta-rate-custom').value = e.rate || '';
+  }
+  
   calcTaAmountSingle();
   document.getElementById('ta-editing-badge').classList.remove('hidden');
   document.getElementById('ta-entry-form-title').innerText = `✏️ Editing: ${formatTaDate(dateKey)}`;
@@ -6072,6 +6255,37 @@ function renderLeaveDateTags(dates) {
   }).join('');
 }
 
+function addCrDetail() {
+  const dateInput = document.getElementById('ta-cr-date-header');
+  const crDate = dateInput.value;
+  if (!crDate) { customAlert("Please select a CR date"); return; }
+  const existing = JSON.parse(document.getElementById('ta-cr-details-json').value || '[]');
+  if (existing.includes(crDate)) { customAlert("This CR date is already added."); return; }
+  existing.push(crDate);
+  document.getElementById('ta-cr-details-json').value = JSON.stringify(existing);
+  dateInput.value = '';
+  renderCrDetailTags(existing);
+}
+
+function removeCrDetail(dateVal) {
+  const existing = JSON.parse(document.getElementById('ta-cr-details-json').value || '[]');
+  const updated = existing.filter(d => d !== dateVal);
+  document.getElementById('ta-cr-details-json').value = JSON.stringify(updated);
+  renderCrDetailTags(updated);
+}
+
+function renderCrDetailTags(crArray) {
+  const container = document.getElementById('ta-cr-details-list');
+  if (!crArray || crArray.length === 0) { container.innerHTML = ''; return; }
+  container.innerHTML = crArray.map(dateVal => {
+    const [y,m,day] = dateVal.split('-');
+    return `<span style="background:#e9d5ff;color:#6b21a8;border:1px solid #d8b4fe;padding:3px 8px;border-radius:20px;font-size:12px;font-weight:bold;display:inline-flex;align-items:center;gap:4px;">
+      CR: ${day}/${m}/${y}
+      <span onclick="removeCrDetail('${dateVal}')" style="cursor:pointer;color:#ef4444;font-weight:bold;margin-left:2px;">×</span>
+    </span>`;
+  }).join('');
+}
+
 function deleteTaEntry(dateKey) {
   if (confirm(`Remove entry for ${formatTaDate(dateKey)}?`)) {
     delete taPageEntries[dateKey];
@@ -6138,8 +6352,31 @@ function getTaHeaderData() {
   const restDatesFmt = restDatesRaw.map(d => { const [y,m,day] = d.split('-'); return `${day}/${m}/${y}`; });
   const leaveDatesRaw = JSON.parse(document.getElementById('ta-leave-dates-json').value || '[]');
   const leaveDatesFmt = leaveDatesRaw.map(d => { const [y,m,day] = d.split('-'); return `${day}/${m}/${y}`; });
-  const crNameHeader = document.getElementById('ta-cr-name-header').value;
-  const crDateHeader = document.getElementById('ta-cr-date-header').value;
+  let crEntries = '';
+  const crDetailsRaw = JSON.parse(document.getElementById('ta-cr-details-json').value || '[]');
+  if (crDetailsRaw.length > 0) {
+    const restParts = [];
+    const leaveParts = [];
+    const crParts = [];
+    if (restDatesFmt.length > 0) restParts.push(`Rest - ${restDatesFmt.length} (${restDatesFmt.join(', ')})`);
+    if (leaveDatesFmt.length > 0) leaveParts.push(`Leave - ${leaveDatesFmt.length} (${leaveDatesFmt.join(', ')})`);
+    if (crDetailsRaw.length > 0) {
+      const crDatesFmt = crDetailsRaw.map(dateVal => {
+        const [y, m, d] = dateVal.split('-');
+        return `${d}/${m}/${y}`;
+      });
+      crParts.push(`CR - ${crDatesFmt.length} (${crDatesFmt.join(', ')})`);
+    }
+    const allParts = [...restParts, ...leaveParts, ...crParts];
+    crEntries = allParts.join(', ');
+  } else {
+    // Even without CR, show Rest/Leave if they exist
+    const restParts = [];
+    const leaveParts = [];
+    if (restDatesFmt.length > 0) restParts.push(`Rest - ${restDatesFmt.length} (${restDatesFmt.join(', ')})`);
+    if (leaveDatesFmt.length > 0) leaveParts.push(`Leave - ${leaveDatesFmt.length} (${leaveDatesFmt.join(', ')})`);
+    crEntries = [...restParts, ...leaveParts].join(', ');
+  }
   const pfNumber  = document.getElementById('ta-pf-number').value;
   const mon = document.getElementById('ta-month-sel').value;
   const yr  = document.getElementById('ta-year-sel').value;
@@ -6157,14 +6394,13 @@ function getTaHeaderData() {
     const apptRaw = document.getElementById('ta-appointment-date') ? document.getElementById('ta-appointment-date').value : '';
     apptDate = apptRaw ? apptRaw.split('-').reverse().join('/') : '';
   }
-  const crDateFmt = crDateHeader ? crDateHeader.split('-').reverse().join('/') : '';
   const reportUnit = document.getElementById('ta-report-unit').value;
   const claimedType = document.getElementById('ta-claimed-type').value || 'T.A';
   return {
     name, firstLine, branch, hqStation,
     restDates: restDatesFmt, restDatesCount: restDatesRaw.length,
     leaveDates: leaveDatesFmt, leaveDatesCount: leaveDatesRaw.length,
-    crNameHeader, crDate: crDateFmt,
+    crEntries,
     pfNumber, allowanceFor, post, pay, scale, level, apptDate,
     designation: claimedType, rule: 'SR',
     reportUnit
@@ -6206,28 +6442,28 @@ function numberToWords(num) {
 function buildTaTableHeaderPage2(bfValue, page1TotalRs, page1TotalPaise) {
   return `
     <colgroup>
-      <col style="width:9%;"><col style="width:10%;"><col style="width:9%;"><col style="width:9%;">
-      <col style="width:7%;"><col style="width:7%;"><col style="width:5%;"><col style="width:7%;">
-      <col style="width:22%;"><col style="width:7%;"><col style="width:5%;"><col style="width:3%;">
+      <col style="width:9%;"><col style="width:10%;"><col style="width:7%;"><col style="width:7%;">
+      <col style="width:7%;"><col style="width:7%;"><col style="width:3%;"><col style="width:5%;">
+      <col style="width:26%;"><col style="width:7%;"><col style="width:5%;"><col style="width:5%;">
     </colgroup>
     <thead>
       <tr>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">महीना और तारीख<br><span style="font-size:7pt;">Month &amp; Date</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">गाड़ी न.<br><span style="font-size:7pt;">No. of Train<br>Steamer/Plane</span></th>
-        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;">प्रस्थान/पहुँचने का समय<br><span style="font-size:7pt;">Time left / Time arrived</span></th>
-        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;">स्टेशन/Station</th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">किलो<br>मीटर<br><span style="font-size:7pt;">Kms.</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">दिन/रात<br><span style="font-size:7pt;">Day/<br>Night</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">यात्रा के उद्देश्य<br><span style="font-size:7pt;">Object of Journey</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;text-align:center;">दर<br><span style="font-size:7pt;">Rate</span><br><span style="font-size:6.5pt;font-weight:bold;">BF = </span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">रु.<br><span style="font-size:7pt;">Rs.</span><br><span style="font-size:6.5pt;font-weight:bold;">${page1TotalRs}</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">पै.<br><span style="font-size:7pt;">P.</span><br><span style="font-size:6.5pt;font-weight:bold;">${String(page1TotalPaise).padStart(2,'0')}</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">महीना और तारीख<br><span style="font-size:8pt;">Month &amp; Date</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">गाड़ी न.<br><span style="font-size:8pt;">No. of Train<br>Steamer/Plane</span></th>
+        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;">प्रस्थान/पहुँचने का समय<br><span style="font-size:8pt;">Time left / Time arrived</span></th>
+        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;">स्टेशन/Station</th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">किलो<br>मीटर<br><span style="font-size:8pt;">Kms.</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">दिन/रात<br><span style="font-size:8pt;">Day/<br>Night</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">यात्रा के उद्देश्य<br><span style="font-size:8pt;">Object of Journey</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;text-align:center;">दर<br><span style="font-size:8pt;">Rate</span><br><span style="font-size:8pt;font-weight:bold;">BF = </span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">रु.<br><span style="font-size:8pt;">Rs.</span><br><span style="font-size:8pt;font-weight:bold;">${page1TotalRs}</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">पै.<br><span style="font-size:8pt;">P.</span><br><span style="font-size:8pt;font-weight:bold;">${String(page1TotalPaise).padStart(2,'0')}</span></th>
       </tr>
       <tr>
-        <th style="border:1px solid #000;padding:1px;font-size:7pt;font-family:'Noto Sans Devanagari',Arial;">प्रस्थान<br>Time left</th>
-        <th style="border:1px solid #000;padding:1px;font-size:7pt;font-family:'Noto Sans Devanagari',Arial;">पहुँचना<br>Time arrived</th>
-        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;">से<br>/From</th>
-        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;">तक<br>/To</th>
+        <th style="border:1px solid #000;padding:1px;font-size:8pt;font-family:'Noto Sans Devanagari',Arial;">प्रस्थान<br>Time left</th>
+        <th style="border:1px solid #000;padding:1px;font-size:8pt;font-family:'Noto Sans Devanagari',Arial;">पहुँचना<br>Time arrived</th>
+        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;">से<br>/From</th>
+        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;">तक<br>/To</th>
       </tr>
     </thead>`;
 }
@@ -6235,48 +6471,75 @@ function buildTaTableHeaderPage2(bfValue, page1TotalRs, page1TotalPaise) {
 function buildTaTableHeader() {
   return `
     <colgroup>
-      <col style="width:9%;"><col style="width:10%;"><col style="width:9%;"><col style="width:9%;">
-      <col style="width:7%;"><col style="width:7%;"><col style="width:5%;"><col style="width:7%;">
-      <col style="width:22%;"><col style="width:7%;"><col style="width:5%;"><col style="width:3%;">
+      <col style="width:9%;"><col style="width:10%;"><col style="width:7%;"><col style="width:7%;">
+      <col style="width:7%;"><col style="width:7%;"><col style="width:3%;"><col style="width:5%;">
+      <col style="width:26%;"><col style="width:7%;"><col style="width:5%;"><col style="width:5%;">
     </colgroup>
     <thead>
       <tr>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">महीना और तारीख<br><span style="font-size:7pt;">Month &amp; Date</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">गाड़ी न.<br><span style="font-size:7pt;">No. of Train<br>Steamer/Plane</span></th>
-        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;">प्रस्थान/पहुँचने का समय<br><span style="font-size:7pt;">Time left / Time arrived</span></th>
-        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;">स्टेशन/Station</th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">किलो<br>मीटर<br><span style="font-size:7pt;">Kms.</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">दिन/रात<br><span style="font-size:7pt;">Day/<br>Night</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">यात्रा के उद्देश्य<br><span style="font-size:7pt;">Object of Journey</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">दर<br><span style="font-size:7pt;">Rate</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">रु.<br><span style="font-size:7pt;">Rs.</span></th>
-        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;font-weight:bold;line-height:1.3;vertical-align:middle;">पै.<br><span style="font-size:7pt;">P.</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">महीना और तारीख<br><span style="font-size:9pt;">Month &amp; Date</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">गाड़ी न.<br><span style="font-size:9pt;">No. of Train<br>Steamer/Plane</span></th>
+        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;">प्रस्थान/पहुँचने का समय<br><span style="font-size:9pt;">Time left / Time arrived</span></th>
+        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;">स्टेशन/Station</th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">किलो<br>मीटर<br><span style="font-size:9pt;">Kms.</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">दिन/रात<br><span style="font-size:9pt;">Day/<br>Night</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">यात्रा के उद्देश्य<br><span style="font-size:9pt;">Object of Journey</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">दर<br><span style="font-size:9pt;">Rate</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">रु.<br><span style="font-size:9pt;">Rs.</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">पै.<br><span style="font-size:9pt;">P.</span></th>
       </tr>
       <tr>
-        <th style="border:1px solid #000;padding:1px;font-size:7pt;font-family:'Noto Sans Devanagari',Arial;">प्रस्थान<br>Time left</th>
-        <th style="border:1px solid #000;padding:1px;font-size:7pt;font-family:'Noto Sans Devanagari',Arial;">पहुँचना<br>Time arrived</th>
-        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;">से<br>/From</th>
-        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:8pt;">तक<br>/To</th>
+        <th style="border:1px solid #000;padding:1px;font-size:9pt;font-family:'Noto Sans Devanagari',Arial;">प्रस्थान<br>Time left</th>
+        <th style="border:1px solid #000;padding:1px;font-size:9pt;font-family:'Noto Sans Devanagari',Arial;">पहुँचना<br>Time arrived</th>
+        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;">से<br>/From</th>
+        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;">तक<br>/To</th>
       </tr>
     </thead>`;
 }
 
 function makeSplitCell(topLeft, bottomRight) {
-  if (!topLeft && !bottomRight) return `<td style="border:1px solid #000;height:24px;padding:0;"></td>`;
-  return `<td style="border:1px solid #000;height:24px;padding:0;position:relative;overflow:hidden;">
-    <div style="position:absolute;top:2px;left:3px;font-size:8pt;line-height:1;white-space:nowrap;">${topLeft || ''}</div>
-    <div style="position:absolute;bottom:2px;right:3px;font-size:8pt;line-height:1;white-space:nowrap;text-align:right;">${bottomRight || ''}</div>
+  if (!topLeft && !bottomRight) return `<td style="border:1px solid #000;height:36px;padding:0;overflow:hidden;"></td>`;
+  return `<td style="border:1px solid #000;height:36px;padding:0;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:1px;left:3px;font-size:12pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;font-weight:bold;overflow:hidden;">${topLeft || ''}</div>
+    <div style="position:absolute;bottom:1px;right:3px;font-size:12pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;text-align:right;font-weight:bold;overflow:hidden;">${bottomRight || ''}</div>
   </td>`;
 }
 
+function makeKmsCell(kmsValue) {
+  if (kmsValue && kmsValue <= 8) return `<td style="border:1px solid #000;padding:1px 2px;font-size:11pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:visible;"></td>`;
+  return `<td style="border:1px solid #000;padding:1px 2px;font-size:11pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:visible;"></td>`;
+}
+
 function makeStationCell(fromStn, toStn, colType) {
-  const topVal    = colType === 'from' ? (fromStn || '') : (toStn   || '');
-  const bottomVal = colType === 'from' ? (toStn   || '') : (fromStn || '');
-  if (!topVal && !bottomVal) return `<td style="border:1px solid #000;height:24px;padding:0;"></td>`;
-  return `<td style="border:1px solid #000;height:24px;padding:0;position:relative;overflow:hidden;">
-    <div style="position:absolute;top:2px;left:3px;font-size:8pt;line-height:1;white-space:nowrap;text-align:left;font-weight:bold;">${topVal}</div>
-    <div style="position:absolute;bottom:2px;right:3px;font-size:8pt;line-height:1;white-space:nowrap;text-align:right;">${bottomVal}</div>
+  const topVal    = colType === 'from' ? (fromStn ? fromStn.toUpperCase() : '') : (toStn ? toStn.toUpperCase() : '');
+  const bottomVal = colType === 'from' ? (toStn ? toStn.toUpperCase() : '') : (fromStn ? fromStn.toUpperCase() : '');
+  if (!topVal && !bottomVal) return `<td style="border:1px solid #000;height:36px;padding:0;overflow:hidden;"></td>`;
+  return `<td style="border:1px solid #000;height:36px;padding:0;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:1px;left:3px;font-size:11pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;text-align:left;font-weight:bold;overflow:hidden;">${topVal}</div>
+    <div style="position:absolute;bottom:1px;right:3px;font-size:11pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;text-align:right;font-weight:bold;overflow:hidden;">${bottomVal}</div>
   </td>`;
+}
+
+function toSentenceCase(text) {
+  if (!text) return '';
+  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+}
+
+function toSentenceCaseWithAcronyms(text) {
+  if (!text) return '';
+  const acronyms = ['KM', 'RMC', 'RGD', 'DFW', 'SEJ', 'NATESAR', 'NES', 'HIS', 'TIA', 'NKPU', 'SILAO'];
+  const stationCodes = ['NES', 'NATESAR', 'DFW', 'SILAO'];
+  
+  // Convert to sentence case
+  let result = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+  
+  // Preserve acronyms - find and replace them case-insensitively to maintain uppercase
+  acronyms.forEach(acronym => {
+    const regex = new RegExp('\\b' + acronym + '\\b', 'gi');
+    result = result.replace(regex, acronym);
+  });
+  
+  return result;
 }
 
 function buildTaDataRows(entries) {
@@ -6287,16 +6550,19 @@ function buildTaDataRows(entries) {
     const fromStnCell = makeStationCell(e.fromStn, e.toStn, 'from');
     const toStnCell   = makeStationCell(e.fromStn, e.toStn, 'to');
     const pctLabel = e.pct ? e.pct + '%' : '';
+    const objText = toSentenceCaseWithAcronyms(e.obj || '');
+    const modeFontSize = e.mode === 'bytrain' ? '10pt' : '12pt';
+    const pctFontSize = String(e.pct).includes('+') ? '10pt' : '12pt';
     rows += `<tr>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;">${e.monthDate || ''}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;">${e.modeLabel}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;">${e.monthDate || ''}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:${modeFontSize};font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;white-space:normal;line-height:1.2;">${e.modeLabel}</td>
       ${timeLeftCell}${timeArrivedCell}${fromStnCell}${toStnCell}
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;"></td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;">${pctLabel}</td>
-      <td style="border:1px solid #000;padding:2px 3px;font-size:6pt;height:24px;text-align:left;text-align-last:center;vertical-align:middle;overflow:hidden;word-wrap:break-word;word-break:break-word;white-space:normal;line-height:1.2;">${e.obj}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;height:24px;text-align:center;vertical-align:middle;">${e.rate}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;height:24px;text-align:center;vertical-align:middle;">${e.rs}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;height:24px;text-align:center;vertical-align:middle;">${e.paise}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;"></td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:${pctFontSize};font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;">${pctLabel}</td>
+      <td style="border:1px solid #000;padding:2px 3px;font-size:10pt;font-family:'Times New Roman',serif;height:36px;text-align:left !important;vertical-align:middle;overflow:hidden;word-wrap:break-word;word-break:break-word;white-space:normal;line-height:1.3;font-weight:bold;">${objText}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;">${e.rate}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;font-weight:bold;height:36px;text-align:center;vertical-align:middle;overflow:hidden;">${e.rs}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;font-weight:bold;height:36px;text-align:center;vertical-align:middle;overflow:hidden;">${e.paise}</td>
     </tr>`;
   });
   return rows;
@@ -6306,19 +6572,19 @@ function buildBlankRows(n) {
   let rows = '';
   for (let i = 0; i < n; i++) {
     // Create completely blank rows (no diagonal in cells)
-    const regularCells = Array(10).fill('<td style="border:1px solid #000;font-size:8pt;"></td>').join('');
-    const blankRs = '<td style="border:1px solid #000;font-size:8pt;"></td>';
-    const blankPaise = '<td style="border:1px solid #000;font-size:8pt;"></td>';
-    rows += `<tr style="height:24px;" class="blank-row">${regularCells}${blankRs}${blankPaise}</tr>`;
+    const regularCells = Array(10).fill('<td style="border:1px solid #000;font-size:11pt;font-family:\'Times New Roman\',serif;overflow:hidden;"></td>').join('');
+    const blankRs = '<td style="border:1px solid #000;font-size:11pt;font-family:\'Times New Roman\',serif;overflow:hidden;"></td>';
+    const blankPaise = '<td style="border:1px solid #000;font-size:11pt;font-family:\'Times New Roman\',serif;overflow:hidden;"></td>';
+    rows += `<tr style="height:36px;" class="blank-row">${regularCells}${blankRs}${blankPaise}</tr>`;
   }
   return rows;
 }
 
 function buildBlankRowsOverlay(n, numEntriesBefore) {
   if (n === 0) return '';
-  const rowHeight = 24; // each row is 24px
+  const rowHeight = 36; // each row is 36px
   const blankRowsHeight = n * rowHeight;
-  const headerHeight = 52; // Table header height (accounts for colgroup + 2 header rows with padding)
+  const headerHeight = 48; // Table header height (accounts for colgroup + 2 header rows with padding, adjusted for new sizes)
   const startY = headerHeight + (numEntriesBefore * rowHeight); // Y position where blanks start
   // RS column: 92% to 97%
   // P column: 97% to 100%
@@ -6330,11 +6596,11 @@ function buildBlankRowsOverlay(n, numEntriesBefore) {
 }
 
 function buildPage1TotalTableRow(page1TotalRs, page1TotalPaise) {
-  return `<tr style="height:24px;">
-    <td style="border:1px solid #000;font-size:8pt;" colspan="9"></td>
-    <td style="border:1px solid #000;padding:1px 2px;font-size:7.5pt;font-weight:bold;text-align:right;vertical-align:middle;"><b>TOTAL</b></td>
-    <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;">${page1TotalRs}</td>
-    <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;">${String(page1TotalPaise).padStart(2,'0')}</td>
+  return `<tr style="height:36px;">
+    <td style="border:1px solid #000;font-size:11pt;overflow:hidden;" colspan="9"></td>
+    <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:right;vertical-align:middle;overflow:hidden;"><b>TOTAL</b></td>
+    <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">${page1TotalRs}</td>
+    <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">${String(page1TotalPaise).padStart(2,'0')}</td>
   </tr>`;
 }
 
@@ -6342,65 +6608,40 @@ function buildGrandTotalTableRow(grandTotalRs, grandTotalPaise) {
   const hasPaise = grandTotalPaise > 0;
   const addPaise = hasPaise ? (100 - grandTotalPaise) : 0;
   const roundedTotal = hasPaise ? (grandTotalRs + 1) : grandTotalRs;
-
+  
   if (!hasPaise) {
-    return `<tr style="height:24px;">
-      <td style="border:1px solid #000;font-size:8pt;" colspan="9"></td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:7.5pt;font-weight:bold;text-align:center;vertical-align:middle;">TOTAL</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;">${grandTotalRs}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;">00</td>
+    return `<tr style="height:36px;">
+      <td style="border:1px solid #000;font-size:11pt;overflow:hidden;" colspan="9"></td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">TOTAL</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">₹${grandTotalRs}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">00</td>
     </tr>`;
   } else {
-    return `<tr style="height:24px;">
-      <td style="border:1px solid #000;font-size:8pt;" colspan="9"></td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:7.5pt;font-weight:bold;text-align:center;vertical-align:middle;">TOTAL</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;">${grandTotalRs}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;">.${String(grandTotalPaise).padStart(2,'0')}</td>
+    return `<tr style="height:36px;">
+      <td style="border:1px solid #000;font-size:11pt;overflow:hidden;" colspan="9"></td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">TOTAL</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">${grandTotalRs}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">.${String(grandTotalPaise).padStart(2,'0')}</td>
     </tr>
-    <tr style="height:24px;">
-      <td style="border:1px solid #000;font-size:8pt;" colspan="9"></td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:7.5pt;font-weight:bold;text-align:center;vertical-align:middle;"></td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;"></td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;">+.${String(addPaise).padStart(2,'0')}</td>
+    <tr style="height:36px;">
+      <td style="border:1px solid #000;font-size:11pt;overflow:hidden;" colspan="9"></td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;"></td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;"></td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">+ .${String(addPaise).padStart(2,'0')}</td>
     </tr>
-    <tr style="height:24px;">
-      <td style="border:1px solid #000;font-size:8pt;" colspan="9"></td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:7.5pt;font-weight:bold;text-align:center;vertical-align:middle;">TOTAL</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;">${roundedTotal}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:8pt;font-weight:bold;text-align:center;vertical-align:middle;">00</td>
+    <tr style="height:36px;">
+      <td style="border:1px solid #000;font-size:11pt;overflow:hidden;" colspan="9"></td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">TOTAL</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">₹${roundedTotal}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">00</td>
     </tr>`;
   }
 }
 
 function adjustObjectOfJourneyFontSize() {
-  // Find all td cells that contain Object of Journey text (9th column in the table)
-  // The Object of Journey column is at index 8 (0-based), so it's the 9th td child
-  const tables = document.querySelectorAll('.ta-j-table');
-  console.log('Found tables:', tables.length);
-  
-  tables.forEach(table => {
-    const rows = table.querySelectorAll('tbody tr');
-    console.log('Processing rows:', rows.length);
-    
-    rows.forEach(row => {
-      const cells = row.querySelectorAll('td');
-      if (cells.length >= 9) {
-        // Object of Journey is at index 8 (9th column)
-        const objCell = cells[8];
-        const text = objCell.textContent.trim();
-        
-        console.log('Object of Journey text:', text, 'Length:', text.length);
-        
-        // If text is short (less than 40 characters), it's likely a single line - increase font size
-        // This is a more reliable check than scrollHeight since cells have fixed height
-        if (text.length > 0 && text.length <= 40) {
-          console.log('Setting 8pt font for:', text);
-          objCell.style.setProperty('font-size', '8pt', 'important');
-        }
-        // Otherwise keep the original 6pt
-      }
-    });
-  });
+  // Disabled: Row heights are now fixed and do not increase with text content
+  // All Object of Journey cells maintain consistent height in PDF
+  // Character limit is locked to 102 and enforced in the form input
 }
 
 function buildSummaryOverlay(summaryGroupArr, grandTotalRs, grandTotalPaise, grandTotalWords) {
@@ -6408,19 +6649,29 @@ function buildSummaryOverlay(summaryGroupArr, grandTotalRs, grandTotalPaise, gra
   const addPaise = hasPaise ? (100 - grandTotalPaise) : 0;
   const roundedTotal = hasPaise ? (grandTotalRs + 1) : grandTotalRs;
 
-  const ff = "font-family:Arial,sans-serif;font-size:6.5pt;line-height:1.1;";
+  const ff = "font-family:Arial,sans-serif;font-size:10pt;line-height:1.1;";
 
-  let summaryLines = summaryGroupArr.map((g, idx) => {
+  let summaryLines = '';
+  summaryGroupArr.forEach((g, idx) => {
     const gTotal = g.total;
     const gRs    = Math.floor(gTotal);
     const gPaise = Math.round((gTotal - gRs) * 100);
     const gDisplay = `${gRs}.${String(gPaise).padStart(2,'0')}`;
     const perEntry = parseFloat(g.rate) * parseFloat(g.pct) / 100;
     const perEntryDisplay = perEntry.toFixed(2);
-    const label = idx === 0 ? '<u><b>SUMMARY:</b></u>&nbsp;&nbsp;' : '';
-    const padding = idx === 0 ? '20px' : '40px';
-    return `<div style="${ff}padding-left:${padding};font-weight:normal;margin:0;padding-top:1px;padding-bottom:1px;">${label}${g.count} * ${perEntryDisplay} = ${gDisplay}</div>`;
-  }).join('');
+    if (idx === 0) {
+      summaryLines += `<div style="${ff}padding-left:20px;font-weight:600;font-family:'Times New Roman',serif;margin:0;padding-top:1px;padding-bottom:1px;"><u><b>SUMMARY:</b></u></div>`;
+    }
+    
+    // Check if pct contains multiple percentages (e.g., "30+70")
+    const hasMultiplePcts = String(g.pct).includes('+');
+    if (hasMultiplePcts) {
+      // Format: 70%+30% = 100%×15 = 625×15 = ₹(calculated value)
+      summaryLines += `<div style="${ff}padding-left:40px;font-weight:bold;font-family:'Times New Roman',serif;margin:0;padding-top:1px;padding-bottom:1px;">${g.pct}% <b>=</b> 100% <b>×</b> ${g.count} <b>=</b> ${g.rate} <b>×</b> ${g.count} <b>=</b> ₹${gDisplay}</div>`;
+    } else {
+      summaryLines += `<div style="${ff}padding-left:40px;font-weight:bold;font-family:'Times New Roman',serif;margin:0;padding-top:1px;padding-bottom:1px;">${g.pct}% <b>×</b> ${g.count} <b>=</b> ${perEntryDisplay} <b>×</b> ${g.count} <b>=</b> ₹${gDisplay}</div>`;
+    }
+  });
 
   const uline = `<div style="border-top:1px solid #000;margin:1px 0;"></div>`;
 
@@ -6430,72 +6681,85 @@ function buildSummaryOverlay(summaryGroupArr, grandTotalRs, grandTotalPaise, gra
   let totalBlock = '';
   if (!hasPaise) {
     totalBlock = `${uline}
-      <div style="${ff}padding-left:40px;font-weight:bold;margin:0;padding-top:1px;"><b>TOTAL</b> = ${finalTotalVal} <span style="font-size:5.5pt;font-style:italic;font-weight:normal;margin-left:3px;">(<em>${grandTotalWords}</em>)</span></div>`;
+      <div style="${ff}padding-left:40px;font-weight:600;font-family:'Times New Roman',serif;margin:0;padding-top:1px;"><b>TOTAL</b> = ₹${finalTotalVal} <span style="font-size:9pt;font-style:italic;font-weight:bold;margin-left:3px;">(<b><em>${grandTotalWords}</em></b>)</span></div>`;
   } else {
+    // Calculate padding based on the TOTAL value to align the decimal
+    const integerPart = firstTotalVal.split('.')[0]; // e.g., "662" from "662.50"
+    const paddingNeeded = "TOTAL = ₹".length + integerPart.length; // Position of the decimal
+    const paddingSpaces = " ".repeat(paddingNeeded - 1); // -1 for the "+" character
+
     totalBlock = `${uline}
-      <div style="${ff}padding-left:40px;font-weight:bold;margin:0;padding-top:1px;padding-bottom:1px;"><b>TOTAL</b> = ${firstTotalVal}</div>
-      <div style="${ff}padding-left:60px;font-weight:normal;margin:0;padding-top:0;padding-bottom:1px;">+  .${String(addPaise).padStart(2,'0')}</div>
+      <div style="${ff} padding-left:40px; font-family:'Times New Roman',serif; font-weight:600; margin:0; line-height:1.2;">
+        TOTAL = ₹${firstTotalVal}
+      </div>
+      <div style="${ff} padding-left:40px; font-family:'Times New Roman',serif; font-weight:600; margin:0; line-height:1.2;">
+        ${paddingSpaces}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+.${String(addPaise).padStart(2,'0')}
+      </div>
     ${uline}
-      <div style="${ff}padding-left:40px;font-weight:bold;margin:0;padding-top:1px;"><b>TOTAL</b> = ${finalTotalVal} <span style="font-size:5.5pt;font-style:italic;font-weight:normal;margin-left:3px;">(<em>${grandTotalWords}</em>)</span></div>`;
+      <div style="${ff} padding-left:40px; font-weight:600; font-family:'Times New Roman',serif; margin:0; padding-top:1px;">
+        <b>TOTAL</b> = ₹${finalTotalVal} 
+        <span style="font-size:9pt; font-style:italic; font-weight:bold; margin-left:3px;">
+          (<b><em>${grandTotalWords}</em></b>)
+        </span>
+      </div>`;
   }
 
-  return `<div style="position:absolute;left:8.33%;bottom:0;width:58%;pointer-events:none;z-index:10;background:#fff;border:1.5px solid #000;padding:3px 5px;font-family:Arial,sans-serif;">
+  return `<div style="position:absolute;left:8.33%;bottom:0;width:58%;pointer-events:none;z-index:10;background:#fff;border:1.5px solid #000;padding:3px 5px;font-family:Arial,sans-serif;color:#000;">
     ${summaryLines}
     ${totalBlock}
   </div>`;
 }
 
 function generateTaPreview() {
-  const keys = Object.keys(taPageEntries).sort();
-  if (keys.length === 0) { customAlert("Please add at least one journey entry using 'Add to Page'."); return; }
-  const entries = keys.map(k => taPageEntries[k]);
-  const header = getTaHeaderData();
-  const summaryGroups = buildSummary(entries);
-  let grandTotal = 0;
-  Object.values(summaryGroups).forEach(g => { grandTotal += g.total; });
-  const grandTotalRs    = Math.floor(grandTotal);
-  const grandTotalPaise = Math.round((grandTotal - grandTotalRs) * 100);
-  const hasPaise = grandTotalPaise > 0;
-  const roundedTotal = hasPaise ? (grandTotalRs + 1) : grandTotalRs;
-  const grandTotalWords = numberToWords(roundedTotal);
+  try {
+    console.log('🔍 generateTaPreview() started');
+    const keys = Object.keys(taPageEntries).sort();
+    console.log('✅ taPageEntries keys:', keys.length);
+    if (keys.length === 0) { customAlert("Please add at least one journey entry using 'Add to Page'."); return; }
+    const entries = keys.map(k => taPageEntries[k]);
+    console.log('✅ entries mapped:', entries.length);
+    const header = getTaHeaderData();
+    console.log('✅ header data retrieved');
+    const summaryGroups = buildSummary(entries);
+    console.log('✅ summary groups built');
+    let grandTotal = 0;
+    Object.values(summaryGroups).forEach(g => { grandTotal += g.total; });
+    const grandTotalRs    = Math.floor(grandTotal);
+    const grandTotalPaise = Math.round((grandTotal - grandTotalRs) * 100);
+    const hasPaise = grandTotalPaise > 0;
+    const roundedTotal = hasPaise ? (grandTotalRs + 1) : grandTotalRs;
+    const grandTotalWords = numberToWords(roundedTotal);
+    console.log('✅ totals calculated');
 
-  const ROWS_PAGE1 = 19;
+  const ROWS_PAGE1 = 15;
   const page1Entries = entries.slice(0, ROWS_PAGE1);
   const page1Blanks  = Math.max(0, ROWS_PAGE1 - page1Entries.length);
   const page2Entries = entries.slice(ROWS_PAGE1);
 
   const summaryGroupArr = Object.values(summaryGroups);
-  const summaryRowCount = summaryGroupArr.length + 4;
+  const summaryRowCount = summaryGroupArr.length;
   const totalRowCount = hasPaise ? 3 : 1;
-  const ROWS_PAGE2 = 20;
-  const page2MinBlanks = Math.max(0, ROWS_PAGE2 - page2Entries.length - summaryRowCount);
-  const page2Blanks = Math.max(page2MinBlanks, 0);
+  const ROWS_PAGE2 = 14;
+  const page2Blanks = Math.max(0, (ROWS_PAGE2 - totalRowCount) - page2Entries.length);
 
   let restLeaveText = '';
-  const restParts = [];
-  const leaveParts = [];
-  if (header.restDatesCount > 0) restParts.push(`Rest - ${header.restDatesCount} (${header.restDates.join(', ')})`);
-  if (header.leaveDatesCount > 0) leaveParts.push(`Leave - ${header.leaveDatesCount} (${header.leaveDates.join(', ')})`);
-  const combined = [...restParts, ...leaveParts];
-  restLeaveText = combined.join(', ');
-  if (header.crNameHeader) {
-    restLeaveText += (restLeaveText ? '&nbsp;&nbsp;&nbsp;' : '') + `CR: ${header.crNameHeader}`;
-    if (header.crDate) restLeaveText += ` (${header.crDate})`;
+  if (header.crEntries) {
+    restLeaveText = header.crEntries;
   }
 
   const metaFF = "font-family:'Noto Sans Devanagari',Arial,sans-serif;";
-  const crLeft = header.crNameHeader ? `CR: ${header.crNameHeader}` : '&nbsp;';
+  const crLeft = '&nbsp;';
 
-  const topBarHTML = `<div style="display:flex;justify-content:space-between;align-items:baseline;width:100%;margin-bottom:1px;${metaFF}font-size:7.5pt;line-height:1.8;">
+  const topBarHTML = `<div style="display:flex;justify-content:space-between;align-items:baseline;width:100%;margin-bottom:1px;${metaFF}font-size:11pt;line-height:1.8;">
     <span style="font-weight:bold;min-height:12px;">${restLeaveText || '&nbsp;'}</span>
     <span style="font-weight:bold;min-height:12px;text-align:center;flex:1;padding:0 8px;">${crLeft}</span>
     <span style="font-weight:bold;min-height:12px;">${header.pfNumber ? 'PF No. ' + header.pfNumber : '&nbsp;'}</span>
   </div>`;
 
-  const titleHTML = `<div style="text-align:center;font-size:10pt;font-weight:bold;margin:1px 0 5px 0;width:100%;${metaFF}letter-spacing:0.04em;">यात्रा भत्ता विवरण / TRAVELLING ALLOWANCE JOURNAL</div>`;
+  const titleHTML = `<div style="text-align:center;font-size:12pt;font-weight:bold;margin:1px 0 5px 0;width:100%;${metaFF}letter-spacing:0.04em;">यात्रा भत्ता विवरण / TRAVELLING ALLOWANCE JOURNAL</div>`;
 
   const mFF = "font-family:'Noto Sans Devanagari',Arial,sans-serif;";
-  const rowStyle = `display:flex;align-items:flex-end;width:calc(100% - 1.6cm);margin-left:0.8cm;margin-right:0.8cm;${mFF}font-size:9.2pt;line-height:1;flex-wrap:nowrap;font-weight:bold;word-spacing:3px;`;
+  const rowStyle = `display:flex;align-items:flex-end;width:calc(100% - 1.6cm);margin-left:0.8cm;margin-right:0.8cm;${mFF}font-size:11pt;line-height:1;flex-wrap:nowrap;font-weight:bold;word-spacing:3px;`;
   const lblStyle = `white-space:nowrap;flex-shrink:0;font-weight:bold;word-spacing:3px;`;
   const val = (text, minW, grow) => {
     const g = grow ? 'flex:1 1 auto;' : `flex:0 0 ${minW};`;
@@ -6512,7 +6776,7 @@ function generateTaPreview() {
 
   const metaRow1 = `<div style="${rowStyle}margin-bottom:4px;">
     <span style="display:inline-flex;flex-direction:column;align-items:center;flex:0 0 auto;min-width:120px;max-width:180px;">
-      <span style="font-size:8.5pt;font-weight:800;letter-spacing:0.06em;line-height:1;white-space:nowrap;align-self:center;">ENGINEERING</span>
+      <span style="font-size:10pt;font-weight:800;letter-spacing:0.06em;line-height:1;white-space:nowrap;align-self:center;">ENGINEERING</span>
       <span style="width:100%;border-bottom:2px dotted #000;display:block;min-height:3px;margin-top:2px;"></span>
     </span>
     ${sp}<span style="${lblStyle}">शाखा/Branch</span>${val(header.branch || 'DANAPUR','110px',false)}${sp}
@@ -6535,8 +6799,8 @@ function generateTaPreview() {
   </div>`;
 
 
-  const kmOverlayHTML = `<div style="position:absolute;top:0;left:51%;width:5%;height:100%;pointer-events:none;z-index:5;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-    <div style="font-size:8pt;font-weight:bold;font-family:Arial,sans-serif;color:#000;white-space:nowrap;transform:rotate(-90deg);transform-origin:center center;letter-spacing:2px;">&#9668;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135; OVER 8 K.M &#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9658;</div>
+  const kmOverlayHTML = `<div style="position:absolute;top:0;left:48.3%;width:3%;height:100%;pointer-events:none;z-index:5;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+    <div style="font-size:10pt;font-weight:bold;font-family:Arial,sans-serif;color:#000;white-space:nowrap;transform:rotate(-90deg);transform-origin:center center;letter-spacing:2px;">&#9668;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135; OVER 8 K.M &#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9658;</div>
   </div>`;
 
   let page1Total = 0;
@@ -6554,7 +6818,7 @@ function generateTaPreview() {
 
   const page1TableHTML = `<div style="position:relative;width:100%;">${kmOverlayHTML}${page1BlankOverlay}<table class="ta-j-table" style="margin-top:0;width:100%;">${buildTaTableHeader()}<tbody>${buildTaDataRows(page1Entries)}${buildBlankRows(page1Blanks)}${buildPage1TotalTableRow(page1TotalRs, page1TotalPaise)}</tbody></table></div>`;
 
-  const ptoHTML = `<div style="display:flex;justify-content:flex-end;font-family:'Courier New',monospace;font-size:4.5pt;font-weight:bold;margin-top:0;margin-bottom:0;padding:0;width:100%;">
+  const ptoHTML = `<div style="display:flex;justify-content:flex-end;font-family:'Courier New',monospace;font-size:12pt;font-weight:bold;margin-top:0;margin-bottom:0;padding:0;width:100%;">
     <span style="letter-spacing:0.08em;">P.T.O.</span>
   </div>`;
 
@@ -6568,17 +6832,17 @@ function generateTaPreview() {
   const dline = (txt, w) =>
     `<span style="display:inline-block;min-width:${w};border-bottom:1.5px dotted #000;font-weight:bold;padding:0 2px 1px 2px;line-height:1.05;vertical-align:bottom;text-align:center;">${txt}</span>`;
 
-  const certHTML = `<div style="width:100%;margin-top:3mm;${certFF}font-size:9pt;font-weight:bold;line-height:1.2;word-spacing:2px;text-align:justify;">
-    <div style="word-spacing:2.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;मैं प्रमाणित करता हूँ कि श्री ${dline(pdfName,'200px')} बिल में दिये गये समय के लिए रेलवे के काम के सदर मुकाम स्टेशन से बाहर गये थे उन्हीं ने रेल / सड़क / जहाज / हवाई जहाज</div>
-    <div style="word-spacing:3.5px;">से जो यात्रा की है उसके लिए उन्हें सरकारी स्थानीय निधि से मुक्त टिकट या मुफ्त सवारी दी गयी/नहीं दी गई I hereby certify that the above mentioned ${dline('','120px')} was absent</div>
-    <div style="word-spacing:0px;">on duty from his headquarters' station during the period mentioned in the bill on railway business and that the officer performed the journey by Rail/Air/Sea/Road and was</div>
-    <div> allowed/not allowed free pass or free locomotion at the expenses of Government/local fund of Indian State.</div>
+  const certHTML = `<div style="width:100%;margin-top:3mm;${certFF}font-size:9.2pt;font-weight:bold;line-height:1.2;word-spacing:4.5px;text-align:justify;">
+    <div style="word-spacing:4.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;मैं प्रमाणित करता हूँ कि श्री ${dline(pdfName,'200px')} बिल में दिये गये समय के लिए रेलवे के काम के सदर मुकाम स्टेशन से बाहर गये थे उन्हीं ने रेल / सड़क / जहाज / हवाई जहाज</div>
+    <div style="word-spacing:5px;">से जो यात्रा की है उसके लिए उन्हें सरकारी स्थानीय निधि से मुक्त टिकट या मुफ्त सवारी दी गयी/नहीं दी गई I hereby certify that the above mentioned ${dline('','120px')} was absent</div>
+    <div style="word-spacing:3.5px;">on duty from his headquarters' station during the period mentioned in the bill on railway business and that the officer performed the journey by Rail / Air / Sea / Road and was</div>
+    <div> allowed / not allowed free pass or free locomotion at the expenses of Government / local fund of Indian State.</div>
     <div style="height:3pt;"></div>
-    <div style="word-spacing:3.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ड्यूटी पास पर की गयी यात्राओं तथा ठहरावों के लिए, जिनके इस बिल में यात्रा भत्ते / दैनिक भत्ते के दावे पेश किये गये हैं, किसी अन्य माध्यम से यात्रा भत्ता/दैनिक भत्ता तथा अन्य पारिश्रमिक </div>
-    <div style="word-spacing:0px;">नहीं लिया गया है / No T.A./D.A. or any other remuneration has been drawn from any other source in respect of the journeys performed on Duty Pass and also for the halts for</div>
-    <div>which T.A./D.A. has been claimed in this bill.</div>
+    <div style="word-spacing:5.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ड्यूटी पास पर की गयी यात्राओं तथा ठहरावों के लिए, जिनके इस बिल में यात्रा भत्ते / दैनिक भत्ते के दावे पेश किये गये हैं, किसी अन्य माध्यम से यात्रा भत्ता/दैनिक भत्ता तथा अन्य पारिश्रमिक </div>
+    <div style="word-spacing:4.5px;">नहीं लिया गया है / No T.A./D.A. or any other remuneration has been drawn from any other source in respect of the journeys performed on Duty Pass and also for the halts</div>
+    <div>for which T.A./D.A. has been claimed in this bill.</div>
     <div style="height:3pt;"></div>
-    <div style="word-spacing:4px;">प्रति हस्ताक्षरित / Countersigned नियंत्रक अफसर/Controlling Officer कार्यालय के प्रधान/Head of Office यात्रा भत्ता लेनेवाले अफसर के हस्ताक्षर / Signature of Officer claiming T.A</div>
+    <div style="word-spacing:5.5px;">प्रति हस्ताक्षरित / Countersigned नियंत्रक अफसर/Controlling Officer कार्यालय के प्रधान/Head of Office यात्रा भत्ता लेनेवाले अफसर के हस्ताक्षर / Signature of Officer claiming T.A</div>
     <div style="margin-top:5pt;">
       <div>नोट :– 1. &nbsp;एक रेलवे से दूसरी रेलवे में बदली होने पर जो यात्रा भत्ता मांगा जाय उसे बिल में यह स्पष्ट लिख देना चाहिए कि सरकार की ओर से यात्रा के लिए मुक्त टिकट या मुफ्त सवारी दी गई है या नहीं दी गई है।</div>
       <div>Note :– 1. &nbsp;On T.A. Bills for transfer from one railway to another, a certificate whether or not a free pass or free locomotion at government expense was allowed should be recorded on the bill.</div>
@@ -6600,10 +6864,20 @@ function generateTaPreview() {
     </div>
   </div>`;
 
-  document.getElementById('ta-pdf-content').innerHTML = fullHTML;
-  document.getElementById('ta-pdf-content').style.display = 'block';
+  console.log('✅ fullHTML constructed, length:', fullHTML.length);
+  const contentDiv = document.getElementById('ta-pdf-content');
+  if (!contentDiv) {
+    console.error('❌ ERROR: ta-pdf-content div not found!');
+    customAlert('Error: Preview container not found. Please reload the page.');
+    return;
+  }
+  console.log('✅ contentDiv found');
+  contentDiv.innerHTML = fullHTML;
+  console.log('✅ innerHTML set');
+  contentDiv.style.display = 'block';
   document.getElementById('ta-report-content').style.display = 'none';
   currentTaViewMode = 'journal';
+  console.log('✅ display styles set');
   
   // Adjust Object of Journey font size based on content wrapping
   setTimeout(() => {
@@ -6611,7 +6885,14 @@ function generateTaPreview() {
     adjustObjectOfJourneyFontSize();
   }, 300);
   
+  console.log('✅ About to show section: ta-preview-section');
   showSection('ta-preview-section');
+  console.log('✅ generateTaPreview() completed successfully');
+  } catch (error) {
+    console.error('❌ ERROR in generateTaPreview:', error);
+    console.error('Stack:', error.stack);
+    customAlert('Error generating preview: ' + error.message);
+  }
 }
 
 function generateTaReport() {
@@ -6659,25 +6940,40 @@ function generateTaReport() {
     });
   });
   
+  // Add CR entries
+  const crDetailsRaw = JSON.parse(document.getElementById('ta-cr-details-json').value || '[]');
+  crDetailsRaw.forEach(dateVal => {
+    if (dateVal) {
+      const [y, m, d] = dateVal.split('-');
+      const crDateFormatted = `${d}/${m}/${y}`;
+      allDateEntries.push({
+        dateRaw: dateVal,
+        dateFormatted: crDateFormatted,
+        type: 'CR',
+        work: 'CR'
+      });
+    }
+  });
+  
   // Sort by date
   allDateEntries.sort((a, b) => a.dateRaw.localeCompare(b.dateRaw));
   
   let reportRows = allDateEntries.map((e) => {
     return `<tr>
-      <td style="border:none;padding:5px 12px 5px 0;font-size:9pt;font-weight:normal;${ff}text-align:left;vertical-align:top;width:22%;white-space:nowrap;">${e.dateFormatted}</td>
-      <td style="border:none;padding:5px 0 5px 12px;font-size:9pt;font-weight:normal;${ff}text-align:left;vertical-align:top;">${e.work || '-'}</td>
+      <td style="border:none;padding:2px 12px 2px 0;font-size:8.5pt;font-weight:normal;${ff}text-align:left;vertical-align:top;width:22%;white-space:nowrap;line-height:1;">${e.dateFormatted}</td>
+      <td style="border:none;padding:2px 0 2px 12px;font-size:8.5pt;font-weight:normal;${ff}text-align:left;vertical-align:top;line-height:1;">${e.work || '-'}</td>
     </tr>`;
   }).join('');
 
-  const reportHTML = `<div style="background:white;width:100%;${ff}color:#000;border:2px solid #000;padding:16px 20px 20px 20px;">
-    <div style="text-align:center;font-size:12pt;font-weight:bold;text-decoration:underline;text-underline-offset:3px;letter-spacing:0.08em;margin-bottom:14px;${ff}color:#000;">T.A MOVEMENT (${monthYear})</div>
-    <div style="font-size:9pt;${ff}line-height:2;color:#000;"><span style="font-weight:bold;">Name</span> &nbsp;:&nbsp; ${header.name || ''}</div>
-    <div style="font-size:9pt;${ff}line-height:2;color:#000;"><span style="font-weight:bold;">Designation</span> &nbsp;:&nbsp; ${header.post || header.designation || ''}</div>
-    <div style="font-size:9pt;${ff}line-height:2;color:#000;"><span style="font-weight:bold;">Station</span> &nbsp;:&nbsp; ${header.reportUnit || ''}</div>
-    <div style="font-size:9pt;${ff}line-height:2;color:#000;"><span style="font-weight:bold;">PF Number</span> &nbsp;:&nbsp; ${header.pfNumber || ''}</div>
-    <div style="font-size:9pt;${ff}line-height:2;color:#000;margin-bottom:10px;"><span style="font-weight:bold;">Month</span> &nbsp;:&nbsp; ${monthYear}</div>
-    <div style="border-top:2px dashed #000;width:100%;margin:6px 0 10px 0;"></div>
-    <table style="width:100%;border-collapse:collapse;border:none;">
+  const reportHTML = `<div style="background:white;width:100%;${ff}color:#000;border:2px solid #000;padding:12px 16px 16px 16px;">
+    <div style="text-align:center;font-size:11pt;font-weight:bold;text-decoration:underline;text-underline-offset:2px;letter-spacing:0.08em;margin-bottom:8px;${ff}color:#000;">T.A MOVEMENT (${monthYear})</div>
+    <div style="font-size:8.5pt;${ff}line-height:1.4;color:#000;"><span style="font-weight:bold;">Name</span> &nbsp;:&nbsp; ${header.name || ''}</div>
+    <div style="font-size:8.5pt;${ff}line-height:1.4;color:#000;"><span style="font-weight:bold;">Designation</span> &nbsp;:&nbsp; ${header.post || header.designation || ''}</div>
+    <div style="font-size:8.5pt;${ff}line-height:1.4;color:#000;"><span style="font-weight:bold;">Station</span> &nbsp;:&nbsp; ${header.reportUnit || ''}</div>
+    <div style="font-size:8.5pt;${ff}line-height:1.4;color:#000;"><span style="font-weight:bold;">PF Number</span> &nbsp;:&nbsp; ${header.pfNumber || ''}</div>
+    <div style="font-size:8.5pt;${ff}line-height:1.4;color:#000;margin-bottom:6px;"><span style="font-weight:bold;">Month</span> &nbsp;:&nbsp; ${monthYear}</div>
+    <div style="border-top:2px dashed #000;width:100%;margin:4px 0 6px 0;"></div>
+    <table style="width:100%;border-collapse:collapse;border:none;line-height:1;">
       <tbody>${reportRows}</tbody>
     </table>
   </div>`;
@@ -6715,29 +7011,36 @@ function printTaReport() {
 async function saveTaJournalToDB() {
   const keys = Object.keys(taPageEntries).sort();
   if (keys.length === 0) { customAlert("Please add at least one journey entry."); return; }
+  const currentUser = window.currentUserAuth;
+  if (!currentUser || !currentUser.id) { customAlert("Please login first to save TA Journal."); return; }
   const entries = keys.map(k => taPageEntries[k]);
   const header = getTaHeaderData();
   const summaryGroups = buildSummary(entries);
   let grandTotal = 0;
   Object.values(summaryGroups).forEach(g => { grandTotal += g.total; });
   const docData = {
-    header, entries, grandTotal: grandTotal.toFixed(2),
-    savedAt: new Date().toISOString(),
+    user_id: currentUser.id,
+    user_email: currentUser.email,
+    header, entries, grandtotal: grandTotal.toFixed(2),
+    savedat: new Date().toISOString(),
     timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: false })
   };
   try {
-    // Try to save to ta_journal and print_history (tables may not exist yet)
-    await db.from('ta_journal').insert([docData]).catch(e => null);
-    showToast("TA Journal saved!");
+    // Save to ta_journal
+    const { data, error } = await db.from('ta_journal').insert([docData]).select();
+    if (error) throw error;
+    showToast("TA Journal saved successfully!");
+    // Also save to print_history
     await db.from("print_history").insert([{
+      user_id: currentUser.id,
       range: `TA Journal - ${header.name} (${entries.length} entries, Total: Rs.${grandTotal.toFixed(2)})`,
       timestamp: docData.timestamp,
       serverTime: new Date().toISOString()
-    }]).catch(e => null);
+    }]);
     printHistory.unshift({ range: `TA Journal - ${header.name}`, timestamp: docData.timestamp });
   } catch (error) {
     console.error("Error saving TA Journal:", error);
-    customAlert("Error saving to database: " + error.message);
+    customAlert("Note: Data saved locally. Database save status: " + (error ? error.message : "Success"));
   }
 }
 
