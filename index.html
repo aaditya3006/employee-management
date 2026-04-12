@@ -6199,19 +6199,22 @@ function clearAllTaEntries() {
 
 // Edit TA entry from database
 function editDbTaEntry(dateKey) {
-  // Find the entry in the currently loaded filtered entries
-  // We need to search through the list to find the matching entry
-  const list = document.getElementById('ta-saved-days-list');
-  const entryCards = list.querySelectorAll('[data-entry-key]');
-  
-  // For now, we'll refetch from the database to get fresh data
   const monthSelect = document.getElementById('ta-filter-month-selector');
   const yearSelect = document.getElementById('ta-filter-year-selector');
-  const monthNum = monthSelect && monthSelect.value ? monthMap[monthSelect.value] : new Date().getMonth() + 1;
-  const year = yearSelect && yearSelect.value ? parseInt(yearSelect.value) : new Date().getFullYear();
+  
+  if (!monthSelect || !monthSelect.value || !yearSelect || !yearSelect.value) {
+    customAlert('Please select Month and Year first');
+    return;
+  }
+  
+  const monthNum = monthMap[monthSelect.value];
+  const year = parseInt(yearSelect.value);
   
   (async () => {
     try {
+      console.log('\n=== EDIT DB ENTRY - START ===');
+      console.log('🖊️ Editing dateKey:', dateKey);
+      
       const user = window.currentUserAuth;
       if (!user) {
         customAlert('Not logged in');
@@ -6219,26 +6222,41 @@ function editDbTaEntry(dateKey) {
       }
       
       // Query the database record
-      const { data: records, error: queryErr } = await window.db
+      const { data: record, error: queryErr } = await window.db
         .from('ta_journal')
         .select('*')
         .eq('user_id', user.id)
         .eq('month', monthNum)
-        .eq('year', year);
+        .eq('year', year)
+        .single();
       
-      if (queryErr || !records || records.length === 0) {
+      if (queryErr) {
+        console.error('❌ Query error:', queryErr);
         customAlert('Entry not found in database');
         return;
       }
       
-      const record = records[0];
-      let entries = Array.isArray(record.entries) ? record.entries : [];
-      const entry = entries.find(e => e.dateKey === dateKey);
-      
-      if (!entry) {
-        customAlert('Entry data not found');
+      if (!record) {
+        customAlert('Record not found');
         return;
       }
+      
+      console.log('📋 Found record:', record);
+      
+      if (!Array.isArray(record.entries)) {
+        customAlert('Invalid record format');
+        return;
+      }
+      
+      const entry = record.entries.find(e => e.dateKey === dateKey);
+      
+      if (!entry) {
+        console.error('❌ Entry not found. Available keys:', record.entries.map(e => e.dateKey));
+        customAlert('Entry data not found in record');
+        return;
+      }
+      
+      console.log('✅ Found entry:', entry);
       
       // Populate form fields with entry data
       document.getElementById('ta-editing-date-key').value = dateKey;
@@ -6289,10 +6307,10 @@ function editDbTaEntry(dateKey) {
       document.getElementById('ta-cancel-edit-btn').classList.remove('hidden');
       document.getElementById('ta-single-entry-card').scrollIntoView({ behavior: 'smooth' });
       
-      console.log('🖊️ Editing DB entry:', dateKey, entry);
+      console.log('=== EDIT DB ENTRY - SUCCESS ===\n');
     } catch (err) {
-      console.error('Error loading entry for edit:', err);
-      customAlert('Error loading entry: ' + err.message);
+      console.error('❌ Error loading entry for edit:', err);
+      customAlert('Error: ' + (err?.message || 'Unknown error'));
     }
   })();
 }
@@ -6308,19 +6326,25 @@ async function deleteDbTaEntry(dateKey) {
   }
   
   try {
-    showToast('⏳ Deleting entry...');
-    
     console.log('\n=== DELETE DB ENTRY - START ===');
     console.log('🗑️ Deleting dateKey:', dateKey);
     console.log('👤 User ID:', user.id);
+    console.log('📝 DateKey type:', typeof dateKey);
     
     // Get the month and year from the current filtered view
     const monthSelect = document.getElementById('ta-filter-month-selector');
     const yearSelect = document.getElementById('ta-filter-year-selector');
-    const monthNum = monthSelect && monthSelect.value ? monthMap[monthSelect.value] : new Date().getMonth() + 1;
-    const year = yearSelect && yearSelect.value ? parseInt(yearSelect.value) : new Date().getFullYear();
+    
+    if (!monthSelect || !monthSelect.value || !yearSelect || !yearSelect.value) {
+      customAlert('Please select Month and Year first');
+      return;
+    }
+    
+    const monthNum = monthMap[monthSelect.value];
+    const year = parseInt(yearSelect.value);
     
     console.log('📅 Search params - Month:', monthNum, 'Year:', year);
+    console.log('🔍 Querying for record...');
     
     // Query the database record
     const { data: records, error: queryErr } = await window.db
@@ -6328,83 +6352,93 @@ async function deleteDbTaEntry(dateKey) {
       .select('*')
       .eq('user_id', user.id)
       .eq('month', monthNum)
-      .eq('year', year);
+      .eq('year', year)
+      .single();
     
-    console.log('🔍 Query result - Records found:', records ? records.length : 0);
-    if (queryErr) console.error('❌ Query error:', queryErr);
+    if (queryErr) {
+      console.error('❌ Query error:', queryErr);
+      throw new Error(`Failed to find record: ${queryErr.message}`);
+    }
     
-    if (queryErr || !records || records.length === 0) {
-      customAlert('Entry not found in database');
-      console.log('⚠️ No record found for deletion');
+    if (!records) {
+      customAlert('Record not found');
+      console.log('⚠️ No record found');
       return;
     }
     
-    const record = records[0];
-    console.log('📋 Record ID:', record.id);
-    console.log('📊 Current entries count in record:', record.entries ? record.entries.length : 0);
-    console.log('🔎 Entries before deletion:', record.entries);
+    const record = records;
+    console.log('📋 Found record ID:', record.id);
+    console.log('📊 Current entries:', record.entries);
+    console.log('📊 Current entries count:', record.entries ? record.entries.length : 0);
     
-    let entries = Array.isArray(record.entries) ? record.entries : [];
+    if (!Array.isArray(record.entries)) {
+      throw new Error('Entries is not an array');
+    }
+    
+    // Find and check the entry exists
+    const existingEntry = record.entries.find(e => {
+      console.log('  Comparing:', e.dateKey, '===', dateKey, '?', e.dateKey === dateKey);
+      return e.dateKey === dateKey;
+    });
+    
+    if (!existingEntry) {
+      console.error('❌ Entry not found in record. Available keys:', record.entries.map(e => e.dateKey));
+      customAlert('Entry not found in record');
+      return;
+    }
+    
+    console.log('✅ Entry found:', existingEntry);
     
     // Remove the entry with matching dateKey
-    const originalCount = entries.length;
-    entries = entries.filter(e => e.dateKey !== dateKey);
-    const newCount = entries.length;
+    const filteredEntries = record.entries.filter(e => e.dateKey !== dateKey);
     
-    console.log(`✂️ Filter result: ${originalCount} → ${newCount} entries (deleted ${originalCount - newCount})`);
-    console.log('📊 Entries after deletion:', entries);
+    console.log(`✂️ Filter result: ${record.entries.length} → ${filteredEntries.length} entries`);
+    console.log('📊 Remaining entries:', filteredEntries);
     
     // Recalculate total amount
     let newTotal = 0;
-    entries.forEach(e => {
-      newTotal += parseFloat(e.rs || 0) + (parseFloat(e.paise || 0) / 100);
+    filteredEntries.forEach(e => {
+      const amount = parseFloat(e.rs || 0) + (parseFloat(e.paise || 0) / 100);
+      newTotal += amount;
     });
     
-    console.log('💰 New total amount:', newTotal);
+    console.log('💰 New total amount:', newTotal.toFixed(2));
     
-    // Update or delete record based on remaining entries
-    if (entries.length === 0) {
-      console.log('🗑️ No entries left - deleting entire record...');
-      // Delete the entire record if no entries left
-      const { error: deleteErr } = await window.db
-        .from('ta_journal')
-        .delete()
-        .eq('id', record.id);
-      
-      if (deleteErr) {
-        console.error('❌ DELETE ERROR:', deleteErr);
-        throw deleteErr;
-      }
-      console.log('✅ Record deleted successfully');
-    } else {
-      console.log('🔄 Updating record with remaining entries...');
-      // Update record with filtered entries
-      const { error: updateErr } = await window.db
-        .from('ta_journal')
-        .update({
-          entries: entries,
-          total_amount: newTotal,
-          savedat: new Date().toISOString()
-        })
-        .eq('id', record.id);
-      
-      if (updateErr) {
-        console.error('❌ UPDATE ERROR:', updateErr);
-        throw updateErr;
-      }
-      console.log('✅ Record updated successfully');
+    // Update the record with new entries
+    showToast('⏳ Updating database...');
+    
+    const updateData = {
+      entries: filteredEntries,
+      total_amount: newTotal,
+      savedat: new Date().toISOString()
+    };
+    
+    console.log('🔄 Updating record with:', updateData);
+    
+    const { data: updateResult, error: updateErr } = await window.db
+      .from('ta_journal')
+      .update(updateData)
+      .eq('id', record.id)
+      .select();
+    
+    if (updateErr) {
+      console.error('❌ UPDATE ERROR:', updateErr);
+      throw new Error(`Update failed: ${updateErr.message}`);
     }
     
+    console.log('✅ Update successful:', updateResult);
     console.log('=== DELETE DB ENTRY - SUCCESS ===\n');
+    
     showToast('✅ Entry deleted successfully');
     
     // Reload the filtered entries
-    loadTaEntriesByMonth();
+    await loadTaEntriesByMonth();
     
   } catch (err) {
-    console.error('❌ Error deleting entry:', err);
-    console.error('Stack trace:', err.stack);
-    customAlert('Error deleting entry: ' + (err?.message || 'Unknown error'));
+    console.error('❌ ERROR in deleteDbTaEntry:', err.message);
+    console.error('Stack:', err.stack);
+    customAlert('Error: ' + (err?.message || 'Unknown error'));
+    showToast('❌ Delete failed');
   }
 }
 
