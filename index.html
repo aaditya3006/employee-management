@@ -6219,7 +6219,7 @@ function editDbTaEntry(dateKey) {
       }
       
       // Query the database record
-      const { data: records, error: queryErr } = await db
+      const { data: records, error: queryErr } = await window.db
         .from('ta_journal')
         .select('*')
         .eq('user_id', user.id)
@@ -6310,30 +6310,49 @@ async function deleteDbTaEntry(dateKey) {
   try {
     showToast('⏳ Deleting entry...');
     
+    console.log('\n=== DELETE DB ENTRY - START ===');
+    console.log('🗑️ Deleting dateKey:', dateKey);
+    console.log('👤 User ID:', user.id);
+    
     // Get the month and year from the current filtered view
     const monthSelect = document.getElementById('ta-filter-month-selector');
     const yearSelect = document.getElementById('ta-filter-year-selector');
     const monthNum = monthSelect && monthSelect.value ? monthMap[monthSelect.value] : new Date().getMonth() + 1;
     const year = yearSelect && yearSelect.value ? parseInt(yearSelect.value) : new Date().getFullYear();
     
+    console.log('📅 Search params - Month:', monthNum, 'Year:', year);
+    
     // Query the database record
-    const { data: records, error: queryErr } = await db
+    const { data: records, error: queryErr } = await window.db
       .from('ta_journal')
       .select('*')
       .eq('user_id', user.id)
       .eq('month', monthNum)
       .eq('year', year);
     
+    console.log('🔍 Query result - Records found:', records ? records.length : 0);
+    if (queryErr) console.error('❌ Query error:', queryErr);
+    
     if (queryErr || !records || records.length === 0) {
       customAlert('Entry not found in database');
+      console.log('⚠️ No record found for deletion');
       return;
     }
     
     const record = records[0];
+    console.log('📋 Record ID:', record.id);
+    console.log('📊 Current entries count in record:', record.entries ? record.entries.length : 0);
+    console.log('🔎 Entries before deletion:', record.entries);
+    
     let entries = Array.isArray(record.entries) ? record.entries : [];
     
     // Remove the entry with matching dateKey
+    const originalCount = entries.length;
     entries = entries.filter(e => e.dateKey !== dateKey);
+    const newCount = entries.length;
+    
+    console.log(`✂️ Filter result: ${originalCount} → ${newCount} entries (deleted ${originalCount - newCount})`);
+    console.log('📊 Entries after deletion:', entries);
     
     // Recalculate total amount
     let newTotal = 0;
@@ -6341,18 +6360,26 @@ async function deleteDbTaEntry(dateKey) {
       newTotal += parseFloat(e.rs || 0) + (parseFloat(e.paise || 0) / 100);
     });
     
+    console.log('💰 New total amount:', newTotal);
+    
     // Update or delete record based on remaining entries
     if (entries.length === 0) {
+      console.log('🗑️ No entries left - deleting entire record...');
       // Delete the entire record if no entries left
-      const { error: deleteErr } = await db
+      const { error: deleteErr } = await window.db
         .from('ta_journal')
         .delete()
         .eq('id', record.id);
       
-      if (deleteErr) throw deleteErr;
+      if (deleteErr) {
+        console.error('❌ DELETE ERROR:', deleteErr);
+        throw deleteErr;
+      }
+      console.log('✅ Record deleted successfully');
     } else {
+      console.log('🔄 Updating record with remaining entries...');
       // Update record with filtered entries
-      const { error: updateErr } = await db
+      const { error: updateErr } = await window.db
         .from('ta_journal')
         .update({
           entries: entries,
@@ -6361,18 +6388,23 @@ async function deleteDbTaEntry(dateKey) {
         })
         .eq('id', record.id);
       
-      if (updateErr) throw updateErr;
+      if (updateErr) {
+        console.error('❌ UPDATE ERROR:', updateErr);
+        throw updateErr;
+      }
+      console.log('✅ Record updated successfully');
     }
     
+    console.log('=== DELETE DB ENTRY - SUCCESS ===\n');
     showToast('✅ Entry deleted successfully');
-    console.log('🗑️ DB entry deleted:', dateKey);
     
     // Reload the filtered entries
     loadTaEntriesByMonth();
     
   } catch (err) {
-    console.error('Error deleting entry:', err);
-    customAlert('Error deleting entry: ' + err.message);
+    console.error('❌ Error deleting entry:', err);
+    console.error('Stack trace:', err.stack);
+    customAlert('Error deleting entry: ' + (err?.message || 'Unknown error'));
   }
 }
 
@@ -7384,7 +7416,7 @@ async function loadTaEntriesByMonth() {
     console.log('  Filter: month = ' + monthNum);
     console.log('  Filter: year = ' + year);
     
-    let { data: records, error } = await db
+    let { data: records, error } = await window.db
       .from('ta_journal')
       .select('*')
       .eq('user_id', currentUser.id)
@@ -7404,7 +7436,7 @@ async function loadTaEntriesByMonth() {
     if (!records || records.length === 0) {
       console.log('\n🔄 NO RECORDS - Attempting RECOVERY QUERY for NULL month/year entries...');
       
-      const { data: allUserRecords, error: recoveryError } = await db
+      const { data: allUserRecords, error: recoveryError } = await window.db
         .from('ta_journal')
         .select('*')
         .eq('user_id', currentUser.id)
