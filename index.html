@@ -4625,8 +4625,10 @@ const keymanBitData = [
   { no: "K - 7", range: "km 34 to  km 39" },
   { no: "K - 8", range: "km 39 to  km 44" }
 ];
-const nightDutyNumbers  = ["# 103011","# 103249","# 103237","# 303121","# 103098","# 103116"];
-const keymanDutyNumbers = ["80083","86639","85437","86484","102861","80444","85195","80374"];
+const defaultNightDutyNumbers  = ["# 103011","# 103249","# 103237","# 303121","# 103098","# 103116"];
+const defaultKeymanDutyNumbers = ["80083","86639","85437","86484","102861","80444","85195","80374"];
+const nightDutyNumbers  = [...defaultNightDutyNumbers];
+const keymanDutyNumbers = [...defaultKeymanDutyNumbers];
 
 let employeeList = [];
 let printHistory = [];
@@ -4644,6 +4646,120 @@ const bgEl         = document.getElementById('bg-image');
 
 let currentTaViewMode = 'journal';
 
+function getGpsNumbersForType(type) {
+  return type === 'keyman' ? keymanDutyNumbers : nightDutyNumbers;
+}
+
+function getDefaultGpsNumbersForType(type) {
+  return type === 'keyman' ? defaultKeymanDutyNumbers : defaultNightDutyNumbers;
+}
+
+async function loadGpsNumbersFromDB() {
+  try {
+    if (!window.db) return;
+
+    const { data, error } = await window.db
+      .from('gps_duty_numbers')
+      .select('duty_type, position, gps_number')
+      .order('duty_type', { ascending: true })
+      .order('position', { ascending: true });
+
+    if (error) throw error;
+
+    const nextNightNumbers = [...defaultNightDutyNumbers];
+    const nextKeymanNumbers = [...defaultKeymanDutyNumbers];
+
+    (data || []).forEach((row) => {
+      const target = row.duty_type === 'keyman' ? nextKeymanNumbers : nextNightNumbers;
+      const index = Number(row.position);
+
+      if (!Number.isInteger(index) || index < 0 || index >= target.length) return;
+
+      target[index] = row.gps_number || '';
+    });
+
+    nightDutyNumbers.length = 0;
+    nightDutyNumbers.push(...nextNightNumbers);
+    keymanDutyNumbers.length = 0;
+    keymanDutyNumbers.push(...nextKeymanNumbers);
+
+    console.log('GPS duty numbers loaded from database');
+  } catch (error) {
+    console.warn('Could not load GPS duty numbers from database:', error);
+  }
+}
+
+function toggleGpsSaveButton(index) {
+  const input = document.getElementById(`gps-number-${index}`);
+  const button = document.getElementById(`gps-save-btn-${index}`);
+  if (!input || !button) return;
+
+  const savedValue = input.dataset.savedValue || '';
+  const currentValue = input.value.trim();
+  const isDirty = currentValue !== savedValue;
+
+  button.classList.toggle('hidden', !isDirty);
+}
+
+async function saveSingleGpsNumber(index) {
+  const type = currentDutyType || 'night';
+  const dutyNumbers = getGpsNumbersForType(type);
+  const input = document.getElementById(`gps-number-${index}`);
+  const button = document.getElementById(`gps-save-btn-${index}`);
+
+  if (!input || !button) return;
+
+  const gpsNumber = input.value.trim();
+  const savedValue = input.dataset.savedValue || '';
+
+  if (gpsNumber === savedValue) {
+    toggleGpsSaveButton(index);
+    return;
+  }
+
+  if (!window.db) {
+    showToast('Database is not ready yet.');
+    return;
+  }
+
+  if (!window.currentUserAuth) {
+    showToast('Please log in before saving GPS numbers.');
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = 'Saving...';
+
+  try {
+    const { error } = await window.db
+      .from('gps_duty_numbers')
+      .upsert({
+        duty_type: type,
+        position: index,
+        gps_number: gpsNumber,
+        updated_by: window.currentUserAuth.id,
+        updated_at: new Date().toISOString()
+      }, { onConflict: 'duty_type,position' });
+
+    if (error) throw error;
+
+    dutyNumbers[index] = gpsNumber;
+    input.value = gpsNumber;
+    input.dataset.savedValue = gpsNumber;
+
+    toggleGpsSaveButton(index);
+    showToast('GPS number saved.');
+    console.log('GPS duty number saved:', { type, index, gpsNumber });
+  } catch (error) {
+    console.error('Error saving GPS duty number:', error);
+    showToast('Could not save GPS number.');
+  } finally {
+    button.disabled = false;
+    button.textContent = 'Save';
+    toggleGpsSaveButton(index);
+  }
+}
+
 async function loadDataFromDB() {
   try {
     const user = window.currentUserAuth;
@@ -4656,7 +4772,9 @@ async function loadDataFromDB() {
     const { data: employees, error: empErr } = await window.db.from("sample_employees").select("*");
     employeeList = employees || [];
     // Sort in JavaScript
-    employeeList.sort((a, b) => (a.name || '').localeCompare(b.name || '')); 
+    employeeList.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+
+    await loadGpsNumbersFromDB();
     
     // Initialize empty arrays for optional tables
     printHistory = [];
@@ -5057,7 +5175,7 @@ function setupForm() {
   if (!container) return;
 
   // Get duty numbers for this type
-  const dutyNumbers = type === 'night' ? nightDutyNumbers : keymanDutyNumbers;
+  const dutyNumbers = getGpsNumbersForType(type);
 
   container.innerHTML = currentBitData.map((bit, i) => `
     <div class="flex flex-col md:flex-row gap-3 items-center p-3 bg-white/60 border rounded-2xl shadow-sm">
@@ -5074,8 +5192,14 @@ function setupForm() {
       </div>
       <div class="w-full md:w-36">
         <label for="gps-number-${i}" class="block text-[10px] uppercase font-bold text-gray-400 mb-1 ml-1">📍 GPS</label>
-        <input type="text" id="gps-number-${i}" value="${dutyNumbers[i] || ''}" placeholder="GPS Duty No."
-          class="w-full p-2 border-2 border-blue-300 rounded-xl text-sm font-semibold focus:border-blue-500 outline-none" onchange="saveGpsNumbers()">
+        <div class="flex flex-col gap-2">
+          <input type="text" id="gps-number-${i}" value="${dutyNumbers[i] || ''}" data-saved-value="${dutyNumbers[i] || ''}" placeholder="GPS Duty No."
+            class="w-full p-2 border-2 border-blue-300 rounded-xl text-sm font-semibold focus:border-blue-500 outline-none" oninput="toggleGpsSaveButton(${i})">
+          <button type="button" id="gps-save-btn-${i}" onclick="saveSingleGpsNumber(${i})"
+            class="hidden self-end px-3 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition disabled:opacity-60 disabled:cursor-not-allowed">
+            Save
+          </button>
+        </div>
       </div>
     </div>`).join('');
 
@@ -5086,52 +5210,40 @@ function setupForm() {
   }
 }
 
-// 📍 Save GPS duty numbers (when user edits them)
-function saveGpsNumbers() {
-  const type = currentDutyType || 'night';
-  const dutyNumbers = type === 'night' ? nightDutyNumbers : keymanDutyNumbers;
-  const maxGps = dutyNumbers.length;
-  
-  // Read edited values from form
-  for (let idx = 0; idx < maxGps; idx++) {
+// 📍 Save all dirty GPS duty numbers
+async function saveGpsNumbers() {
+  const dutyNumbers = getGpsNumbersForType(currentDutyType || 'night');
+
+  for (let idx = 0; idx < dutyNumbers.length; idx++) {
     const input = document.getElementById(`gps-number-${idx}`);
-    if (input) {
-      dutyNumbers[idx] = input.value;
+    if (!input) continue;
+
+    if (input.value.trim() !== (input.dataset.savedValue || '')) {
+      await saveSingleGpsNumber(idx);
     }
   }
-  
-  console.log('✅ GPS Duty Numbers Saved:', dutyNumbers);
-  showToast('✅ GPS numbers updated!');
 }
 
 // ↻ Reset GPS duty numbers to default
 function resetGpsNumbers() {
   const type = currentDutyType || 'night';
-  
-  // Define defaults
-  const defaults = type === 'night' 
-    ? ["# 103011","# 103249","# 103237","# 303121","# 103098","# 103116"]
-    : ["80083","86639","85437","86484","102861","80444","85195","80374"];
-  
-  // Update the arrays
-  if (type === 'night') {
-    nightDutyNumbers.length = 0;
-    nightDutyNumbers.push(...defaults);
-  } else {
-    keymanDutyNumbers.length = 0;
-    keymanDutyNumbers.push(...defaults);
-  }
-  
+
+  const defaults = [...getDefaultGpsNumbersForType(type)];
+  const dutyNumbers = getGpsNumbersForType(type);
+  dutyNumbers.length = 0;
+  dutyNumbers.push(...defaults);
+
   // Update form fields
   defaults.forEach((num, idx) => {
     const input = document.getElementById(`gps-number-${idx}`);
     if (input) {
       input.value = num;
+      toggleGpsSaveButton(idx);
     }
   });
   
   console.log('↻ GPS Duty Numbers Reset to Defaults:', defaults);
-  showToast('↻ GPS numbers reset to default!');
+  showToast('↻ GPS numbers reset. Tap Save to store them.');
 }
 
 
@@ -6945,8 +7057,9 @@ function buildSummaryOverlay(summaryGroupArr, grandTotalRs, grandTotalPaise, gra
     // Check if pct contains multiple percentages (e.g., "30+70")
     const hasMultiplePcts = String(g.pct).includes('+');
     if (hasMultiplePcts) {
-      // Format: 70%+30% = 100%×15 = 625×15 = ₹(calculated value)
-      summaryLines += `<div style="${ff}padding-left:40px;font-weight:bold;font-family:'Times New Roman',serif;margin:0;padding-top:1px;padding-bottom:1px;">${g.pct}% <b>=</b> 100% <b>×</b> ${g.count} <b>=</b> ${g.rate} <b>×</b> ${g.count} <b>=</b> ₹${gDisplay}</div>`;
+      // Format percentages horizontally: 30% | 70% = 100% × count = rate × count = ₹value (single line, no height increase)
+      const pctParts = String(g.pct).split('+').map(p => p.trim()).join('% <b>|</b> ');
+      summaryLines += `<div style="${ff}padding-left:40px;font-weight:bold;font-family:'Times New Roman',serif;margin:0;padding-top:1px;padding-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${pctParts}% <b>=</b> 100% <b>×</b> ${g.count} <b>=</b> ${g.rate} <b>×</b> ${g.count} <b>=</b> ₹${gDisplay}</div>`;
     } else {
       summaryLines += `<div style="${ff}padding-left:40px;font-weight:bold;font-family:'Times New Roman',serif;margin:0;padding-top:1px;padding-bottom:1px;">${g.pct}% <b>×</b> ${g.count} <b>=</b> ${perEntryDisplay} <b>×</b> ${g.count} <b>=</b> ₹${gDisplay}</div>`;
     }
@@ -7346,8 +7459,10 @@ async function saveTaJournalToDB() {
     console.log('  total_amount:', docData.total_amount);
     console.log('  approval_status:', docData.approval_status);
     
-    // Save to ta_journal
-    const { data, error } = await db.from('ta_journal').insert([docData]).select();
+    // Save to ta_journal using upsert (insert or update if exists)
+    const { data, error } = await db.from('ta_journal').upsert([docData], { 
+      onConflict: 'user_id,month,year' 
+    }).select();
     if (error) {
       console.error('❌ DATABASE ERROR:', error);
       throw error;
