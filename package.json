@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "dev": "python -m http.server 5000",
-    "build": "echo 'Static site - no build needed'",
+    "build": "node -p 0",
     "start": "python -m http.server 5000"
   },
   "keywords": [

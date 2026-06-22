@@ -1340,7 +1340,7 @@ body {
       </h1>
     </div>
     <div class="flex gap-1 text-xs md:text-sm items-center">
-      <button id="topbar-approve-btn" style="display:none;" onclick="handleMenuSelect('approve'); showSection('approve-section')" class="px-3 py-2 rounded-full hover:bg-white/20 transition font-medium">Approve</button>
+      <button id="topbar-approve-btn" style="display:none;" onclick="handleMenuSelect('approve'); showSection('approve-section')" class="px-3 py-2 rounded-full hover:bg-white/20 transition font-medium">Users</button>
       <button onclick="showSection('admin-section')"   class="px-3 py-2 rounded-full hover:bg-white/20 transition font-medium">Employees</button>
       <button onclick="showSection('history-section')" class="px-3 py-2 rounded-full hover:bg-white/20 transition font-medium">History</button>
 
@@ -1686,8 +1686,41 @@ body {
         </div>
 
         <div class="ta-section-card" id="ta-saved-days-card">
-          <div class="ta-section-title flex justify-between items-center">
-            <span>📋 Saved Entries (<span id="ta-days-count">0</span> days)</span>
+          <div class="ta-section-title flex justify-between items-center flex-wrap gap-2">
+            <div class="flex items-center gap-3">
+              <span>📋 Saved Entries (<span id="ta-days-count">0</span> days)</span>
+              <div class="flex gap-3 items-center">
+                <div class="flex gap-1 items-center">
+                  <label class="text-xs font-bold text-slate-600 whitespace-nowrap">Year:</label>
+                  <select id="ta-filter-year-selector" onchange="showMonthDropdown()" class="text-xs font-bold px-1 py-1 rounded-md border border-blue-400 bg-white hover:border-blue-500 transition cursor-pointer bg-blue-50 w-20">
+                    <option value="">--</option>
+                    <option value="2026">2026</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                  </select>
+                </div>
+                
+                <div class="flex gap-1 items-center hidden" id="ta-month-dropdown-container">
+                  <label class="text-xs font-bold text-slate-600 whitespace-nowrap">Month:</label>
+                  <select id="ta-filter-month-selector" onchange="loadTaEntriesByMonth()" class="text-xs font-bold px-1 py-1 rounded-md border border-green-400 bg-white hover:border-green-500 transition cursor-pointer bg-green-50 w-24">
+                    <option value="">--</option>
+                    <option value="january">January</option>
+                    <option value="february">February</option>
+                    <option value="march">March</option>
+                    <option value="april">April</option>
+                    <option value="may">May</option>
+                    <option value="june">June</option>
+                    <option value="july">July</option>
+                    <option value="august">August</option>
+                    <option value="september">September</option>
+                    <option value="october">October</option>
+                    <option value="november">November</option>
+                    <option value="december">December</option>
+                  </select>
+                </div>
+              </div>
+            </div>
             <button onclick="clearAllTaEntries()" class="text-red-500 text-xs font-bold hover:text-red-700 bg-red-50 px-2 py-1 rounded-lg border border-red-100">🗑 Clear All</button>
           </div>
           <div id="ta-saved-days-list" class="space-y-2">
@@ -1994,27 +2027,17 @@ body {
       
       <!-- Header -->
       <div class="mb-6 sm:mb-8">
-        <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-2">Account Management</h1>
-        <p class="text-sm sm:text-base text-slate-600">Monitor and authorize system access</p>
-      </div>
-
-      <!-- Tabs -->
-      <div class="flex gap-2 mb-8 bg-slate-200 p-1 rounded-lg w-full sm:w-fit overflow-x-auto">
-        <button onclick="switchAdminTab('pending')" id="admin-pending-tab" class="px-4 sm:px-6 py-2 rounded-md font-semibold text-slate-900 bg-white shadow-sm transition whitespace-nowrap text-sm sm:text-base">Pending</button>
-        <button onclick="switchAdminTab('active')" id="admin-active-tab" class="px-4 sm:px-6 py-2 rounded-md font-semibold text-slate-600 hover:bg-white/50 transition whitespace-nowrap text-sm sm:text-base">All Accounts</button>
+        <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-2">User Management</h1>
+        <p class="text-sm sm:text-base text-slate-600">View and manage user accounts</p>
       </div>
 
       <!-- Stats -->
-      <div id="admin-approval-stats" class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-6 mb-8">
-        <div class="bg-white p-3 sm:p-6 rounded-xl sm:rounded-2xl border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition cursor-pointer" onclick="filterAdminUsers('pending')">
-          <div class="text-2xl sm:text-4xl font-bold text-amber-600 mb-2">0</div>
-          <p class="text-xs sm:text-sm font-semibold text-slate-600 uppercase tracking-wider">Pending</p>
-        </div>
+      <div id="admin-approval-stats" class="grid grid-cols-2 gap-3 sm:gap-6 mb-8">
         <div class="bg-white p-3 sm:p-6 rounded-xl sm:rounded-2xl border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition cursor-pointer" onclick="filterAdminUsers('active')">
           <div class="text-2xl sm:text-4xl font-bold text-green-600 mb-2">0</div>
           <p class="text-xs sm:text-sm font-semibold text-slate-600 uppercase tracking-wider">Active</p>
         </div>
-        <div class="bg-white p-3 sm:p-6 rounded-xl sm:rounded-2xl border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition cursor-pointer col-span-2 sm:col-span-1" onclick="filterAdminUsers('blocked')">
+        <div class="bg-white p-3 sm:p-6 rounded-xl sm:rounded-2xl border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition cursor-pointer" onclick="filterAdminUsers('blocked')">
           <div class="text-2xl sm:text-4xl font-bold text-red-600 mb-2">0</div>
           <p class="text-xs sm:text-sm font-semibold text-slate-600 uppercase tracking-wider">Blocked</p>
         </div>
@@ -2023,8 +2046,8 @@ body {
       <!-- Users Section -->
       <div class="bg-white rounded-lg sm:rounded-2xl border border-slate-200 overflow-hidden">
         <div class="p-4 sm:p-6 border-b border-slate-200 flex items-center justify-between">
-          <h2 class="text-lg sm:text-xl font-bold text-slate-900">User Directory</h2>
-          <button onclick="loadAdminUsers(document.getElementById('admin-pending-tab').classList.contains('bg-white') ? 'pending' : 'active')" class="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center gap-1" title="Refresh user list">
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900">Users</h2>
+          <button onclick="loadAdminUsers('active')" class="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center gap-1" title="Refresh user list">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
             <span class="hidden sm:inline">Refresh</span>
           </button>
@@ -3114,90 +3137,27 @@ function setupAuthFormListeners() {
             
             dismissLoginScreen();
           } else {
-            // For non-admin users, check approval status from Supabase
-            console.log('⏳ Checking user approval status for:', email);
-            const { data: docSnap, error: statusError } = await db.from('users')
-              .select('*')
-              .eq('uid', userCredential.id)
-              .single();
+            // For non-admin users, allow them to login
+            console.log('✅ User is logged in - allowing access');
             
-            if (!statusError && docSnap) {
-              const userStatus = docSnap.status;
-              console.log('📋 User status:', userStatus);
-              
-              if (userStatus === 'approved') {
-                console.log('✅ User is approved - allowing access');
+            // 🧹 Clear caches on successful login
+            await clearAllCaches();
+            
+            btnText.textContent = 'SIGN IN';
+            loader.style.display = 'none';
+            submitBtn.disabled = false;
+            
+            // Update UI visibility for non-admin users
+            updateAdminUIVisibility();
+            updateSidebarForAdmin(userCredential);
                 
-                // 🧹 Clear caches on successful login
-                await clearAllCaches();
-                
-                btnText.textContent = 'SIGN IN';
-                loader.style.display = 'none';
-                submitBtn.disabled = false;
-                
-                // Update UI visibility for non-admin users
-                updateAdminUIVisibility();
-                updateSidebarForAdmin(userCredential);
-                    
-                // Pre-load user data in background
-                setTimeout(() => {
-                  loadDataFromDB();
-                }, 100);
-                
-                dismissLoginScreen();
-              } else if (!userStatus) {
-                console.log('⚠️ User has no status field');
-                btnText.textContent = 'SIGN IN';
-                loader.style.display = 'none';
-                submitBtn.disabled = false;
-                
-                await window.auth.signOut();
-                showLoginError('⚠️ Your account status is unknown. Please contact admin.');
-              } else if (userStatus === 'pending') {
-                console.log('⏳ User account pending approval');
-                btnText.textContent = 'SIGN IN';
-                loader.style.display = 'none';
-                submitBtn.disabled = false;
-                
-                // Sign out immediately
-                await window.auth.signOut();
-                showLoginError(`⏳ <strong>Your account is PENDING ADMIN APPROVAL</strong><br><br>✅ The admin has been notified of your request.<br><br>⏰ Please wait while the admin reviews your account.<br><br><span style="color: #fbbf24; font-weight: bold;">You can try logging in again after approval.</span>`);
-              } else if (userStatus === 'rejected') {
-                console.log('❌ User account has been rejected');
-                btnText.textContent = 'SIGN IN';
-                loader.style.display = 'none';
-                submitBtn.disabled = false;
-                
-                // Sign out immediately
-                await window.auth.signOut();
-                showLoginError('❌ Your account has been rejected. Please contact admin.');
-              } else {
-                console.log('❌ Unknown user status:', userStatus);
-                btnText.textContent = 'SIGN IN';
-                loader.style.display = 'none';
-                submitBtn.disabled = false;
-                
-                await window.auth.signOut();
-                showLoginError('⚠️ Account status unknown. Please contact admin.');
-              }
-            } else if (statusError) {
-              console.error('❌ ERROR checking user status:', statusError);
-              btnText.textContent = 'SIGN IN';
-              loader.style.display = 'none';
-              submitBtn.disabled = false;
-              
-              await window.auth.signOut();
-              showLoginError('⚠️ Database error: ' + statusError.message);
-            } else {
-              console.warn('⚠️ User document not found in database');
-              btnText.textContent = 'SIGN IN';
-              loader.style.display = 'none';
-              submitBtn.disabled = false;
-              
-              await window.auth.signOut();
-              showLoginError('⚠️ Database error: user not found.');
-            }
-        }
+            // Pre-load user data in background
+            setTimeout(() => {
+              loadDataFromDB();
+            }, 100);
+            
+            dismissLoginScreen();
+          }
       } catch (err) {
         console.error('❌ LOGIN ERROR:', err.code, err.message);
         
@@ -3284,7 +3244,7 @@ function setupAuthFormListeners() {
             uid: user.id,
             email: email.toLowerCase(),
             role: 'employee',  // Default role is employee (NEW SECURITY FIX)
-            status: 'pending',
+            status: 'approved',
             created_at: new Date().toISOString()
           });
         
@@ -3296,7 +3256,7 @@ function setupAuthFormListeners() {
           .from('employees')
           .upsert({
             email: email.toLowerCase(),
-            status: 'pending'
+            status: 'approved'
           });
         
         console.log('✅ ADMIN NOTIFIED - USER READY FOR APPROVAL');
@@ -3304,43 +3264,43 @@ function setupAuthFormListeners() {
         // 🔹 STEP 4: Email verification handled by Supabase
         console.log('📧 Supabase will handle email verification if configured');
         
-        // 🔹 SUCCESS: Account creation complete, awaiting admin approval
-        console.log('✅ ACCOUNT FULLY CREATED - PENDING ADMIN APPROVAL');
+        // 🔹 SUCCESS: Account creation complete
+        console.log('✅ ACCOUNT FULLY CREATED AND ACTIVE');
         createForm.reset();
         errEl.style.display = 'none';
-        toggleLoginModal('createLoginModal', false);
-        
-        // Sign out new user (they cannot login yet - waiting for approval)
-        await window.auth.signOut();
-        console.log('✅ User signed out - account is PENDING APPROVAL');
         
         // Show success message with clear instructions
-        setTimeout(() => {
+        setTimeout(async () => {
           const successMsg = document.getElementById('login-error-msg');
           successMsg.innerHTML = `
             <div style="text-align: center;">
-              <div style="font-size: 18px; margin-bottom: 10px;">✅ Account Created Successfully!</div>
-              <div style="font-size: 14px; line-height: 1.6;">
-                <strong>⏳ Status: PENDING ADMIN APPROVAL</strong><br><br>
-                Your account has been created and is now awaiting<br>
-                admin review and approval.<br><br>
-                <strong>📧 You will be notified once approved.</strong><br><br>
-                <strong style="color: #fbbf24;">Do NOT attempt to login yet.</strong><br>
-                You will only be able to login after the admin approves your account.
+              <div style="font-size: 13px; margin-bottom: 8px;">✅ Account Created Successfully!</div>
+              <div style="font-size: 11px; line-height: 1.5;">
+                <strong>Your account is now active and ready to use.</strong><br><br>
+                Please login with your credentials below.
               </div>
             </div>
           `;
           successMsg.style.display = 'block';
-          successMsg.style.background = 'rgba(59, 130, 246, 0.15)';
-          successMsg.style.borderColor = 'rgba(59, 130, 246, 0.4)';
-          successMsg.style.color = '#3b82f6';
+          successMsg.style.background = 'rgba(34, 197, 94, 0.15)';
+          successMsg.style.borderColor = 'rgba(34, 197, 94, 0.4)';
+          successMsg.style.color = '#22c55e';
           successMsg.style.padding = '20px';
           
-          // Clear login form so user doesn't try automatic login
-          document.getElementById('login-email').value = '';
-          document.getElementById('login-password').value = '';
+          // Close the signup modal
+          toggleLoginModal('createLoginModal', false);
           
-          console.log('✅ REGISTRATION COMPLETE - WAITING FOR ADMIN APPROVAL');
+          // Auto-fill email for convenience
+          document.getElementById('login-email').value = email;
+          document.getElementById('login-password').value = '';
+          document.getElementById('login-password').focus();
+          
+          // Auto-dismiss message after 5 seconds
+          setTimeout(() => {
+            successMsg.style.display = 'none';
+          }, 5000);
+          
+          console.log('✅ REGISTRATION COMPLETE - Ready for login');
         }, 300);
         
       } catch (error) {
@@ -3991,59 +3951,19 @@ window.auth?.onAuthStateChange(async (event, session) => {
     if (isAdmin) {
       console.log('✅ Admin user detected - allowing access');
       updateSidebarForAdmin(user);
-      loadAdminUsers('pending');
+      loadAdminUsers('active');
       const loginScreen = document.getElementById('login-screen');
       loginScreen.style.display = 'none';
       loadDataFromDB();
       startMainApp();
     } else {
-      // For non-admin users, CHECK approval status BEFORE loading app
-      console.log('⏳ Checking user approval status...');
-      try {
-        const { data: userDoc, error } = await db.from('users').select('status').eq('uid', user.id).single();
-        
-        if (!error && userDoc) {
-          const userStatus = userDoc.status;
-          console.log('📋 User status from DB:', userStatus);
-          
-          if (userStatus === 'approved') {
-            console.log('✅ User is approved - loading app');
-            updateSidebarForAdmin(user);
-            const loginScreen = document.getElementById('login-screen');
-            loginScreen.style.display = 'none';
-            await loadDataFromDB();
-            startMainApp();
-          } else if (!userStatus) {
-            console.log('⚠️ User has no status field');
-            window.auth.signOut().then(() => {
-              showLoginError('⚠️ Your account status is unknown. Please contact admin.');
-              const loginScreen = document.getElementById('login-screen');
-              loginScreen.style.display = 'flex';
-            });
-          } else {
-            console.log('❌ User not approved (status: ' + userStatus + ') - signing out');
-            window.auth.signOut().then(() => {
-              showLoginError('⏳ Your account is pending admin approval.\n\nTry logging in again in a few moments.');
-              const loginScreen = document.getElementById('login-screen');
-              loginScreen.style.display = 'flex';
-            });
-          }
-        } else {
-          console.warn('⚠️ User document not found in database');
-          window.auth.signOut().then(() => {
-            showLoginError('⚠️ Database error: user not found.');
-            const loginScreen = document.getElementById('login-screen');
-            loginScreen.style.display = 'flex';
-          });
-        }
-      } catch (err) {
-        console.error('❌ ERROR checking user status:', err);
-        window.auth.signOut().then(() => {
-          showLoginError('⚠️ Database error: ' + err.message);
-          const loginScreen = document.getElementById('login-screen');
-          loginScreen.style.display = 'flex';
-        });
-      }
+      // For non-admin users, allow direct access
+      console.log('✅ User is authorized - loading app');
+      updateSidebarForAdmin(user);
+      const loginScreen = document.getElementById('login-screen');
+      loginScreen.style.display = 'none';
+      await loadDataFromDB();
+      startMainApp();
     }
   } else {
     console.log('User not logged in - showing login screen');
@@ -4080,28 +4000,11 @@ function updateSidebarForAdmin(user) {
 }
 
 // Track current admin tab
-let currentAdminTab = 'pending';
+let currentAdminTab = 'all';
 
 function switchAdminTab(tab) {
-  // Update current tab tracker
+  // Keep track of current tab
   currentAdminTab = tab;
-  
-  // Update tab buttons
-  const pendingBtn = document.getElementById('admin-pending-tab');
-  const activeBtn = document.getElementById('admin-active-tab');
-  
-  if (tab === 'pending') {
-    pendingBtn.classList.add('bg-white', 'shadow-sm');
-    pendingBtn.classList.remove('text-slate-600', 'hover:bg-white/50');
-    activeBtn.classList.remove('bg-white', 'shadow-sm');
-    activeBtn.classList.add('text-slate-600', 'hover:bg-white/50');
-  } else {
-    activeBtn.classList.add('bg-white', 'shadow-sm');
-    activeBtn.classList.remove('text-slate-600', 'hover:bg-white/50');
-    pendingBtn.classList.remove('bg-white', 'shadow-sm');
-    pendingBtn.classList.add('text-slate-600', 'hover:bg-white/50');
-  }
-  
   loadAdminUsers(tab);
 }
 
@@ -4114,7 +4017,7 @@ let adminUsersUnsubscribe = null;
 let previousPendingCount = 0;
 let listenerInitialized = false;  // Track if this is the first listener fire
 
-function loadAdminUsers(filterStatus = 'pending') {
+function loadAdminUsers(filterStatus = 'active') {
   console.log('Loading admin users for filter:', filterStatus);
 
   if (adminUsersUnsubscribe) {
@@ -4132,15 +4035,12 @@ function loadAdminUsers(filterStatus = 'pending') {
       const { data: users, error } = await db.from('users').select('*').order('email');
       if (error) throw error;
 
-      let pending = 0, active = 0, blocked = 0;
+      let active = 0, blocked = 0;
       const renderedUsers = [];
 
       (users || []).forEach(user => {
-        const status = user.status || 'pending';
-        if (status === 'pending') {
-          pending++;
-          renderedUsers.push({ ...user, displayStatus: 'pending' });
-        } else if (status === 'approved' && user.email !== 'nandkishor24714@gmail.com') {
+        const status = user.status || 'approved';
+        if (status === 'approved' && user.email !== 'nandkishor24714@gmail.com') {
           active++;
           renderedUsers.push({ ...user, displayStatus: 'active' });
         } else if (status === 'blocked' || status === 'suspended') {
@@ -4150,11 +4050,9 @@ function loadAdminUsers(filterStatus = 'pending') {
       });
 
       const statDivs = document.querySelectorAll('#admin-approval-stats > div');
-      if (statDivs[0]) statDivs[0].querySelector('div').textContent = pending;
-      if (statDivs[1]) statDivs[1].querySelector('div').textContent = active;
-      if (statDivs[2]) statDivs[2].querySelector('div').textContent = blocked;
+      if (statDivs[0]) statDivs[0].querySelector('div').textContent = active;
+      if (statDivs[1]) statDivs[1].querySelector('div').textContent = blocked;
 
-      previousPendingCount = pending;
       listenerInitialized = true;
 
       const usersList = document.getElementById('admin-users-list');
@@ -4172,12 +4070,11 @@ function loadAdminUsers(filterStatus = 'pending') {
         const dateStr = createdDate.toLocaleDateString();
         const initials = (user.name || 'U').split(' ').map(n => n[0]).join('').toUpperCase();
         const statusColors = {
-          pending: { bg: 'bg-amber-100', text: 'text-amber-700', label: 'PENDING' },
           active: { bg: 'bg-green-100', text: 'text-green-700', label: 'ACTIVE' },
           blocked: { bg: 'bg-red-100', text: 'text-red-700', label: 'BLOCKED' }
         };
         const colors = statusColors[user.displayStatus];
-        const avatarColors = { pending: 'bg-amber-500', active: 'bg-green-500', blocked: 'bg-red-500' };
+        const avatarColors = { active: 'bg-green-500', blocked: 'bg-red-500' };
 
         const userCard = document.createElement('div');
         userCard.className = 'flex flex-col gap-4 p-4 sm:p-6 hover:bg-slate-50 transition cursor-pointer border-b border-slate-100 last:border-b-0';
@@ -4192,15 +4089,12 @@ function loadAdminUsers(filterStatus = 'pending') {
             <div class="${colors.bg} ${colors.text} text-xs font-bold px-2 sm:px-3 py-1 rounded-full flex-shrink-0">${colors.label}</div>
           </div>
           <div class="flex flex-col sm:flex-row gap-2 flex-wrap">
-            ${user.displayStatus === 'pending' ? `
-              <button class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-indigo-700 transition active:scale-95" onclick="approveAdminUser('${user.id}')">Approve</button>
-              <button class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-red-700 transition active:scale-95" onclick="blockAdminUser('${user.id}')">Reject</button>
-            ` : user.displayStatus === 'active' ? `
-              <button class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-amber-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-amber-700 transition active:scale-95" onclick="suspendAdminUser('${user.id}', '${user.email || 'User'}')">Suspend</button>
-              <button class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-red-700 transition active:scale-95" onclick="deleteAdminUser('${user.id}', '${user.email || 'User'}')">Delete</button>
+            ${user.displayStatus === 'active' ? `
+              <button class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-red-700 transition active:scale-95" onclick="blockAdminUser('${user.id}')">Block</button>
+              <button class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-slate-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-slate-700 transition active:scale-95" onclick="deleteAdminUser('${user.id}', '${user.email || 'User'}')">Delete</button>
             ` : `
               <button class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-indigo-700 transition active:scale-95" onclick="activateAdminUser('${user.id}')">Activate</button>
-              <button class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-red-700 transition active:scale-95" onclick="deleteAdminUser('${user.id}', '${user.email || 'User'}')">Delete</button>
+              <button class="flex-1 sm:flex-none px-3 sm:px-4 py-2 bg-slate-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-slate-700 transition active:scale-95" onclick="deleteAdminUser('${user.id}', '${user.email || 'User'}')">Delete</button>
             `}
           </div>
         `;
@@ -4385,13 +4279,13 @@ window.deleteAdminUser = function(uid, email) {
 }
 
 window.blockAdminUser = function(uid) {
-  if (!confirm('Reject this account?')) return;
-  console.log('❌ Rejecting account:', uid);
+  if (!confirm('Block this user?')) return;
+  console.log('❌ Blocking user:', uid);
   
   db.from('users').update({ status: 'blocked' }).eq('uid', uid)
     .then(async (response) => {
-      console.log('✅ Account rejected successfully:', response);
-      showToast('✅ Account rejected!');
+      console.log('✅ User blocked successfully:', response);
+      showToast('✅ User blocked!');
       
       try {
         await logActivity('account_blocked', { uid: uid });
@@ -4399,48 +4293,47 @@ window.blockAdminUser = function(uid) {
         console.warn('⚠️ Activity logging failed:', logErr);
       }
       
-      loadAdminUsers('pending');
+      loadAdminUsers('active');
     })
     .catch(err => {
-      console.error('❌ Error rejecting account:', err.code, err.message);
+      console.error('❌ Error blocking user:', err.code, err.message);
       showToast('❌ Error: ' + (err.message || 'Unknown error'));
     });
 }
 
 window.suspendAdminUser = function(uid, email) {
-  if (!confirm('Suspend ' + email + '?')) return;
-  console.log('⏸️ Suspending account:', uid, email);
+  if (!confirm('Block ' + email + '?')) return;
+  console.log('❌ Blocking account:', uid, email);
   
-  db.from('users').update({ status: 'suspended' }).eq('uid', uid)
+  db.from('users').update({ status: 'blocked' }).eq('uid', uid)
     .then(async (response) => {
-      console.log('✅ Account suspended successfully:', response);
-      showToast('✅ Account suspended!');
+      console.log('✅ Account blocked successfully:', response);
+      showToast('✅ Account blocked!');
       
       // Make logging non-blocking (was causing cascading failures)
       try {
-        await logActivity('account_suspended', { uid: uid, email: email, action: 'admin_suspended_account' });
+        await logActivity('account_blocked', { uid: uid, email: email, action: 'admin_blocked_account' });
       } catch (logErr) {
         console.warn('⚠️ Activity logging failed (non-critical):', logErr);
-        // Don't fail the suspension if logging fails
+        // Don't fail the block if logging fails
       }
       
-      switchAdminTab('suspended');
-      setTimeout(() => loadAdminUsers('suspended'), 500);
+      setTimeout(() => loadAdminUsers('blocked'), 500);
     })
     .catch(err => {
-      console.error('❌ ERROR SUSPENDING ACCOUNT:', err.code, err.message);
+      console.error('❌ ERROR BLOCKING ACCOUNT:', err.code, err.message);
       showToast('❌ Error: ' + (err.message || 'Unknown error'));
     });
 }
 
 window.activateAdminUser = function(uid) {
-  if (!confirm('Activate this account?')) return;
-  console.log('✅ Activating account:', uid);
+  if (!confirm('Activate this user?')) return;
+  console.log('✅ Activating user:', uid);
   
   db.from('users').update({ status: 'approved' }).eq('uid', uid)
     .then(async (response) => {
-      console.log('✅ Account activated successfully:', response);
-      showToast('✅ Account activated!');
+      console.log('✅ User activated successfully:', response);
+      showToast('✅ User activated!');
       
       // Make logging non-blocking (was causing cascading failures)
       try {
@@ -4450,17 +4343,16 @@ window.activateAdminUser = function(uid) {
         // Don't fail the activation if logging fails
       }
       
-      switchAdminTab('active');
-      setTimeout(() => loadAdminUsers('active'), 500);
+      setTimeout(() => loadAdminUsers('blocked'), 500);
     })
     .catch(err => {
-      console.error('❌ ERROR ACTIVATING ACCOUNT:', err.code, err.message);
+      console.error('❌ ERROR ACTIVATING USER:', err.code, err.message);
       showToast('❌ Error: ' + (err.message || 'Unknown error'));
     });
 }
 
 function showApproveSection() {
-  console.log('Loading Approve Section');
+  console.log('Loading User Management Section');
   
   // Security check - only admin can view this
   const currentUser = window.currentUserAuth;
@@ -4479,8 +4371,8 @@ function showApproveSection() {
   const approveSection = document.getElementById('approve-section');
   if (approveSection) approveSection.style.display = 'block';
   
-  // Load users with default pending filter
-  switchAdminTab('pending');
+  // Load active users
+  loadAdminUsers('active');
 }
 
 function showApprovedAccounts() {
@@ -4733,8 +4625,10 @@ const keymanBitData = [
   { no: "K - 7", range: "km 34 to  km 39" },
   { no: "K - 8", range: "km 39 to  km 44" }
 ];
-const nightDutyNumbers  = ["# 103011","# 103249","# 103237","# 303121","# 103098","# 103116"];
-const keymanDutyNumbers = ["80083","86639","85437","86484","102861","80444","85195","80374"];
+const defaultNightDutyNumbers  = ["# 103011","# 103249","# 103237","# 303121","# 103098","# 103116"];
+const defaultKeymanDutyNumbers = ["80083","86639","85437","86484","102861","80444","85195","80374"];
+const nightDutyNumbers  = [...defaultNightDutyNumbers];
+const keymanDutyNumbers = [...defaultKeymanDutyNumbers];
 
 let employeeList = [];
 let printHistory = [];
@@ -4752,6 +4646,120 @@ const bgEl         = document.getElementById('bg-image');
 
 let currentTaViewMode = 'journal';
 
+function getGpsNumbersForType(type) {
+  return type === 'keyman' ? keymanDutyNumbers : nightDutyNumbers;
+}
+
+function getDefaultGpsNumbersForType(type) {
+  return type === 'keyman' ? defaultKeymanDutyNumbers : defaultNightDutyNumbers;
+}
+
+async function loadGpsNumbersFromDB() {
+  try {
+    if (!window.db) return;
+
+    const { data, error } = await window.db
+      .from('gps_duty_numbers')
+      .select('duty_type, position, gps_number')
+      .order('duty_type', { ascending: true })
+      .order('position', { ascending: true });
+
+    if (error) throw error;
+
+    const nextNightNumbers = [...defaultNightDutyNumbers];
+    const nextKeymanNumbers = [...defaultKeymanDutyNumbers];
+
+    (data || []).forEach((row) => {
+      const target = row.duty_type === 'keyman' ? nextKeymanNumbers : nextNightNumbers;
+      const index = Number(row.position);
+
+      if (!Number.isInteger(index) || index < 0 || index >= target.length) return;
+
+      target[index] = row.gps_number || '';
+    });
+
+    nightDutyNumbers.length = 0;
+    nightDutyNumbers.push(...nextNightNumbers);
+    keymanDutyNumbers.length = 0;
+    keymanDutyNumbers.push(...nextKeymanNumbers);
+
+    console.log('GPS duty numbers loaded from database');
+  } catch (error) {
+    console.warn('Could not load GPS duty numbers from database:', error);
+  }
+}
+
+function toggleGpsSaveButton(index) {
+  const input = document.getElementById(`gps-number-${index}`);
+  const button = document.getElementById(`gps-save-btn-${index}`);
+  if (!input || !button) return;
+
+  const savedValue = input.dataset.savedValue || '';
+  const currentValue = input.value.trim();
+  const isDirty = currentValue !== savedValue;
+
+  button.classList.toggle('hidden', !isDirty);
+}
+
+async function saveSingleGpsNumber(index) {
+  const type = currentDutyType || 'night';
+  const dutyNumbers = getGpsNumbersForType(type);
+  const input = document.getElementById(`gps-number-${index}`);
+  const button = document.getElementById(`gps-save-btn-${index}`);
+
+  if (!input || !button) return;
+
+  const gpsNumber = input.value.trim();
+  const savedValue = input.dataset.savedValue || '';
+
+  if (gpsNumber === savedValue) {
+    toggleGpsSaveButton(index);
+    return;
+  }
+
+  if (!window.db) {
+    showToast('Database is not ready yet.');
+    return;
+  }
+
+  if (!window.currentUserAuth) {
+    showToast('Please log in before saving GPS numbers.');
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = 'Saving...';
+
+  try {
+    const { error } = await window.db
+      .from('gps_duty_numbers')
+      .upsert({
+        duty_type: type,
+        position: index,
+        gps_number: gpsNumber,
+        updated_by: window.currentUserAuth.id,
+        updated_at: new Date().toISOString()
+      }, { onConflict: 'duty_type,position' });
+
+    if (error) throw error;
+
+    dutyNumbers[index] = gpsNumber;
+    input.value = gpsNumber;
+    input.dataset.savedValue = gpsNumber;
+
+    toggleGpsSaveButton(index);
+    showToast('GPS number saved.');
+    console.log('GPS duty number saved:', { type, index, gpsNumber });
+  } catch (error) {
+    console.error('Error saving GPS duty number:', error);
+    showToast('Could not save GPS number.');
+  } finally {
+    button.disabled = false;
+    button.textContent = 'Save';
+    toggleGpsSaveButton(index);
+  }
+}
+
 async function loadDataFromDB() {
   try {
     const user = window.currentUserAuth;
@@ -4764,7 +4772,9 @@ async function loadDataFromDB() {
     const { data: employees, error: empErr } = await window.db.from("sample_employees").select("*");
     employeeList = employees || [];
     // Sort in JavaScript
-    employeeList.sort((a, b) => (a.name || '').localeCompare(b.name || '')); 
+    employeeList.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+
+    await loadGpsNumbersFromDB();
     
     // Initialize empty arrays for optional tables
     printHistory = [];
@@ -5165,7 +5175,7 @@ function setupForm() {
   if (!container) return;
 
   // Get duty numbers for this type
-  const dutyNumbers = type === 'night' ? nightDutyNumbers : keymanDutyNumbers;
+  const dutyNumbers = getGpsNumbersForType(type);
 
   container.innerHTML = currentBitData.map((bit, i) => `
     <div class="flex flex-col md:flex-row gap-3 items-center p-3 bg-white/60 border rounded-2xl shadow-sm">
@@ -5182,8 +5192,14 @@ function setupForm() {
       </div>
       <div class="w-full md:w-36">
         <label for="gps-number-${i}" class="block text-[10px] uppercase font-bold text-gray-400 mb-1 ml-1">📍 GPS</label>
-        <input type="text" id="gps-number-${i}" value="${dutyNumbers[i] || ''}" placeholder="GPS Duty No."
-          class="w-full p-2 border-2 border-blue-300 rounded-xl text-sm font-semibold focus:border-blue-500 outline-none" onchange="saveGpsNumbers()">
+        <div class="flex flex-col gap-2">
+          <input type="text" id="gps-number-${i}" value="${dutyNumbers[i] || ''}" data-saved-value="${dutyNumbers[i] || ''}" placeholder="GPS Duty No."
+            class="w-full p-2 border-2 border-blue-300 rounded-xl text-sm font-semibold focus:border-blue-500 outline-none" oninput="toggleGpsSaveButton(${i})">
+          <button type="button" id="gps-save-btn-${i}" onclick="saveSingleGpsNumber(${i})"
+            class="hidden self-end px-3 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition disabled:opacity-60 disabled:cursor-not-allowed">
+            Save
+          </button>
+        </div>
       </div>
     </div>`).join('');
 
@@ -5194,52 +5210,40 @@ function setupForm() {
   }
 }
 
-// 📍 Save GPS duty numbers (when user edits them)
-function saveGpsNumbers() {
-  const type = currentDutyType || 'night';
-  const dutyNumbers = type === 'night' ? nightDutyNumbers : keymanDutyNumbers;
-  const maxGps = dutyNumbers.length;
-  
-  // Read edited values from form
-  for (let idx = 0; idx < maxGps; idx++) {
+// 📍 Save all dirty GPS duty numbers
+async function saveGpsNumbers() {
+  const dutyNumbers = getGpsNumbersForType(currentDutyType || 'night');
+
+  for (let idx = 0; idx < dutyNumbers.length; idx++) {
     const input = document.getElementById(`gps-number-${idx}`);
-    if (input) {
-      dutyNumbers[idx] = input.value;
+    if (!input) continue;
+
+    if (input.value.trim() !== (input.dataset.savedValue || '')) {
+      await saveSingleGpsNumber(idx);
     }
   }
-  
-  console.log('✅ GPS Duty Numbers Saved:', dutyNumbers);
-  showToast('✅ GPS numbers updated!');
 }
 
 // ↻ Reset GPS duty numbers to default
 function resetGpsNumbers() {
   const type = currentDutyType || 'night';
-  
-  // Define defaults
-  const defaults = type === 'night' 
-    ? ["# 103011","# 103249","# 103237","# 303121","# 103098","# 103116"]
-    : ["80083","86639","85437","86484","102861","80444","85195","80374"];
-  
-  // Update the arrays
-  if (type === 'night') {
-    nightDutyNumbers.length = 0;
-    nightDutyNumbers.push(...defaults);
-  } else {
-    keymanDutyNumbers.length = 0;
-    keymanDutyNumbers.push(...defaults);
-  }
-  
+
+  const defaults = [...getDefaultGpsNumbersForType(type)];
+  const dutyNumbers = getGpsNumbersForType(type);
+  dutyNumbers.length = 0;
+  dutyNumbers.push(...defaults);
+
   // Update form fields
   defaults.forEach((num, idx) => {
     const input = document.getElementById(`gps-number-${idx}`);
     if (input) {
       input.value = num;
+      toggleGpsSaveButton(idx);
     }
   });
   
   console.log('↻ GPS Duty Numbers Reset to Defaults:', defaults);
-  showToast('↻ GPS numbers reset to default!');
+  showToast('↻ GPS numbers reset. Tap Save to store them.');
 }
 
 
@@ -6305,6 +6309,251 @@ function clearAllTaEntries() {
   }
 }
 
+// Edit TA entry from database
+function editDbTaEntry(dateKey) {
+  const monthSelect = document.getElementById('ta-filter-month-selector');
+  const yearSelect = document.getElementById('ta-filter-year-selector');
+  
+  if (!monthSelect || !monthSelect.value || !yearSelect || !yearSelect.value) {
+    customAlert('Please select Month and Year first');
+    return;
+  }
+  
+  const monthNum = monthMap[monthSelect.value];
+  const year = parseInt(yearSelect.value);
+  
+  (async () => {
+    try {
+      console.log('\n=== EDIT DB ENTRY - START ===');
+      console.log('🖊️ Editing dateKey:', dateKey);
+      
+      const user = window.currentUserAuth;
+      if (!user) {
+        customAlert('Not logged in');
+        return;
+      }
+      
+      // Query the database record
+      const { data: record, error: queryErr } = await window.db
+        .from('ta_journal')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('month', monthNum)
+        .eq('year', year)
+        .single();
+      
+      if (queryErr) {
+        console.error('❌ Query error:', queryErr);
+        customAlert('Entry not found in database');
+        return;
+      }
+      
+      if (!record) {
+        customAlert('Record not found');
+        return;
+      }
+      
+      console.log('📋 Found record:', record);
+      
+      if (!Array.isArray(record.entries)) {
+        customAlert('Invalid record format');
+        return;
+      }
+      
+      const entry = record.entries.find(e => e.dateKey === dateKey);
+      
+      if (!entry) {
+        console.error('❌ Entry not found. Available keys:', record.entries.map(e => e.dateKey));
+        customAlert('Entry data not found in record');
+        return;
+      }
+      
+      console.log('✅ Found entry:', entry);
+      
+      // Populate form fields with entry data
+      document.getElementById('ta-editing-date-key').value = dateKey;
+      document.getElementById('ta-date-single').value = dateKey;
+      
+      const modeVal = entry.mode || 'byroad';
+      document.querySelector(`input[name="ta-mode-single"][value="${modeVal}"]`).checked = true;
+      toggleTrainNoSingle();
+      
+      document.getElementById('ta-train-no-single').value = entry.trainNo || '';
+      document.getElementById('ta-left-src').value = entry.leftSrc || '';
+      document.getElementById('ta-arr-dest').value = entry.arrDest || '';
+      document.getElementById('ta-left-dest').value = entry.leftDest || '';
+      document.getElementById('ta-arr-src').value = entry.arrSrc || '';
+      document.getElementById('ta-from-stn-single').value = entry.fromStn || 'NES';
+      document.getElementById('ta-to-stn-single').value = entry.toStn || '';
+      
+      const pctEl = document.querySelector(`input[name="ta-pct-single"][value="${entry.pct}"]`);
+      if (pctEl) pctEl.checked = true;
+      
+      document.getElementById('ta-obj-single').value = entry.obj || '';
+      updateCharCount();
+      
+      // Handle rate - check if it's one of the standard options or custom
+      const rateOption = document.querySelector(`input[name="ta-rate-single"][value="${entry.rate}"]`);
+      if (rateOption) {
+        rateOption.checked = true;
+        document.getElementById('ta-rate-custom').classList.add('hidden');
+      } else {
+        // It's a custom rate
+        document.querySelector('input[name="ta-rate-single"][value="other"]').checked = true;
+        document.getElementById('ta-rate-custom').classList.remove('hidden');
+        document.getElementById('ta-rate-custom').value = entry.rate || '';
+      }
+      
+      // Set A and P amount fields
+      document.getElementById('ta-amount-rs').value = entry.rs || '0';
+      document.getElementById('ta-amount-paise').value = entry.paise || '0';
+      
+      // Store that we're editing from DB
+      window.taEditingFromDB = true;
+      taEditingKey = dateKey;
+      
+      calcTaAmountSingle();
+      document.getElementById('ta-editing-badge').classList.remove('hidden');
+      document.getElementById('ta-entry-form-title').innerText = `✏️ Editing: ${formatTaDate(dateKey)}`;
+      document.getElementById('ta-add-page-btn').innerText = '💾 Save Edit';
+      document.getElementById('ta-cancel-edit-btn').classList.remove('hidden');
+      document.getElementById('ta-single-entry-card').scrollIntoView({ behavior: 'smooth' });
+      
+      console.log('=== EDIT DB ENTRY - SUCCESS ===\n');
+    } catch (err) {
+      console.error('❌ Error loading entry for edit:', err);
+      customAlert('Error: ' + (err?.message || 'Unknown error'));
+    }
+  })();
+}
+
+// Delete TA entry from database
+async function deleteDbTaEntry(dateKey) {
+  if (!confirm('Delete this entry?')) return;
+  
+  const user = window.currentUserAuth;
+  if (!user) {
+    customAlert('Not logged in');
+    return;
+  }
+  
+  try {
+    console.log('\n=== DELETE DB ENTRY - START ===');
+    console.log('🗑️ Deleting dateKey:', dateKey);
+    console.log('👤 User ID:', user.id);
+    console.log('📝 DateKey type:', typeof dateKey);
+    
+    // Get the month and year from the current filtered view
+    const monthSelect = document.getElementById('ta-filter-month-selector');
+    const yearSelect = document.getElementById('ta-filter-year-selector');
+    
+    if (!monthSelect || !monthSelect.value || !yearSelect || !yearSelect.value) {
+      customAlert('Please select Month and Year first');
+      return;
+    }
+    
+    const monthNum = monthMap[monthSelect.value];
+    const year = parseInt(yearSelect.value);
+    
+    console.log('📅 Search params - Month:', monthNum, 'Year:', year);
+    console.log('🔍 Querying for record...');
+    
+    // Query the database record
+    const { data: records, error: queryErr } = await window.db
+      .from('ta_journal')
+      .select('*')
+      .eq('user_id', user.id)
+      .eq('month', monthNum)
+      .eq('year', year)
+      .single();
+    
+    if (queryErr) {
+      console.error('❌ Query error:', queryErr);
+      throw new Error(`Failed to find record: ${queryErr.message}`);
+    }
+    
+    if (!records) {
+      customAlert('Record not found');
+      console.log('⚠️ No record found');
+      return;
+    }
+    
+    const record = records;
+    console.log('📋 Found record ID:', record.id);
+    console.log('📊 Current entries:', record.entries);
+    console.log('📊 Current entries count:', record.entries ? record.entries.length : 0);
+    
+    if (!Array.isArray(record.entries)) {
+      throw new Error('Entries is not an array');
+    }
+    
+    // Find and check the entry exists
+    const existingEntry = record.entries.find(e => {
+      console.log('  Comparing:', e.dateKey, '===', dateKey, '?', e.dateKey === dateKey);
+      return e.dateKey === dateKey;
+    });
+    
+    if (!existingEntry) {
+      console.error('❌ Entry not found in record. Available keys:', record.entries.map(e => e.dateKey));
+      customAlert('Entry not found in record');
+      return;
+    }
+    
+    console.log('✅ Entry found:', existingEntry);
+    
+    // Remove the entry with matching dateKey
+    const filteredEntries = record.entries.filter(e => e.dateKey !== dateKey);
+    
+    console.log(`✂️ Filter result: ${record.entries.length} → ${filteredEntries.length} entries`);
+    console.log('📊 Remaining entries:', filteredEntries);
+    
+    // Recalculate total amount
+    let newTotal = 0;
+    filteredEntries.forEach(e => {
+      const amount = parseFloat(e.rs || 0) + (parseFloat(e.paise || 0) / 100);
+      newTotal += amount;
+    });
+    
+    console.log('💰 New total amount:', newTotal.toFixed(2));
+    
+    // Update the record with new entries
+    showToast('⏳ Updating database...');
+    
+    const updateData = {
+      entries: filteredEntries,
+      total_amount: newTotal,
+      savedat: new Date().toISOString()
+    };
+    
+    console.log('🔄 Updating record with:', updateData);
+    
+    const { data: updateResult, error: updateErr } = await window.db
+      .from('ta_journal')
+      .update(updateData)
+      .eq('id', record.id)
+      .select();
+    
+    if (updateErr) {
+      console.error('❌ UPDATE ERROR:', updateErr);
+      throw new Error(`Update failed: ${updateErr.message}`);
+    }
+    
+    console.log('✅ Update successful:', updateResult);
+    console.log('=== DELETE DB ENTRY - SUCCESS ===\n');
+    
+    showToast('✅ Entry deleted successfully');
+    
+    // Reload the filtered entries
+    await loadTaEntriesByMonth();
+    
+  } catch (err) {
+    console.error('❌ ERROR in deleteDbTaEntry:', err.message);
+    console.error('Stack:', err.stack);
+    customAlert('Error: ' + (err?.message || 'Unknown error'));
+    showToast('❌ Delete failed');
+  }
+}
+
 function renderTaSavedDays() {
   const container = document.getElementById('ta-saved-days-list');
   const countEl = document.getElementById('ta-days-count');
@@ -6314,20 +6563,162 @@ function renderTaSavedDays() {
     container.innerHTML = `<p class="text-slate-400 text-sm text-center py-4 italic">No entries yet. Add a day above.</p>`;
     return;
   }
+  
   container.innerHTML = keys.map((key, i) => {
     const e = taPageEntries[key];
-    const isEditing = taEditingKey === key;
-    return `<div class="ta-day-card ${isEditing ? 'editing' : ''}">
-      <div>
-        <div class="font-bold text-slate-800 text-sm">${i + 1}. ${formatTaDate(key)} &nbsp;<span class="text-slate-400 text-xs">${e.modeLabel}</span></div>
-        <div class="text-xs text-slate-500 mt-0.5">${e.fromStn || 'NES'} → ${e.toStn || '?'} | Rs. ${e.rs}.${e.paise} | ${e.pct}% of ${e.rate} | ${e.obj || '-'}</div>
+    const dateObj = new Date(key + 'T00:00:00');
+    const dayNum = parseInt(key.split('-')[2]);
+    const monthNum = parseInt(key.split('-')[1]);
+    const yearNum = parseInt(key.split('-')[0]);
+    
+    return `
+    <div style="background: #f8f9fa; border: 1px solid #d1d5db; border-radius: 6px; padding: 6px 8px; margin-bottom: 4px; overflow: hidden;">
+      
+      <!-- ROW 1: Entry # + Date + Mode on left, Buttons on right -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 12px;">
+          <span style="font-weight: 700; color: #0f172a; min-width: 20px;">${i + 1}.</span>
+          <span style="color: #0f172a; font-weight: 600;">${dayNum}/${monthNum.toString().padStart(2, '0')}/${yearNum}</span>
+          <span style="color: #6b7280; text-transform: capitalize; font-size: 12px; font-weight: 500;">${e.mode === 'bytrain' ? 'By Train' : 'By Road'}</span>
+        </div>
+        
+        <div style="display: flex; gap: 4px;">
+          <button onclick="editTaEntry('${key}')" style="background: #fbbf24; color: #78350f; border: none; padding: 3px 8px; border-radius: 4px; font-weight: 600; font-size: 11px; cursor: pointer; white-space: nowrap;">
+            ✏️ Edit
+          </button>
+          <button onclick="deleteTaEntry('${key}')" style="background: #ef4444; color: white; border: none; padding: 3px 6px; border-radius: 4px; font-weight: 600; font-size: 11px; cursor: pointer; white-space: nowrap;">
+            🗑
+          </button>
+        </div>
       </div>
-      <div class="flex gap-2">
-        <button onclick="editTaEntry('${key}')" class="text-amber-600 hover:text-amber-800 bg-amber-50 px-3 py-1.5 rounded-lg text-xs font-bold border border-amber-200 transition-all">✏️ Edit</button>
-        <button onclick="deleteTaEntry('${key}')" class="text-red-500 hover:text-red-700 bg-red-50 px-2 py-1.5 rounded-lg text-xs font-bold border border-red-100 transition-all">🗑</button>
+      
+      <!-- ROW 2: Route | Amount | Rate & Percentage | Objective -->
+      <div style="font-size: 11px; color: #1f2937; font-weight: 500; line-height: 1.1; margin-left: 20px;">
+        ${e.fromStn} → ${e.toStn || '?'} | Rs. ${e.rs}.${e.paise} | ${e.pct}% of ${e.rate} | ${e.obj || '−'}
       </div>
-    </div>`;
+    </div>
+    `;
   }).join('');
+}
+
+function viewTaEntryDetails(dateKey) {
+  const e = taPageEntries[dateKey];
+  if (!e) return;
+  
+  const dateObj = new Date(dateKey + 'T00:00:00');
+  const dayName = dateObj.toLocaleDateString('en-IN', { weekday: 'long' });
+  const fullDate = dateObj.toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  
+  let detailsHtml = `
+  <div style="max-width: 500px; margin: 0 auto;">
+    <!-- HEADER -->
+    <div style="background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%); color: white; padding: 20px; border-radius: 12px 12px 0 0; text-align: center;">
+      <div style="font-size: 28px; margin-bottom: 6px;">📋 Entry Details</div>
+      <div style="font-size: 14px; opacity: 0.9;">${fullDate}</div>
+    </div>
+    
+    <!-- DETAILS TABLE -->
+    <div style="background: white; border: 2px solid #e2e8f0; border-radius: 0 0 12px 12px; overflow: hidden;">
+      <!-- Date Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e2e8f0; padding: 14px 16px;">
+        <div style="font-weight: 700; color: #0f172a; font-size: 13px;">📅 Date</div>
+        <div style="color: #475569; font-size: 14px; font-weight: 500;">${formatTaDate(dateKey)} (${dayName})</div>
+      </div>
+      
+      <!-- Mode Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e2e8f0; padding: 14px 16px; background: #f8fafc;">
+        <div style="font-weight: 700; color: #0f172a; font-size: 13px;">🚀 Mode</div>
+        <div style="color: #475569; font-size: 14px; font-weight: 500;">${e.mode === 'bytrain' ? '🚂 By Train' : '🚗 By Road'}</div>
+      </div>
+      
+      <!-- From Station Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e2e8f0; padding: 14px 16px;">
+        <div style="font-weight: 700; color: #0f172a; font-size: 13px;">🏁 From Station</div>
+        <div style="color: #475569; font-size: 14px; font-weight: 500;">${e.fromStn || 'Not specified'}</div>
+      </div>
+      
+      <!-- To Station Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e2e8f0; padding: 14px 16px; background: #f8fafc;">
+        <div style="font-weight: 700; color: #0f172a; font-size: 13px;">🎯 To Station</div>
+        <div style="color: #475569; font-size: 14px; font-weight: 500;">${e.toStn || 'Not specified'}</div>
+      </div>
+      
+      <!-- Objective Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e2e8f0; padding: 14px 16px;">
+        <div style="font-weight: 700; color: #0f172a; font-size: 13px;">📝 Objective</div>
+        <div style="color: #475569; font-size: 14px; font-weight: 500;">${e.obj || '(Not specified)'}</div>
+      </div>
+      
+      <!-- Daily Rate Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e2e8f0; padding: 14px 16px; background: #f8fafc;">
+        <div style="font-weight: 700; color: #0f172a; font-size: 13px;">💰 Daily Rate</div>
+        <div style="color: #0f172a; font-size: 14px; font-weight: 700;">Rs. ${e.rate}</div>
+      </div>
+      
+      <!-- Percentage Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e2e8f0; padding: 14px 16px;">
+        <div style="font-weight: 700; color: #0f172a; font-size: 13px;">📊 Percentage</div>
+        <div style="color: #0f172a; font-size: 14px; font-weight: 700;">${e.pct}%</div>
+      </div>
+      
+      <!-- Calculation Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e2e8f0; padding: 14px 16px; background: #f0fdf4;">
+        <div style="font-weight: 700; color: #166534; font-size: 13px;">🔢 Calculation</div>
+        <div style="color: #166534; font-size: 13px; font-weight: 500;">Rs. ${e.rate} × ${e.pct}% = <span style="font-weight: 800;">Rs. ${e.rs}.${e.paise}</span></div>
+      </div>
+      
+      <!-- Amount Row (Final) -->
+      <div style="display: grid; grid-template-columns: 35% 65%; padding: 16px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white;">
+        <div style="font-weight: 700; font-size: 14px;">💵 Total Amount</div>
+        <div style="font-size: 18px; font-weight: 800;">Rs. ${e.rs}.${e.paise}</div>
+      </div>
+      
+      ${e.mode === 'bytrain' ? `
+      <!-- TRAIN SECTION HEADER -->
+      <div style="padding: 14px 16px; background: #faf5ff; border-top: 2px solid #e9d5ff;">
+        <div style="font-weight: 700; color: #6b21a8; font-size: 13px;">🚂 TRAIN JOURNEY DETAILS</div>
+      </div>
+      
+      <!-- Train Number Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e9d5ff; padding: 12px 16px;">
+        <div style="font-weight: 600; color: #6b21a8; font-size: 12px;">Train Number</div>
+        <div style="color: #6b21a8; font-size: 13px; font-weight: 500;">${e.trainNo || 'N/A'}</div>
+      </div>
+      
+      <!-- Left Source Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e9d5ff; padding: 12px 16px; background: #faf5ff;">
+        <div style="font-weight: 600; color: #6b21a8; font-size: 12px;">Left Source At</div>
+        <div style="color: #6b21a8; font-size: 13px; font-weight: 500;">${e.leftSrc || 'N/A'}</div>
+      </div>
+      
+      <!-- Arrived Destination Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e9d5ff; padding: 12px 16px;">
+        <div style="font-weight: 600; color: #6b21a8; font-size: 12px;">Arrived Destination</div>
+        <div style="color: #6b21a8; font-size: 13px; font-weight: 500;">${e.arrDest || 'N/A'}</div>
+      </div>
+      
+      <!-- Left Destination Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; border-bottom: 1px solid #e9d5ff; padding: 12px 16px; background: #faf5ff;">
+        <div style="font-weight: 600; color: #6b21a8; font-size: 12px;">Left Destination At</div>
+        <div style="color: #6b21a8; font-size: 13px; font-weight: 500;">${e.leftDest || 'N/A'}</div>
+      </div>
+      
+      <!-- Arrived Source Row -->
+      <div style="display: grid; grid-template-columns: 35% 65%; padding: 12px 16px;">
+        <div style="font-weight: 600; color: #6b21a8; font-size: 12px;">Arrived Source At</div>
+        <div style="color: #6b21a8; font-size: 13px; font-weight: 500;">${e.arrSrc || 'N/A'}</div>
+      </div>
+      ` : ''}
+    </div>
+    
+    <!-- FOOTER -->
+    <div style="text-align: center; padding: 16px; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0;">
+      ✓ Close this popup and use Edit/Delete buttons to modify or remove entries
+    </div>
+  </div>
+  `;
+  
+  customAlert(detailsHtml);
 }
 
 /* ==========================================
@@ -6666,8 +7057,9 @@ function buildSummaryOverlay(summaryGroupArr, grandTotalRs, grandTotalPaise, gra
     // Check if pct contains multiple percentages (e.g., "30+70")
     const hasMultiplePcts = String(g.pct).includes('+');
     if (hasMultiplePcts) {
-      // Format: 70%+30% = 100%×15 = 625×15 = ₹(calculated value)
-      summaryLines += `<div style="${ff}padding-left:40px;font-weight:bold;font-family:'Times New Roman',serif;margin:0;padding-top:1px;padding-bottom:1px;">${g.pct}% <b>=</b> 100% <b>×</b> ${g.count} <b>=</b> ${g.rate} <b>×</b> ${g.count} <b>=</b> ₹${gDisplay}</div>`;
+      // Format percentages horizontally: 30% | 70% = 100% × count = rate × count = ₹value (single line, no height increase)
+      const pctParts = String(g.pct).split('+').map(p => p.trim()).join('% <b>|</b> ');
+      summaryLines += `<div style="${ff}padding-left:40px;font-weight:bold;font-family:'Times New Roman',serif;margin:0;padding-top:1px;padding-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${pctParts}% <b>=</b> 100% <b>×</b> ${g.count} <b>=</b> ${g.rate} <b>×</b> ${g.count} <b>=</b> ₹${gDisplay}</div>`;
     } else {
       summaryLines += `<div style="${ff}padding-left:40px;font-weight:bold;font-family:'Times New Roman',serif;margin:0;padding-top:1px;padding-bottom:1px;">${g.pct}% <b>×</b> ${g.count} <b>=</b> ${perEntryDisplay} <b>×</b> ${g.count} <b>=</b> ₹${gDisplay}</div>`;
     }
@@ -7010,37 +7402,97 @@ function printTaReport() {
 
 async function saveTaJournalToDB() {
   const keys = Object.keys(taPageEntries).sort();
-  if (keys.length === 0) { customAlert("Please add at least one journey entry."); return; }
+  if (keys.length === 0) { 
+    customAlert("Please add at least one journey entry."); 
+    return; 
+  }
+  
   const currentUser = window.currentUserAuth;
-  if (!currentUser || !currentUser.id) { customAlert("Please login first to save TA Journal."); return; }
-  const entries = keys.map(k => taPageEntries[k]);
-  const header = getTaHeaderData();
-  const summaryGroups = buildSummary(entries);
-  let grandTotal = 0;
-  Object.values(summaryGroups).forEach(g => { grandTotal += g.total; });
-  const docData = {
-    user_id: currentUser.id,
-    user_email: currentUser.email,
-    header, entries, grandtotal: grandTotal.toFixed(2),
-    savedat: new Date().toISOString(),
-    timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: false })
-  };
+  if (!currentUser || !currentUser.id) { 
+    customAlert("Please login first to save TA Journal."); 
+    return; 
+  }
+  
   try {
-    // Save to ta_journal
-    const { data, error } = await db.from('ta_journal').insert([docData]).select();
-    if (error) throw error;
-    showToast("TA Journal saved successfully!");
+    const entries = keys.map(k => taPageEntries[k]);
+    const header = getTaHeaderData();
+    const summaryGroups = buildSummary(entries);
+    let grandTotal = 0;
+    Object.values(summaryGroups).forEach(g => { grandTotal += g.total; });
+    
+    // CRITICAL: Extract month and year from FIRST entry date
+    const firstDateStr = keys[0]; // e.g., "2026-03-15"
+    const dateObj = new Date(firstDateStr);
+    const month = dateObj.getMonth() + 1;  // 0-11 → 1-12
+    const year = dateObj.getFullYear();
+    
+    console.log('\n=== TA SAVE DEBUG ===');
+    console.log('🔍 Entry Keys:', keys);
+    console.log('🔍 First Date String:', firstDateStr);
+    console.log('🔍 Extracted month:', month, 'year:', year);
+    console.log('🔍 Number of entries:', entries.length);
+    console.log('🔍 First entry structure:', entries[0]);
+    console.log('🔍 Grand Total:', grandTotal);
+    
+    const docData = {
+      user_id: currentUser.id,
+      user_email: currentUser.email,
+      entries: entries,
+      month: month,
+      year: year,
+      total_amount: parseFloat(grandTotal.toFixed(2)),
+      notes: document.getElementById('ta-notes')?.value || '',
+      submitted_by: currentUser.id,
+      approval_status: 'pending',
+      savedat: new Date().toISOString(),
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+    
+    console.log('💾 SAVING TO DB - Document structure:');
+    console.log('  user_id:', docData.user_id);
+    console.log('  user_email:', docData.user_email);
+    console.log('  month:', docData.month);
+    console.log('  year:', docData.year);
+    console.log('  entries count:', docData.entries.length);
+    console.log('  entries[0]:', docData.entries[0]);
+    console.log('  total_amount:', docData.total_amount);
+    console.log('  approval_status:', docData.approval_status);
+    
+    // Save to ta_journal using upsert (insert or update if exists)
+    const { data, error } = await db.from('ta_journal').upsert([docData], { 
+      onConflict: 'user_id,month,year' 
+    }).select();
+    if (error) {
+      console.error('❌ DATABASE ERROR:', error);
+      throw error;
+    }
+    
+    console.log('✅ SAVED SUCCESSFULLY - Returned data:', data);
+    console.log('=== TA SAVE DEBUG - END ===\n');
+    
+    showToast("✅ TA Journal saved! (" + entries.length + " entries, Rs. " + grandTotal.toFixed(2) + ")");
+    
     // Also save to print_history
     await db.from("print_history").insert([{
       user_id: currentUser.id,
-      range: `TA Journal - ${header.name} (${entries.length} entries, Total: Rs.${grandTotal.toFixed(2)})`,
-      timestamp: docData.timestamp,
-      serverTime: new Date().toISOString()
+      document_type: 'TA Journal',
+      month: month,
+      year: year,
+      total_amount: parseFloat(grandTotal.toFixed(2)),
+      printed_at: new Date().toISOString()
     }]);
-    printHistory.unshift({ range: `TA Journal - ${header.name}`, timestamp: docData.timestamp });
+    
+    // Clear entries after successful save
+    taPageEntries = {};
+    const countEl = document.getElementById('ta-days-count');
+    if (countEl) countEl.textContent = '0';
+    const listEl = document.getElementById('ta-saved-days-list');
+    if (listEl) listEl.innerHTML = '<p class="text-slate-400 text-sm text-center py-4 italic">✅ Entries saved to database</p>';
+    
   } catch (error) {
-    console.error("Error saving TA Journal:", error);
-    customAlert("Note: Data saved locally. Database save status: " + (error ? error.message : "Success"));
+    console.error("❌ Error saving TA Journal:", error);
+    customAlert("Error: " + (error?.message || "Unknown error"));
   }
 }
 
@@ -7058,10 +7510,263 @@ function updateTaName() {
 
 function updateTaPay() {}
 
+// ===== TA MONTH FILTER FUNCTIONS - CASCADING DROPDOWNS =====
+const monthMap = {
+  'january': 1, 'february': 2, 'march': 3, 'april': 4, 'may': 5, 'june': 6,
+  'july': 7, 'august': 8, 'september': 9, 'october': 10, 'november': 11, 'december': 12
+};
+
+function showMonthDropdown() {
+  const yearSelector = document.getElementById('ta-filter-year-selector').value;
+  const monthContainer = document.getElementById('ta-month-dropdown-container');
+  
+  if (yearSelector) {
+    // Show month dropdown when year is selected
+    monthContainer.classList.remove('hidden');
+    // Reset month dropdown
+    document.getElementById('ta-filter-month-selector').value = '';
+    clearTaEntriesList();
+  } else {
+    // Hide month dropdown if no year selected
+    monthContainer.classList.add('hidden');
+    clearTaEntriesList();
+  }
+}
+
+async function loadTaEntriesByMonth() {
+  const monthSelector = document.getElementById('ta-filter-month-selector').value;
+  const yearSelector = document.getElementById('ta-filter-year-selector').value;
+  
+  if (!yearSelector || !monthSelector) {
+    clearTaEntriesList();
+    return;
+  }
+  
+  const monthNum = monthMap[monthSelector];
+  const year = parseInt(yearSelector);
+  const currentUser = window.currentUserAuth;
+  
+  console.log('=== TA LOAD DEBUG - START ===');
+  console.log('User ID:', currentUser?.id);
+  console.log('User Email:', currentUser?.email);
+  console.log('Selected Month:', monthSelector, '→ Number:', monthNum);
+  console.log('Selected Year:', year);
+  
+  if (!currentUser) {
+    customAlert("Please login first to view TA entries.");
+    return;
+  }
+  
+  try {
+    // Query database with detailed logging
+    console.log('\n🔍 QUERYING DATABASE (Standard):');
+    console.log('  Table: ta_journal');
+    console.log('  Filter: user_id = ' + currentUser.id);
+    console.log('  Filter: month = ' + monthNum);
+    console.log('  Filter: year = ' + year);
+    
+    let { data: records, error } = await window.db
+      .from('ta_journal')
+      .select('*')
+      .eq('user_id', currentUser.id)
+      .eq('month', monthNum)
+      .eq('year', year)
+      .order('savedat', { ascending: false });
+    
+    if (error) {
+      console.error('❌ DATABASE ERROR:', error);
+      throw error;
+    }
+    
+    console.log('\n✅ QUERY RESULT (Standard):');
+    console.log('  Records Found:', records ? records.length : 0);
+    
+    // If no records found with proper month/year, try recovery query for NULL values
+    if (!records || records.length === 0) {
+      console.log('\n🔄 NO RECORDS - Attempting RECOVERY QUERY for NULL month/year entries...');
+      
+      const { data: allUserRecords, error: recoveryError } = await window.db
+        .from('ta_journal')
+        .select('*')
+        .eq('user_id', currentUser.id)
+        .or('month.is.null,year.is.null')
+        .order('savedat', { ascending: false });
+      
+      if (recoveryError) {
+        console.error('❌ Recovery query error:', recoveryError);
+      } else {
+        console.log('  Recovery records found:', allUserRecords?.length || 0);
+        console.log('  Records:', allUserRecords);
+        
+        // Try to extract month/year from entries themselves
+        if (allUserRecords && allUserRecords.length > 0) {
+          console.log('\n🔧 RECOVERY MODE - Extracting dates from entries...');
+          
+          for (let record of allUserRecords) {
+            if (record.entries && Array.isArray(record.entries) && record.entries.length > 0) {
+              // Extract date from first entry
+              const firstEntry = record.entries[0];
+              const dateKey = firstEntry.dateKey || firstEntry.dateRaw || '';
+              
+              if (dateKey) {
+                const [entryYear, entryMonth, entryDay] = dateKey.split('-');
+                const entryMonthNum = parseInt(entryMonth);
+                const entryYearNum = parseInt(entryYear);
+                
+                console.log('  Entry month from data:', entryMonthNum, '| Requested month:', monthNum);
+                console.log('  Entry year from data:', entryYearNum, '| Requested year:', year);
+                
+                // Check if this record matches the requested month/year
+                if (entryMonthNum === monthNum && entryYearNum === year) {
+                  console.log('  ✅ MATCH FOUND! This NULL record contains the requested month/year');
+                  records = [record];
+                  break;
+                }
+              }
+            }
+          }
+          
+          if (!records || records.length === 0) {
+            console.log('  ⚠️ No matching entries found for ' + monthSelector + ' ' + year);
+          }
+        }
+      }
+    }
+    
+    // Extract entries from first record
+    const filteredEntries = [];
+    if (records && records.length > 0) {
+      const record = records[0];
+      console.log('\n📖 SELECTED RECORD:');
+      console.log('  ID:', record.id);
+      console.log('  Month:', record.month, '(DB) / Extracted from entries');
+      console.log('  Year:', record.year, '(DB) / Extracted from entries');
+      console.log('  Total Amount:', record.total_amount);
+      console.log('  Entries Array Length:', record.entries?.length || 0);
+      
+      if (record.entries && Array.isArray(record.entries)) {
+        filteredEntries.push(...record.entries);
+        console.log('  ✓ Extracted', record.entries.length, 'entries from record');
+      } else {
+        console.warn('  ⚠️ Entries is not an array!');
+      }
+    }
+    
+    console.log('\n📊 DISPLAYING ENTRIES:');
+    console.log('  Total entries to display:', filteredEntries.length);
+    displayTaEntriesFromDb(filteredEntries, monthNum, year);
+    console.log('=== TA LOAD DEBUG - END ===\n');
+    
+  } catch (error) {
+    console.error('❌ Error loading TA entries:', error);
+    customAlert('Error loading entries: ' + error.message);
+    clearTaEntriesList();
+  }
+}
+
+function displayTaEntriesFromDb(entries, monthNum, year) {
+  const monthFullNames = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const monthLabel = monthFullNames[monthNum];
+  
+  const countEl = document.getElementById('ta-days-count');
+  countEl.textContent = entries.length;
+  
+  const list = document.getElementById('ta-saved-days-list');
+  list.innerHTML = '';
+  
+  if (entries.length === 0) {
+    list.innerHTML = `<p class="text-slate-400 text-sm text-center py-6 italic">📭 No entries found for ${monthLabel} ${year}</p>`;
+    return;
+  }
+  
+  console.log('=== DISPLAY TA ENTRIES ===');
+  console.log('Entries received:', entries.length);
+  console.log('First entry:', entries[0]);
+  
+  // Entries are already extracted by loadTaEntriesByMonth, so use them directly
+  let allEntries = Array.isArray(entries) ? entries : [];
+  
+  // Sort by dateKey
+  allEntries.sort((a, b) => {
+    const dateA = a.dateKey || a.dateRaw || '';
+    const dateB = b.dateKey || b.dateRaw || '';
+    return new Date(dateA) - new Date(dateB);
+  });
+  
+  console.log('Total entries to display:', allEntries.length);
+  console.log('Entries:', allEntries);
+  
+  let totalAmount = 0;
+  
+  if (allEntries.length === 0) {
+    list.innerHTML = `<p class="text-slate-400 text-sm text-center py-6 italic">⚠️ No individual entries found</p>`;
+  } else {
+    // Render compact entries with Edit/Delete buttons
+    list.innerHTML = allEntries.map((e, i) => {
+      const dateKey = e.dateKey || e.dateRaw || '';
+      const [year2, month2, day2] = dateKey.split('-');
+      const dayNum = parseInt(day2);
+      const monthNum2 = parseInt(month2);
+      const yearNum = parseInt(year2);
+      
+      const amount = parseFloat(e.rs || 0) + (parseFloat(e.paise || 0) / 100);
+      totalAmount += amount;
+      
+      return `
+      <div style="background: #f8f9fa; border: 1px solid #d1d5db; border-radius: 6px; padding: 6px 8px; margin-bottom: 4px; overflow: hidden;">
+        
+        <!-- ROW 1: Entry # + Date + Mode on left, Edit/Delete buttons on right -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+          <div style="display: flex; align-items: center; gap: 8px; font-size: 12px;">
+            <span style="font-weight: 700; color: #0f172a; min-width: 20px;">${i + 1}.</span>
+            <span style="color: #0f172a; font-weight: 600;">${dayNum}/${monthNum2.toString().padStart(2, '0')}/${yearNum}</span>
+            <span style="color: #6b7280; text-transform: capitalize; font-size: 12px; font-weight: 500;">${e.mode === 'bytrain' ? 'By Train' : 'By Road'}</span>
+          </div>
+          
+          <div style="display: flex; gap: 4px;">
+            <button onclick="editDbTaEntry('${dateKey}')" style="background: #fbbf24; color: #78350f; border: none; padding: 3px 8px; border-radius: 4px; font-weight: 600; font-size: 11px; cursor: pointer; white-space: nowrap;">
+              ✏️ Edit
+            </button>
+            <button onclick="deleteDbTaEntry('${dateKey}')" style="background: #ef4444; color: white; border: none; padding: 3px 6px; border-radius: 4px; font-weight: 600; font-size: 11px; cursor: pointer; white-space: nowrap;">
+              🗑
+            </button>
+          </div>
+        </div>
+        
+        <!-- ROW 2: Route | Amount | Rate & Percentage | Objective -->
+        <div style="font-size: 11px; color: #1f2937; font-weight: 500; line-height: 1.1; margin-left: 20px;">
+          ${e.fromStn} → ${e.toStn || '?'} | Rs. ${e.rs || '0'}.${e.paise || '0'} | ${e.pct}% of ${e.rate} | ${e.obj || '−'}
+        </div>
+      </div>
+      `;
+    }).join('');
+  }
+  
+  // Show total
+  const totalDiv = document.createElement('div');
+  totalDiv.style.cssText = 'margin-top: 3px; padding: 3px 4px; background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border: 1px solid #22c55e; border-radius: 4px; text-align: center;';
+  totalDiv.innerHTML = `
+    <div style="font-size: 8px; color: #16a34a; font-weight: 600;">Total ${monthLabel}</div>
+    <div style="font-size: 13px; font-weight: 700; color: #15803d; margin-top: 1px;">Rs. ${totalAmount.toFixed(2)}</div>
+    <div style="font-size: 7px; color: #16a34a; margin-top: 1px;">${allEntries.length} entries</div>
+  `;
+  list.appendChild(totalDiv);
+  
+  console.log('✅ Displayed', allEntries.length, 'entries for', monthLabel, year, '- Total:', totalAmount.toFixed(2));
+}
+
+function clearTaEntriesList() {
+  const list = document.getElementById('ta-saved-days-list');
+  const countEl = document.getElementById('ta-days-count');
+  countEl.textContent = '0';
+  list.innerHTML = '<p class="text-slate-400 text-sm text-center py-6 italic">Select a Year and Month to view entries.</p>';
+}
+
 // Initialize form state only (don't hide mainWrapper here - auth flow handles visibility)
 const dutyTypeRadio = document.querySelector('input[name="dutyType"][value="night"]');
 if (dutyTypeRadio) dutyTypeRadio.checked = true;
 setDutyMode('night');
+
 setupForm();
 const legacyContainers = document.getElementById('legacy-containers');
 if (legacyContainers) legacyContainers.classList.remove('hidden');
