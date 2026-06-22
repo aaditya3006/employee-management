@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&family=Poppins:wght@300;400;600&family=Inter:wght@200;300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Noto+Sans+Devanagari:wght@400;700&family=Poppins:wght@300;400;600&family=Inter:wght@200;300;400;600;700&display=swap');
 
 :root {
   --yellow: #ffff00;
@@ -813,6 +813,44 @@ body {
   font-weight: bold; color: white;
 }
 
+.railway-typing-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(30px, 5vw, 44px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  display: inline-block;
+  max-width: 100%;
+  min-height: 1.2em;
+  padding-right: 10px;
+  border-right: 4px solid #7c1a1a;
+  background: linear-gradient(135deg, #a52a2a 0%, #7c1a1a 40%, #4a5e69 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 12px 24px rgba(124, 26, 26, 0.18));
+  animation:
+    railwayBlinkCursor 0.6s step-end infinite alternate,
+    railwayGradientShift 6s ease infinite,
+    railwayPulseShadow 4s ease-in-out infinite alternate;
+}
+
+@keyframes railwayGradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes railwayPulseShadow {
+  0% { filter: drop-shadow(0 12px 24px rgba(124, 26, 26, 0.18)); }
+  100% { filter: drop-shadow(0 16px 30px rgba(124, 26, 26, 0.24)); }
+}
+
+@keyframes railwayBlinkCursor {
+  50% { border-right-color: transparent; }
+}
+
 /* Ensure settings section displays properly */
 #settings-section {
   display: block !important;
@@ -860,6 +898,100 @@ body {
 
 #form-section.hidden {
   display: none !important;
+}
+
+@media (max-width: 768px) {
+  #legacy-containers[data-duty-type="night"] #night-duty-date-row,
+  #legacy-containers[data-duty-type="keyman"] #night-duty-date-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 10px;
+    align-items: end;
+  }
+
+  #legacy-containers[data-duty-type="keyman"] #from-container {
+    grid-column: 1 / span 2;
+  }
+
+  #legacy-containers[data-duty-type="night"] .night-duty-date-field label,
+  #legacy-containers[data-duty-type="keyman"] .night-duty-date-field label {
+    color: #4b5563;
+    margin-bottom: 4px;
+  }
+
+  #legacy-containers[data-duty-type="night"] .night-duty-date-field input[type="date"],
+  #legacy-containers[data-duty-type="keyman"] .night-duty-date-field input[type="date"] {
+    min-height: 40px;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  #legacy-containers[data-duty-type="night"] .duty-bit-card,
+  #legacy-containers[data-duty-type="keyman"] .duty-bit-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(108px, 0.9fr);
+    gap: 10px;
+    align-items: start;
+  }
+
+  #legacy-containers[data-duty-type="night"] .duty-personnel-field,
+  #legacy-containers[data-duty-type="night"] .duty-mobile-field,
+  #legacy-containers[data-duty-type="night"] .duty-gps-field,
+  #legacy-containers[data-duty-type="keyman"] .duty-personnel-field,
+  #legacy-containers[data-duty-type="keyman"] .duty-mobile-field,
+  #legacy-containers[data-duty-type="keyman"] .duty-gps-field {
+    width: 100%;
+  }
+
+  #legacy-containers[data-duty-type="night"] .duty-personnel-field,
+  #legacy-containers[data-duty-type="keyman"] .duty-personnel-field {
+    grid-column: 1;
+  }
+
+  #legacy-containers[data-duty-type="night"] .duty-mobile-field,
+  #legacy-containers[data-duty-type="keyman"] .duty-mobile-field {
+    grid-column: 2;
+  }
+
+  #legacy-containers[data-duty-type="night"] .duty-gps-field,
+  #legacy-containers[data-duty-type="keyman"] .duty-gps-field {
+    grid-column: 1 / span 2;
+    max-width: none;
+    justify-self: stretch;
+  }
+
+  #legacy-containers[data-duty-type="night"] .duty-gps-field.gps-hidden,
+  #legacy-containers[data-duty-type="keyman"] .duty-gps-field.gps-hidden {
+    display: none;
+  }
+
+  #legacy-containers[data-duty-type="night"] .duty-meta-label,
+  #legacy-containers[data-duty-type="night"] .duty-gps-field label,
+  #legacy-containers[data-duty-type="keyman"] .duty-meta-label,
+  #legacy-containers[data-duty-type="keyman"] .duty-gps-field label {
+    color: #4b5563 !important;
+  }
+
+  #legacy-containers[data-duty-type="night"] .duty-search-input,
+  #legacy-containers[data-duty-type="night"] .duty-mobile-input,
+  #legacy-containers[data-duty-type="night"] .duty-gps-input,
+  #legacy-containers[data-duty-type="keyman"] .duty-search-input,
+  #legacy-containers[data-duty-type="keyman"] .duty-mobile-input,
+  #legacy-containers[data-duty-type="keyman"] .duty-gps-input {
+    min-height: 40px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  #legacy-containers[data-duty-type="night"] .duty-search-input,
+  #legacy-containers[data-duty-type="keyman"] .duty-search-input {
+    font-size: 13px;
+  }
+
+  #legacy-containers[data-duty-type="night"] .duty-search-input::placeholder,
+  #legacy-containers[data-duty-type="keyman"] .duty-search-input::placeholder {
+    color: #4b5563;
+    opacity: 1;
+  }
 }
 
 #toast {
@@ -1380,7 +1512,7 @@ body {
   <section id="form-section" class="max-w-3xl mx-auto glass p-4 md:p-8 rounded-2xl md:rounded-3xl shadow-2xl">
     <div class="flex items-center gap-3 mb-4 border-b pb-4">
       <div class="bg-blue-100 p-2 rounded-lg text-blue-800 text-xl">📝</div>
-      <h2 id="section-heading-text" class="text-xl md:text-2xl font-bold text-gray-800">Night Patrolling</h2>
+      <h2 id="section-heading-text" class="railway-typing-heading" data-heading-text="Night Patrolling" aria-label="Night Patrolling">Night Patrolling</h2>
     </div>
 
     <div id="db-loader">
@@ -1392,12 +1524,12 @@ body {
     </div>
     
     <div id="legacy-containers">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-        <div id="from-container">
+      <div id="night-duty-date-row" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+        <div id="from-container" class="night-duty-date-field">
           <label for="fromDate" class="block text-sm font-semibold text-gray-600 mb-1">From Date</label>
           <div class="date-input-wrapper"><input type="date" id="fromDate" class="w-full border-2 border-blue-100 p-3 rounded-xl shadow-sm focus:border-blue-500 outline-none"></div>
         </div>
-        <div id="to-container">
+        <div id="to-container" class="night-duty-date-field">
           <label for="toDate" class="block text-sm font-semibold text-gray-600 mb-1">To Date</label>
           <div class="date-input-wrapper"><input type="date" id="toDate" class="w-full border-2 border-blue-100 p-3 rounded-xl shadow-sm focus:border-blue-500 outline-none"></div>
         </div>
@@ -4633,7 +4765,7 @@ let employeeList = [];
 let printHistory = [];
 let pendingAction = null;
 let pendingIndex  = -1;
-let currentDutyType = 'night';
+let currentDutyType = 'keyman';
 
 const previewEl    = document.getElementById('preview-section');
 const attPreviewEl = document.getElementById('attendance-preview-section');
@@ -4698,6 +4830,88 @@ function toggleGpsSaveButton(index) {
   const isDirty = currentValue !== savedValue;
 
   button.classList.toggle('hidden', !isDirty);
+}
+
+function updateGpsVisibility(index) {
+  const searchInput = document.getElementById(`emp-search-${index}`);
+  const gpsInput = document.getElementById(`gps-number-${index}`);
+  const gpsField = gpsInput ? gpsInput.closest('.duty-gps-field') : null;
+  if (!searchInput || !gpsField) return;
+
+  const selectedName = (searchInput.dataset.selectedName || '').trim();
+  const currentName = searchInput.value.trim();
+  const shouldShowGps = currentName !== '' && currentName === selectedName;
+
+  gpsField.classList.toggle('gps-hidden', !shouldShowGps);
+}
+
+function handlePersonnelInputChange(index) {
+  const searchInput = document.getElementById(`emp-search-${index}`);
+  const phoneInput = document.getElementById(`emp-phone-${index}`);
+  if (!searchInput) return;
+
+  const selectedName = (searchInput.dataset.selectedName || '').trim();
+  const currentName = searchInput.value.trim();
+
+  if (currentName !== selectedName) {
+    searchInput.dataset.selectedName = '';
+    if (phoneInput) phoneInput.value = '';
+  }
+
+  updateGpsVisibility(index);
+}
+
+let sectionHeadingTimer = null;
+let sectionHeadingIndex = 0;
+let sectionHeadingDeleting = false;
+let sectionHeadingTarget = '';
+
+function runSectionHeadingTyping() {
+  const heading = document.getElementById('section-heading-text');
+  if (!heading) return;
+
+  const targetText = sectionHeadingTarget || heading.dataset.headingText || '';
+  if (!targetText) {
+    heading.textContent = '';
+    return;
+  }
+
+  let speed = sectionHeadingDeleting ? 70 : 120;
+
+  if (!sectionHeadingDeleting) {
+    heading.textContent = targetText.substring(0, sectionHeadingIndex + 1);
+    sectionHeadingIndex += 1;
+
+    if (sectionHeadingIndex >= targetText.length) {
+      sectionHeadingDeleting = true;
+      speed = 1800;
+    }
+  } else {
+    heading.textContent = targetText.substring(0, Math.max(sectionHeadingIndex - 1, 0));
+    sectionHeadingIndex -= 1;
+
+    if (sectionHeadingIndex <= 0) {
+      sectionHeadingDeleting = false;
+      speed = 500;
+    }
+  }
+
+  sectionHeadingTimer = setTimeout(runSectionHeadingTyping, speed);
+}
+
+function setSectionHeading(text) {
+  const heading = document.getElementById('section-heading-text');
+  if (!heading) return;
+
+  sectionHeadingTarget = String(text || '').trim();
+  heading.dataset.headingText = sectionHeadingTarget;
+  heading.setAttribute('aria-label', sectionHeadingTarget);
+  heading.textContent = '';
+  sectionHeadingIndex = 0;
+  sectionHeadingDeleting = false;
+
+  if (sectionHeadingTimer) clearTimeout(sectionHeadingTimer);
+  runSectionHeadingTyping();
 }
 
 async function saveSingleGpsNumber(index) {
@@ -5148,8 +5362,10 @@ async function saveEmployeeDirect() {
 function setDutyMode(type) {
   currentDutyType = type === 'keyman' ? 'keyman' : 'night';
 
-  const headingText = document.getElementById('section-heading-text');
-  if (headingText) headingText.innerText = currentDutyType === 'night' ? 'Night Patrolling' : 'Keyman Duty';
+  const legacyContainer = document.getElementById('legacy-containers');
+  if (legacyContainer) legacyContainer.dataset.dutyType = currentDutyType;
+
+  setSectionHeading(currentDutyType === 'night' ? 'Night Patrolling' : 'Keyman Duty');
 
   const fromContainer = document.getElementById('from-container');
   const toContainer = document.getElementById('to-container');
@@ -5177,23 +5393,23 @@ function setupForm() {
   const dutyNumbers = getGpsNumbersForType(type);
 
   container.innerHTML = currentBitData.map((bit, i) => `
-    <div class="flex flex-col md:flex-row gap-3 items-center p-3 bg-white/60 border rounded-2xl shadow-sm">
-      <div class="flex-1 w-full relative">
-        <label for="emp-search-${i}" class="block text-[10px] uppercase font-bold text-gray-400 mb-1 ml-1">${bit.no} [${bit.range}]</label>
-        <input type="text" id="emp-search-${i}" placeholder="-- Search & Select Personnel --"
-          class="w-full p-2 border rounded-xl text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none"
-          onkeyup="filterDropdownEmployees(${i})" onfocus="filterDropdownEmployees(${i})" autocomplete="off">
+    <div class="duty-bit-card flex flex-col md:flex-row gap-3 items-center p-3 bg-white/60 border rounded-2xl shadow-sm">
+      <div class="duty-personnel-field flex-1 w-full relative">
+        <label for="emp-search-${i}" class="duty-meta-label block text-[10px] uppercase font-bold text-gray-400 mb-1 ml-1">${bit.no} [${bit.range}]</label>
+        <input type="text" id="emp-search-${i}" data-selected-name="" placeholder="-- Search & Select Personnel --"
+          class="duty-search-input w-full p-2 border rounded-xl text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none"
+          oninput="handlePersonnelInputChange(${i})" onkeyup="filterDropdownEmployees(${i})" onfocus="filterDropdownEmployees(${i})" autocomplete="off">
         <ul id="emp-list-${i}" class="absolute z-50 w-full bg-white border border-gray-200 rounded-xl shadow-lg mt-1 hidden max-h-48 overflow-y-auto"></ul>
       </div>
-      <div class="w-full md:w-32">
-        <label for="emp-phone-${i}" class="block text-[10px] uppercase font-bold text-gray-400 mb-1 ml-1">Mobile No.</label>
-        <input type="text" id="emp-phone-${i}" readonly class="w-full p-2 bg-blue-50 border rounded-xl text-center text-sm font-semibold text-blue-800">
+      <div class="duty-mobile-field w-full md:w-32">
+        <label for="emp-phone-${i}" class="duty-meta-label block text-[10px] uppercase font-bold text-gray-400 mb-1 ml-1">Mobile No.</label>
+        <input type="text" id="emp-phone-${i}" readonly class="duty-mobile-input w-full p-2 bg-blue-50 border rounded-xl text-center text-sm font-semibold text-blue-800">
       </div>
-      <div class="w-full md:w-36">
+      <div class="duty-gps-field gps-hidden w-full md:w-36">
         <label for="gps-number-${i}" class="block text-[10px] uppercase font-bold text-gray-400 mb-1 ml-1">📍 GPS</label>
         <div class="flex flex-col gap-2">
           <input type="text" id="gps-number-${i}" value="${dutyNumbers[i] || ''}" data-saved-value="${dutyNumbers[i] || ''}" placeholder="GPS Duty No."
-            class="w-full p-2 border-2 border-blue-300 rounded-xl text-sm font-semibold focus:border-blue-500 outline-none" oninput="toggleGpsSaveButton(${i})">
+            class="duty-gps-input w-full p-2 border-2 border-blue-300 rounded-xl text-sm font-semibold focus:border-blue-500 outline-none" oninput="toggleGpsSaveButton(${i})">
           <button type="button" id="gps-save-btn-${i}" onclick="saveSingleGpsNumber(${i})"
             class="hidden self-end px-3 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition disabled:opacity-60 disabled:cursor-not-allowed">
             Save
@@ -5201,6 +5417,8 @@ function setupForm() {
         </div>
       </div>
     </div>`).join('');
+
+  currentBitData.forEach((_, idx) => updateGpsVisibility(idx));
 
   if (currentDutyType === 'keyman' && toContainer) {
     toContainer.style.display = 'none';
@@ -5277,9 +5495,14 @@ async function filterDropdownEmployees(i) {
 }
 
 function selectEmployeeRow(i, name, phone) {
-  document.getElementById(`emp-search-${i}`).value = name;
-  document.getElementById(`emp-phone-${i}`).value = phone;
+  const searchInput = document.getElementById(`emp-search-${i}`);
+  const phoneInput = document.getElementById(`emp-phone-${i}`);
+
+  searchInput.value = name;
+  searchInput.dataset.selectedName = name;
+  phoneInput.value = phone;
   document.getElementById(`emp-list-${i}`).classList.add('hidden');
+  updateGpsVisibility(i);
 }
 
 document.addEventListener('click', (e) => {
@@ -5802,7 +6025,7 @@ function handleMenuSelect(cat) {
     newAttWrapper.style.display = 'none';
     taWrapper.classList.remove('hidden');
     taWrapper.style.display = 'block';
-    headingText.innerText = "📋 TA Journal";
+    setSectionHeading("TA Journal");
     initTaJournal();
   } else {
     legacyContainer.classList.add('hidden');
@@ -5811,7 +6034,7 @@ function handleMenuSelect(cat) {
     taWrapper.style.display = 'none';
     newAttWrapper.classList.remove('hidden');
     newAttWrapper.style.display = 'block';
-    headingText.innerText = categoryConfig[cat].title;
+    setSectionHeading(categoryConfig[cat].title);
     renderSubCategories(cat);
   }
 }
