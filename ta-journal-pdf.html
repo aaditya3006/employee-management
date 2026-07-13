@@ -1,0 +1,1967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TA Journal PDF Format</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+  --page-bg: #f1f5f9;
+  --card-bg: rgba(255, 255, 255, 0.94);
+  --line: #dbe3ef;
+  --ink: #0f172a;
+  --muted: #475569;
+  --blue: #1d4ed8;
+  --blue-dark: #1e3a8a;
+  --amber: #d97706;
+  --amber-dark: #92400e;
+  --green: #059669;
+  --purple: #7c3aed;
+  --purple-dark: #5b21b6;
+  --danger: #dc2626;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #dbeafe 0%, var(--page-bg) 42%, #e2e8f0 100%);
+  color: var(--ink);
+  font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+}
+
+.hidden { display: none !important; }
+
+.app-shell {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 24px 16px 110px;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 24px;
+  box-shadow: 0 22px 50px rgba(15, 23, 42, 0.12);
+  backdrop-filter: blur(12px);
+  padding: 24px;
+}
+
+.card h1 {
+  margin: 0 0 6px;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.card p {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.ta-section-card {
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.ta-section-title {
+  margin: 0 0 12px;
+  color: var(--blue-dark);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.section-header-inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.section-header-inline .ta-section-title {
+  margin: 0;
+}
+
+.form-grid,
+.header-grid,
+.entry-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.header-grid,
+.form-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.entry-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.field label,
+.ta-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ta-input {
+  width: 100%;
+  min-height: 44px;
+  border: 2px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.ta-input:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+}
+
+textarea.ta-input {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.readonly-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: #f8fafc;
+  color: #334155;
+  font-weight: 700;
+}
+
+.inline-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.inline-row > * {
+  min-width: 0;
+}
+
+.flex-1 { flex: 1 1 0; }
+
+.ta-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.ta-radio-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ta-radio-label input {
+  margin: 0;
+}
+
+.char-wrap {
+  position: relative;
+}
+
+.char-counter {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 12px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.chip-rest {
+  background: #dbeafe;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+}
+
+.chip-leave {
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  color: #92400e;
+}
+
+.chip-cr {
+  background: #ede9fe;
+  border: 1px solid #d8b4fe;
+  color: #6b21a8;
+}
+
+.chip button {
+  border: 0;
+  background: transparent;
+  color: #dc2626;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.mini-btn,
+.btn {
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.mini-btn:hover,
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.mini-btn:active,
+.btn:active {
+  transform: scale(0.98);
+}
+
+.mini-btn {
+  padding: 10px 14px;
+  font-size: 0.84rem;
+}
+
+.mini-btn-blue {
+  background: #2563eb;
+  color: #fff;
+}
+
+.mini-btn-orange {
+  background: #f97316;
+  color: #fff;
+}
+
+.mini-btn-purple {
+  background: #7c3aed;
+  color: #fff;
+}
+
+.mini-btn-danger {
+  background: #fff1f2;
+  color: #b91c1c;
+  border: 1px solid #fecdd3;
+}
+
+.btn {
+  padding: 13px 28px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(29, 78, 216, 0.24);
+}
+
+.btn-secondary {
+  background: #fff;
+  color: var(--ink);
+  border: 2px solid #d1d5db;
+}
+
+.btn-journal {
+  background: var(--amber);
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(217, 119, 6, 0.24);
+}
+
+.btn-report {
+  background: var(--purple);
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(124, 58, 237, 0.24);
+}
+
+.btn-print {
+  background: linear-gradient(135deg, var(--green), #047857);
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(5, 150, 105, 0.24);
+}
+
+.entry-actions,
+.actions,
+.preview-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.entry-actions {
+  margin-top: 14px;
+}
+
+.actions {
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.saved-list {
+  display: grid;
+  gap: 10px;
+}
+
+.saved-list-empty {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  text-align: center;
+  font-style: italic;
+  padding: 18px 8px;
+}
+
+.ta-day-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 14px;
+  border: 1.5px solid #86efac;
+  border-radius: 14px;
+  background: #f0fdf4;
+}
+
+.ta-day-card.editing {
+  background: #fffbeb;
+  border-color: #f59e0b;
+}
+
+.ta-day-card-main {
+  min-width: 0;
+}
+
+.ta-day-card-title {
+  color: #0f172a;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.ta-day-card-meta {
+  margin-top: 4px;
+  color: #64748b;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.ta-day-card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.saved-btn {
+  border: 0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.saved-btn-edit {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fdba74;
+}
+
+.saved-btn-delete {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.stn-suggest-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: #fff;
+  border: 1.5px solid #6366f1;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 20;
+}
+
+.stn-suggest-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  cursor: pointer;
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.stn-suggest-list li:hover {
+  background: #e0e7ff;
+}
+
+.stn-code {
+  min-width: 54px;
+  color: #4f46e5;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.stn-name {
+  color: #475569;
+  font-size: 12px;
+}
+
+#ta-preview-section {
+  display: none;
+  padding: 18px 16px 110px;
+}
+
+#ta-pdf-content {
+  width: 277mm;
+  margin: 0 auto;
+  padding: 6mm 7mm;
+  background: #fff;
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.16);
+  display: none;
+}
+
+#ta-report-content {
+  width: 210mm;
+  margin: 0 auto;
+  padding: 10mm;
+  background: #fff;
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.16);
+  display: none;
+}
+
+.ta-journal-page {
+  width: 100%;
+  background: #fff;
+  color: #000;
+  font-family: Arial, 'Noto Sans Devanagari', sans-serif;
+  font-size: 7pt;
+  line-height: 0.95;
+}
+
+.ta-j-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-bottom: 0;
+}
+
+.ta-j-table th,
+.ta-j-table td {
+  border: 1px solid #000;
+  padding: 1px;
+  color: #000;
+  text-align: center;
+  vertical-align: middle;
+  font-family: Arial, 'Noto Sans Devanagari', sans-serif;
+  font-size: 8pt;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.preview-actions {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.97);
+  border-top: 1px solid #e5e7eb;
+  backdrop-filter: blur(14px);
+  z-index: 1000;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 94px;
+  transform: translateX(-50%) translateY(20px);
+  min-width: 220px;
+  max-width: min(90vw, 560px);
+  padding: 14px 20px;
+  border-radius: 999px;
+  background: #0f172a;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 1100;
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.24);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 900px) {
+  .header-grid,
+  .form-grid,
+  .entry-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-shell {
+    padding: 16px 10px 96px;
+  }
+
+  .card {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .inline-row,
+  .section-header-inline,
+  .ta-day-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .preview-actions {
+    padding: 12px 8px;
+    gap: 8px;
+  }
+
+  .preview-actions .btn {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 130px;
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+
+  #ta-preview-section {
+    padding: 0 0 84px;
+  }
+
+  #ta-pdf-content,
+  #ta-report-content {
+    width: 100%;
+    max-width: 100vw;
+    margin: 0;
+    padding: 8px 6px 6px;
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}
+
+@media print {
+  body {
+    background: #fff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #form-section,
+  .preview-actions,
+  .toast {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  #ta-preview-section {
+    display: block !important;
+    padding: 0 !important;
+  }
+
+  #ta-pdf-content,
+  #ta-report-content {
+    margin: 0 auto !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    background: #fff !important;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+</style>
+</head>
+<body>
+  <div id="form-section" class="app-shell no-print">
+    <div class="card">
+      <h1>RGD - TIA TA Journal PDF</h1>
+      <p>Standalone combined HTML, CSS, and JS version of the TA journal with its journal PDF and TA movement report.</p>
+
+      <div class="ta-section-card">
+        <div class="ta-section-title">Header Details</div>
+        <div class="header-grid">
+          <div class="field">
+            <label class="ta-label">Rest (optional)</label>
+            <div class="inline-row">
+              <input type="date" id="ta-rest-date-picker" class="ta-input flex-1">
+              <button type="button" class="mini-btn mini-btn-blue" onclick="addRestDate()">+ Add Rest</button>
+            </div>
+            <div id="ta-rest-dates-list" class="chips"></div>
+            <input type="hidden" id="ta-rest-dates-json" value="[]">
+          </div>
+
+          <div class="field">
+            <label class="ta-label">Leave (optional)</label>
+            <div class="inline-row">
+              <input type="date" id="ta-leave-date-picker" class="ta-input flex-1">
+              <button type="button" class="mini-btn mini-btn-orange" onclick="addLeaveDate()">+ Add Leave</button>
+            </div>
+            <div id="ta-leave-dates-list" class="chips"></div>
+            <input type="hidden" id="ta-leave-dates-json" value="[]">
+          </div>
+
+          <div class="field">
+            <label class="ta-label">CR Details (optional)</label>
+            <div class="inline-row">
+              <input type="date" id="ta-cr-date-header" class="ta-input flex-1">
+              <button type="button" class="mini-btn mini-btn-purple" onclick="addCrDetail()">+ Add Date</button>
+            </div>
+            <div id="ta-cr-details-list" class="chips"></div>
+            <input type="hidden" id="ta-cr-details-json" value="[]">
+          </div>
+
+          <div class="field">
+            <label for="ta-pf-number" class="ta-label">PF Number</label>
+            <input type="text" id="ta-pf-number" value="27314402580" placeholder="PF Number" class="ta-input">
+          </div>
+        </div>
+      </div>
+
+      <div class="ta-section-card">
+        <div class="ta-section-title">Document Fields</div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="ta-first-line" class="ta-label">Department</label>
+            <input type="text" id="ta-first-line" value="ENGINEERING" class="ta-input">
+          </div>
+
+          <div class="field">
+            <label for="ta-branch-input" class="ta-label">शाखा / Branch</label>
+            <input type="text" id="ta-branch-input" value="DANAPUR" class="ta-input">
+          </div>
+
+          <div class="field">
+            <label for="ta-hq-input" class="ta-label">Headquarter At</label>
+            <input type="text" id="ta-hq-input" value="NES" class="ta-input">
+          </div>
+
+          <div class="field">
+            <label for="ta-name-select" class="ta-label">Name</label>
+            <div class="inline-row">
+              <select id="ta-name-select" onchange="updateTaName()" class="ta-input flex-1">
+                <option value="NAND KISHOR">NAND KISHOR</option>
+                <option value="other">Other...</option>
+              </select>
+              <input type="text" id="ta-name-other" placeholder="Enter name" class="ta-input flex-1 hidden">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="ta-label">Allowance For</label>
+            <div class="inline-row">
+              <select id="ta-month-sel" class="ta-input flex-1">
+                <option value="JAN.">January</option>
+                <option value="FEB.">February</option>
+                <option value="MAR.">March</option>
+                <option value="APR.">April</option>
+                <option value="MAY">May</option>
+                <option value="JUN.">June</option>
+                <option value="JUL.">July</option>
+                <option value="AUG.">August</option>
+                <option value="SEP.">September</option>
+                <option value="OCT.">October</option>
+                <option value="NOV.">November</option>
+                <option value="DEC.">December</option>
+              </select>
+              <input type="number" id="ta-year-sel" value="2026" min="2000" max="2099" class="ta-input" style="max-width:110px;">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="ta-claimed-type" class="ta-label">Claimed Type</label>
+            <input type="text" id="ta-claimed-type" value="T.A" class="ta-input">
+          </div>
+
+          <div class="field">
+            <label for="ta-post" class="ta-label">Post</label>
+            <select id="ta-post" class="ta-input" onchange="toggleTaPostCustom()">
+              <option value="TM - I">TM - I</option>
+              <option value="TM - II">TM - II</option>
+              <option value="TM - III">TM - III</option>
+              <option value="TM - IV">TM - IV</option>
+              <option value="JE/P.Way/RGD">JE/P.Way/RGD</option>
+              <option value="other">Other</option>
+            </select>
+            <input type="text" id="ta-post-custom" placeholder="Enter your post" class="ta-input hidden" style="margin-top:8px;">
+          </div>
+
+          <div class="field">
+            <label for="ta-pay-custom" class="ta-label">Pay (Rs.)</label>
+            <input type="text" id="ta-pay-custom" value="25,600" placeholder="Enter pay" class="ta-input">
+          </div>
+
+          <div class="field">
+            <label for="ta-scale-custom" class="ta-label">Scale of Pay</label>
+            <input type="text" id="ta-scale-custom" value="5200-20200" placeholder="Enter scale" class="ta-input">
+          </div>
+
+          <div class="field">
+            <label for="ta-level" class="ta-label">Level</label>
+            <select id="ta-level" class="ta-input">
+              <option value="LEVEL - 1">LEVEL - 1</option>
+              <option value="LEVEL - 2">LEVEL - 2</option>
+              <option value="LEVEL - 3">LEVEL - 3</option>
+              <option value="LEVEL - 4">LEVEL - 4</option>
+              <option value="LEVEL - 5">LEVEL - 5</option>
+              <option value="LEVEL - 6">LEVEL - 6</option>
+              <option value="LEVEL - 7">LEVEL - 7</option>
+              <option value="LEVEL - 8">LEVEL - 8</option>
+              <option value="LEVEL - 9">LEVEL - 9</option>
+              <option value="LEVEL - 10">LEVEL - 10</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="ta-label">Date of Appointment</label>
+            <div id="ta-appt-fixed-row" class="readonly-pill">24/07/2014</div>
+            <div id="ta-appt-picker-row" class="hidden" style="margin-top:8px;">
+              <input type="date" id="ta-appointment-date" class="ta-input">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="ta-label">Rule Governed</label>
+            <div class="readonly-pill">SR</div>
+          </div>
+
+          <div class="field">
+            <label for="ta-report-unit" class="ta-label">Station (for T.A Movement)</label>
+            <input type="text" id="ta-report-unit" placeholder="e.g. TM-I / P.Way" class="ta-input">
+          </div>
+        </div>
+      </div>
+
+      <div class="ta-section-card" id="ta-single-entry-card">
+        <div class="section-header-inline">
+          <div class="ta-section-title" id="ta-entry-form-title">Journey Entry</div>
+          <div id="ta-editing-badge" class="hidden" style="color:#b45309;font-size:12px;font-weight:700;">Editing</div>
+        </div>
+        <input type="hidden" id="ta-editing-date-key">
+
+        <div class="entry-grid">
+          <div class="field">
+            <label for="ta-date-single" class="ta-label">Date</label>
+            <input type="date" id="ta-date-single" class="ta-input" required>
+          </div>
+
+          <div class="field">
+            <label class="ta-label">Mode of Travel</label>
+            <div class="ta-radio-group">
+              <label class="ta-radio-label"><input type="radio" name="ta-mode-single" value="byroad" checked onchange="toggleTrainNoSingle()"> By Road</label>
+              <label class="ta-radio-label"><input type="radio" name="ta-mode-single" value="bytrain" onchange="toggleTrainNoSingle()"> By Train</label>
+            </div>
+            <input type="text" id="ta-train-no-single" placeholder="Train Number" class="ta-input hidden" style="margin-top:8px;">
+          </div>
+
+          <div class="field">
+            <label for="ta-left-src" class="ta-label">Time Left from Source Station</label>
+            <input type="text" id="ta-left-src" placeholder="HH:MM" class="ta-input" maxlength="5">
+          </div>
+
+          <div class="field">
+            <label for="ta-arr-dest" class="ta-label">Time Arrived at Destination</label>
+            <input type="text" id="ta-arr-dest" placeholder="HH:MM" class="ta-input" maxlength="5">
+          </div>
+
+          <div class="field">
+            <label for="ta-left-dest" class="ta-label">Time Left from Destination (Return)</label>
+            <input type="text" id="ta-left-dest" placeholder="HH:MM" class="ta-input" maxlength="5">
+          </div>
+
+          <div class="field">
+            <label for="ta-arr-src" class="ta-label">Time Arrived back at Source</label>
+            <input type="text" id="ta-arr-src" placeholder="HH:MM" class="ta-input" maxlength="5">
+          </div>
+
+          <div class="field" style="position:relative;">
+            <label for="ta-from-stn-single" class="ta-label">From Station</label>
+            <input type="text" id="ta-from-stn-single" value="NES" class="ta-input" autocomplete="off"
+              oninput="showStnSuggestions(this, 'stn-from-list')"
+              onkeydown="stnKeyNav(event, 'stn-from-list')"
+              onblur="setTimeout(() => hideStnList('stn-from-list'), 200)">
+            <ul id="stn-from-list" class="stn-suggest-list hidden"></ul>
+          </div>
+
+          <div class="field" style="position:relative;">
+            <label for="ta-to-stn-single" class="ta-label">To Station</label>
+            <input type="text" id="ta-to-stn-single" placeholder="e.g. DNR" class="ta-input" autocomplete="off"
+              oninput="showStnSuggestions(this, 'stn-to-list')"
+              onkeydown="stnKeyNav(event, 'stn-to-list')"
+              onblur="setTimeout(() => hideStnList('stn-to-list'), 200)">
+            <ul id="stn-to-list" class="stn-suggest-list hidden"></ul>
+          </div>
+
+          <div class="field">
+            <label class="ta-label">Percentage (%)</label>
+            <div class="ta-radio-group">
+              <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="30" onchange="calcTaAmountSingle()"> 30%</label>
+              <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="70" checked onchange="calcTaAmountSingle()"> 70%</label>
+              <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="100" onchange="calcTaAmountSingle()"> 100%</label>
+              <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="30+70" onchange="calcTaAmountSingle()"> 30%+70%</label>
+              <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="70+30" onchange="calcTaAmountSingle()"> 70%+30%</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="ta-obj-single" class="ta-label">Object of Journey</label>
+            <div class="char-wrap">
+              <textarea id="ta-obj-single" class="ta-input" placeholder="Purpose of journey" maxlength="102" oninput="updateCharCount()"></textarea>
+              <span id="ta-char-count" class="char-counter">0/102</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="ta-label">Rate</label>
+            <div class="ta-radio-group">
+              <label class="ta-radio-label"><input type="radio" name="ta-rate-single" value="625" checked onchange="handleRateChange()"> 625</label>
+              <label class="ta-radio-label"><input type="radio" name="ta-rate-single" value="1000" onchange="handleRateChange()"> 1000</label>
+              <label class="ta-radio-label"><input type="radio" name="ta-rate-single" value="other" onchange="handleRateChange()"> Other</label>
+            </div>
+            <input type="number" id="ta-rate-custom" placeholder="Enter custom rate" class="ta-input hidden" style="margin-top:8px;" oninput="calcTaAmountSingle()">
+          </div>
+
+          <div class="field">
+            <label class="ta-label">Calculated Amount</label>
+            <div class="inline-row">
+              <div class="flex-1">
+                <label for="ta-rs-single" class="ta-label" style="margin-bottom:4px;">Rs. (Rupees)</label>
+                <input type="text" id="ta-rs-single" readonly class="ta-input" style="background:#f0fdf4;color:#166534;font-weight:700;">
+              </div>
+              <div class="flex-1">
+                <label for="ta-paise-single" class="ta-label" style="margin-bottom:4px;">P. (Paise)</label>
+                <input type="text" id="ta-paise-single" readonly class="ta-input" style="background:#f0fdf4;color:#166534;font-weight:700;">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="entry-actions">
+          <button type="button" id="ta-add-page-btn" class="btn btn-primary" onclick="addTaEntryToPage()">Add to Page</button>
+          <button type="button" id="ta-cancel-edit-btn" class="btn btn-secondary hidden" onclick="cancelTaEdit()">Cancel Edit</button>
+        </div>
+      </div>
+
+      <div class="ta-section-card">
+        <div class="section-header-inline">
+          <div class="ta-section-title">Saved Entries (<span id="ta-days-count">0</span> days)</div>
+          <button type="button" class="mini-btn mini-btn-danger" onclick="clearAllTaEntries()">Clear All</button>
+        </div>
+        <div id="ta-saved-days-list" class="saved-list">
+          <div class="saved-list-empty">No entries yet. Add a day above.</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" onclick="generateTaPreview()">Generate Preview</button>
+      </div>
+    </div>
+  </div>
+
+  <section id="ta-preview-section">
+    <div id="ta-pdf-content"></div>
+    <div id="ta-report-content"></div>
+
+    <div class="preview-actions no-print">
+      <button class="btn btn-secondary" onclick="showForm()">Edit Form</button>
+      <button class="btn btn-journal" id="btn-ta-journal-view" onclick="switchToTaJournal()">TA Journal</button>
+      <button class="btn btn-report" id="btn-ta-report-view" onclick="switchToTaReport()">Generate Report</button>
+      <button class="btn btn-print" onclick="printCurrentTaView()">Print</button>
+    </div>
+  </section>
+
+  <div id="toast" class="toast no-print"></div>
+
+<script>
+const stationList = ["NES", "DNR", "BJU", "MGS", "ARA", "BXR", "PNBE", "GAYA", "ASN", "SPJ", "KQR", "JSME"];
+
+let taPageEntries = {};
+let taEditingKey = null;
+let currentTaViewMode = "journal";
+let toastTimer = null;
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "\"": "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+function customAlert(message) {
+  window.alert(message);
+}
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 2400);
+}
+
+function clearDynamicPrintStyles() {
+  const existing = document.getElementById("dynamic-print-style");
+  if (existing) existing.remove();
+}
+
+function toLocalDateInput(date = new Date()) {
+  const offset = date.getTimezoneOffset();
+  return new Date(date.getTime() - offset * 60000).toISOString().split("T")[0];
+}
+
+function formatTaDate(dateStr) {
+  if (!dateStr) return "";
+  const [year, month, day] = dateStr.split("-");
+  return `${day}/${month}/${year}`;
+}
+
+function getJsonArray(id) {
+  try {
+    return JSON.parse(document.getElementById(id).value || "[]");
+  } catch {
+    return [];
+  }
+}
+
+function setJsonArray(id, value) {
+  document.getElementById(id).value = JSON.stringify(value);
+}
+
+function renderDateChips(containerId, dates, label, chipClass, removeHandler) {
+  const container = document.getElementById(containerId);
+  if (!dates.length) {
+    container.innerHTML = "";
+    return;
+  }
+
+  container.innerHTML = dates.map((dateValue) => {
+    const formatted = formatTaDate(dateValue);
+    return `
+      <span class="chip ${chipClass}">
+        ${escapeHTML(label)}: ${escapeHTML(formatted)}
+        <button type="button" onclick="${removeHandler}('${dateValue}')">&times;</button>
+      </span>
+    `;
+  }).join("");
+}
+
+function addDateToList(pickerId, hiddenId, containerId, label, chipClass, removeHandler) {
+  const picker = document.getElementById(pickerId);
+  const dateValue = picker.value;
+  if (!dateValue) {
+    customAlert(`Please select a date to add as ${label}.`);
+    return;
+  }
+
+  const existing = getJsonArray(hiddenId);
+  if (existing.includes(dateValue)) {
+    customAlert(`This ${label.toLowerCase()} date is already added.`);
+    return;
+  }
+
+  existing.push(dateValue);
+  existing.sort();
+  setJsonArray(hiddenId, existing);
+  picker.value = "";
+  renderDateChips(containerId, existing, label, chipClass, removeHandler);
+}
+
+function removeDateFromList(hiddenId, containerId, label, chipClass, removeHandler, dateValue) {
+  const updated = getJsonArray(hiddenId).filter((item) => item !== dateValue);
+  setJsonArray(hiddenId, updated);
+  renderDateChips(containerId, updated, label, chipClass, removeHandler);
+}
+
+function addRestDate() {
+  addDateToList("ta-rest-date-picker", "ta-rest-dates-json", "ta-rest-dates-list", "Rest", "chip-rest", "removeRestDate");
+}
+
+function removeRestDate(dateValue) {
+  removeDateFromList("ta-rest-dates-json", "ta-rest-dates-list", "Rest", "chip-rest", "removeRestDate", dateValue);
+}
+
+function addLeaveDate() {
+  addDateToList("ta-leave-date-picker", "ta-leave-dates-json", "ta-leave-dates-list", "Leave", "chip-leave", "removeLeaveDate");
+}
+
+function removeLeaveDate(dateValue) {
+  removeDateFromList("ta-leave-dates-json", "ta-leave-dates-list", "Leave", "chip-leave", "removeLeaveDate", dateValue);
+}
+
+function addCrDetail() {
+  addDateToList("ta-cr-date-header", "ta-cr-details-json", "ta-cr-details-list", "CR", "chip-cr", "removeCrDetail");
+}
+
+function removeCrDetail(dateValue) {
+  removeDateFromList("ta-cr-details-json", "ta-cr-details-list", "CR", "chip-cr", "removeCrDetail", dateValue);
+}
+
+function updateTaName() {
+  const isOther = document.getElementById("ta-name-select").value === "other";
+  document.getElementById("ta-name-other").classList.toggle("hidden", !isOther);
+  document.getElementById("ta-appt-fixed-row").classList.toggle("hidden", isOther);
+  document.getElementById("ta-appt-picker-row").classList.toggle("hidden", !isOther);
+  if (isOther) {
+    document.getElementById("ta-name-other").focus();
+  }
+}
+
+function toggleTaPostCustom() {
+  const postSelect = document.getElementById("ta-post");
+  const customInput = document.getElementById("ta-post-custom");
+  const isOther = postSelect.value === "other";
+  customInput.classList.toggle("hidden", !isOther);
+  if (isOther) customInput.focus();
+}
+
+function toggleTrainNoSingle() {
+  const mode = document.querySelector('input[name="ta-mode-single"]:checked').value;
+  document.getElementById("ta-train-no-single").classList.toggle("hidden", mode !== "bytrain");
+}
+
+function handleRateChange() {
+  const selectedRate = document.querySelector('input[name="ta-rate-single"]:checked').value;
+  const customRateInput = document.getElementById("ta-rate-custom");
+  customRateInput.classList.toggle("hidden", selectedRate !== "other");
+  if (selectedRate === "other") customRateInput.focus();
+  calcTaAmountSingle();
+}
+
+function updateCharCount() {
+  const input = document.getElementById("ta-obj-single");
+  const counter = document.getElementById("ta-char-count");
+  counter.textContent = `${input.value.length}/102`;
+}
+
+function normalizePercentageValue(value) {
+  return value === "30+70" || value === "70+30" ? 1 : parseFloat(value) / 100;
+}
+
+function displayPctLabel(value) {
+  if (!value) return "";
+  if (String(value).includes("+")) {
+    return String(value).split("+").map((item) => `${item}%`).join("+");
+  }
+  return `${value}%`;
+}
+
+function calcTaAmountSingle() {
+  const pctInput = document.querySelector('input[name="ta-pct-single"]:checked');
+  const rateChoice = document.querySelector('input[name="ta-rate-single"]:checked').value;
+  if (!pctInput) return;
+
+  const rawRate = rateChoice === "other" ? document.getElementById("ta-rate-custom").value : rateChoice;
+  const rate = parseFloat(rawRate);
+  if (Number.isNaN(rate)) {
+    document.getElementById("ta-rs-single").value = "";
+    document.getElementById("ta-paise-single").value = "";
+    return;
+  }
+
+  const total = rate * normalizePercentageValue(pctInput.value);
+  const rupees = Math.floor(total);
+  const paise = Math.round((total - rupees) * 100);
+
+  document.getElementById("ta-rs-single").value = String(rupees);
+  document.getElementById("ta-paise-single").value = paise === 0 ? "00" : String(paise).padStart(2, "0");
+}
+
+function resetTaSingleForm() {
+  document.getElementById("ta-date-single").value = "";
+  document.querySelector('input[name="ta-mode-single"][value="byroad"]').checked = true;
+  document.getElementById("ta-train-no-single").classList.add("hidden");
+  document.getElementById("ta-train-no-single").value = "";
+  ["ta-left-src", "ta-arr-dest", "ta-left-dest", "ta-arr-src"].forEach((id) => {
+    document.getElementById(id).value = "";
+  });
+  document.getElementById("ta-from-stn-single").value = "NES";
+  document.getElementById("ta-to-stn-single").value = "";
+  document.querySelector('input[name="ta-pct-single"][value="70"]').checked = true;
+  document.querySelector('input[name="ta-rate-single"][value="625"]').checked = true;
+  document.getElementById("ta-rate-custom").value = "";
+  document.getElementById("ta-rate-custom").classList.add("hidden");
+  document.getElementById("ta-obj-single").value = "";
+  taEditingKey = null;
+  document.getElementById("ta-editing-date-key").value = "";
+  document.getElementById("ta-editing-badge").classList.add("hidden");
+  document.getElementById("ta-entry-form-title").textContent = "Journey Entry";
+  document.getElementById("ta-add-page-btn").textContent = "Add to Page";
+  document.getElementById("ta-cancel-edit-btn").classList.add("hidden");
+  calcTaAmountSingle();
+  updateCharCount();
+}
+
+function addTaEntryToPage() {
+  const dateValue = document.getElementById("ta-date-single").value;
+  if (!dateValue) {
+    customAlert("Please select a date for this entry.");
+    return;
+  }
+
+  if (!taEditingKey && taPageEntries[dateValue]) {
+    customAlert(`Entry for ${formatTaDate(dateValue)} already exists. Click Edit on that entry to modify it.`);
+    return;
+  }
+
+  if (taEditingKey && taEditingKey !== dateValue && taPageEntries[dateValue]) {
+    customAlert(`Entry for ${formatTaDate(dateValue)} already exists. Choose a different date or edit that entry.`);
+    return;
+  }
+
+  const mode = document.querySelector('input[name="ta-mode-single"]:checked').value;
+  const selectedRate = document.querySelector('input[name="ta-rate-single"]:checked').value;
+  const rate = selectedRate === "other" ? document.getElementById("ta-rate-custom").value.trim() : selectedRate;
+  const entry = {
+    dateRaw: dateValue,
+    monthDate: formatTaDate(dateValue),
+    mode,
+    trainNo: document.getElementById("ta-train-no-single").value.trim(),
+    leftSrc: document.getElementById("ta-left-src").value.trim(),
+    arrDest: document.getElementById("ta-arr-dest").value.trim(),
+    leftDest: document.getElementById("ta-left-dest").value.trim(),
+    arrSrc: document.getElementById("ta-arr-src").value.trim(),
+    fromStn: document.getElementById("ta-from-stn-single").value.trim().toUpperCase() || "NES",
+    toStn: document.getElementById("ta-to-stn-single").value.trim().toUpperCase(),
+    pct: document.querySelector('input[name="ta-pct-single"]:checked').value,
+    obj: document.getElementById("ta-obj-single").value.trim(),
+    km: 0,
+    rate,
+    rs: document.getElementById("ta-rs-single").value.trim() || "0",
+    paise: document.getElementById("ta-paise-single").value.trim() || "00"
+  };
+
+  if (taEditingKey && taEditingKey !== dateValue) {
+    delete taPageEntries[taEditingKey];
+  }
+
+  taPageEntries[dateValue] = entry;
+  showToast(taEditingKey ? `Entry for ${formatTaDate(dateValue)} updated.` : `Entry for ${formatTaDate(dateValue)} added.`);
+  resetTaSingleForm();
+  renderTaSavedDays();
+}
+
+function cancelTaEdit() {
+  resetTaSingleForm();
+}
+
+function editTaEntry(dateKey) {
+  const entry = taPageEntries[dateKey];
+  if (!entry) return;
+
+  taEditingKey = dateKey;
+  document.getElementById("ta-editing-date-key").value = dateKey;
+  document.getElementById("ta-date-single").value = entry.dateRaw;
+  document.querySelector(`input[name="ta-mode-single"][value="${entry.mode || "byroad"}"]`).checked = true;
+  toggleTrainNoSingle();
+  document.getElementById("ta-train-no-single").value = entry.trainNo || "";
+  document.getElementById("ta-left-src").value = entry.leftSrc || "";
+  document.getElementById("ta-arr-dest").value = entry.arrDest || "";
+  document.getElementById("ta-left-dest").value = entry.leftDest || "";
+  document.getElementById("ta-arr-src").value = entry.arrSrc || "";
+  document.getElementById("ta-from-stn-single").value = entry.fromStn || "NES";
+  document.getElementById("ta-to-stn-single").value = entry.toStn || "";
+  const pctInput = document.querySelector(`input[name="ta-pct-single"][value="${entry.pct}"]`);
+  if (pctInput) pctInput.checked = true;
+  document.getElementById("ta-obj-single").value = entry.obj || "";
+
+  const rateInput = document.querySelector(`input[name="ta-rate-single"][value="${entry.rate}"]`);
+  if (rateInput) {
+    rateInput.checked = true;
+    document.getElementById("ta-rate-custom").classList.add("hidden");
+  } else {
+    document.querySelector('input[name="ta-rate-single"][value="other"]').checked = true;
+    document.getElementById("ta-rate-custom").classList.remove("hidden");
+    document.getElementById("ta-rate-custom").value = entry.rate || "";
+  }
+
+  document.getElementById("ta-editing-badge").classList.remove("hidden");
+  document.getElementById("ta-entry-form-title").textContent = `Editing: ${formatTaDate(dateKey)}`;
+  document.getElementById("ta-add-page-btn").textContent = "Save Edit";
+  document.getElementById("ta-cancel-edit-btn").classList.remove("hidden");
+  calcTaAmountSingle();
+  updateCharCount();
+  document.getElementById("ta-single-entry-card").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function deleteTaEntry(dateKey) {
+  if (!taPageEntries[dateKey]) return;
+  if (!window.confirm(`Remove entry for ${formatTaDate(dateKey)}?`)) return;
+  delete taPageEntries[dateKey];
+  if (taEditingKey === dateKey) resetTaSingleForm();
+  renderTaSavedDays();
+  showToast("Entry removed.");
+}
+
+function clearAllTaEntries() {
+  if (!Object.keys(taPageEntries).length) {
+    customAlert("No entries to clear.");
+    return;
+  }
+
+  if (!window.confirm("Clear all saved entries? This cannot be undone.")) return;
+  taPageEntries = {};
+  resetTaSingleForm();
+  renderTaSavedDays();
+  showToast("All entries cleared.");
+}
+
+function renderTaSavedDays() {
+  const container = document.getElementById("ta-saved-days-list");
+  const keys = Object.keys(taPageEntries).sort();
+  document.getElementById("ta-days-count").textContent = String(keys.length);
+
+  if (!keys.length) {
+    container.innerHTML = '<div class="saved-list-empty">No entries yet. Add a day above.</div>';
+    return;
+  }
+
+  container.innerHTML = keys.map((key, index) => {
+    const entry = taPageEntries[key];
+    const modeLabel = entry.mode === "bytrain"
+      ? `By Train${entry.trainNo ? ` (${escapeHTML(entry.trainNo)})` : ""}`
+      : "By Road";
+    const amount = `${escapeHTML(entry.rs)}.${escapeHTML(String(entry.paise).padStart(2, "0"))}`;
+    return `
+      <div class="ta-day-card ${taEditingKey === key ? "editing" : ""}">
+        <div class="ta-day-card-main">
+          <div class="ta-day-card-title">${index + 1}. ${escapeHTML(formatTaDate(key))}</div>
+          <div class="ta-day-card-meta">${modeLabel} | ${escapeHTML(entry.fromStn || "NES")} - ${escapeHTML(entry.toStn || "?")} | Rs. ${amount} | ${escapeHTML(displayPctLabel(entry.pct))} of ${escapeHTML(entry.rate)} | ${escapeHTML(entry.obj || "-")}</div>
+        </div>
+        <div class="ta-day-card-actions">
+          <button type="button" class="saved-btn saved-btn-edit" onclick="editTaEntry('${key}')">Edit</button>
+          <button type="button" class="saved-btn saved-btn-delete" onclick="deleteTaEntry('${key}')">Delete</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function getTaHeaderData() {
+  const nameSelect = document.getElementById("ta-name-select").value;
+  const isOther = nameSelect === "other";
+  const name = isOther ? document.getElementById("ta-name-other").value.trim() : nameSelect;
+  const restDatesRaw = getJsonArray("ta-rest-dates-json");
+  const leaveDatesRaw = getJsonArray("ta-leave-dates-json");
+  const crDetailsRaw = getJsonArray("ta-cr-details-json");
+  const restDates = restDatesRaw.map(formatTaDate);
+  const leaveDates = leaveDatesRaw.map(formatTaDate);
+  const crDates = crDetailsRaw.map(formatTaDate);
+
+  const parts = [];
+  if (restDates.length) parts.push(`Rest - ${restDates.length} (${restDates.join(", ")})`);
+  if (leaveDates.length) parts.push(`Leave - ${leaveDates.length} (${leaveDates.join(", ")})`);
+  if (crDates.length) parts.push(`CR - ${crDates.length} (${crDates.join(", ")})`);
+
+  const postSelect = document.getElementById("ta-post").value;
+  const post = postSelect === "other" ? document.getElementById("ta-post-custom").value.trim() : postSelect;
+  let apptDate = "24/07/2014";
+  if (isOther) {
+    const appointmentRaw = document.getElementById("ta-appointment-date").value;
+    apptDate = appointmentRaw ? formatTaDate(appointmentRaw) : "";
+  }
+
+  return {
+    name: name || "",
+    firstLine: document.getElementById("ta-first-line").value.trim() || "ENGINEERING",
+    branch: document.getElementById("ta-branch-input").value.trim() || "DANAPUR",
+    hqStation: document.getElementById("ta-hq-input").value.trim() || "NES",
+    restDates,
+    restDatesCount: restDatesRaw.length,
+    leaveDates,
+    leaveDatesCount: leaveDatesRaw.length,
+    crEntries: parts.join(", "),
+    pfNumber: document.getElementById("ta-pf-number").value.trim(),
+    allowanceFor: `${document.getElementById("ta-month-sel").value}/${document.getElementById("ta-year-sel").value}`,
+    post: post || "",
+    pay: document.getElementById("ta-pay-custom").value.trim() || "25,600",
+    scale: document.getElementById("ta-scale-custom").value.trim() || "5200-20200",
+    level: document.getElementById("ta-level").value,
+    apptDate,
+    designation: document.getElementById("ta-claimed-type").value.trim() || "T.A",
+    rule: "SR",
+    reportUnit: document.getElementById("ta-report-unit").value.trim()
+  };
+}
+
+function buildSummary(entries) {
+  const groups = {};
+  entries.forEach((entry) => {
+    const key = `${entry.rate}_${entry.pct}`;
+    if (!groups[key]) groups[key] = { rate: entry.rate, pct: entry.pct, count: 0, total: 0 };
+    groups[key].count += 1;
+    groups[key].total += parseFloat(entry.rs) + parseFloat(entry.paise) / 100;
+  });
+  return groups;
+}
+
+function numberToWords(num) {
+  const units = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+    "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+  const tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+
+  if (num === 0) return "Zero";
+
+  function helper(value) {
+    if (value === 0) return "";
+    if (value < 20) return `${units[value]} `;
+    if (value < 100) return `${tens[Math.floor(value / 10)]} ${helper(value % 10)}`;
+    if (value < 1000) return `${units[Math.floor(value / 100)]} Hundred ${helper(value % 100)}`;
+    if (value < 100000) return `${helper(Math.floor(value / 1000))}Thousand ${helper(value % 1000)}`;
+    if (value < 10000000) return `${helper(Math.floor(value / 100000))}Lakh ${helper(value % 100000)}`;
+    return `${helper(Math.floor(value / 10000000))}Crore ${helper(value % 10000000)}`;
+  }
+
+  return `${helper(num).trim()} Rupees Only`;
+}
+
+function buildTaTableHeaderPage2(bfValue, page1TotalRs, page1TotalPaise) {
+  return `
+    <colgroup>
+      <col style="width:9%;"><col style="width:10%;"><col style="width:7%;"><col style="width:7%;">
+      <col style="width:7%;"><col style="width:7%;"><col style="width:3%;"><col style="width:5%;">
+      <col style="width:26%;"><col style="width:7%;"><col style="width:5%;"><col style="width:5%;">
+    </colgroup>
+    <thead>
+      <tr>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">महीना और तारीख<br><span style="font-size:8pt;">Month &amp; Date</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">गाड़ी न.<br><span style="font-size:8pt;">No. of Train<br>Steamer/Plane</span></th>
+        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;">प्रस्थान/पहुँचने का समय<br><span style="font-size:8pt;">Time left / Time arrived</span></th>
+        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;">स्टेशन/Station</th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">किलो<br>मीटर<br><span style="font-size:8pt;">Kms.</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">दिन/रात<br><span style="font-size:8pt;">Day/<br>Night</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">यात्रा के उद्देश्य<br><span style="font-size:8pt;">Object of Journey</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;text-align:center;">दर<br><span style="font-size:8pt;">Rate</span><br><span style="font-size:8pt;font-weight:bold;">BF = ${escapeHTML(bfValue)}</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">रु.<br><span style="font-size:8pt;">Rs.</span><br><span style="font-size:8pt;font-weight:bold;">${page1TotalRs}</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;font-weight:bold;line-height:1.3;vertical-align:middle;">पै.<br><span style="font-size:8pt;">P.</span><br><span style="font-size:8pt;font-weight:bold;">${String(page1TotalPaise).padStart(2, "0")}</span></th>
+      </tr>
+      <tr>
+        <th style="border:1px solid #000;padding:1px;font-size:8pt;font-family:'Noto Sans Devanagari',Arial;">प्रस्थान<br>Time left</th>
+        <th style="border:1px solid #000;padding:1px;font-size:8pt;font-family:'Noto Sans Devanagari',Arial;">पहुँचना<br>Time arrived</th>
+        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;">से<br>/From</th>
+        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:9pt;">तक<br>/To</th>
+      </tr>
+    </thead>`;
+}
+
+function buildTaTableHeader() {
+  return `
+    <colgroup>
+      <col style="width:9%;"><col style="width:10%;"><col style="width:7%;"><col style="width:7%;">
+      <col style="width:7%;"><col style="width:7%;"><col style="width:3%;"><col style="width:5%;">
+      <col style="width:26%;"><col style="width:7%;"><col style="width:5%;"><col style="width:5%;">
+    </colgroup>
+    <thead>
+      <tr>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">महीना और तारीख<br><span style="font-size:9pt;">Month &amp; Date</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">गाड़ी न.<br><span style="font-size:9pt;">No. of Train<br>Steamer/Plane</span></th>
+        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;">प्रस्थान/पहुँचने का समय<br><span style="font-size:9pt;">Time left / Time arrived</span></th>
+        <th colspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;">स्टेशन/Station</th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">किलो<br>मीटर<br><span style="font-size:9pt;">Kms.</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">दिन/रात<br><span style="font-size:9pt;">Day/<br>Night</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">यात्रा के उद्देश्य<br><span style="font-size:9pt;">Object of Journey</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">दर<br><span style="font-size:9pt;">Rate</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">रु.<br><span style="font-size:9pt;">Rs.</span></th>
+        <th rowspan="2" style="border:1px solid #000;padding:2px 1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;font-weight:bold;line-height:1.3;vertical-align:middle;">पै.<br><span style="font-size:9pt;">P.</span></th>
+      </tr>
+      <tr>
+        <th style="border:1px solid #000;padding:1px;font-size:9pt;font-family:'Noto Sans Devanagari',Arial;">प्रस्थान<br>Time left</th>
+        <th style="border:1px solid #000;padding:1px;font-size:9pt;font-family:'Noto Sans Devanagari',Arial;">पहुँचना<br>Time arrived</th>
+        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;">से<br>/From</th>
+        <th style="border:1px solid #000;padding:1px;font-family:'Noto Sans Devanagari',Arial;font-size:10pt;">तक<br>/To</th>
+      </tr>
+    </thead>`;
+}
+
+function makeSplitCell(topLeft, bottomRight) {
+  if (!topLeft && !bottomRight) {
+    return '<td style="border:1px solid #000;height:36px;padding:0;overflow:hidden;"></td>';
+  }
+
+  return `<td style="border:1px solid #000;height:36px;padding:0;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:1px;left:3px;font-size:12pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;font-weight:bold;overflow:hidden;">${escapeHTML(topLeft || "")}</div>
+    <div style="position:absolute;bottom:1px;right:3px;font-size:12pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;text-align:right;font-weight:bold;overflow:hidden;">${escapeHTML(bottomRight || "")}</div>
+  </td>`;
+}
+
+function makeStationCell(fromStn, toStn, colType) {
+  const topValue = colType === "from" ? (fromStn || "").toUpperCase() : (toStn || "").toUpperCase();
+  const bottomValue = colType === "from" ? (toStn || "").toUpperCase() : (fromStn || "").toUpperCase();
+
+  if (!topValue && !bottomValue) {
+    return '<td style="border:1px solid #000;height:36px;padding:0;overflow:hidden;"></td>';
+  }
+
+  return `<td style="border:1px solid #000;height:36px;padding:0;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:1px;left:3px;font-size:11pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;text-align:left;font-weight:bold;overflow:hidden;">${escapeHTML(topValue)}</div>
+    <div style="position:absolute;bottom:1px;right:3px;font-size:11pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;text-align:right;font-weight:bold;overflow:hidden;">${escapeHTML(bottomValue)}</div>
+  </td>`;
+}
+
+function toSentenceCaseWithAcronyms(text) {
+  if (!text) return "";
+  const acronyms = ["KM", "RMC", "RGD", "DFW", "SEJ", "NATESAR", "NES", "HIS", "TIA", "NKPU", "SILAO"];
+  let result = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+  acronyms.forEach((acronym) => {
+    const regex = new RegExp(`\\b${acronym}\\b`, "gi");
+    result = result.replace(regex, acronym);
+  });
+  return result;
+}
+
+function buildTaDataRows(entries) {
+  return entries.map((entry) => {
+    const modeLabel = entry.mode === "bytrain"
+      ? `By Train${entry.trainNo ? `<br>(${escapeHTML(entry.trainNo)})` : ""}`
+      : "By Road";
+    const objectText = escapeHTML(toSentenceCaseWithAcronyms(entry.obj || ""));
+    const pctLabel = escapeHTML(displayPctLabel(entry.pct));
+    const modeFontSize = entry.mode === "bytrain" ? "10pt" : "12pt";
+    const pctFontSize = String(entry.pct).includes("+") ? "10pt" : "12pt";
+
+    return `<tr>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;">${escapeHTML(entry.monthDate || "")}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:${modeFontSize};font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;white-space:normal;line-height:1.2;">${modeLabel}</td>
+      ${makeSplitCell(entry.leftSrc, entry.leftDest)}
+      ${makeSplitCell(entry.arrDest, entry.arrSrc)}
+      ${makeStationCell(entry.fromStn, entry.toStn, "from")}
+      ${makeStationCell(entry.fromStn, entry.toStn, "to")}
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;"></td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:${pctFontSize};font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;">${pctLabel}</td>
+      <td style="border:1px solid #000;padding:2px 3px;font-size:10pt;font-family:'Times New Roman',serif;height:36px;text-align:left;vertical-align:middle;overflow:hidden;word-wrap:break-word;word-break:break-word;white-space:normal;line-height:1.3;font-weight:bold;">${objectText}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;">${escapeHTML(entry.rate)}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;font-weight:bold;height:36px;text-align:center;vertical-align:middle;overflow:hidden;">${escapeHTML(entry.rs)}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;font-weight:bold;height:36px;text-align:center;vertical-align:middle;overflow:hidden;">${escapeHTML(String(entry.paise).padStart(2, "0"))}</td>
+    </tr>`;
+  }).join("");
+}
+
+function buildBlankRows(count) {
+  let rows = "";
+  for (let i = 0; i < count; i += 1) {
+    const cells = Array(10).fill("<td style=\"border:1px solid #000;font-size:11pt;font-family:'Times New Roman',serif;overflow:hidden;\"></td>").join("");
+    rows += `<tr style="height:36px;">${cells}<td style="border:1px solid #000;font-size:11pt;font-family:'Times New Roman',serif;overflow:hidden;"></td><td style="border:1px solid #000;font-size:11pt;font-family:'Times New Roman',serif;overflow:hidden;"></td></tr>`;
+  }
+  return rows;
+}
+
+function buildBlankRowsOverlay(blankCount, entriesBefore) {
+  if (!blankCount) return "";
+  const rowHeight = 36;
+  const overlayHeight = blankCount * rowHeight;
+  const headerHeight = 48;
+  const startY = headerHeight + (entriesBefore * rowHeight);
+  return `<svg style="position:absolute;top:${startY}px;left:0;width:100%;height:${overlayHeight}px;pointer-events:none;overflow:visible;">
+    <line x1="97%" y1="0" x2="92%" y2="${overlayHeight}px" stroke="#000" stroke-width="1"></line>
+    <line x1="100%" y1="0" x2="97%" y2="${overlayHeight}px" stroke="#000" stroke-width="1"></line>
+  </svg>`;
+}
+
+function buildPage1TotalTableRow(page1TotalRs, page1TotalPaise) {
+  return `<tr style="height:36px;">
+    <td style="border:1px solid #000;font-size:11pt;overflow:hidden;" colspan="9"></td>
+    <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:right;vertical-align:middle;overflow:hidden;">TOTAL</td>
+    <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">${page1TotalRs}</td>
+    <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">${String(page1TotalPaise).padStart(2, "0")}</td>
+  </tr>`;
+}
+
+function buildGrandTotalTableRow(grandTotalRs, grandTotalPaise) {
+  const hasPaise = grandTotalPaise > 0;
+  const addPaise = hasPaise ? 100 - grandTotalPaise : 0;
+  const roundedTotal = hasPaise ? grandTotalRs + 1 : grandTotalRs;
+
+  if (!hasPaise) {
+    return `<tr style="height:36px;">
+      <td style="border:1px solid #000;font-size:11pt;overflow:hidden;" colspan="9"></td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">TOTAL</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">₹${grandTotalRs}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">00</td>
+    </tr>`;
+  }
+
+  return `<tr style="height:36px;">
+    <td style="border:1px solid #000;font-size:11pt;overflow:hidden;" colspan="9"></td>
+    <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">TOTAL</td>
+    <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">${grandTotalRs}</td>
+    <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">.${String(grandTotalPaise).padStart(2, "0")}</td>
+  </tr>
+  <tr style="height:36px;">
+    <td style="border:1px solid #000;font-size:11pt;overflow:hidden;" colspan="9"></td>
+    <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;"></td>
+    <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;"></td>
+    <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">+ .${String(addPaise).padStart(2, "0")}</td>
+  </tr>
+  <tr style="height:36px;">
+    <td style="border:1px solid #000;font-size:11pt;overflow:hidden;" colspan="9"></td>
+    <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">TOTAL</td>
+    <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">₹${roundedTotal}</td>
+    <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-weight:bold;font-family:'Times New Roman',serif;text-align:center;vertical-align:middle;overflow:hidden;">00</td>
+  </tr>`;
+}
+
+function buildSummaryOverlay(summaryGroups, grandTotalRs, grandTotalPaise, grandTotalWords) {
+  const hasPaise = grandTotalPaise > 0;
+  const addPaise = hasPaise ? 100 - grandTotalPaise : 0;
+  const roundedTotal = hasPaise ? grandTotalRs + 1 : grandTotalRs;
+  const fontStyle = "font-family:Arial,sans-serif;font-size:10pt;line-height:1.1;";
+
+  let lines = "";
+  summaryGroups.forEach((group, index) => {
+    const total = group.total;
+    const totalRs = Math.floor(total);
+    const totalPaise = Math.round((total - totalRs) * 100);
+    const groupDisplay = `${totalRs}.${String(totalPaise).padStart(2, "0")}`;
+    const pctLabel = displayPctLabel(group.pct);
+    const hasSplitPct = String(group.pct).includes("+");
+
+    if (index === 0) {
+      lines += `<div style="${fontStyle}padding-left:20px;font-weight:600;font-family:'Times New Roman',serif;margin:0;padding-top:1px;padding-bottom:1px;"><u><b>SUMMARY:</b></u></div>`;
+    }
+
+    if (hasSplitPct) {
+      lines += `<div style="${fontStyle}padding-left:40px;font-weight:bold;font-family:'Times New Roman',serif;margin:0;padding-top:1px;padding-bottom:1px;">${escapeHTML(pctLabel)} = 100% × ${group.count} = ${escapeHTML(group.rate)} × ${group.count} = ₹${groupDisplay}</div>`;
+    } else {
+      const perEntry = parseFloat(group.rate) * (parseFloat(group.pct) / 100);
+      lines += `<div style="${fontStyle}padding-left:40px;font-weight:bold;font-family:'Times New Roman',serif;margin:0;padding-top:1px;padding-bottom:1px;">${escapeHTML(pctLabel)} × ${group.count} = ${perEntry.toFixed(2)} × ${group.count} = ₹${groupDisplay}</div>`;
+    }
+  });
+
+  const rule = '<div style="border-top:1px solid #000;margin:1px 0;"></div>';
+  let totalBlock = "";
+
+  if (!hasPaise) {
+    totalBlock = `${rule}
+      <div style="${fontStyle}padding-left:40px;font-weight:600;font-family:'Times New Roman',serif;margin:0;padding-top:1px;"><b>TOTAL</b> = ₹${roundedTotal}.00 <span style="font-size:9pt;font-style:italic;font-weight:bold;margin-left:3px;">(<b><em>${escapeHTML(grandTotalWords)}</em></b>)</span></div>`;
+  } else {
+    totalBlock = `${rule}
+      <div style="${fontStyle}padding-left:40px;font-family:'Times New Roman',serif;font-weight:600;margin:0;line-height:1.2;">TOTAL = ₹${grandTotalRs}.${String(grandTotalPaise).padStart(2, "0")}</div>
+      <div style="${fontStyle}padding-left:40px;font-family:'Times New Roman',serif;font-weight:600;margin:0;line-height:1.2;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+.${String(addPaise).padStart(2, "0")}</div>
+      ${rule}
+      <div style="${fontStyle}padding-left:40px;font-weight:600;font-family:'Times New Roman',serif;margin:0;padding-top:1px;"><b>TOTAL</b> = ₹${roundedTotal}.00 <span style="font-size:9pt;font-style:italic;font-weight:bold;margin-left:3px;">(<b><em>${escapeHTML(grandTotalWords)}</em></b>)</span></div>`;
+  }
+
+  return `<div style="position:absolute;left:8.33%;bottom:0;width:58%;pointer-events:none;z-index:10;background:#fff;border:1.5px solid #000;padding:3px 5px;font-family:Arial,sans-serif;color:#000;">
+    ${lines}
+    ${totalBlock}
+  </div>`;
+}
+
+function adjustObjectOfJourneyFontSize() {}
+
+function showPreviewSection() {
+  document.getElementById("form-section").style.display = "none";
+  document.getElementById("ta-preview-section").style.display = "block";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function showForm() {
+  document.getElementById("ta-preview-section").style.display = "none";
+  document.getElementById("form-section").style.display = "block";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function generateTaPreview() {
+  try {
+    const keys = Object.keys(taPageEntries).sort();
+    if (!keys.length) {
+      customAlert("Please add at least one journey entry using Add to Page.");
+      return;
+    }
+
+    const entries = keys.map((key) => taPageEntries[key]);
+    const header = getTaHeaderData();
+    const summaryGroups = Object.values(buildSummary(entries));
+    let grandTotal = 0;
+    summaryGroups.forEach((group) => {
+      grandTotal += group.total;
+    });
+
+    const grandTotalRs = Math.floor(grandTotal);
+    const grandTotalPaise = Math.round((grandTotal - grandTotalRs) * 100);
+    const hasPaise = grandTotalPaise > 0;
+    const roundedTotal = hasPaise ? grandTotalRs + 1 : grandTotalRs;
+    const grandTotalWords = numberToWords(roundedTotal);
+
+    const rowsPage1 = 15;
+    const rowsPage2 = 14;
+    const page1Entries = entries.slice(0, rowsPage1);
+    const page2Entries = entries.slice(rowsPage1);
+    const page1Blanks = Math.max(0, rowsPage1 - page1Entries.length);
+    const page2Blanks = Math.max(0, (rowsPage2 - (hasPaise ? 3 : 1)) - page2Entries.length);
+
+    const metaFont = "font-family:'Noto Sans Devanagari',Arial,sans-serif;";
+    const restLeaveText = header.crEntries ? escapeHTML(header.crEntries) : "&nbsp;";
+    const topBarHTML = `<div style="display:flex;justify-content:space-between;align-items:baseline;width:100%;margin-bottom:1px;${metaFont}font-size:11pt;line-height:1.8;">
+      <span style="font-weight:bold;min-height:12px;">${restLeaveText}</span>
+      <span style="font-weight:bold;min-height:12px;text-align:center;flex:1;padding:0 8px;">&nbsp;</span>
+      <span style="font-weight:bold;min-height:12px;">${header.pfNumber ? `PF No. ${escapeHTML(header.pfNumber)}` : "&nbsp;"}</span>
+    </div>`;
+
+    const titleHTML = `<div style="text-align:center;font-size:12pt;font-weight:bold;margin:1px 0 5px 0;width:100%;${metaFont}letter-spacing:0.04em;">यात्रा भत्ता विवरण / TRAVELLING ALLOWANCE JOURNAL</div>`;
+
+    const rowStyle = `display:flex;align-items:flex-end;width:calc(100% - 1.6cm);margin-left:0.8cm;margin-right:0.8cm;${metaFont}font-size:11pt;line-height:1;flex-wrap:nowrap;font-weight:bold;word-spacing:3px;`;
+    const labelStyle = "white-space:nowrap;flex-shrink:0;font-weight:bold;word-spacing:3px;";
+    const value = (text, minWidth, grow) => {
+      const flexValue = grow ? "flex:1 1 auto;" : `flex:0 0 ${minWidth};`;
+      return `<span style="${flexValue}min-width:${minWidth};border-bottom:2px dotted #000;padding:0 2px 1px 2px;font-weight:bold;word-spacing:3px;text-align:center;display:inline-block;line-height:1.05;vertical-align:bottom;">${text || ""}</span>`;
+    };
+    const spacer = '<span style="flex-shrink:0;width:2px;"></span>';
+
+    const isNandKishor = header.name === "NAND KISHOR";
+    const pdfName = escapeHTML(isNandKishor ? "NAND KISHOR" : header.name || "");
+    const pdfPay = escapeHTML(isNandKishor ? "25,600" : header.pay || "");
+    const pdfScale = escapeHTML([header.scale, header.level].filter(Boolean).join(" / "));
+    const pdfApptDate = escapeHTML(isNandKishor ? "24/07/2014" : header.apptDate || "");
+    const pdfClaimType = escapeHTML(header.designation || "T.A");
+
+    const metaRow1 = `<div style="${rowStyle}margin-bottom:4px;">
+      <span style="display:inline-flex;flex-direction:column;align-items:center;flex:0 0 auto;min-width:120px;max-width:180px;">
+        <span style="font-size:10pt;font-weight:800;letter-spacing:0.06em;line-height:1;white-space:nowrap;align-self:center;">${escapeHTML(header.firstLine || "ENGINEERING")}</span>
+        <span style="width:100%;border-bottom:2px dotted #000;display:block;min-height:3px;margin-top:2px;"></span>
+      </span>
+      ${spacer}<span style="${labelStyle}">शाखा/Branch</span>${value(escapeHTML(header.branch || "DANAPUR"), "110px", false)}${spacer}
+      <span style="${labelStyle}">डिविजन का सदर मुकाम/Divisional Headquarter at.</span>${value(escapeHTML(header.hqStation || "NES"), "60px", false)}${spacer}
+      <span style="${labelStyle}">काम का विवरण जिसके लिए श्री/Journal of duties performed</span>
+    </div>`;
+
+    const metaRow2 = `<div style="${rowStyle}margin-bottom:4px;">
+      <span style="${labelStyle}">by Sri.</span>${value(pdfName, "150px", false)}${spacer}
+      <span style="${labelStyle}">for which allowance for</span>${value(escapeHTML(header.allowanceFor || ""), "90px", false)}${spacer}
+      <span style="${labelStyle}">में भत्ता मांगे हैं/is claimed</span>${value(pdfClaimType, "60px", false)}${spacer}
+      <span style="${labelStyle}">पद/Designation</span>${value(escapeHTML(header.post || ""), "1px", true)}
+    </div>`;
+
+    const metaRow3 = `<div style="${rowStyle}margin-bottom:5mm;">
+      <span style="${labelStyle}">वेतन/Pay</span>${value(pdfPay, "80px", false)}${spacer}
+      <span style="${labelStyle}">वेतनमान/Scale of Pay</span>${value(pdfScale, "150px", false)}${spacer}
+      <span style="${labelStyle}">नियुक्ति की तारीख/Date of appointment</span>${value(pdfApptDate, "90px", false)}${spacer}
+      <span style="${labelStyle}">किस नियम में शासित/Rule by which governed</span>${value("SR", "40px", false)}
+    </div>`;
+
+    const kmOverlayHTML = `<div style="position:absolute;top:0;left:48.3%;width:3%;height:100%;pointer-events:none;z-index:5;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+      <div style="font-size:10pt;font-weight:bold;font-family:Arial,sans-serif;color:#000;white-space:nowrap;transform:rotate(-90deg);transform-origin:center center;letter-spacing:2px;">&#9668;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135; OVER 8 K.M &#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9135;&#9658;</div>
+    </div>`;
+
+    let page1Total = 0;
+    page1Entries.forEach((entry) => {
+      page1Total += parseFloat(entry.rs) + parseFloat(entry.paise) / 100;
+    });
+
+    const page1TotalRs = Math.floor(page1Total);
+    const page1TotalPaise = Math.round((page1Total - page1TotalRs) * 100);
+    const page1TotalDisplay = `${page1TotalRs}.${String(page1TotalPaise).padStart(2, "0")}`;
+
+    const summaryOverlayHTML = buildSummaryOverlay(summaryGroups, grandTotalRs, grandTotalPaise, grandTotalWords);
+    const page1BlankOverlay = buildBlankRowsOverlay(page1Blanks, page1Entries.length);
+    const page2BlankOverlay = buildBlankRowsOverlay(page2Blanks, page2Entries.length);
+
+    const page1TableHTML = `<div style="position:relative;width:100%;">${kmOverlayHTML}${page1BlankOverlay}<table class="ta-j-table" style="margin-top:0;width:100%;">${buildTaTableHeader()}<tbody>${buildTaDataRows(page1Entries)}${buildBlankRows(page1Blanks)}${buildPage1TotalTableRow(page1TotalRs, page1TotalPaise)}</tbody></table></div>`;
+    const ptoHTML = `<div style="display:flex;justify-content:flex-end;font-family:'Courier New',monospace;font-size:12pt;font-weight:bold;margin-top:0;margin-bottom:0;padding:0;width:100%;"><span style="letter-spacing:0.08em;">P.T.O.</span></div>`;
+    const page2TableHTML = `<div style="position:relative;width:100%;">${kmOverlayHTML}${page2BlankOverlay}${summaryOverlayHTML}<table class="ta-j-table" style="margin-top:0;width:100%;">${buildTaTableHeaderPage2(page1TotalDisplay, page1TotalRs, page1TotalPaise)}<tbody>${buildTaDataRows(page2Entries)}${buildBlankRows(page2Blanks)}${buildGrandTotalTableRow(grandTotalRs, grandTotalPaise)}</tbody></table></div>`;
+
+    const certificateFont = "font-family:'Noto Sans Devanagari',Arial,sans-serif;";
+    const dottedLine = (text, width) => `<span style="display:inline-block;min-width:${width};border-bottom:1.5px dotted #000;font-weight:bold;padding:0 2px 1px 2px;line-height:1.05;vertical-align:bottom;text-align:center;">${text}</span>`;
+    const certHTML = `<div style="width:100%;margin-top:3mm;${certificateFont}font-size:9.2pt;font-weight:bold;line-height:1.2;word-spacing:4.5px;text-align:justify;">
+      <div style="word-spacing:4.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;मैं प्रमाणित करता हूँ कि श्री ${dottedLine(pdfName, "200px")} बिल में दिये गये समय के लिए रेलवे के काम के सदर मुकाम स्टेशन से बाहर गये थे उन्हीं ने रेल / सड़क / जहाज / हवाई जहाज</div>
+      <div style="word-spacing:5px;">से जो यात्रा की है उसके लिए उन्हें सरकारी स्थानीय निधि से मुक्त टिकट या मुफ्त सवारी दी गयी/नहीं दी गई I hereby certify that the above mentioned ${dottedLine("", "120px")} was absent</div>
+      <div style="word-spacing:3.5px;">on duty from his headquarters' station during the period mentioned in the bill on railway business and that the officer performed the journey by Rail / Air / Sea / Road and was</div>
+      <div> allowed / not allowed free pass or free locomotion at the expenses of Government / local fund of Indian State.</div>
+      <div style="height:3pt;"></div>
+      <div style="word-spacing:5.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ड्यूटी पास पर की गयी यात्राओं तथा ठहरावों के लिए, जिनके इस बिल में यात्रा भत्ते / दैनिक भत्ते के दावे पेश किये गये हैं, किसी अन्य माध्यम से यात्रा भत्ता/दैनिक भत्ता तथा अन्य पारिश्रमिक </div>
+      <div style="word-spacing:4.5px;">नहीं लिया गया है / No T.A./D.A. or any other remuneration has been drawn from any other source in respect of the journeys performed on Duty Pass and also for the halts</div>
+      <div>for which T.A./D.A. has been claimed in this bill.</div>
+      <div style="height:3pt;"></div>
+      <div style="word-spacing:5.5px;">प्रति हस्ताक्षरित / Countersigned नियंत्रक अफसर/Controlling Officer कार्यालय के प्रधान/Head of Office यात्रा भत्ता लेनेवाले अफसर के हस्ताक्षर / Signature of Officer claiming T.A</div>
+      <div style="margin-top:5pt;">
+        <div>नोट :– 1. &nbsp;एक रेलवे से दूसरी रेलवे में बदली होने पर जो यात्रा भत्ता मांगा जाय उसे बिल में यह स्पष्ट लिख देना चाहिए कि सरकार की ओर से यात्रा के लिए मुक्त टिकट या मुफ्त सवारी दी गई है या नहीं दी गई है।</div>
+        <div>Note :– 1. &nbsp;On T.A. Bills for transfer from one railway to another, a certificate whether or not a free pass or free locomotion at government expense was allowed should be recorded on the bill.</div>
+        <div>नोट :– 2. &nbsp;यात्रा भत्ता लेनेवाले अफसर यदि हिन्दी या प्रादेशिक भाषा में फार्म भर कर दें तो सम्बन्धित कार्यालय उसका अंग्रेजी में भाषान्तरण कर लें।</div>
+        <div>Note :– 2. &nbsp;Entries made by the claimant in Hindi/Regional language should be transliterated in English by the office concerned.</div>
+      </div>
+    </div>`;
+
+    const fullHTML = `<div class="ta-journal-page">
+      <div class="ta-page-1" style="page-break-after:always;break-after:page;width:100%;padding-bottom:3mm;">
+        ${topBarHTML}${titleHTML}${metaRow1}${metaRow2}${metaRow3}${page1TableHTML}${ptoHTML}
+      </div>
+      <div class="ta-page-2" style="page-break-before:always;break-before:page;width:100%;">
+        <div style="height:8mm;width:100%;"></div>
+        ${page2TableHTML}${certHTML}
+      </div>
+    </div>`;
+
+    const contentDiv = document.getElementById("ta-pdf-content");
+    contentDiv.innerHTML = fullHTML;
+    contentDiv.style.display = "block";
+    document.getElementById("ta-report-content").style.display = "none";
+    currentTaViewMode = "journal";
+    switchToTaJournal();
+    showPreviewSection();
+    setTimeout(adjustObjectOfJourneyFontSize, 200);
+  } catch (error) {
+    console.error(error);
+    customAlert(`Error generating preview: ${error.message}`);
+  }
+}
+
+function generateTaReport() {
+  const keys = Object.keys(taPageEntries).sort();
+  if (!keys.length) {
+    customAlert("Please add at least one journey entry first.");
+    return false;
+  }
+
+  const entries = keys.map((key) => taPageEntries[key]);
+  const header = getTaHeaderData();
+  const firstDate = new Date(`${keys[0]}T00:00:00`);
+  const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+  const monthYear = `${monthNames[firstDate.getMonth()]}/${firstDate.getFullYear()}`;
+  const fontStyle = "font-family:Arial,'Noto Sans Devanagari',sans-serif;";
+
+  const reportEntries = [];
+  entries.forEach((entry) => {
+    reportEntries.push({
+      dateRaw: entry.dateRaw,
+      dateFormatted: formatTaDate(entry.dateRaw),
+      work: entry.obj || "-"
+    });
+  });
+
+  getJsonArray("ta-rest-dates-json").forEach((dateValue) => {
+    reportEntries.push({ dateRaw: dateValue, dateFormatted: formatTaDate(dateValue), work: "Rest" });
+  });
+
+  getJsonArray("ta-leave-dates-json").forEach((dateValue) => {
+    reportEntries.push({ dateRaw: dateValue, dateFormatted: formatTaDate(dateValue), work: "Leave" });
+  });
+
+  getJsonArray("ta-cr-details-json").forEach((dateValue) => {
+    reportEntries.push({ dateRaw: dateValue, dateFormatted: formatTaDate(dateValue), work: "CR" });
+  });
+
+  reportEntries.sort((a, b) => a.dateRaw.localeCompare(b.dateRaw));
+
+  const reportRows = reportEntries.map((entry) => `
+    <tr>
+      <td style="border:none;padding:2px 12px 2px 0;font-size:8.5pt;font-weight:normal;${fontStyle}text-align:left;vertical-align:top;width:22%;white-space:nowrap;line-height:1;">${escapeHTML(entry.dateFormatted)}</td>
+      <td style="border:none;padding:2px 0 2px 12px;font-size:8.5pt;font-weight:normal;${fontStyle}text-align:left;vertical-align:top;line-height:1;">${escapeHTML(entry.work || "-")}</td>
+    </tr>
+  `).join("");
+
+  const reportHTML = `<div style="background:white;width:100%;${fontStyle}color:#000;border:2px solid #000;padding:12px 16px 16px 16px;">
+    <div style="text-align:center;font-size:11pt;font-weight:bold;text-decoration:underline;text-underline-offset:2px;letter-spacing:0.08em;margin-bottom:8px;${fontStyle}color:#000;">T.A MOVEMENT (${escapeHTML(monthYear)})</div>
+    <div style="font-size:8.5pt;${fontStyle}line-height:1.4;color:#000;"><span style="font-weight:bold;">Name</span> : ${escapeHTML(header.name || "")}</div>
+    <div style="font-size:8.5pt;${fontStyle}line-height:1.4;color:#000;"><span style="font-weight:bold;">Designation</span> : ${escapeHTML(header.post || header.designation || "")}</div>
+    <div style="font-size:8.5pt;${fontStyle}line-height:1.4;color:#000;"><span style="font-weight:bold;">Station</span> : ${escapeHTML(header.reportUnit || "")}</div>
+    <div style="font-size:8.5pt;${fontStyle}line-height:1.4;color:#000;"><span style="font-weight:bold;">PF Number</span> : ${escapeHTML(header.pfNumber || "")}</div>
+    <div style="font-size:8.5pt;${fontStyle}line-height:1.4;color:#000;margin-bottom:6px;"><span style="font-weight:bold;">Month</span> : ${escapeHTML(monthYear)}</div>
+    <div style="border-top:2px dashed #000;width:100%;margin:4px 0 6px 0;"></div>
+    <table style="width:100%;border-collapse:collapse;border:none;line-height:1;">
+      <tbody>${reportRows}</tbody>
+    </table>
+  </div>`;
+
+  document.getElementById("ta-report-content").innerHTML = reportHTML;
+  return true;
+}
+
+function switchToTaJournal() {
+  currentTaViewMode = "journal";
+  document.getElementById("ta-pdf-content").style.display = "block";
+  document.getElementById("ta-report-content").style.display = "none";
+  document.getElementById("btn-ta-journal-view").style.background = "var(--amber)";
+  document.getElementById("btn-ta-report-view").style.background = "var(--purple)";
+}
+
+function switchToTaReport() {
+  if (!generateTaReport()) return;
+  currentTaViewMode = "report";
+  document.getElementById("ta-pdf-content").style.display = "none";
+  document.getElementById("ta-report-content").style.display = "block";
+  document.getElementById("btn-ta-journal-view").style.background = "var(--amber-dark)";
+  document.getElementById("btn-ta-report-view").style.background = "var(--purple-dark)";
+  showPreviewSection();
+}
+
+function printTaJournal() {
+  clearDynamicPrintStyles();
+  const styleEl = document.createElement("style");
+  styleEl.id = "dynamic-print-style";
+  styleEl.innerHTML = `@media print {
+    @page { size: A4 landscape; margin: 5mm 6mm; }
+    #ta-pdf-content { position: static !important; width: 100% !important; padding: 0 !important; box-shadow: none !important; display: block !important; }
+    #ta-report-content { display: none !important; }
+    #ta-pdf-content .ta-page-1 { page-break-after: always !important; break-after: page !important; }
+    #ta-pdf-content .ta-page-2 { page-break-before: always !important; break-before: page !important; }
+  }`;
+  document.head.appendChild(styleEl);
+  window.print();
+}
+
+function printTaReport() {
+  clearDynamicPrintStyles();
+  const styleEl = document.createElement("style");
+  styleEl.id = "dynamic-print-style";
+  styleEl.innerHTML = `@media print {
+    @page { size: A4 portrait; margin: 12mm; }
+    #ta-report-content { position: static !important; width: 100% !important; padding: 0 !important; box-shadow: none !important; display: block !important; }
+    #ta-pdf-content { display: none !important; }
+  }`;
+  document.head.appendChild(styleEl);
+  window.print();
+}
+
+function printCurrentTaView() {
+  if (currentTaViewMode === "journal") {
+    printTaJournal();
+  } else {
+    if (!document.getElementById("ta-report-content").innerHTML.trim()) {
+      if (!generateTaReport()) return;
+    }
+    printTaReport();
+  }
+}
+
+function showStnSuggestions(input, listId) {
+  const filter = input.value.toUpperCase().trim();
+  const listEl = document.getElementById(listId);
+  if (!filter) {
+    listEl.innerHTML = "";
+    listEl.classList.add("hidden");
+    return;
+  }
+
+  const matches = stationList.filter((station) => station.includes(filter));
+  if (!matches.length) {
+    listEl.innerHTML = "";
+    listEl.classList.add("hidden");
+    return;
+  }
+
+  listEl.innerHTML = matches.map((station) => `
+    <li onclick="pickStation('${listId}', '${station.replace(/'/g, "\\'")}')">
+      <span class="stn-code">${escapeHTML(station)}</span>
+      <span class="stn-name">${escapeHTML(station)}</span>
+    </li>
+  `).join("");
+  listEl.classList.remove("hidden");
+}
+
+function pickStation(listId, station) {
+  const inputId = listId === "stn-from-list" ? "ta-from-stn-single" : "ta-to-stn-single";
+  document.getElementById(inputId).value = station;
+  hideStnList(listId);
+}
+
+function hideStnList(listId) {
+  const listEl = document.getElementById(listId);
+  listEl.classList.add("hidden");
+}
+
+function stnKeyNav(event, listId) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    const firstItem = document.querySelector(`#${listId} li`);
+    if (firstItem) firstItem.click();
+  }
+}
+
+function attachTimeAutoFormat(id) {
+  const input = document.getElementById(id);
+  input.addEventListener("input", () => {
+    let digits = input.value.replace(/\D/g, "").slice(0, 4);
+    if (digits.length >= 3) {
+      digits = `${digits.slice(0, 2)}:${digits.slice(2)}`;
+    }
+    input.value = digits;
+  });
+}
+
+function setupTaJournal() {
+  const today = new Date();
+  document.getElementById("ta-date-single").value = toLocalDateInput(today);
+  document.getElementById("ta-year-sel").value = String(today.getFullYear());
+  document.getElementById("ta-month-sel").selectedIndex = today.getMonth();
+  ["ta-left-src", "ta-arr-dest", "ta-left-dest", "ta-arr-src"].forEach(attachTimeAutoFormat);
+  updateTaName();
+  toggleTaPostCustom();
+  toggleTrainNoSingle();
+  handleRateChange();
+  renderTaSavedDays();
+  updateCharCount();
+}
+
+window.addEventListener("afterprint", clearDynamicPrintStyles);
+setupTaJournal();
+</script>
+</body>
+</html>
