@@ -211,6 +211,121 @@ body {
   display: none;
 }
 
+.login-download-float {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 40;
+  width: auto;
+  max-width: min(360px, calc(100vw - 36px));
+  pointer-events: none;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.login-download-float__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.72);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.26);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  pointer-events: auto;
+}
+
+.login-download-float__button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.32);
+}
+
+@media (max-width: 640px) {
+  .login-download-float {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    max-width: none;
+  }
+
+  .login-download-float__button {
+    width: 100%;
+    padding: 11px 14px;
+    font-size: 11px;
+  }
+}
+
+.login-download-status {
+  position: fixed;
+  right: 18px;
+  bottom: 74px;
+  z-index: 41;
+  width: min(320px, calc(100vw - 36px));
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+  color: #fff;
+  display: none;
+  pointer-events: none;
+}
+
+.login-download-status__title {
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.login-download-status__text {
+  font-size: 11px;
+  line-height: 1.5;
+  color: #cbd5e1;
+  margin: 0;
+}
+
+.login-download-status__bar {
+  margin-top: 10px;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.login-download-status__bar span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #60a5fa 0%, #22c55e 100%);
+  transition: width 0.3s ease;
+}
+
+.login-download-status.success .login-download-status__bar span {
+  width: 100% !important;
+}
+
+@media (max-width: 640px) {
+  .login-download-status {
+    left: 12px;
+    right: 12px;
+    bottom: 72px;
+    width: auto;
+  }
+}
+
 /* ============================================
    MATERIAL CLOCK TIME PICKER
    ============================================ */
@@ -1237,6 +1352,19 @@ body {
     <p style="margin-top:20px;text-align:center;font-size:9px;color:#000000;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;font-family:'Inter',sans-serif;">
       This is an independent self-help platform and not an official Indian Railways service.
     </p>
+  </div>
+
+  <div class="login-download-float">
+    <button type="button" class="login-download-float__button" onclick="startAppDownload()">
+      <i class="fa-solid fa-cloud-arrow-down"></i>
+      Download the app - one tap access
+    </button>
+  </div>
+
+  <div id="login-download-status" class="login-download-status" aria-live="polite" aria-atomic="true">
+    <p class="login-download-status__title" id="login-download-status-title">Preparing download</p>
+    <p class="login-download-status__text" id="login-download-status-text">Starting the app download now.</p>
+    <div class="login-download-status__bar"><span id="login-download-status-bar"></span></div>
   </div>
 
   <!-- Forgot Password Modal -->
@@ -2993,6 +3121,67 @@ function toggleLoginPassword() {
   }
 }
 
+let downloadStatusTimer1 = null;
+let downloadStatusTimer2 = null;
+let downloadStatusTimer3 = null;
+
+function hideAppDownloadStatus() {
+  const status = document.getElementById('login-download-status');
+  if (status) {
+    status.style.display = 'none';
+    status.classList.remove('success');
+  }
+  const statusBar = document.getElementById('login-download-status-bar');
+  if (statusBar) statusBar.style.width = '0%';
+}
+
+function showAppDownloadStatus(title, text, progress, isSuccess = false) {
+  const status = document.getElementById('login-download-status');
+  const statusTitle = document.getElementById('login-download-status-title');
+  const statusText = document.getElementById('login-download-status-text');
+  const statusBar = document.getElementById('login-download-status-bar');
+
+  if (!status || !statusTitle || !statusText || !statusBar) return;
+
+  status.style.display = 'block';
+  status.classList.toggle('success', isSuccess);
+  statusTitle.textContent = title;
+  statusText.textContent = text;
+  statusBar.style.width = `${Math.max(0, Math.min(100, progress))}%`;
+}
+
+function startAppDownload() {
+  const downloadUrl = 'https://drive.google.com/uc?export=download&id=199d0Cd8iF8NNQeUS1ZZmLCsF9HcvkVxl';
+
+  clearTimeout(downloadStatusTimer1);
+  clearTimeout(downloadStatusTimer2);
+  clearTimeout(downloadStatusTimer3);
+
+  showAppDownloadStatus('Preparing download', 'Setting up your app download.', 20);
+
+  const trigger = document.createElement('a');
+  trigger.href = downloadUrl;
+  trigger.target = '_blank';
+  trigger.rel = 'noopener noreferrer';
+  trigger.style.display = 'none';
+  document.body.appendChild(trigger);
+  trigger.click();
+  trigger.remove();
+
+  downloadStatusTimer1 = setTimeout(() => {
+    showAppDownloadStatus('Download started', 'Your browser is downloading the app now.', 55);
+  }, 700);
+
+  downloadStatusTimer2 = setTimeout(() => {
+    showAppDownloadStatus('Almost done', 'If the download prompt is open, confirm the save action.', 82);
+  }, 1800);
+
+  downloadStatusTimer3 = setTimeout(() => {
+    showAppDownloadStatus('Thank you', 'Thank you for downloading the app.', 100, true);
+    setTimeout(hideAppDownloadStatus, 2800);
+  }, 3300);
+}
+
 // Safe wrapper for inline onclick handlers that may fire before functions are defined
 window.safeToggleLoginModal = function(id, show) {
   if (typeof toggleLoginModal === 'function') {
@@ -3000,6 +3189,12 @@ window.safeToggleLoginModal = function(id, show) {
   } else {
     console.warn('toggleLoginModal not yet defined, retrying in 100ms...');
     setTimeout(() => window.safeToggleLoginModal(id, show), 100);
+  }
+};
+
+window.startAppDownload = function() {
+  if (typeof startAppDownload === 'function') {
+    startAppDownload();
   }
 };
 
