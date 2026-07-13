@@ -78,126 +78,121 @@ body {
   box-shadow: 0 12px 25px rgba(0,0,0,0.6);
   animation: trainRun 12s linear infinite;
   z-index: 10;
-  display: flex;
-  align-items: center;
-  border-top: 2px solid rgba(255,255,255,0.2);
-}
-
-#login-screen .login-train::before {
-  content: "";
-  position: absolute;
-  top: 8px;
-  left: 50px;
-  width: 220px;
-  height: 14px;
-  background-image: repeating-linear-gradient(90deg, #1e293b 0px, #1e293b 15px, transparent 15px, transparent 25px);
-  opacity: 0.8;
-}
-
-#login-screen .login-train::after {
-  content: "INDIAN RAILWAYS";
-  position: absolute;
-  bottom: 4px;
-  left: 60px;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  white-space: nowrap;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-}
-
-.login-particle {
-  position: absolute;
-  background: rgba(255,255,255,0.15);
-  border-radius: 50%;
-  pointer-events: none;
-  animation: floatParticle 8s infinite linear;
-}
-
-.login-glass-card {
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  animation: cardFadeIn 0.8s ease-out forwards;
-  position: relative;
-  z-index: 30;
-  max-width: 340px;
-  padding: 1.5rem;
-  border-radius: 1rem;
-}
-
-.login-modal-container {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 9999999;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(5px);
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-}
-
-.login-modal-container.active { display: flex; }
-
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes moveTracks {
-  from { background-position: 0 0; }
-  to { background-position: -30px 0; }
-}
-
-@keyframes trainRun {
-  0% { left: -500px; }
-  100% { left: 120%; }
-}
-
-@keyframes floatParticle {
-  0% { transform: translateY(110vh) translateX(0); opacity: 0; }
-  50% { opacity: 0.4; }
-  100% { transform: translateY(-10vh) translateX(20px); opacity: 0; }
-}
-
-@keyframes cardFadeIn {
-  from { opacity: 0; transform: scale(0.95) translateY(10px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-#login-particles-container {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.login-input-focus:focus {
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
-  border-color: #60a5fa;
-}
-
-.login-btn-primary {
-  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.login-spinner {
-  display: none;
-  width: 14px;
-  height: 14px;
-  border: 2px solid rgba(255,255,255,.3);
   border-radius: 50%;
   border-top-color: #fff;
   animation: loginSpin 0.8s linear infinite;
 }
 
 @keyframes loginSpin { to { transform: rotate(360deg); } }
+
+.login-download-float {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 40;
+  pointer-events: none;
+}
+
+.login-download-float__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: min(320px, calc(100vw - 32px));
+  padding: 11px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 100%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.35);
+  text-decoration: none;
+  pointer-events: auto;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-download-float__button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.42);
+}
+
+.login-download-float__button i {
+  font-size: 13px;
+}
+
+.login-download-status {
+  position: fixed;
+  right: 16px;
+  bottom: 64px;
+  z-index: 41;
+  width: min(320px, calc(100vw - 32px));
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+  color: #fff;
+  display: none;
+  pointer-events: none;
+}
+
+.login-download-status__title {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.login-download-status__text {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #cbd5e1;
+}
+
+.login-download-status__bar {
+  margin-top: 10px;
+  height: 4px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.login-download-status__bar span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #60a5fa 0%, #22c55e 100%);
+  transition: width 0.3s ease;
+}
+
+.login-download-status.is-success .login-download-status__bar span {
+  width: 100% !important;
+}
+
+@media (max-width: 640px) {
+  .login-download-float {
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+  }
+
+  .login-download-float__button {
+    width: 100%;
+    justify-content: center;
+    max-width: none;
+    padding: 12px 14px;
+    font-size: 11px;
+  }
+
+  .login-download-status {
+    right: 12px;
+    left: 12px;
+    bottom: 68px;
+    width: auto;
+  }
+}
 
 #login-error-msg {
   background: rgba(239,68,68,0.15);
@@ -942,6 +937,7 @@ body {
   border-right: 3px solid #7c1a1a;
   background: linear-gradient(135deg, #a52a2a 0%, #7c1a1a 40%, #4a5e69 100%);
   background-size: 200% auto;
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 12px 24px rgba(124, 26, 26, 0.18));
@@ -1355,15 +1351,15 @@ body {
   </div>
 
   <div class="login-download-float">
-    <button type="button" class="login-download-float__button" onclick="startAppDownload()">
+    <button type="button" class="login-download-float__button" onclick="startAppDownload()" aria-label="Download the app">
       <i class="fa-solid fa-cloud-arrow-down"></i>
       Download the app - one tap access
     </button>
   </div>
 
   <div id="login-download-status" class="login-download-status" aria-live="polite" aria-atomic="true">
-    <p class="login-download-status__title" id="login-download-status-title">Preparing download</p>
-    <p class="login-download-status__text" id="login-download-status-text">Starting the app download now.</p>
+    <p id="login-download-status-title" class="login-download-status__title">Preparing download</p>
+    <p id="login-download-status-text" class="login-download-status__text">Starting the app download now.</p>
     <div class="login-download-status__bar"><span id="login-download-status-bar"></span></div>
   </div>
 
@@ -3121,18 +3117,18 @@ function toggleLoginPassword() {
   }
 }
 
-let downloadStatusTimer1 = null;
-let downloadStatusTimer2 = null;
-let downloadStatusTimer3 = null;
+let downloadStatusTimerA = null;
+let downloadStatusTimerB = null;
+let downloadStatusTimerC = null;
 
 function hideAppDownloadStatus() {
   const status = document.getElementById('login-download-status');
+  const bar = document.getElementById('login-download-status-bar');
   if (status) {
     status.style.display = 'none';
-    status.classList.remove('success');
+    status.classList.remove('is-success');
   }
-  const statusBar = document.getElementById('login-download-status-bar');
-  if (statusBar) statusBar.style.width = '0%';
+  if (bar) bar.style.width = '0%';
 }
 
 function showAppDownloadStatus(title, text, progress, isSuccess = false) {
@@ -3144,42 +3140,42 @@ function showAppDownloadStatus(title, text, progress, isSuccess = false) {
   if (!status || !statusTitle || !statusText || !statusBar) return;
 
   status.style.display = 'block';
-  status.classList.toggle('success', isSuccess);
+  status.classList.toggle('is-success', isSuccess);
   statusTitle.textContent = title;
   statusText.textContent = text;
   statusBar.style.width = `${Math.max(0, Math.min(100, progress))}%`;
 }
 
-function startAppDownload() {
+function triggerAppDownload() {
   const downloadUrl = 'https://drive.google.com/uc?export=download&id=199d0Cd8iF8NNQeUS1ZZmLCsF9HcvkVxl';
 
-  clearTimeout(downloadStatusTimer1);
-  clearTimeout(downloadStatusTimer2);
-  clearTimeout(downloadStatusTimer3);
+  clearTimeout(downloadStatusTimerA);
+  clearTimeout(downloadStatusTimerB);
+  clearTimeout(downloadStatusTimerC);
 
-  showAppDownloadStatus('Preparing download', 'Setting up your app download.', 20);
+  showAppDownloadStatus('Preparing download', 'Starting the app download now.', 20);
 
-  const trigger = document.createElement('a');
-  trigger.href = downloadUrl;
-  trigger.target = '_blank';
-  trigger.rel = 'noopener noreferrer';
-  trigger.style.display = 'none';
-  document.body.appendChild(trigger);
-  trigger.click();
-  trigger.remove();
+  const link = document.createElement('a');
+  link.href = downloadUrl;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  link.style.display = 'none';
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
 
-  downloadStatusTimer1 = setTimeout(() => {
-    showAppDownloadStatus('Download started', 'Your browser is downloading the app now.', 55);
+  downloadStatusTimerA = setTimeout(() => {
+    showAppDownloadStatus('Download started', 'Your browser is fetching the app file.', 55);
   }, 700);
 
-  downloadStatusTimer2 = setTimeout(() => {
-    showAppDownloadStatus('Almost done', 'If the download prompt is open, confirm the save action.', 82);
+  downloadStatusTimerB = setTimeout(() => {
+    showAppDownloadStatus('Almost done', 'Please confirm the save prompt if it appears.', 82);
   }, 1800);
 
-  downloadStatusTimer3 = setTimeout(() => {
+  downloadStatusTimerC = setTimeout(() => {
     showAppDownloadStatus('Thank you', 'Thank you for downloading the app.', 100, true);
-    setTimeout(hideAppDownloadStatus, 2800);
-  }, 3300);
+    setTimeout(hideAppDownloadStatus, 2500);
+  }, 3200);
 }
 
 // Safe wrapper for inline onclick handlers that may fire before functions are defined
@@ -3193,8 +3189,8 @@ window.safeToggleLoginModal = function(id, show) {
 };
 
 window.startAppDownload = function() {
-  if (typeof startAppDownload === 'function') {
-    startAppDownload();
+  if (typeof triggerAppDownload === 'function') {
+    triggerAppDownload();
   }
 };
 
