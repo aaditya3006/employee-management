@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>RGD – TIA Employees Management System</title>
+<title>Railsaathi Employee Management System</title>
 <script src="https://cdn.tailwindcss.com"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Noto+Sans+Devanagari:wght@400;700&family=Poppins:wght@300;400;600&family=Inter:wght@200;300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@200;300;400;600;700&family=Italiana&family=Noto+Sans+Devanagari:wght@400;700&family=Poppins:wght@300;400;600&family=Sora:wght@400;500;600;700;800&display=swap');
 
 :root {
   --yellow: #ffff00;
@@ -21,6 +21,10 @@
   --vibrant-border: #e2e8f0;
   --vibrant-text: #1e293b;
   --primary-blue: #1d4ed8;
+  --landing-navy: #07142b;
+  --landing-blue: #0a1e4a;
+  --landing-cyan: #38bdf8;
+  --landing-silver: #e5e7eb;
 }
 
 * { box-sizing: border-box; }
@@ -30,6 +34,2429 @@ body {
   margin: 0; padding: 0; min-height: 100vh;
   overflow-x: hidden; position: relative;
   display: flex; flex-direction: column;
+}
+
+body.show-marketing-landing {
+  background:
+    radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 32%),
+    radial-gradient(circle at 20% 20%, rgba(29, 78, 216, 0.18), transparent 26%),
+    linear-gradient(180deg, #030b18 0%, #07142b 52%, #0a1e4a 100%);
+}
+
+body.show-marketing-landing #login-screen {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+body.show-marketing-landing #sidebar,
+body.show-marketing-landing #sidebar-backdrop,
+body.show-marketing-landing #main-wrapper,
+body.show-marketing-landing #top-nav,
+body.show-marketing-landing #main-footer,
+ body.show-marketing-landing #bg-image,
+ body.show-marketing-landing #preview-section,
+ body.show-marketing-landing #attendance-preview-section,
+ body.show-marketing-landing #ta-preview-section {
+  display: none !important;
+}
+
+#railsaathi-landing {
+  position: relative;
+  display: none;
+  min-height: 100vh;
+  color: #fff;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(56, 189, 248, 0.16), transparent 20%),
+    radial-gradient(circle at 85% 0%, rgba(29, 78, 216, 0.24), transparent 24%),
+    linear-gradient(180deg, rgba(4, 10, 22, 0.98) 0%, rgba(7, 20, 43, 0.98) 52%, rgba(10, 30, 74, 0.98) 100%);
+  isolation: isolate;
+}
+
+body.show-marketing-landing #railsaathi-landing {
+  display: block;
+}
+
+#railsaathi-landing[hidden] {
+  display: none !important;
+}
+
+.landing-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000001;
+  width: calc(var(--landing-progress, 0) * 1%);
+  height: 4px;
+  background: linear-gradient(90deg, #38bdf8 0%, #60a5fa 45%, #22c55e 100%);
+  box-shadow: 0 0 22px rgba(56, 189, 248, 0.6);
+  transition: width 0.12s linear;
+}
+
+.landing-grid,
+.landing-ambient,
+.landing-orbit {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.landing-grid {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent 95%);
+}
+
+.landing-ambient::before,
+.landing-ambient::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(10px);
+  opacity: 0.72;
+}
+
+.landing-ambient::before {
+  top: 10vh;
+  left: -10vw;
+  width: 46vw;
+  height: 46vw;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, transparent 72%);
+  animation: landingFloat 12s ease-in-out infinite alternate;
+}
+
+.landing-ambient::after {
+  right: -16vw;
+  top: 24vh;
+  width: 42vw;
+  height: 42vw;
+  background: radial-gradient(circle, rgba(29, 78, 216, 0.22) 0%, transparent 72%);
+  animation: landingFloat 16s ease-in-out infinite alternate-reverse;
+}
+
+.landing-orbit::before,
+.landing-orbit::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.landing-orbit::before {
+  width: 62vw;
+  height: 62vw;
+  right: -16vw;
+  top: 14vh;
+}
+
+.landing-orbit::after {
+  width: 34vw;
+  height: 34vw;
+  left: -8vw;
+  bottom: 18vh;
+}
+
+.landing-shell {
+  position: relative;
+  z-index: 1;
+}
+
+.landing-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  backdrop-filter: blur(18px);
+  background: rgba(3, 11, 24, 0.66);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.landing-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.landing-brand__mark {
+  width: 46px;
+  height: 46px;
+  padding: 6px;
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow:
+    0 12px 28px rgba(2, 6, 23, 0.26),
+    inset 0 0 0 1px rgba(148, 163, 184, 0.22);
+}
+
+.landing-brand__mark img,
+.login-brand-mark img,
+.app-brand-mark img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.landing-brand__name {
+  margin: 0;
+  font-family: 'Sora', 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.landing-brand__copy {
+  margin: 2px 0 0;
+  font-size: 10px;
+  line-height: 1.45;
+  color: #94a3b8;
+}
+
+.landing-topbar__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.14);
+  color: #e0f2fe;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: inset 0 0 0 1px rgba(125, 211, 252, 0.16);
+}
+
+.landing-section {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  padding: 22px 16px 72px;
+}
+
+.landing-hero {
+  min-height: calc(100vh - 74px);
+  display: grid;
+  align-items: center;
+  gap: 30px;
+  padding-top: 30px;
+}
+
+.landing-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.48);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  color: #cbd5e1;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.landing-kicker__pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.48);
+  animation: landingPulse 2s ease infinite;
+}
+
+.landing-headline {
+  margin: 18px 0 14px;
+  font-family: 'Sora', 'Inter', sans-serif;
+  font-size: clamp(2.3rem, 9vw, 4.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  max-width: 11ch;
+}
+
+.landing-headline span {
+  display: block;
+  color: #93c5fd;
+}
+
+.landing-copy {
+  margin: 0;
+  max-width: 34rem;
+  color: #cbd5e1;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.landing-cta-row,
+.landing-final__actions,
+.landing-download__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.landing-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 0 18px;
+  border-radius: 16px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.landing-button:hover {
+  transform: translateY(-2px);
+}
+
+.landing-button--primary {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  color: #0f172a;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.24);
+}
+
+.landing-button--secondary {
+  background: linear-gradient(135deg, rgba(29, 78, 216, 0.88), rgba(56, 189, 248, 0.92));
+  color: #fff;
+  box-shadow: 0 18px 38px rgba(29, 78, 216, 0.28);
+}
+
+.landing-button--ghost {
+  color: #dbeafe;
+  background: rgba(15, 23, 42, 0.44);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+.landing-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.landing-metric {
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(15, 23, 42, 0.42);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+.landing-metric__value {
+  display: block;
+  font-family: 'Sora', 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.landing-metric__label {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.landing-hero__visual {
+  position: relative;
+  min-height: 420px;
+}
+
+.landing-hero__panel,
+.landing-phone-card,
+.landing-story-card,
+.landing-download-card,
+.landing-faq,
+.landing-final__panel {
+  border-radius: 28px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.82) 0%, rgba(7, 20, 43, 0.92) 100%);
+  box-shadow: 0 28px 60px rgba(2, 6, 23, 0.28);
+  backdrop-filter: blur(18px);
+}
+
+.landing-hero__panel {
+  position: relative;
+  height: 100%;
+  padding: 22px;
+  overflow: hidden;
+}
+
+.landing-hero__media {
+  position: relative;
+  min-height: 260px;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: linear-gradient(180deg, rgba(6, 14, 28, 0.98), rgba(10, 24, 46, 0.96));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.landing-hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7, 20, 43, 0.08) 0%, rgba(7, 20, 43, 0.2) 46%, rgba(2, 6, 23, 0.8) 100%);
+  pointer-events: none;
+}
+
+.landing-hero__media img {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  display: block;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.03);
+  animation: landingPhotoFade 1.15s ease-out 0.18s forwards;
+}
+
+.landing-hero__media-caption {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  z-index: 1;
+  display: grid;
+  gap: 6px;
+}
+
+.landing-hero__media-caption span {
+  color: #93c5fd;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.landing-hero__media-caption strong {
+  color: #f8fafc;
+  font-family: 'Sora', 'Inter', sans-serif;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  line-height: 1.15;
+}
+
+.landing-hero__media-caption small {
+  color: #e2e8f0;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.landing-trackline {
+  position: absolute;
+  inset: auto -16px 92px -16px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(56, 189, 248, 0.65) 16%, rgba(255, 255, 255, 0.82) 50%, rgba(56, 189, 248, 0.65) 84%, transparent 100%);
+  box-shadow: 0 0 22px rgba(56, 189, 248, 0.3);
+}
+
+.landing-trackline::before,
+.landing-trackline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-image: linear-gradient(90deg, transparent 0, transparent 8px, rgba(148, 163, 184, 0.34) 8px, rgba(148, 163, 184, 0.34) 18px);
+  background-size: 24px 100%;
+}
+
+.landing-trackline::before {
+  top: -9px;
+}
+
+.landing-trackline::after {
+  bottom: -9px;
+}
+
+.landing-train {
+  position: absolute;
+  left: -12%;
+  bottom: 108px;
+  width: 180px;
+  height: 54px;
+  border-radius: 12px 26px 10px 10px;
+  background: linear-gradient(135deg, #f8fafc 0%, #dbeafe 22%, #2563eb 60%, #0f172a 100%);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.28);
+  animation: landingTrain 12s linear infinite;
+}
+
+.landing-train::before {
+  content: "";
+  position: absolute;
+  inset: 11px 18px auto 28px;
+  height: 12px;
+  background: repeating-linear-gradient(90deg, rgba(7, 20, 43, 0.86) 0 15px, transparent 15px 24px);
+  border-radius: 999px;
+}
+
+.landing-train::after {
+  content: "Railsaathi";
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.86);
+  text-transform: uppercase;
+}
+
+.landing-hero__hud {
+  position: absolute;
+  top: 22px;
+  right: 20px;
+  width: min(240px, 72%);
+  padding: 16px;
+  border-radius: 20px;
+  background: rgba(7, 20, 43, 0.72);
+  border: 1px solid rgba(56, 189, 248, 0.14);
+}
+
+.landing-hero__hud-title,
+.landing-section-title,
+.landing-download__heading,
+.landing-final__title {
+  margin: 0;
+  font-family: 'Sora', 'Inter', sans-serif;
+  font-size: clamp(1.7rem, 5vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.landing-hero__hud-copy,
+.landing-section-copy,
+.landing-download__copy,
+.landing-final__copy {
+  margin: 10px 0 0;
+  color: #cbd5e1;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.landing-node-cloud {
+  position: absolute;
+  inset: auto 20px 20px 20px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.landing-node {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  color: #e2e8f0;
+  font-size: 11px;
+}
+
+.landing-node__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #38bdf8;
+  box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.34);
+  animation: landingPulse 2.4s ease infinite;
+}
+
+.landing-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #93c5fd;
+}
+
+.landing-section-label::before {
+  content: "";
+  width: 36px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.9), transparent);
+}
+
+.landing-story-grid,
+.landing-download-grid,
+.landing-final__grid {
+  display: grid;
+  gap: 18px;
+}
+
+.landing-story-card,
+.landing-download-card,
+.landing-final__panel {
+  padding: 20px;
+}
+
+.landing-story-lines {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.landing-story-line {
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  color: #e2e8f0;
+  font-size: 13px;
+}
+
+.landing-pain-list,
+.landing-feature-grid,
+.landing-stat-grid,
+.landing-download-meta,
+.landing-install-steps,
+.landing-network-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.landing-pain-item,
+.landing-feature,
+.landing-stat,
+.landing-download-meta li,
+.landing-network-list li {
+  list-style: none;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(15, 23, 42, 0.52);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.landing-pain-item strong,
+.landing-feature strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: #fff;
+}
+
+.landing-pain-item span,
+.landing-feature span,
+.landing-download-meta small,
+.landing-network-list small {
+  color: #94a3b8;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.landing-workflow-layout {
+  display: grid;
+  gap: 18px;
+}
+
+.landing-workflow-rail {
+  position: relative;
+  padding: 18px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(7, 20, 43, 0.78), rgba(15, 23, 42, 0.92));
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.landing-workflow-rail::before {
+  content: "";
+  position: absolute;
+  left: 26px;
+  top: 22px;
+  bottom: 22px;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.18), rgba(56, 189, 248, 0.76), rgba(34, 197, 94, 0.36));
+}
+
+.landing-step {
+  position: relative;
+  padding-left: 50px;
+  min-height: 44px;
+}
+
+.landing-step + .landing-step {
+  margin-top: 16px;
+}
+
+.landing-step__dot {
+  position: absolute;
+  left: 16px;
+  top: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #38bdf8, #1d4ed8);
+  box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.12);
+}
+
+.landing-step__title {
+  display: block;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.landing-step__copy {
+  display: block;
+  margin-top: 5px;
+  color: #94a3b8;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.landing-phone-card {
+  padding: 18px;
+  overflow: hidden;
+}
+
+.landing-phone-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.landing-phone-tab {
+  min-height: 38px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.44);
+  color: #cbd5e1;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.landing-phone-tab.is-active {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.24), rgba(29, 78, 216, 0.24));
+  color: #fff;
+}
+
+.landing-phone-frame {
+  margin-top: 18px;
+  padding: 18px 16px;
+  border-radius: 30px;
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.94), rgba(15, 23, 42, 0.98));
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.landing-phone-notch {
+  width: 88px;
+  height: 16px;
+  margin: 0 auto 18px;
+  border-radius: 999px;
+  background: rgba(51, 65, 85, 0.88);
+}
+
+.landing-phone-screen {
+  display: none;
+  padding: 16px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(10, 30, 74, 0.86), rgba(7, 20, 43, 0.96));
+  min-height: 260px;
+}
+
+.landing-phone-screen.is-active {
+  display: block;
+}
+
+.landing-phone-screen h4 {
+  margin: 0;
+  font-family: 'Sora', 'Inter', sans-serif;
+  font-size: 18px;
+}
+
+.landing-phone-screen p {
+  margin: 8px 0 0;
+  color: #cbd5e1;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.landing-phone-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.landing-phone-list div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e2e8f0;
+  font-size: 12px;
+}
+
+.landing-feature-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.landing-feature {
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-feature::after {
+  content: "";
+  position: absolute;
+  inset: auto -18px -30px auto;
+  width: 90px;
+  height: 90px;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.08);
+}
+
+.landing-stat-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.landing-stat strong {
+  display: block;
+  font-family: 'Sora', 'Inter', sans-serif;
+  font-size: 24px;
+  color: #f8fafc;
+}
+
+.landing-stat span {
+  display: block;
+  margin-top: 6px;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.landing-network {
+  margin-top: 22px;
+  padding: 20px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(7, 20, 43, 0.76), rgba(15, 23, 42, 0.92));
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.landing-network-map {
+  position: relative;
+  min-height: 240px;
+  margin-top: 18px;
+  border-radius: 22px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 24%, rgba(56, 189, 248, 0.12), transparent 24%),
+    radial-gradient(circle at 84% 32%, rgba(29, 78, 216, 0.18), transparent 26%),
+    linear-gradient(180deg, rgba(10, 30, 74, 0.92), rgba(7, 20, 43, 0.98));
+}
+
+.landing-network-map::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border-radius: 18px;
+  border: 1px dashed rgba(148, 163, 184, 0.14);
+}
+
+.landing-route {
+  position: absolute;
+  inset: 40px 24px auto 24px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.14) 0%, rgba(56, 189, 248, 0.82) 48%, rgba(34, 197, 94, 0.84) 100%);
+  transform: rotate(-8deg);
+  transform-origin: left center;
+}
+
+.landing-route::after {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 24%;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #f8fafc;
+  box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.16);
+  animation: landingTrainMarker 5.4s ease-in-out infinite;
+}
+
+.landing-map-node {
+  position: absolute;
+  display: grid;
+  gap: 5px;
+  justify-items: center;
+  color: #dbeafe;
+  font-size: 11px;
+}
+
+.landing-map-node span:first-child {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #38bdf8;
+  box-shadow: 0 0 0 8px rgba(56, 189, 248, 0.12);
+}
+
+.landing-map-node small {
+  color: #bfdbfe;
+}
+
+.landing-assistant {
+  margin-top: 22px;
+  display: grid;
+  gap: 12px;
+}
+
+.landing-chat-bubble {
+  width: fit-content;
+  max-width: min(92%, 360px);
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e2e8f0;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.landing-chat-bubble.is-user {
+  margin-left: auto;
+  background: linear-gradient(135deg, rgba(29, 78, 216, 0.28), rgba(56, 189, 248, 0.18));
+}
+
+.landing-download-grid {
+  align-items: start;
+}
+
+.landing-download-card {
+  overflow: hidden;
+}
+
+.landing-download-card__ribbon {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(34, 197, 94, 0.16);
+  color: #dcfce7;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.landing-download-meta {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 0;
+}
+
+.landing-download-meta li {
+  padding: 14px 16px;
+}
+
+.landing-download-meta strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #fff;
+  font-size: 12px;
+}
+
+.landing-install-steps {
+  padding: 0;
+}
+
+.landing-install-steps li {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  color: #e2e8f0;
+  font-size: 12px;
+}
+
+.landing-install-steps b {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(56, 189, 248, 0.14);
+  color: #dbeafe;
+}
+
+.landing-faq {
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.landing-faq details {
+  border-radius: 18px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.landing-faq details + details {
+  margin-top: 10px;
+}
+
+.landing-faq summary {
+  cursor: pointer;
+  list-style: none;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.landing-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.landing-faq p {
+  margin: 10px 0 0;
+  color: #cbd5e1;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.landing-final__panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-final__panel::after {
+  content: "";
+  position: absolute;
+  right: -22px;
+  top: -30px;
+  width: 160px;
+  height: 160px;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.landing-footer-note {
+  margin-top: 20px;
+  color: #94a3b8;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.landing-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-top: 16px;
+}
+
+.landing-footer-links a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 11px;
+}
+
+.landing-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.landing-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (min-width: 900px) {
+  .landing-hero,
+  .landing-story-grid,
+  .landing-workflow-layout,
+  .landing-download-grid,
+  .landing-final__grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  }
+
+  .landing-feature-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .landing-stat-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .landing-section {
+    padding: 34px 28px 90px;
+  }
+}
+
+@media (max-width: 899px) {
+  .landing-download-meta,
+  .landing-feature-grid,
+  .landing-stat-grid,
+  .landing-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-cta-row .landing-button,
+  .landing-final__actions .landing-button,
+  .landing-download__actions .landing-button {
+    width: 100%;
+  }
+
+  .landing-topbar__cta {
+    display: none;
+  }
+
+  .landing-hero__visual {
+    min-height: 360px;
+  }
+
+  .landing-hero__media,
+  .landing-hero__media img {
+    min-height: 220px;
+  }
+
+  .landing-hero__media .landing-hero__media-caption {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    gap: 4px;
+  }
+
+  .landing-hero__media .landing-hero__media-caption span {
+    font-size: 8px;
+  }
+
+  .landing-hero__media .landing-hero__media-caption strong {
+    font-size: clamp(0.9rem, 4.4vw, 1.1rem);
+  }
+
+  .landing-hero__media .landing-hero__media-caption small {
+    font-size: 9.5px;
+    line-height: 1.38;
+  }
+
+  .landing-node-cloud {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-hero__hud {
+    position: static;
+    width: auto;
+    margin-bottom: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-reveal,
+  .landing-button,
+  .landing-train,
+  .landing-hero__media img,
+  .landing-kicker__pulse,
+  .landing-node__dot,
+  .landing-route::after,
+  .landing-ambient::before,
+  .landing-ambient::after {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+@keyframes landingTrain {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(150%); }
+}
+
+@keyframes landingFloat {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(4vw, 2vh, 0) scale(1.08); }
+}
+
+@keyframes landingPulse {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.48); }
+  70% { box-shadow: 0 0 0 12px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+@keyframes landingTrainMarker {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(185px); }
+}
+
+@keyframes landingPhotoFade {
+  0% {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.landing-button--secondary {
+  background: linear-gradient(135deg, #173768 0%, #25528c 100%);
+  color: #fff;
+  box-shadow: 0 18px 38px rgba(23, 55, 104, 0.24);
+}
+
+.landing-download-card__ribbon {
+  background: rgba(37, 82, 140, 0.16);
+  color: #dbeafe;
+}
+
+.landing-feature::after {
+  background: rgba(148, 163, 184, 0.06);
+}
+
+.landing-metric__value {
+  font-size: clamp(1.45rem, 3vw, 2.1rem);
+}
+
+.landing-metric__label {
+  line-height: 1.55;
+}
+
+.landing-hero__panel {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  background: linear-gradient(180deg, rgba(8, 17, 36, 0.9) 0%, rgba(11, 26, 54, 0.96) 100%);
+}
+
+.landing-hero__hud {
+  position: static;
+  width: auto;
+  margin: 0;
+}
+
+.landing-hero__panel-grid,
+.landing-context-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.landing-context-card {
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.landing-context-card--feature {
+  background:
+    linear-gradient(135deg, rgba(37, 82, 140, 0.16), rgba(15, 23, 42, 0.26)),
+    rgba(255, 255, 255, 0.03);
+}
+
+.landing-context-card__eyebrow {
+  display: block;
+  color: #93c5fd;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.landing-context-card strong {
+  display: block;
+  margin-top: 8px;
+  font-family: 'Sora', 'Inter', sans-serif;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  line-height: 1.05;
+  color: #f8fafc;
+}
+
+.landing-context-card span {
+  display: block;
+  margin-top: 8px;
+  color: #cbd5e1;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.landing-source-note {
+  margin-top: 14px;
+  color: #94a3b8;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.landing-source-note a {
+  color: #dbeafe;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(219, 234, 254, 0.28);
+}
+
+@media (min-width: 900px) {
+  .landing-hero__panel-grid,
+  .landing-context-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .landing-context-card--feature {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 899px) {
+  .landing-hero__panel-grid,
+  .landing-context-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   SIMPLE LANDING REFRESH
+============================================= */
+body.show-marketing-landing {
+  background:
+    linear-gradient(180deg, #f6fbff 0%, #ecf7ff 50%, #e3f2fd 100%);
+}
+
+body.show-marketing-landing[data-landing-theme="dark"] {
+  background:
+    radial-gradient(circle at top, rgba(74, 163, 255, 0.16), transparent 30%),
+    linear-gradient(180deg, #081423 0%, #0b1d31 48%, #091523 100%);
+}
+
+#railsaathi-landing {
+  --landing-surface: rgba(255, 255, 255, 0.86);
+  --landing-surface-strong: #ffffff;
+  --landing-surface-soft: rgba(255, 255, 255, 0.76);
+  --landing-surface-overlay: rgba(247, 253, 255, 0.94);
+  --landing-border: #d7e0ea;
+  --landing-border-strong: #c9d5e2;
+  --landing-text: #10233f;
+  --landing-muted: #5b6b7f;
+  --landing-soft-text: #334155;
+  --landing-accent: #355b86;
+  --landing-accent-strong: #173768;
+  --landing-accent-contrast: #ffffff;
+  --landing-pill: #e7eef7;
+  --landing-dot: #bfd0e2;
+  --landing-dot-active: #173768;
+  --landing-shadow: 0 18px 42px rgba(15, 23, 42, 0.08);
+  --landing-shadow-soft: 0 8px 20px rgba(15, 23, 42, 0.07);
+  --landing-shadow-topbar: 0 10px 28px rgba(15, 23, 42, 0.08);
+  --landing-theme-button-bg: rgba(255, 255, 255, 0.96);
+  --landing-theme-button-icon: #4a617a;
+  --landing-theme-button-active: #173768;
+  --landing-theme-button-active-icon: #ffffff;
+  color: #0f172a;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(238, 248, 255, 0.78) 40%, rgba(229, 242, 250, 0.94) 100%);
+}
+
+#railsaathi-landing[data-theme="dark"] {
+  --landing-surface: rgba(12, 24, 40, 0.84);
+  --landing-surface-strong: rgba(9, 19, 33, 0.96);
+  --landing-surface-soft: rgba(17, 31, 48, 0.84);
+  --landing-surface-overlay: rgba(8, 20, 35, 0.92);
+  --landing-border: rgba(125, 211, 252, 0.18);
+  --landing-border-strong: rgba(148, 163, 184, 0.26);
+  --landing-text: #f4f8ff;
+  --landing-muted: #b9cbe0;
+  --landing-soft-text: #d7e2f1;
+  --landing-accent: #8cc9ff;
+  --landing-accent-strong: #4aa3ff;
+  --landing-accent-contrast: #06111f;
+  --landing-pill: rgba(30, 61, 98, 0.68);
+  --landing-dot: rgba(191, 219, 254, 0.42);
+  --landing-dot-active: #8cc9ff;
+  --landing-shadow: 0 22px 48px rgba(0, 0, 0, 0.34);
+  --landing-shadow-soft: 0 10px 28px rgba(0, 0, 0, 0.24);
+  --landing-shadow-topbar: 0 12px 28px rgba(0, 0, 0, 0.3);
+  --landing-theme-button-bg: rgba(9, 19, 33, 0.96);
+  --landing-theme-button-icon: #b9cbe0;
+  --landing-theme-button-active: #8cc9ff;
+  --landing-theme-button-active-icon: #06111f;
+  color: var(--landing-text);
+  background:
+    linear-gradient(180deg, rgba(7, 17, 29, 0.96) 0%, rgba(9, 22, 37, 0.94) 46%, rgba(8, 18, 31, 0.98) 100%);
+}
+
+#railsaathi-landing::before,
+#railsaathi-landing::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  pointer-events: none;
+}
+
+#railsaathi-landing::before {
+  top: 0;
+  height: 38vh;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(255, 255, 255, 0.9), transparent 28%),
+    radial-gradient(circle at 82% 0%, rgba(191, 219, 254, 0.52), transparent 22%);
+}
+
+#railsaathi-landing[data-theme="dark"]::before {
+  background:
+    radial-gradient(circle at 16% 16%, rgba(74, 163, 255, 0.22), transparent 28%),
+    radial-gradient(circle at 84% 0%, rgba(125, 211, 252, 0.12), transparent 22%);
+}
+
+#railsaathi-landing::after {
+  bottom: 4vh;
+  left: 50%;
+  width: min(1040px, calc(100% - 48px));
+  height: 120px;
+  transform: translateX(-50%);
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.02) 100%),
+    linear-gradient(78deg, transparent 0 44%, rgba(71, 85, 105, 0.16) 44.4%, rgba(71, 85, 105, 0.16) 45.1%, transparent 45.4%) center/100% 100% no-repeat,
+    linear-gradient(102deg, transparent 0 55%, rgba(71, 85, 105, 0.16) 55.2%, rgba(71, 85, 105, 0.16) 55.9%, transparent 56.2%) center/100% 100% no-repeat,
+    repeating-linear-gradient(90deg, rgba(148, 163, 184, 0.24) 0 20px, transparent 20px 74px) center bottom/100% 18px no-repeat;
+  opacity: 0.9;
+}
+
+#railsaathi-landing[data-theme="dark"]::after {
+  opacity: 0.36;
+  filter: brightness(0.72);
+}
+
+.landing-scroll-progress,
+.landing-grid,
+.landing-ambient,
+.landing-orbit {
+  display: none;
+}
+
+.landing-topbar {
+  top: 8px;
+  width: min(calc(100% - 36px), 840px);
+  margin: 0 auto;
+  padding: 8px 12px;
+  border-radius: 16px;
+  background: var(--landing-surface-overlay);
+  border-bottom: 1px solid var(--landing-border);
+  backdrop-filter: blur(10px);
+  gap: 10px;
+  flex-wrap: nowrap;
+  box-shadow: var(--landing-shadow-topbar);
+}
+
+.landing-brand {
+  gap: 10px;
+}
+
+.landing-brand__meta {
+  min-width: 0;
+}
+
+.landing-brand__mark {
+  width: 42px;
+  height: 42px;
+  padding: 6px;
+  border-radius: 14px;
+  box-shadow: var(--landing-shadow-soft);
+  background: var(--landing-surface-strong);
+}
+
+.landing-brand__name {
+  font-size: 14px;
+  color: var(--landing-text);
+}
+
+.landing-brand__copy {
+  font-size: 9px;
+  color: var(--landing-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+}
+
+.landing-theme-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid var(--landing-border);
+  background: var(--landing-theme-button-bg);
+  box-shadow: var(--landing-shadow-soft);
+}
+
+.landing-theme-switch__button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--landing-theme-button-icon);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.landing-theme-switch__button:hover {
+  transform: translateY(-1px);
+}
+
+.landing-theme-switch__button.is-active {
+  background: var(--landing-theme-button-active);
+  color: var(--landing-theme-button-active-icon);
+}
+
+.landing-topbar__controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-left: auto;
+  flex-wrap: nowrap;
+  position: relative;
+}
+
+.landing-language-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid var(--landing-border);
+  background: var(--landing-theme-button-bg);
+  box-shadow: var(--landing-shadow-soft);
+}
+
+.landing-language-select-wrap {
+  display: none;
+  position: relative;
+}
+
+.landing-language-select {
+  display: none;
+  min-height: 34px;
+  padding: 0 28px 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--landing-border);
+  background: var(--landing-theme-button-bg);
+  color: var(--landing-accent-strong);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  outline: none;
+  box-shadow: var(--landing-shadow-soft);
+}
+
+.landing-language-switch__button {
+  min-width: 38px;
+  height: 28px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--landing-theme-button-icon);
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.landing-language-switch__button[data-lang-option="hi"],
+.landing-language-switch__button[data-lang-option="mr"] {
+  font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
+  font-size: 11px;
+}
+
+.landing-language-switch__button:hover {
+  transform: translateY(-1px);
+}
+
+.landing-language-switch__button.is-active {
+  background: var(--landing-theme-button-active);
+  color: var(--landing-theme-button-active-icon);
+}
+
+.landing-language-guide {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 54px;
+  z-index: 7;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 10px;
+  width: min(270px, calc(100vw - 36px));
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: var(--landing-surface-strong);
+  border: 1px solid var(--landing-border);
+  box-shadow: var(--landing-shadow);
+}
+
+.landing-language-guide[hidden] {
+  display: none !important;
+}
+
+.landing-language-guide::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  right: 106px;
+  width: 14px;
+  height: 14px;
+  background: var(--landing-surface-strong);
+  border-top: 1px solid var(--landing-border);
+  border-left: 1px solid var(--landing-border);
+  transform: rotate(45deg);
+}
+
+.landing-language-guide__lens {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--landing-accent-strong);
+  color: var(--landing-accent-contrast);
+  box-shadow: 0 12px 22px rgba(23, 55, 104, 0.22);
+  animation: landingLensPulse 1.7s ease-in-out infinite;
+}
+
+.landing-language-guide__content {
+  display: grid;
+  gap: 4px;
+}
+
+.landing-language-guide__content strong {
+  color: var(--landing-text);
+  font-family: 'Sora', 'Inter', sans-serif;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.landing-language-guide__content span {
+  color: var(--landing-muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+
+body.landing-language-prompt-active .landing-language-switch,
+body.landing-language-prompt-active .landing-language-select-wrap {
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--landing-accent) 28%, transparent),
+    0 14px 26px rgba(23, 55, 104, 0.16);
+}
+
+body.landing-language-prompt-active .landing-language-switch::after,
+body.landing-language-prompt-active .landing-language-select-wrap::after {
+  content: "\f002";
+  position: absolute;
+  top: -12px;
+  right: -8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--landing-accent-strong);
+  color: var(--landing-accent-contrast);
+  font-family: "Font Awesome 6 Free";
+  font-size: 12px;
+  font-weight: 900;
+  box-shadow: 0 14px 24px rgba(23, 55, 104, 0.22);
+  animation: landingLensHover 1.6s ease-in-out infinite;
+}
+
+.landing-topbar__cta {
+  background: var(--landing-accent-strong);
+  color: var(--landing-accent-contrast);
+  border: 1px solid var(--landing-accent-strong);
+  box-shadow: none;
+  min-height: 34px;
+  padding: 0 12px;
+  font-size: 10px;
+  font-family: 'Inter', sans-serif;
+}
+
+.landing-section {
+  width: min(100%, 1120px);
+}
+
+.landing-hero {
+  min-height: auto;
+  padding-top: 38px;
+  padding-bottom: 52px;
+  gap: 32px;
+}
+
+.landing-kicker {
+  background: var(--landing-surface-strong);
+  border: 1px solid var(--landing-border);
+  color: var(--landing-accent);
+  box-shadow: var(--landing-shadow-soft);
+}
+
+.landing-headline {
+  color: var(--landing-text);
+  margin: 14px 0 10px;
+  max-width: 12ch;
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-size: clamp(2.8rem, 8vw, 5rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+}
+
+.landing-headline span {
+  color: var(--landing-accent);
+  font-family: 'Sora', 'Inter', sans-serif;
+  font-size: clamp(1.1rem, 3vw, 1.65rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-top: 10px;
+}
+
+#landing-headline-main {
+  position: relative;
+  display: inline-block;
+  min-height: 1.05em;
+  color: var(--landing-text) !important;
+  font-family: 'Cormorant Garamond', 'Sora', 'Inter', sans-serif !important;
+  font-size: clamp(2.5rem, 8vw, 4.6rem) !important;
+  font-weight: 800 !important;
+  line-height: 0.98 !important;
+  letter-spacing: -0.04em !important;
+  margin-top: 0 !important;
+  text-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+}
+
+#landing-headline-main::after {
+  content: "|";
+  margin-left: 4px;
+  color: var(--landing-accent);
+  animation: landingCaretBlink 0.9s step-end infinite;
+}
+
+.landing-manifesto {
+  margin: 0;
+  max-width: 44rem;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  color: var(--landing-soft-text);
+  font-family: 'Poppins', 'Inter', sans-serif;
+  font-size: clamp(0.96rem, 1.7vw, 1.06rem);
+  font-weight: 500;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+}
+
+#railsaathi-landing[data-theme="dark"] .landing-manifesto {
+  background: none;
+}
+
+.landing-button {
+  border-radius: 14px;
+}
+
+.landing-button--primary,
+.landing-button--secondary {
+  background: var(--landing-accent-strong);
+  color: var(--landing-accent-contrast);
+  box-shadow: none;
+}
+
+.landing-button--ghost {
+  background: var(--landing-surface-strong);
+  color: var(--landing-accent-strong);
+  border: 1px solid var(--landing-border-strong);
+}
+
+.landing-button:hover {
+  transform: translateY(-1px);
+}
+
+.landing-metrics {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.landing-metric {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-height: 136px;
+  padding: 16px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--landing-surface-strong) 90%, transparent) 0%, var(--landing-surface) 100%);
+  border: 1px solid var(--landing-border);
+  box-shadow: var(--landing-shadow-soft);
+  overflow: hidden;
+}
+
+.landing-metric::before,
+.landing-context-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 16px;
+  right: 16px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--landing-accent-strong), color-mix(in srgb, var(--landing-accent) 36%, transparent));
+}
+
+.landing-metric__value {
+  display: block;
+  font-size: clamp(1.4rem, 3vw, 1.85rem);
+  color: var(--landing-accent-strong);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.landing-metric__label {
+  color: var(--landing-muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.landing-hero__visual {
+  min-height: auto;
+}
+
+.landing-hero__panel,
+.landing-story-card,
+.landing-download-card,
+.landing-faq,
+.landing-final__panel {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.landing-hero__panel {
+  display: grid;
+  gap: 18px;
+}
+
+.landing-hero__media {
+  min-height: 320px;
+  border: 1px solid var(--landing-border);
+  border-radius: 30px;
+  background: var(--landing-surface-strong);
+  box-shadow: var(--landing-shadow);
+}
+
+.landing-hero__media .landing-hero__media-caption {
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  gap: 5px;
+}
+
+.landing-hero__media .landing-hero__media-caption span {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+
+.landing-hero__media .landing-hero__media-caption strong {
+  font-size: clamp(1rem, 2.4vw, 1.35rem);
+  line-height: 1.16;
+  max-width: 30rem;
+}
+
+.landing-hero__media .landing-hero__media-caption small {
+  font-size: 10.5px;
+  line-height: 1.45;
+  max-width: 28rem;
+}
+
+.landing-marvel-gallery {
+  position: relative;
+  min-height: 290px;
+  overflow: hidden;
+  border-radius: 30px;
+  border: 1px solid var(--landing-border);
+  background: var(--landing-surface-strong);
+  box-shadow: var(--landing-shadow);
+}
+
+.landing-marvel-gallery img {
+  width: 100%;
+  height: 100%;
+  min-height: 290px;
+  display: block;
+  object-fit: cover;
+}
+
+.landing-marvel-gallery.is-animating img {
+  animation: landingMarvelSwap 1.35s ease-out forwards;
+}
+
+.landing-marvel-gallery__metric {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-top: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  font-family: 'Sora', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.landing-hero__hud {
+  position: static;
+  width: auto;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  margin-top: 2px;
+}
+
+.landing-section-label {
+  color: var(--landing-accent);
+}
+
+.landing-section-label::before {
+  background: linear-gradient(90deg, var(--landing-accent), transparent);
+}
+
+.landing-hero__hud-title,
+.landing-section-title,
+.landing-download__heading,
+.landing-final__title {
+  color: var(--landing-text);
+}
+
+.landing-hero__hud-copy,
+.landing-section-copy,
+.landing-download__copy,
+.landing-final__copy {
+  color: var(--landing-muted);
+}
+
+.landing-hero__panel-grid,
+.landing-download-grid {
+  gap: 14px;
+}
+
+.landing-hero__panel-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.landing-marvel-dots {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.34);
+  backdrop-filter: blur(8px);
+}
+
+.landing-marvel-dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--landing-dot);
+  cursor: pointer;
+  transition: width 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.landing-marvel-dot:hover {
+  transform: scale(1.05);
+}
+
+.landing-marvel-dot.is-active {
+  width: 28px;
+  background: var(--landing-dot-active);
+}
+
+.landing-context-card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-height: 136px;
+  padding: 16px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--landing-surface-strong) 90%, transparent) 0%, var(--landing-surface) 100%);
+  border: 1px solid var(--landing-border);
+  box-shadow: var(--landing-shadow-soft);
+  overflow: hidden;
+}
+
+.landing-context-card--feature {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--landing-accent) 10%, var(--landing-surface-strong)) 0%, var(--landing-surface) 100%);
+}
+
+.landing-context-card__eyebrow {
+  display: block;
+  color: var(--landing-accent);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.landing-context-card strong {
+  display: block;
+  font-size: clamp(1.15rem, 3vw, 1.5rem);
+  color: var(--landing-text);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.landing-context-card span {
+  color: var(--landing-muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.landing-hero__panel-grid > .landing-context-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.landing-source-note {
+  color: var(--landing-muted);
+}
+
+.landing-source-note a {
+  color: var(--landing-accent-strong);
+  border-bottom-color: color-mix(in srgb, var(--landing-accent-strong) 30%, transparent);
+}
+
+.landing-download-card__ribbon {
+  background: var(--landing-pill);
+  color: var(--landing-accent);
+  font-family: 'Inter', sans-serif;
+}
+
+.landing-download-meta,
+.landing-install-steps {
+  margin-top: 16px;
+}
+
+.landing-download-grid .landing-story-card {
+  padding: 20px;
+  border-radius: 24px;
+  background: var(--landing-surface);
+  border: 1px solid var(--landing-border);
+  box-shadow: var(--landing-shadow);
+}
+
+.landing-download-inline-note {
+  display: grid;
+  gap: 6px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--landing-border);
+}
+
+.landing-download-inline-note span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--landing-accent);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+}
+
+.landing-download-inline-note p {
+  margin: 0;
+  color: var(--landing-text);
+  font-family: 'Italiana', 'Cormorant Garamond', serif;
+  font-size: clamp(1.02rem, 2.4vw, 1.34rem);
+  font-style: italic;
+  line-height: 1.28;
+  letter-spacing: 0.03em;
+}
+
+.landing-download-meta li,
+.landing-install-steps li {
+  background: var(--landing-surface-soft);
+  border: 1px solid var(--landing-border);
+  box-shadow: none;
+}
+
+.landing-install-steps {
+  gap: 12px;
+  padding: 0;
+}
+
+.landing-install-steps li {
+  grid-template-columns: 34px 1fr;
+  align-items: start;
+  padding: 14px 16px;
+  color: var(--landing-accent-strong);
+}
+
+.landing-install-steps span {
+  display: block;
+  color: var(--landing-soft-text);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.landing-install-steps b {
+  width: 32px;
+  height: 32px;
+  background: color-mix(in srgb, var(--landing-accent) 14%, var(--landing-surface-strong));
+  color: var(--landing-accent-strong);
+}
+
+.landing-faq {
+  margin-top: 16px;
+}
+
+.landing-faq details {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #d7e0ea;
+}
+
+.landing-faq p {
+  color: #516173;
+}
+
+.landing-leadership-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+.landing-contact-card {
+  padding: 18px;
+  border-radius: 24px;
+  background: var(--landing-surface);
+  border: 1px solid var(--landing-border);
+  box-shadow: var(--landing-shadow);
+}
+
+.landing-leader-card {
+  display: grid;
+  gap: 8px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.landing-leader-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--landing-surface-strong) 92%, transparent);
+  border: 1px solid var(--landing-border);
+}
+
+.landing-leader-card span,
+.landing-contact-card span {
+  display: block;
+  color: var(--landing-accent);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.landing-leader-card strong,
+.landing-contact-card strong {
+  display: block;
+  color: var(--landing-text);
+  font-family: 'Sora', 'Inter', sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.18;
+}
+
+#landing-leadership {
+  padding-top: 4px;
+  padding-bottom: 40px;
+}
+
+#landing-leadership > .landing-section-label {
+  margin: 0 0 10px;
+}
+
+.landing-contact-card {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.landing-contact-card p {
+  margin: 0;
+  color: var(--landing-muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.landing-contact-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: fit-content;
+  min-height: 46px;
+  padding: 0 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  background: #25d366;
+  color: #08110f;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 16px 30px rgba(37, 211, 102, 0.24);
+}
+
+.landing-contact-link i {
+  font-size: 17px;
+}
+
+.landing-legal-note {
+  margin: 18px 0 0;
+  color: var(--landing-muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+#main-footer p:nth-child(2) {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .landing-hero {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  }
+
+  .landing-download-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  }
+}
+
+@media (max-width: 899px) {
+  .landing-topbar {
+    width: min(calc(100% - 14px), 860px);
+    padding: 8px 10px;
+  }
+
+  .landing-topbar__controls {
+    justify-content: flex-end;
+  }
+
+  .landing-hero__media,
+  .landing-hero__media img {
+    min-height: 220px;
+  }
+
+  .landing-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .landing-hero__panel-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .landing-metric,
+  .landing-context-card {
+    min-height: 120px;
+    padding: 13px;
+  }
+
+  .landing-metric::before,
+  .landing-context-card::before {
+    left: 13px;
+    right: 13px;
+  }
+
+  .landing-metric__value,
+  .landing-context-card strong {
+    font-size: clamp(1.05rem, 5vw, 1.28rem);
+  }
+
+  .landing-metric__label,
+  .landing-context-card span {
+    font-size: 10.5px;
+    line-height: 1.45;
+  }
+
+  .landing-language-switch {
+    display: none;
+  }
+
+  .landing-language-select-wrap {
+    display: inline-flex;
+  }
+
+  .landing-language-select {
+    display: inline-flex;
+    width: 74px;
+  }
+
+  .landing-language-guide {
+    right: 0;
+    top: calc(100% + 8px);
+    width: min(230px, calc(100vw - 24px));
+  }
+
+  .landing-language-guide::before {
+    right: 28px;
+  }
+
+  .landing-theme-switch {
+    display: inline-flex;
+  }
+
+  .landing-brand__copy {
+    display: none;
+  }
+
+  .landing-marvel-gallery,
+  .landing-marvel-gallery img {
+    min-height: 220px;
+  }
+
+  .landing-marvel-dots {
+    top: 12px;
+    right: 12px;
+    gap: 7px;
+    padding: 6px 9px;
+  }
+
+  .landing-marvel-dot {
+    width: 9px;
+    height: 9px;
+  }
+
+  .landing-marvel-dot.is-active {
+    width: 22px;
+  }
+
+  .landing-marvel-gallery__metric {
+    font-size: 9px;
+    padding: 5px 8px;
+  }
+
+  .landing-leadership-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .landing-contact-card {
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  .landing-leader-card span {
+    font-size: 7px;
+    letter-spacing: 0.06em;
+  }
+
+  .landing-leader-card strong,
+  .landing-contact-card strong {
+    font-size: 0.8rem;
+  }
+
+  .landing-contact-link {
+    min-height: 42px;
+    font-size: 12px;
+  }
+
+  .landing-download-inline-note p {
+    font-size: clamp(0.92rem, 4vw, 1.08rem);
+    letter-spacing: 0.02em;
+  }
+
+  .landing-legal-note {
+    font-size: 10px;
+    line-height: 1.62;
+  }
+
+  .landing-manifesto {
+    font-size: clamp(0.86rem, 3.45vw, 0.95rem);
+  }
+}
+
+@keyframes landingLensHover {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-4px, 3px) scale(1.06); }
+}
+
+@keyframes landingLensPulse {
+  0% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(23, 55, 104, 0.18); }
+  65% { transform: scale(1.06); box-shadow: 0 0 0 12px rgba(23, 55, 104, 0); }
+  100% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(23, 55, 104, 0); }
+}
+
+#railsaathi-landing[data-lang="hi"] .landing-headline,
+#railsaathi-landing[data-lang="mr"] .landing-headline {
+  font-family: 'Noto Sans Devanagari', 'Poppins', sans-serif;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+#railsaathi-landing[data-lang="hi"] .landing-headline span,
+#railsaathi-landing[data-lang="mr"] .landing-headline span {
+  font-family: 'Noto Sans Devanagari', 'Poppins', sans-serif;
+}
+
+@keyframes landingCaretBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes landingMarvelSwap {
+  0% { opacity: 0.28; transform: scale(1.035); filter: saturate(0.86); }
+  100% { opacity: 1; transform: scale(1); filter: saturate(1); }
 }
 
 /* ==========================================
@@ -45,9 +2472,8 @@ body {
   justify-content: center;
   gap: 16px;
   padding: 1rem;
-  background: linear-gradient(-45deg, #0f172a, #1e3a8a, #312e81, #1e1b4b);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+  background: linear-gradient(180deg, #21456f 0%, #17335a 100%);
+  animation: none;
   overflow: hidden;
 }
 
@@ -187,125 +2613,6 @@ body {
   display: none;
 }
 
-.login-download-float {
-  position: relative;
-  z-index: 40;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0;
-  width: min(100%, 340px);
-  max-width: 340px;
-  margin: 0 auto;
-  pointer-events: auto;
-  padding: 0;
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-}
-
-.login-download-qr {
-  display: flex;
-  align-items: stretch;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-  padding: 11px 12px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.96) 0%, rgba(30, 41, 59, 0.96) 62%, rgba(30, 64, 175, 0.88) 100%);
-  color: #fff;
-  border: 1px solid rgba(148, 163, 184, 0.26);
-  box-shadow: 0 20px 44px rgba(2, 6, 23, 0.34);
-  pointer-events: auto;
-}
-
-.login-download-qr::after {
-  content: "";
-  position: absolute;
-  right: -28px;
-  bottom: -42px;
-  width: 110px;
-  height: 110px;
-  border-radius: 999px;
-  background: rgba(96, 165, 250, 0.14);
-  pointer-events: none;
-}
-
-.login-download-qr__content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
-  width: 100%;
-  min-width: 0;
-  position: relative;
-  z-index: 1;
-}
-
-.login-download-qr__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: #cbd5e1;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.login-download-qr__badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 999px;
-  background: rgba(96, 165, 250, 0.18);
-  color: #dbeafe;
-  box-shadow: inset 0 0 0 1px rgba(191, 219, 254, 0.16);
-  flex-shrink: 0;
-}
-
-.login-download-qr__title {
-  margin: 0;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.login-download-qr__subtitle {
-  margin: 0;
-  font-size: 10px;
-  line-height: 1.45;
-  color: #cbd5e1;
-}
-
-.login-download-qr__link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  align-self: stretch;
-  margin-top: 0;
-  padding: 9px 11px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-  color: #1d4ed8;
-  text-decoration: none;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.18);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-}
-
-.login-download-qr__link:hover {
-  color: #1e40af;
-  background: linear-gradient(135deg, #ffffff 0%, #dbeafe 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.22);
-}
-
 .login-download-status {
   position: fixed;
   right: 18px;
@@ -359,26 +2666,16 @@ body {
 
 @media (max-width: 640px) {
   #login-screen {
-    align-items: flex-start;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: center;
     overflow-y: auto;
-    padding: 0.75rem;
-    gap: 12px;
+    padding: 1rem 0.75rem;
+    gap: 0;
   }
 
   .login-glass-card {
     margin: 0 auto;
     padding: 1.1rem;
-  }
-
-  .login-download-float {
-    width: min(100%, 340px);
-    max-width: 340px;
-    margin: 0 auto;
-  }
-
-  .login-download-qr {
-    padding: 10px;
   }
 
   .login-download-status {
@@ -391,16 +2688,16 @@ body {
 
 @media (max-height: 760px) and (max-width: 700px) {
   #login-screen {
-    align-items: flex-start;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: center;
     overflow-y: auto;
-    padding-top: 0.75rem;
-    padding-bottom: 1.25rem;
-    gap: 12px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    gap: 0;
   }
 
   .login-glass-card {
-    margin-top: 0.5rem;
+    margin-top: 0;
   }
 }
 
@@ -648,54 +2945,182 @@ body {
   margin-right: 6px;
 }
 
+#preview-section,
+#attendance-preview-section,
+#ta-preview-section {
+  min-height: 100vh;
+  padding: 32px 18px 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  overflow-x: auto;
+  background:
+    radial-gradient(circle at top, rgba(15, 23, 42, 0.08), transparent 24%),
+    linear-gradient(180deg, #dbe4ef 0%, #f7f9fc 18%, #edf2f7 100%);
+}
+
 #pdf-content {
   width: 210mm;
   background: white;
-  box-shadow: 0 6px 40px rgba(0,0,0,0.28);
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.16);
   padding: 14mm 12mm 12mm 12mm;
   margin: 0 auto;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+#att-pdf-content,
+#ta-pdf-content,
+#ta-report-content {
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 30px;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.16);
+  overflow: hidden;
+}
+
+.preview-toolbar {
+  width: min(1120px, 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 20px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.10);
+}
+
+.preview-toolbar__meta {
+  min-width: 0;
+}
+
+.preview-toolbar__eyebrow {
+  margin: 0 0 4px;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.preview-toolbar__title {
+  margin: 0;
+  color: #0f172a;
+  font-family: 'Sora', 'Inter', sans-serif;
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.preview-toolbar__caption {
+  margin: 6px 0 0;
+  color: #475569;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.preview-toolbar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.preview-btn {
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: #fff;
+  color: #0f172a;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.preview-btn:hover {
+  transform: translateY(-1px);
+}
+
+.preview-btn--ghost {
+  border-color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.preview-btn--primary {
+  background: linear-gradient(135deg, #102a56 0%, #1d4f91 100%);
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(15, 42, 86, 0.24);
+}
+
+.preview-btn--success {
+  background: linear-gradient(135deg, #21584a 0%, #1a7f63 100%);
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(26, 127, 99, 0.22);
+}
+
+.preview-btn--danger {
+  background: linear-gradient(135deg, #7f1d1d 0%, #b91c1c 100%);
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(185, 28, 28, 0.22);
+}
+
+.preview-btn--mode {
+  border-color: #cbd5e1;
+  background: #e2e8f0;
+  color: #334155;
+  box-shadow: none;
+}
+
+.preview-btn--mode.is-active {
+  border-color: #102a56;
+  background: linear-gradient(135deg, #102a56 0%, #1d4f91 100%);
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(15, 42, 86, 0.22);
 }
 
 /* Mobile responsive preview - fits full screen on Android */
 @media (max-width: 768px) {
-  #pdf-content {
-    width: 100%;
+  #preview-section,
+  #attendance-preview-section,
+  #ta-preview-section {
+    padding: 16px 10px 24px;
+    gap: 12px;
+  }
+
+  #pdf-content,
+  #att-pdf-content,
+  #ta-pdf-content,
+  #ta-report-content {
+    width: 100% !important;
     max-width: 100vw;
     padding: 8px 6px 6px 6px;
     margin: 0;
     box-shadow: none;
-    border: 1px solid #ddd;
+    border-radius: 20px;
   }
-  
-  /* Ensure print button bar is visible and accessible on mobile */
-  #preview-section .no-print {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    background: rgba(255,255,255,0.99) !important;
-    backdrop-filter: blur(16px) !important;
-    border-top: 2px solid #e5e7eb !important;
-    padding: 12px 8px !important;
-    z-index: 9999 !important;
-    display: flex !important;
-    justify-content: center !important;
-    gap: 8px !important;
-    flex-wrap: wrap !important;
+
+  .preview-toolbar {
+    padding: 14px 14px 16px;
+    border-radius: 22px;
+    flex-direction: column;
+    align-items: stretch;
   }
-  
-  /* Ensure buttons are properly sized on mobile */
-  #preview-section .no-print button {
-    padding: 12px 20px !important;
-    font-size: 14px !important;
-    flex: 1 !important;
-    min-width: 120px !important;
-    max-width: calc(50% - 4px) !important;
+
+  .preview-toolbar__actions {
+    justify-content: stretch;
   }
-  
-  /* Add bottom padding to content to account for fixed button bar */
-  #preview-section {
-    padding-bottom: 80px !important;
+
+  .preview-toolbar__actions .preview-btn {
+    flex: 1 1 calc(50% - 5px);
+    min-width: 0;
   }
 }
 
@@ -1389,7 +3814,212 @@ body {
 .stn-suggest-list li .stn-name {color:#475569;font-size:12px;}
 </style>
 </head>
-<body id="app-body">
+<body id="app-body" class="show-marketing-landing">
+
+<!-- ==========================================
+   MARKETING LANDING
+============================================= -->
+<div id="railsaathi-landing" class="no-print" aria-hidden="false">
+  <div id="landing-scroll-progress" class="landing-scroll-progress"></div>
+  <div class="landing-ambient"></div>
+  <div class="landing-grid"></div>
+  <div class="landing-orbit"></div>
+
+  <div class="landing-topbar">
+    <div class="landing-brand">
+      <div class="landing-brand__mark">
+        <img src="Railsaathi-logo.png" alt="Railsaathi logo">
+      </div>
+      <div class="landing-brand__meta">
+        <p class="landing-brand__name">Railsaathi</p>
+        <p class="landing-brand__copy" id="landing-nav-copy">Duty, attendance and report workflows</p>
+      </div>
+    </div>
+    <div class="landing-topbar__controls">
+      <div class="landing-theme-switch" role="group" aria-label="Landing page theme">
+        <button type="button" class="landing-theme-switch__button is-active" data-theme-option="light" aria-pressed="true" aria-label="Use light theme">
+          <i class="fa-solid fa-sun"></i>
+        </button>
+        <button type="button" class="landing-theme-switch__button" data-theme-option="dark" aria-pressed="false" aria-label="Use dark theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+      <div class="landing-language-switch" id="landing-language-switch" role="group" aria-label="Landing page language">
+        <button type="button" class="landing-language-switch__button is-active" data-lang-option="en" aria-pressed="true">EN</button>
+        <button type="button" class="landing-language-switch__button" data-lang-option="hi" aria-pressed="false">हिं</button>
+        <button type="button" class="landing-language-switch__button" data-lang-option="mr" aria-pressed="false">मर</button>
+      </div>
+      <div class="landing-language-select-wrap" id="landing-language-select-wrap">
+        <select id="landing-language-select-mobile" class="landing-language-select" aria-label="Landing page language">
+          <option value="en">EN</option>
+          <option value="hi">हिं</option>
+          <option value="mr">मर</option>
+        </select>
+      </div>
+      <div class="landing-language-guide" id="landing-language-guide" hidden>
+        <span class="landing-language-guide__lens"><i class="fa-solid fa-magnifying-glass"></i></span>
+        <div class="landing-language-guide__content">
+          <strong>Choose your language</strong>
+          <span>Use the language button first, then Railsaathi will continue in that language.</span>
+        </div>
+      </div>
+      <a href="#login" class="landing-topbar__cta" id="landing-topbar-login" onclick="return window.openMarketingLogin(event)">
+        Login
+      </a>
+    </div>
+  </div>
+
+  <main class="landing-shell">
+    <section class="landing-section landing-hero" id="landing-home">
+      <div class="landing-reveal is-visible">
+        <div class="landing-kicker">
+          <span class="landing-kicker__pulse"></span>
+          <span id="landing-kicker-text">Built around latest public Indian Railways data</span>
+        </div>
+        <h1 class="landing-headline">
+          <span id="landing-headline-main">Railsaathi</span>
+        </h1>
+        <p class="landing-manifesto" id="landing-manifesto">
+          A smarter way to manage railway field operations—attendance, patrols, TA journals, reports, and everything in between.
+        </p>
+        <div class="landing-cta-row">
+          <a href="#login" class="landing-button landing-button--primary" onclick="return window.openMarketingLogin(event)">
+            <i class="fa-solid fa-lock"></i>
+            <span id="landing-hero-login">Continue to Login</span>
+          </a>
+          <a href="https://github.com/aaditya3006/Railsaathi/releases/download/Railsaathi/Railsaathi.apk" class="landing-button landing-button--ghost" onclick="return window.startMarketingDownload(event)">
+            <i class="fa-solid fa-download"></i>
+            <span id="landing-hero-download">Download APK</span>
+          </a>
+        </div>
+        <div class="landing-metrics">
+          <div class="landing-metric">
+            <span class="landing-metric__value" id="landing-metric-route-value" data-count-up="true">69,439 km</span>
+            <span class="landing-metric__label" id="landing-metric-route-label">Total Indian Railways route length as of March 31, 2025.</span>
+          </div>
+          <div class="landing-metric">
+            <span class="landing-metric__value" id="landing-metric-freight-value" data-count-up="true">1.67 bn t</span>
+            <span class="landing-metric__label" id="landing-metric-freight-label">Record freight loading handled in FY 2025-26.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="landing-hero__visual landing-reveal">
+        <div class="landing-hero__panel">
+          <figure class="landing-hero__media landing-marvel-gallery is-animating" id="landing-marvel-gallery" aria-live="polite">
+            <img id="landing-marvel-image" src="https://images.financialexpressdigital.com/2025/06/Chenab-Bridge-2.jpg?w=1600" alt="Chenab Rail Bridge in Jammu and Kashmir" loading="eager" decoding="async">
+            <div class="landing-marvel-dots" aria-label="Engineering highlights">
+              <button type="button" class="landing-marvel-dot is-active" data-marvel-index="0" aria-label="Show Chenab Rail Bridge" aria-pressed="true"></button>
+              <button type="button" class="landing-marvel-dot" data-marvel-index="1" aria-label="Show Anji Khad Bridge" aria-pressed="false"></button>
+              <button type="button" class="landing-marvel-dot" data-marvel-index="2" aria-label="Show New Pamban Bridge" aria-pressed="false"></button>
+              <button type="button" class="landing-marvel-dot" data-marvel-index="3" aria-label="Show Bogibeel Bridge" aria-pressed="false"></button>
+            </div>
+            <figcaption class="landing-hero__media-caption">
+              <span id="landing-marvel-title">Chenab Rail Bridge</span>
+              <strong id="landing-marvel-copy">The world's highest railway arch bridge opened to rail traffic on June 6, 2025.</strong>
+              <small id="landing-marvel-detail">A landmark on the Udhampur-Srinagar-Baramulla Rail Link in Jammu and Kashmir.</small>
+              <span class="landing-marvel-gallery__metric" id="landing-marvel-metric">359 m above river bed</span>
+            </figcaption>
+          </figure>
+          <div class="landing-hero__hud">
+            <p class="landing-section-label" id="landing-hud-label">Latest public rail figures</p>
+          </div>
+          <div class="landing-hero__panel-grid">
+            <article class="landing-context-card landing-context-card--feature">
+              <span class="landing-context-card__eyebrow" id="landing-context-network-eyebrow">Gauge conversion</span>
+              <strong id="landing-context-network-value" data-count-up="true">67,372 km broad gauge</strong>
+              <span id="landing-context-network-copy">That is 97.02% of the network as of March 31, 2025.</span>
+            </article>
+            <article class="landing-context-card">
+              <span class="landing-context-card__eyebrow" id="landing-context-freight-eyebrow">Freight momentum</span>
+              <strong id="landing-context-freight-value" data-count-up="true">1,670 million tonnes</strong>
+              <span id="landing-context-freight-copy">Indian Railways reported record freight loading in FY 2025-26.</span>
+            </article>
+            <article class="landing-context-card">
+              <span class="landing-context-card__eyebrow" id="landing-context-corridor-eyebrow">Network capacity</span>
+              <strong id="landing-context-corridor-value" data-count-up="true">1,506 km Western DFC</strong>
+              <span id="landing-context-corridor-copy">The western dedicated freight corridor reached completion in March 2026.</span>
+            </article>
+          </div>
+          <p class="landing-source-note">
+            <span id="landing-source-prefix">Sources:</span>
+            <a href="https://en.wikipedia.org/wiki/Project_Unigauge" target="_blank" rel="noopener noreferrer">network figures</a>,
+            <a href="https://m.economictimes.com/industry/transportation/railways/railways-reports-1-67-billion-tonne-freight-loading-in-fy26/articleshow/129947715.cms" target="_blank" rel="noopener noreferrer">FY 2025-26 freight loading</a>,
+            <a href="https://en.wikipedia.org/wiki/Chenab_Rail_Bridge" target="_blank" rel="noopener noreferrer">Chenab</a>,
+            <a href="https://en.wikipedia.org/wiki/Anji_Khad_Bridge" target="_blank" rel="noopener noreferrer">Anji</a>,
+            <a href="https://en.wikipedia.org/wiki/New_Pamban_Bridge" target="_blank" rel="noopener noreferrer">New Pamban</a>,
+            <a href="https://en.wikipedia.org/wiki/Bogibeel_Bridge" target="_blank" rel="noopener noreferrer">Bogibeel</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="landing-section" id="download">
+      <div class="landing-download-grid">
+        <div class="landing-download-card landing-reveal">
+          <span class="landing-download-card__ribbon">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+            <span id="landing-download-ribbon-text">Android release</span>
+          </span>
+          <h2 class="landing-download__heading" id="landing-download-heading">Direct Android download.</h2>
+          <p class="landing-download__copy" id="landing-download-copy">
+            Use the single APK link for the fastest install path on phone.
+          </p>
+          <div class="landing-download__actions">
+            <a href="https://github.com/aaditya3006/Railsaathi/releases/download/Railsaathi/Railsaathi.apk" class="landing-button landing-button--secondary" onclick="return window.startMarketingDownload(event)">
+              <i class="fa-solid fa-download"></i>
+              <span id="landing-download-primary">Download APK</span>
+            </a>
+            <a href="#login" class="landing-button landing-button--ghost" onclick="return window.openMarketingLogin(event)">
+              <i class="fa-solid fa-arrow-right-to-bracket"></i>
+              <span id="landing-download-secondary">Go to Login</span>
+            </a>
+          </div>
+          <div class="landing-download-inline-note" aria-label="Install path">
+            <span id="landing-download-meta-title">Install path</span>
+            <p id="landing-download-meta-copy">One direct APK link without extra pages or hidden steps.</p>
+          </div>
+        </div>
+
+        <div class="landing-story-card landing-reveal">
+          <p class="landing-section-label" id="landing-steps-label">Install steps</p>
+          <h3 class="landing-section-title" id="landing-steps-title" style="font-size:clamp(1.5rem,4vw,2.4rem);">Short, clear, and phone-ready.</h3>
+          <ol class="landing-install-steps">
+            <li><b>1</b><span id="landing-step-1">Tap the APK download button from this page.</span></li>
+            <li><b>2</b><span id="landing-step-2">Allow browser-based installation if Android asks for permission.</span></li>
+            <li><b>3</b><span id="landing-step-3">Install the app and sign in on your phone.</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="landing-section landing-reveal" id="landing-leadership">
+      <p class="landing-section-label">National rail leadership</p>
+      <div class="landing-leadership-grid">
+        <article class="landing-leader-card">
+          <img src="https://newsonair.gov.in/wp-content/uploads/2026/01/Screenshot-2026-01-10-075157.jpg" alt="Railway Minister Ashwini Vaishnaw" loading="lazy" decoding="async">
+          <strong>Ashwini Vaishnaw</strong>
+          <span>Railway Minister</span>
+        </article>
+        <article class="landing-leader-card">
+          <img src="https://static.pib.gov.in/WriteReadData/Gallery/PhotoGallery/2021/Oct/T20211012102549.JPG" alt="Prime Minister Narendra Modi" loading="lazy" decoding="async">
+          <strong>Narendra Modi</strong>
+          <span>Prime Minister of India</span>
+        </article>
+      </div>
+      <div class="landing-contact-card">
+        <span>Contact developer team</span>
+        <strong>Aditya Raj</strong>
+        <p>Tap the WhatsApp button for a direct chat with the Railsaathi developer contact.</p>
+        <a class="landing-contact-link" href="https://wa.me/919771068761" target="_blank" rel="noopener noreferrer" aria-label="Chat with Aditya Raj on WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span style="color:inherit;font-size:13px;letter-spacing:0;text-transform:none;">9771068761</span>
+        </a>
+      </div>
+      <p class="landing-legal-note">Copyright © 2026 Railsaathi. This platform is an independent proposal for employee workflow use and is not an official Indian Railways service. A proposal has been submitted seeking approval for official use by railway employees.</p>
+    </section>
+  </main>
+</div>
 
 <!-- ==========================================
    LOGIN SCREEN (from File 2)
@@ -1401,10 +4031,11 @@ body {
 
   <div class="login-glass-card">
     <div class="text-center mb-2">
-      <div style="width:80px;height:80px;margin:0 auto 12px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);overflow:hidden;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.1);">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs0oPq5vwRYg5yMu1e_wFOiEdC3V--DZHFVw&s" alt="IR Logo" style="width:60px;height:60px;object-fit:contain;border-radius:50%;">
+      <div class="login-brand-mark" style="width:84px;height:84px;margin:0 auto 12px;border-radius:22px;border:2px solid rgba(255,255,255,0.18);overflow:hidden;display:flex;align-items:center;justify-content:center;background:#ffffff;padding:10px;box-shadow:0 18px 36px rgba(2,6,23,0.22);">
+        <img src="Railsaathi-logo.png" alt="Railsaathi logo">
       </div>
-      <h1 class="text-xl font-bold text-white tracking-tight" style="font-family:'Inter',sans-serif;">RGD – TIA<br><span style="font-size:0.8em;">Employees Management System</span></h1>
+      <h1 class="text-xl font-bold text-white tracking-tight" style="font-family:'Inter',sans-serif;">Railsaathi</h1>
+      <p style="margin:6px 0 0;color:rgba(255,255,255,0.82);font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;font-family:'Inter',sans-serif;">Empowering railway employee</p>
     </div>
 
     <form id="loginForm" class="space-y-4">
@@ -1460,27 +4091,8 @@ body {
     </form>
 
     <p style="margin-top:20px;text-align:center;font-size:9px;color:#000000;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;font-family:'Inter',sans-serif;">
-      This is an independent self-help platform and not an official Indian Railways service.
+      Independent workflow access for railway teams.
     </p>
-  </div>
-
-  <div class="login-download-float">
-    <div class="login-download-qr" aria-label="Download Railsaathi APK">
-      <div class="login-download-qr__content">
-        <div class="login-download-qr__eyebrow">
-          <span class="login-download-qr__badge">
-            <i class="fa-solid fa-download"></i>
-          </span>
-          Android App
-        </div>
-        <p class="login-download-qr__title">Download Railsaathi APK</p>
-        <p class="login-download-qr__subtitle">Get the latest public install package for quick access on your phone.</p>
-        <a class="login-download-qr__link" href="https://github.com/aaditya3006/Railsaathi/releases/download/Railsaathi/Railsaathi.apk" target="_blank" rel="noopener noreferrer">
-          <span>Download now</span>
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-      </div>
-    </div>
   </div>
 
   <div id="login-download-status" class="login-download-status" aria-live="polite" aria-atomic="true">
@@ -1714,11 +4326,11 @@ body {
         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
       </button>
       <h1 class="font-bold text-lg md:text-xl flex items-center gap-2">
-        <div class="h-7 w-7 bg-white rounded-full p-0.5 flex items-center justify-center border border-slate-200 shadow-sm">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs0oPq5vwRYg5yMu1e_wFOiEdC3V--DZHFVw&s" alt="IR Logo" class="h-full w-full object-contain rounded-full">
+        <div class="app-brand-mark h-8 w-8 bg-white rounded-lg p-1 flex items-center justify-center border border-slate-200 shadow-sm">
+          <img src="Railsaathi-logo.png" alt="Railsaathi logo" class="h-full w-full">
         </div>
-        <span class="hidden sm:inline">RGD – TIA Employees Management System</span>
-        <span class="sm:hidden text-sm uppercase">Patrol System</span>
+        <span class="hidden sm:inline">Railsaathi</span>
+        <span class="sm:hidden text-sm uppercase">Railsaathi</span>
       </h1>
     </div>
     <div class="flex gap-1 text-xs md:text-sm items-center">
@@ -2367,11 +4979,22 @@ body {
 
 <!-- NIGHT PATROLLING PREVIEW -->
 <section id="preview-section">
+  <div class="preview-toolbar no-print">
+    <div class="preview-toolbar__meta">
+      <p class="preview-toolbar__eyebrow">Preview</p>
+      <h3 class="preview-toolbar__title">Night Patrolling Sheet</h3>
+      <p class="preview-toolbar__caption">Review the generated page here, then print only when the layout is ready.</p>
+    </div>
+    <div class="preview-toolbar__actions">
+      <button onclick="showSection('form-section')" class="preview-btn preview-btn--ghost">Edit Form</button>
+      <button onclick="handlePrint()" class="preview-btn preview-btn--primary">Print PDF</button>
+    </div>
+  </div>
   <div id="pdf-content" class="pdf-page">
     <div class="patrol-title">Night&nbsp;&nbsp;Patrolling&nbsp;&nbsp;&nbsp;&nbsp;@<span id="pdf-date-display">14 - 15/02/2026</span></div>
     <table id="dynamic-pdf-table"></table>
   </div>
-  <div class="no-print" style="position:fixed;bottom:0;left:0;width:100%;background:rgba(255,255,255,0.97);backdrop-filter:blur(16px);border-top:1px solid #e5e7eb;padding:14px 20px;z-index:9999;display:flex;justify-content:center;gap:14px;">
+  <div class="no-print" hidden style="display:none !important;">
     <button onclick="showSection('form-section')" style="background:white;border:2px solid #d1d5db;padding:13px 30px;border-radius:50px;font-weight:bold;font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;">← Edit Form</button>
     <button onclick="handlePrint()" style="background:#dc2626;color:white;padding:13px 34px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(220,38,38,0.35);cursor:pointer;">🖨️ Print PDF</button>
   </div>
@@ -2379,11 +5002,23 @@ body {
 
 <!-- ATTENDANCE PREVIEW -->
 <section id="attendance-preview-section">
+  <div class="preview-toolbar no-print">
+    <div class="preview-toolbar__meta">
+      <p class="preview-toolbar__eyebrow">Preview</p>
+      <h3 class="preview-toolbar__title">Attendance Report</h3>
+      <p class="preview-toolbar__caption">Choose the exact attendance output you want to print from the top controls instead of a bottom action bar.</p>
+    </div>
+    <div class="preview-toolbar__actions">
+      <button onclick="showSection('form-section')" class="preview-btn preview-btn--ghost">Edit Form</button>
+      <button onclick="printAtt('today')" class="preview-btn preview-btn--primary">Print Today</button>
+      <button onclick="printAtt('tillnow')" id="btn-till-now-toolbar" class="preview-btn preview-btn--danger">Print Till Now</button>
+    </div>
+  </div>
   <div id="att-pdf-content" class="pdf-page-landscape">
     <div class="patrol-title" id="att-preview-title" style="padding:15px;font-size:16pt;margin-bottom:20px;">Attendance Report</div>
     <div id="att-dynamic-table-container"></div>
   </div>
-  <div class="no-print" style="position:fixed;bottom:0;left:0;width:100%;background:rgba(255,255,255,0.97);backdrop-filter:blur(16px);border-top:1px solid #e5e7eb;padding:14px 20px;z-index:9999;display:flex;justify-content:center;gap:14px;flex-wrap:wrap;">
+  <div class="no-print" hidden style="display:none !important;">
     <button onclick="showSection('form-section')" style="background:white;border:2px solid #d1d5db;padding:13px 30px;border-radius:50px;font-weight:bold;font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;">← Edit Form</button>
     <button onclick="printAtt('today')" style="background:#1d4ed8;color:white;padding:13px 30px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(29,78,216,0.35);cursor:pointer;">🖨️ Print Today</button>
     <button onclick="printAtt('tillnow')" id="btn-till-now" style="background:#dc2626;color:white;padding:13px 34px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(220,38,38,0.35);cursor:pointer;">🖨️ Print Till Now</button>
@@ -2392,9 +5027,22 @@ body {
 
 <!-- TA JOURNAL PREVIEW -->
 <section id="ta-preview-section">
+  <div class="preview-toolbar no-print">
+    <div class="preview-toolbar__meta">
+      <p class="preview-toolbar__eyebrow">Preview</p>
+      <h3 class="preview-toolbar__title" id="ta-preview-mode-label">TA Journal Preview</h3>
+      <p class="preview-toolbar__caption" id="ta-preview-mode-caption">Switch between the journal page and the report view from this header. The bottom action strip has been removed.</p>
+    </div>
+    <div class="preview-toolbar__actions">
+      <button onclick="showSection('form-section'); handleMenuSelect('tajournal');" class="preview-btn preview-btn--ghost">Back</button>
+      <button onclick="switchToTaJournal()" id="btn-ta-journal-view-toolbar" class="preview-btn preview-btn--mode is-active">TA Journal</button>
+      <button onclick="switchToTaReport()" id="btn-ta-report-view-toolbar" class="preview-btn preview-btn--mode">Generate Report</button>
+      <button onclick="printCurrentTaView()" id="btn-ta-print-toolbar" class="preview-btn preview-btn--success">Print</button>
+    </div>
+  </div>
   <div id="ta-pdf-content" style="width:277mm;background:white;box-shadow:0 6px 40px rgba(0,0,0,0.28);padding:6mm 7mm;display:none;"></div>
   <div id="ta-report-content" style="width:210mm;background:white;box-shadow:0 6px 40px rgba(0,0,0,0.28);padding:10mm;display:none;"></div>
-  <div class="no-print" style="position:fixed;bottom:0;left:0;width:100%;background:rgba(255,255,255,0.97);backdrop-filter:blur(16px);border-top:1px solid #e5e7eb;padding:14px 20px;z-index:9999;display:flex;justify-content:center;gap:14px;flex-wrap:wrap;">
+  <div class="no-print" hidden style="display:none !important;">
     <button onclick="showSection('form-section'); handleMenuSelect('tajournal');" style="background:white;border:2px solid #d1d5db;padding:13px 30px;border-radius:50px;font-weight:bold;font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;">← Back</button>
     <button onclick="switchToTaJournal()" id="btn-ta-journal-view" style="background:#d97706;color:white;padding:13px 24px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(217,119,6,0.35);cursor:pointer;">TA Journal</button>
     <button onclick="switchToTaReport()" id="btn-ta-report-view" style="background:#7c3aed;color:white;padding:13px 24px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(124,58,237,0.35);cursor:pointer;">Generate Report</button>
@@ -2460,13 +5108,925 @@ body {
 </section>
 
 <footer id="main-footer" class="no-print bg-black/80 text-white text-center py-6 text-[10px] md:text-xs opacity-70">
+  <p class="mb-2 font-semibold">Copyright © 2026 Railsaathi</p>
   <p class="mb-2 font-semibold">© 2026</p>
-  <p class="mb-2">Created in respect of the dedicated employees of the RGD–TIA Division.</p>
-  <p class="mb-3">This is an independent self-help platform and not an official Indian Railways service.</p>
-  <p class="border-t border-white/20 pt-3">Indian Railways® logo used for identification only. No affiliation or endorsement implied.</p>
+  <p class="mb-2">Railsaathi is an independent workflow proposal created for railway employees and field teams.</p>
+  <p class="mb-3">It is not an official Indian Railways platform, service, or endorsed product.</p>
+  <p class="border-t border-white/20 pt-3">A proposal has been submitted seeking approval for official use by railway employees.</p>
 </footer>
 
 <script>
+const MARKETING_DOWNLOAD_URL = 'https://github.com/aaditya3006/Railsaathi/releases/download/Railsaathi/Railsaathi.apk';
+let marketingLandingInitialized = false;
+let marketingLandingObserver = null;
+let marketingLandingCountObserver = null;
+let marketingLandingCycleTimer = null;
+let marketingMarvelTimer = null;
+let marketingHeadlineTypingTimer = null;
+let marketingHeadlineTypingToken = 0;
+let currentMarketingLandingLanguage = 'en';
+let currentMarketingMarvelIndex = 0;
+let currentMarketingLandingTheme = 'light';
+let marketingLandingRequiresLanguageChoice = false;
+
+const MARKETING_LANDING_COPY = {
+  en: {
+    navCopy: 'Duty, attendance and report workflows',
+    topbarLogin: 'Login',
+    stickyDownload: 'Download APK',
+    stickyContinue: 'Login',
+    kicker: 'Built around latest public Indian Railways data',
+    headlineAccent: '',
+    manifesto: 'A smarter way to manage railway field operations—attendance, patrols, TA journals, reports, and everything in between.',
+    heroLogin: 'Continue to Login',
+    heroDownload: 'Download APK',
+    metricRouteValue: '69,439 km',
+    metricRouteLabel: 'Total Indian Railways route length as of March 31, 2025.',
+    metricFreightValue: '1.67 bn t',
+    metricFreightLabel: 'Record freight loading handled in FY 2025-26.',
+    mediaEyebrow: 'Chenab Rail Bridge',
+    mediaTitle: "The world's highest railway arch bridge opened to rail traffic on June 6, 2025.",
+    mediaCopy: 'A landmark on the Udhampur-Srinagar-Baramulla Rail Link in Jammu and Kashmir.',
+    marvelLabel: 'Beyond Chenab',
+    marvelEyebrow: 'Rotating engineering highlights',
+    hudLabel: 'Latest public rail figures',
+    hudTitle: '',
+    hudCopy: '',
+    contextNetworkEyebrow: 'Gauge conversion',
+    contextNetworkValue: '67,372 km broad gauge',
+    contextNetworkCopy: 'That is 97.02% of the network as of March 31, 2025.',
+    contextFreightEyebrow: 'Freight momentum',
+    contextFreightValue: '1,670 million tonnes',
+    contextFreightCopy: 'Indian Railways reported record freight loading in FY 2025-26.',
+    contextCorridorEyebrow: 'Network capacity',
+    contextCorridorValue: '1,506 km Western DFC',
+    contextCorridorCopy: 'The western dedicated freight corridor reached completion in March 2026.',
+    sourcePrefix: 'Sources:',
+    downloadRibbon: 'Android release',
+    downloadHeading: 'Direct Android download.',
+    downloadCopy: 'Use the single APK link for the fastest install path on phone.',
+    downloadPrimary: 'Download APK',
+    downloadSecondary: 'Go to Login',
+    downloadMetaTitle: 'Install path',
+    downloadMetaCopy: 'One direct APK link without extra pages or hidden steps.',
+    stepsLabel: 'Install steps',
+    stepsTitle: 'Short, clear, and phone-ready.',
+    step1: 'Tap the APK download button from this page.',
+    step2: 'Allow browser-based installation if Android asks for permission.',
+    step3: 'Install the app and sign in on your phone.'
+  },
+  hi: {
+    navCopy: 'ड्यूटी, उपस्थिति और रिपोर्ट वर्कफ्लो',
+    topbarLogin: 'लॉगिन',
+    stickyDownload: 'एपीके डाउनलोड',
+    stickyContinue: 'लॉगिन',
+    kicker: 'भारतीय रेल के नवीनतम सार्वजनिक आंकड़ों पर आधारित',
+    headlineAccent: '',
+    manifesto: 'बुद्धिमान उपस्थिति, स्वचालित TA जर्नल, सहज पेट्रोल प्रबंधन और पेपरलेस वर्कफ्लो के साथ रेलवे फील्ड ऑपरेशंस को बदलते हुए ताकि हर कर्मचारी कम लिखे और रेलवे को चलाए रखने में ज्यादा समय दे सके.',
+    heroLogin: 'लॉगिन पर जाएं',
+    heroDownload: 'एपीके डाउनलोड',
+    metricRouteValue: '69,439 किमी',
+    metricRouteLabel: '31 मार्च 2025 तक भारतीय रेल की कुल रूट लंबाई.',
+    metricFreightValue: '1.67 अरब टन',
+    metricFreightLabel: 'वित्त वर्ष 2025-26 में दर्ज रिकॉर्ड माल लदान.',
+    mediaEyebrow: 'चिनाब रेल पुल',
+    mediaTitle: 'दुनिया का सबसे ऊंचा रेलवे आर्च पुल 6 जून 2025 को रेल यातायात के लिए खुला.',
+    mediaCopy: 'जम्मू-कश्मीर में उधमपुर-श्रीनगर-बारामूला रेल लिंक का एक प्रमुख लैंडमार्क.',
+    marvelLabel: 'चिनाब के बाद',
+    marvelEyebrow: 'घूमते इंजीनियरिंग आकर्षण',
+    hudLabel: 'नवीनतम सार्वजनिक रेल आंकड़े',
+    hudTitle: 'ताजा आंकड़े इस लैंडिंग पेज को ज्यादा वास्तविक बनाते हैं.',
+    hudCopy: 'इस फ्रंट पेज में अब सामान्य कॉपी की जगह हाल के नेटवर्क, माल और कॉरिडोर माइलस्टोन रखे गए हैं.',
+    contextNetworkEyebrow: 'गेज परिवर्तन',
+    contextNetworkValue: '67,372 किमी ब्रॉड गेज',
+    contextNetworkCopy: '31 मार्च 2025 तक यह पूरे नेटवर्क का 97.02% है.',
+    contextFreightEyebrow: 'माल गति',
+    contextFreightValue: '1,670 मिलियन टन',
+    contextFreightCopy: 'भारतीय रेल ने वित्त वर्ष 2025-26 में रिकॉर्ड माल लदान दर्ज किया.',
+    contextCorridorEyebrow: 'नेटवर्क क्षमता',
+    contextCorridorValue: '1,506 किमी वेस्टर्न DFC',
+    contextCorridorCopy: 'वेस्टर्न डेडिकेटेड फ्रेट कॉरिडोर मार्च 2026 में पूरा हुआ.',
+    sourcePrefix: 'स्रोत:',
+    downloadRibbon: 'एंड्रॉयड रिलीज',
+    downloadHeading: 'सीधा एंड्रॉयड डाउनलोड.',
+    downloadCopy: 'फोन पर सबसे तेज इंस्टॉल के लिए इसी एक एपीके लिंक का उपयोग करें.',
+    downloadPrimary: 'एपीके डाउनलोड',
+    downloadSecondary: 'लॉगिन पर जाएं',
+    downloadMetaTitle: 'इंस्टॉल पथ',
+    downloadMetaCopy: 'एक सीधा एपीके लिंक, बिना अतिरिक्त पेज या छिपे चरणों के.',
+    stepsLabel: 'इंस्टॉल चरण',
+    stepsTitle: 'छोटा, साफ और फोन के लिए तैयार.',
+    step1: 'इस पेज से एपीके डाउनलोड बटन पर टैप करें.',
+    step2: 'अगर Android अनुमति मांगे तो ब्राउज़र से इंस्टॉलेशन की अनुमति दें.',
+    step3: 'ऐप इंस्टॉल करें और अपने फोन पर साइन इन करें.'
+  },
+  mr: {
+    navCopy: 'ड्यूटी, उपस्थिती आणि रिपोर्ट वर्कफ्लो',
+    topbarLogin: 'लॉगिन',
+    stickyDownload: 'एपीके डाउनलोड',
+    stickyContinue: 'लॉगिन',
+    kicker: 'भारतीय रेलच्या ताज्या सार्वजनिक आकडेवारीवर आधारित',
+    headlineAccent: '',
+    manifesto: 'बुद्धिमान उपस्थिती, स्वयंचलित TA जर्नल, अखंड पेट्रोल व्यवस्थापन आणि पेपरलेस वर्कफ्लो यांच्या मदतीने रेल्वे फील्ड ऑपरेशन्स बदलत आहोत, जेणेकरून प्रत्येक कर्मचारी कमी लिहील आणि रेल्वे चालू ठेवण्यासाठी अधिक वेळ देईल.',
+    heroLogin: 'लॉगिनकडे जा',
+    heroDownload: 'एपीके डाउनलोड',
+    metricRouteValue: '69,439 किमी',
+    metricRouteLabel: '31 मार्च 2025 पर्यंत भारतीय रेलची एकूण रूट लांबी.',
+    metricFreightValue: '1.67 अब्ज टन',
+    metricFreightLabel: 'आर्थिक वर्ष 2025-26 मधील विक्रमी मालवाहतूक लोडिंग.',
+    mediaEyebrow: 'चिनाब रेल पूल',
+    mediaTitle: 'जगातील सर्वात उंच रेल्वे आर्च पूल 6 जून 2025 रोजी रेल वाहतुकीसाठी खुला झाला.',
+    mediaCopy: 'जम्मू-कश्मीरमधील उधमपुर-श्रीनगर-बारामुला रेल लिंकवरील एक प्रमुख लँडमार्क.',
+    marvelLabel: 'चिनाबनंतर',
+    marvelEyebrow: 'फिरते अभियांत्रिकी आकर्षण',
+    hudLabel: 'ताजी सार्वजनिक रेल आकडेवारी',
+    hudTitle: 'सध्याचे आकडे हे लँडिंग पेज अधिक खरे वाटू देतात.',
+    hudCopy: 'या फ्रंट पेजमध्ये आता सामान्य मजकुराऐवजी अलीकडील नेटवर्क, मालवाहतूक आणि कॉरिडोर मैलाचे दगड आहेत.',
+    contextNetworkEyebrow: 'गेज रूपांतरण',
+    contextNetworkValue: '67,372 किमी ब्रॉड गेज',
+    contextNetworkCopy: '31 मार्च 2025 पर्यंत हे संपूर्ण नेटवर्कच्या 97.02% इतके आहे.',
+    contextFreightEyebrow: 'मालवाहतूक वेग',
+    contextFreightValue: '1,670 दशलक्ष टन',
+    contextFreightCopy: 'भारतीय रेलने आर्थिक वर्ष 2025-26 मध्ये विक्रमी मालवाहतूक नोंदवली.',
+    contextCorridorEyebrow: 'नेटवर्क क्षमता',
+    contextCorridorValue: '1,506 किमी वेस्टर्न DFC',
+    contextCorridorCopy: 'वेस्टर्न डेडिकेटेड फ्रेट कॉरिडोर मार्च 2026 मध्ये पूर्ण झाला.',
+    sourcePrefix: 'स्रोत:',
+    downloadRibbon: 'अँड्रॉइड रिलीज',
+    downloadHeading: 'थेट अँड्रॉइड डाउनलोड.',
+    downloadCopy: 'फोनवर सर्वात जलद इंस्टॉलसाठी हाच एक एपीके लिंक वापरा.',
+    downloadPrimary: 'एपीके डाउनलोड',
+    downloadSecondary: 'लॉगिनकडे जा',
+    downloadMetaTitle: 'इंस्टॉल मार्ग',
+    downloadMetaCopy: 'एक थेट एपीके लिंक, अतिरिक्त पेज किंवा लपलेले स्टेप्स नाहीत.',
+    stepsLabel: 'इंस्टॉल स्टेप्स',
+    stepsTitle: 'लहान, स्पष्ट आणि फोनसाठी तयार.',
+    step1: 'या पेजवरील एपीके डाउनलोड बटणावर टॅप करा.',
+    step2: 'Android परवानगी मागितल्यास ब्राउझरमधून इंस्टॉलेशनला परवानगी द्या.',
+    step3: 'अॅप इंस्टॉल करा आणि तुमच्या फोनवर साइन इन करा.'
+  }
+};
+
+const MARKETING_MARVELS = {
+  en: [
+    {
+      title: 'Chenab Rail Bridge',
+      copy: "The world's highest railway arch bridge opened to rail traffic on June 6, 2025.",
+      detail: 'A landmark on the Udhampur-Srinagar-Baramulla Rail Link in Jammu and Kashmir.',
+      metric: '359 m above river bed',
+      image: 'https://images.financialexpressdigital.com/2025/06/Chenab-Bridge-2.jpg?w=1600',
+      alt: 'Chenab Rail Bridge in Jammu and Kashmir'
+    },
+    {
+      title: 'Anji Khad Bridge',
+      copy: "India's first cable-stayed railway bridge opened on June 6, 2025 in Jammu and Kashmir.",
+      detail: 'A high-altitude cable-stayed rail crossing built as part of the USBRL link.',
+      metric: '96 steel cables',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/4/45/ANJI_KHAD_BRIDGE_PHOTO_BY_-ATANU.jpg',
+      alt: 'Anji Khad Bridge in Jammu and Kashmir'
+    },
+    {
+      title: 'New Pamban Bridge',
+      copy: "India's first vertical-lift sea railway bridge opened on April 6, 2025 between Mandapam and Rameswaram.",
+      detail: 'The new sea crossing brings a contemporary rail profile to one of the country\'s most iconic coastal routes.',
+      metric: '2,070 m sea bridge',
+      image: 'https://res.cloudinary.com/kmadmin/image/upload/v1750419513/kiomoi/Panbam_bridge_1112.jpg',
+      alt: 'New Pamban Bridge near Rameswaram'
+    },
+    {
+      title: 'Bogibeel Bridge',
+      copy: 'A 4.94 km rail-cum-road span over the Brahmaputra that remains the longest of its kind in India.',
+      detail: 'Its long steel truss profile transformed all-weather connectivity across Upper Assam.',
+      metric: '4.94 km rail-cum-road',
+      image: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/201812/bogibeel_bridge.png',
+      alt: 'Bogibeel Bridge over the Brahmaputra in Assam'
+    }
+  ],
+  hi: [
+    {
+      title: 'Chenab Rail Bridge',
+      copy: "The world's highest railway arch bridge opened to rail traffic on June 6, 2025.",
+      detail: 'A landmark on the Udhampur-Srinagar-Baramulla Rail Link in Jammu and Kashmir.',
+      metric: '359 m above river bed',
+      image: 'https://images.financialexpressdigital.com/2025/06/Chenab-Bridge-2.jpg?w=1600',
+      alt: 'Chenab Rail Bridge in Jammu and Kashmir'
+    },
+    {
+      title: 'अंजी खड्ड पुल',
+      copy: 'भारत का पहला केबल-स्टे रेलवे पुल 6 जून 2025 को जम्मू-कश्मीर में खुला.',
+      detail: 'यह USBRL लिंक का हिस्सा है और ऊंचाई वाले रेल इंजीनियरिंग कार्य का प्रमुख उदाहरण है.',
+      metric: '96 स्टील केबल',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/4/45/ANJI_KHAD_BRIDGE_PHOTO_BY_-ATANU.jpg',
+      alt: 'जम्मू-कश्मीर में अंजी खड्ड पुल'
+    },
+    {
+      title: 'नया पंबन पुल',
+      copy: 'भारत का पहला वर्टिकल-लिफ्ट समुद्री रेलवे पुल 6 अप्रैल 2025 को मंडपम और रामेश्वरम के बीच खुला.',
+      detail: 'यह देश के सबसे पहचान वाले समुद्री रेल मार्गों में से एक को नई इंजीनियरिंग पहचान देता है.',
+      metric: '2,070 मीटर समुद्री पुल',
+      image: 'https://res.cloudinary.com/kmadmin/image/upload/v1750419513/kiomoi/Panbam_bridge_1112.jpg',
+      alt: 'रामेश्वरम के पास नया पंबन पुल'
+    },
+    {
+      title: 'बोगीबील पुल',
+      copy: 'ब्रह्मपुत्र पर 4.94 किमी लंबा रेल-सह-सड़क पुल, जो आज भी भारत में अपने प्रकार का सबसे लंबा है.',
+      detail: 'इस लंबे स्टील ट्रस पुल ने अपर असम में हर मौसम की कनेक्टिविटी को मजबूत किया.',
+      metric: '4.94 किमी रेल-सह-सड़क',
+      image: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/201812/bogibeel_bridge.png',
+      alt: 'असम में बोगीबील पुल'
+    }
+  ],
+  mr: [
+    {
+      title: 'Chenab Rail Bridge',
+      copy: "The world's highest railway arch bridge opened to rail traffic on June 6, 2025.",
+      detail: 'A landmark on the Udhampur-Srinagar-Baramulla Rail Link in Jammu and Kashmir.',
+      metric: '359 m above river bed',
+      image: 'https://images.financialexpressdigital.com/2025/06/Chenab-Bridge-2.jpg?w=1600',
+      alt: 'Chenab Rail Bridge in Jammu and Kashmir'
+    },
+    {
+      title: 'अंजी खड पूल',
+      copy: 'भारताचा पहिला केबल-स्टे रेल्वे पूल 6 जून 2025 रोजी जम्मू-कश्मीरमध्ये खुला झाला.',
+      detail: 'हा USBRL लिंकचा भाग असून उंच भागातील रेल्वे अभियांत्रिकीचे ठळक उदाहरण आहे.',
+      metric: '96 स्टील केबल',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/4/45/ANJI_KHAD_BRIDGE_PHOTO_BY_-ATANU.jpg',
+      alt: 'जम्मू-कश्मीरमधील अंजी खड पूल'
+    },
+    {
+      title: 'नवा पंबन पूल',
+      copy: 'भारताचा पहिला व्हर्टिकल-लिफ्ट समुद्री रेल्वे पूल 6 एप्रिल 2025 रोजी मंडपम आणि रामेश्वरम दरम्यान खुला झाला.',
+      detail: 'देशातील सर्वात ओळखल्या जाणाऱ्या समुद्री रेल मार्गाला यामुळे नवे अभियांत्रिकी रूप मिळाले.',
+      metric: '2,070 मीटर समुद्री पूल',
+      image: 'https://res.cloudinary.com/kmadmin/image/upload/v1750419513/kiomoi/Panbam_bridge_1112.jpg',
+      alt: 'रामेश्वरमजवळील नवा पंबन पूल'
+    },
+    {
+      title: 'बोगीबील पूल',
+      copy: 'ब्रह्मपुत्रवरील 4.94 किमी रेल-कम-रोड पूल, जो अजूनही भारतातील आपल्या प्रकारातील सर्वात लांब आहे.',
+      detail: 'या लांब स्टील ट्रस पुलामुळे अपर आसाममधील सर्व हंगामी संपर्कात मोठी सुधारणा झाली.',
+      metric: '4.94 किमी रेल-कम-रोड',
+      image: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/201812/bogibeel_bridge.png',
+      alt: 'आसाममधील बोगीबील पूल'
+    }
+  ]
+};
+
+function getMarketingLandingElements() {
+  return {
+    body: document.body,
+    landing: document.getElementById('railsaathi-landing'),
+    loginScreen: document.getElementById('login-screen'),
+    mainApp: document.getElementById('main-wrapper')
+  };
+}
+
+function updateMarketingText(id, value) {
+  const node = document.getElementById(id);
+  if (node && typeof value === 'string') {
+    node.textContent = value;
+  }
+}
+
+function parseMarketingLandingCount(text) {
+  const value = typeof text === 'string' ? text.trim() : '';
+  const match = value.match(/^(.*?)(\d[\d,]*(?:\.\d+)?)(.*)$/u);
+  if (!match) return null;
+
+  const numericValue = Number(match[2].replace(/,/g, ''));
+  if (!Number.isFinite(numericValue)) return null;
+
+  return {
+    prefix: match[1],
+    value: numericValue,
+    decimals: match[2].includes('.') ? match[2].split('.')[1].length : 0,
+    suffix: match[3]
+  };
+}
+
+function formatMarketingLandingCount(value, decimals) {
+  return value.toLocaleString('en-IN', {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals
+  });
+}
+
+function primeMarketingLandingCounts(root = document) {
+  const scope = root && typeof root.querySelectorAll === 'function' ? root : document;
+  const countNodes = Array.from(scope.querySelectorAll('[data-count-up]'));
+
+  countNodes.forEach((node) => {
+    if (node._landingCountAnimationFrame) {
+      cancelAnimationFrame(node._landingCountAnimationFrame);
+      node._landingCountAnimationFrame = null;
+    }
+
+    const targetText = node.textContent.trim();
+    if (!targetText) return;
+
+    node.dataset.countValue = targetText;
+    node.dataset.countTarget = targetText;
+    node.dataset.countAnimated = 'false';
+  });
+}
+
+function animateMarketingLandingCount(node, options = {}) {
+  if (!node) return;
+
+  const { force = false } = options;
+  const targetText = node.dataset.countValue || node.textContent.trim();
+  if (!targetText) return;
+
+  if (!force && node.dataset.countAnimated === 'true' && node.dataset.countTarget === targetText) {
+    return;
+  }
+
+  if (node._landingCountAnimationFrame) {
+    cancelAnimationFrame(node._landingCountAnimationFrame);
+    node._landingCountAnimationFrame = null;
+  }
+
+  const parsed = parseMarketingLandingCount(targetText);
+  node.dataset.countTarget = targetText;
+
+  if (!parsed || window.matchMedia('(prefers-reduced-motion: reduce)').matches || typeof window.requestAnimationFrame !== 'function') {
+    node.textContent = targetText;
+    node.dataset.countAnimated = 'true';
+    return;
+  }
+
+  const duration = parsed.value >= 1000 ? 1500 : 1200;
+  const startTime = performance.now();
+  node.dataset.countAnimated = 'false';
+  node.textContent = `${parsed.prefix}${formatMarketingLandingCount(0, parsed.decimals)}${parsed.suffix}`;
+
+  const step = (now) => {
+    const progress = Math.min((now - startTime) / duration, 1);
+    const easedProgress = 1 - Math.pow(1 - progress, 3);
+    const currentValue = progress < 1 ? parsed.value * easedProgress : parsed.value;
+
+    node.textContent = `${parsed.prefix}${formatMarketingLandingCount(currentValue, parsed.decimals)}${parsed.suffix}`;
+
+    if (progress < 1) {
+      node._landingCountAnimationFrame = window.requestAnimationFrame(step);
+      return;
+    }
+
+    node.textContent = targetText;
+    node.dataset.countAnimated = 'true';
+    node._landingCountAnimationFrame = null;
+  };
+
+  node._landingCountAnimationFrame = window.requestAnimationFrame(step);
+}
+
+function queueMarketingLandingCounts(root = document, options = {}) {
+  const scope = root && typeof root.querySelectorAll === 'function' ? root : document;
+  const countNodes = Array.from(scope.querySelectorAll('[data-count-up]'));
+  if (!countNodes.length) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+    countNodes.forEach((node) => animateMarketingLandingCount(node, { force: true }));
+    return;
+  }
+
+  if (!marketingLandingCountObserver) {
+    marketingLandingCountObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        animateMarketingLandingCount(entry.target, { force: true });
+        marketingLandingCountObserver.unobserve(entry.target);
+      });
+    }, {
+      threshold: 0.35,
+      rootMargin: '0px 0px -28px 0px'
+    });
+  }
+
+  countNodes.forEach((node) => {
+    if (!options.force && node.dataset.countAnimated === 'true') return;
+    marketingLandingCountObserver.unobserve(node);
+    marketingLandingCountObserver.observe(node);
+  });
+}
+
+function startMarketingHeadlineTyping() {
+  const node = document.getElementById('landing-headline-main');
+  if (!node) return;
+
+  const fullText = 'Railsaathi';
+  marketingHeadlineTypingToken += 1;
+  const token = marketingHeadlineTypingToken;
+  clearTimeout(marketingHeadlineTypingTimer);
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    node.textContent = fullText;
+    return;
+  }
+
+  const typeForward = (index = 1) => {
+    if (token !== marketingHeadlineTypingToken) return;
+    node.textContent = fullText.slice(0, index);
+    if (index < fullText.length) {
+      marketingHeadlineTypingTimer = setTimeout(() => typeForward(index + 1), 170);
+      return;
+    }
+    marketingHeadlineTypingTimer = setTimeout(() => eraseBackward(fullText.length - 1), 3400);
+  };
+
+  const eraseBackward = (index) => {
+    if (token !== marketingHeadlineTypingToken) return;
+    node.textContent = fullText.slice(0, Math.max(index, 0));
+    if (index > 0) {
+      marketingHeadlineTypingTimer = setTimeout(() => eraseBackward(index - 1), 95);
+      return;
+    }
+    marketingHeadlineTypingTimer = setTimeout(() => typeForward(1), 1300);
+  };
+
+  node.textContent = '';
+  marketingHeadlineTypingTimer = setTimeout(() => typeForward(1), 320);
+}
+
+function applyMarketingLandingTheme(theme) {
+  const nextTheme = theme === 'dark' ? 'dark' : 'light';
+  const landing = document.getElementById('railsaathi-landing');
+  currentMarketingLandingTheme = nextTheme;
+
+  if (landing) {
+    landing.setAttribute('data-theme', nextTheme);
+  }
+
+  if (document.body) {
+    document.body.dataset.landingTheme = nextTheme;
+  }
+
+  document.querySelectorAll('[data-theme-option]').forEach((button) => {
+    const isActive = button.dataset.themeOption === nextTheme;
+    button.classList.toggle('is-active', isActive);
+    button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+
+  try {
+    localStorage.setItem('railsaathiLandingTheme', nextTheme);
+  } catch (error) {
+    console.warn('Unable to persist landing theme:', error);
+  }
+}
+
+function updateMarketingLanguageGuideVisibility() {
+  const body = document.body;
+  const landing = document.getElementById('railsaathi-landing');
+  const guide = document.getElementById('landing-language-guide');
+  const shouldShow = Boolean(
+    body &&
+    landing &&
+    !landing.hidden &&
+    body.classList.contains('show-marketing-landing') &&
+    marketingLandingRequiresLanguageChoice
+  );
+
+  body?.classList.toggle('landing-language-prompt-active', shouldShow);
+
+  if (guide) {
+    guide.hidden = !shouldShow;
+  }
+}
+
+function renderMarketingMarvel(index = currentMarketingMarvelIndex, restartCycle = false) {
+  const marvels = MARKETING_MARVELS[currentMarketingLandingLanguage] || MARKETING_MARVELS.en;
+  if (!marvels.length) return;
+
+  currentMarketingMarvelIndex = ((index % marvels.length) + marvels.length) % marvels.length;
+  const marvel = marvels[currentMarketingMarvelIndex];
+
+  updateMarketingText('landing-marvel-title', marvel.title);
+  updateMarketingText('landing-marvel-copy', marvel.copy);
+  updateMarketingText('landing-marvel-detail', marvel.detail);
+  updateMarketingText('landing-marvel-metric', marvel.metric);
+
+  const gallery = document.getElementById('landing-marvel-gallery');
+  const image = document.getElementById('landing-marvel-image');
+  if (image) {
+    image.src = marvel.image;
+    image.alt = marvel.alt;
+  }
+
+  if (gallery) {
+    gallery.classList.remove('is-animating');
+    void gallery.offsetWidth;
+    gallery.classList.add('is-animating');
+  }
+
+  document.querySelectorAll('[data-marvel-index]').forEach((dot, dotIndex) => {
+    const isActive = dotIndex === currentMarketingMarvelIndex;
+    dot.classList.toggle('is-active', isActive);
+    dot.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+
+  if (restartCycle) {
+    startMarketingMarvelCycle();
+  }
+}
+
+function startMarketingMarvelCycle() {
+  clearInterval(marketingMarvelTimer);
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  const marvels = MARKETING_MARVELS[currentMarketingLandingLanguage] || MARKETING_MARVELS.en;
+  if (marvels.length < 2) return;
+
+  marketingMarvelTimer = setInterval(() => {
+    if (!document.body.classList.contains('show-marketing-landing')) return;
+    renderMarketingMarvel(currentMarketingMarvelIndex + 1);
+  }, 3600);
+}
+
+function applyMarketingLandingLanguage(language, options = {}) {
+  const { persist = true } = options;
+  const nextLanguage = MARKETING_LANDING_COPY[language] ? language : 'en';
+  const copy = MARKETING_LANDING_COPY[nextLanguage];
+  const landing = document.getElementById('railsaathi-landing');
+
+  currentMarketingLandingLanguage = nextLanguage;
+
+  if (landing) {
+    landing.setAttribute('data-lang', nextLanguage);
+  }
+
+  document.documentElement.lang = nextLanguage;
+
+  updateMarketingText('landing-nav-copy', copy.navCopy);
+  updateMarketingText('landing-topbar-login', copy.topbarLogin);
+  updateMarketingText('landing-kicker-text', copy.kicker);
+  updateMarketingText('landing-headline-accent', copy.headlineAccent);
+  updateMarketingText('landing-manifesto', copy.manifesto);
+  updateMarketingText('landing-hero-login', copy.heroLogin);
+  updateMarketingText('landing-hero-download', copy.heroDownload);
+  updateMarketingText('landing-metric-route-value', copy.metricRouteValue);
+  updateMarketingText('landing-metric-route-label', copy.metricRouteLabel);
+  updateMarketingText('landing-metric-freight-value', copy.metricFreightValue);
+  updateMarketingText('landing-metric-freight-label', copy.metricFreightLabel);
+  updateMarketingText('landing-media-eyebrow', copy.mediaEyebrow);
+  updateMarketingText('landing-media-title', copy.mediaTitle);
+  updateMarketingText('landing-media-copy', copy.mediaCopy);
+  updateMarketingText('landing-hud-label', copy.hudLabel);
+  updateMarketingText('landing-context-network-eyebrow', copy.contextNetworkEyebrow);
+  updateMarketingText('landing-context-network-value', copy.contextNetworkValue);
+  updateMarketingText('landing-context-network-copy', copy.contextNetworkCopy);
+  updateMarketingText('landing-context-freight-eyebrow', copy.contextFreightEyebrow);
+  updateMarketingText('landing-context-freight-value', copy.contextFreightValue);
+  updateMarketingText('landing-context-freight-copy', copy.contextFreightCopy);
+  updateMarketingText('landing-context-corridor-eyebrow', copy.contextCorridorEyebrow);
+  updateMarketingText('landing-context-corridor-value', copy.contextCorridorValue);
+  updateMarketingText('landing-context-corridor-copy', copy.contextCorridorCopy);
+  updateMarketingText('landing-source-prefix', copy.sourcePrefix);
+  updateMarketingText('landing-download-ribbon-text', copy.downloadRibbon);
+  updateMarketingText('landing-download-heading', copy.downloadHeading);
+  updateMarketingText('landing-download-copy', copy.downloadCopy);
+  updateMarketingText('landing-download-primary', copy.downloadPrimary);
+  updateMarketingText('landing-download-secondary', copy.downloadSecondary);
+  updateMarketingText('landing-download-meta-title', copy.downloadMetaTitle);
+  updateMarketingText('landing-download-meta-copy', copy.downloadMetaCopy);
+  updateMarketingText('landing-steps-label', copy.stepsLabel);
+  updateMarketingText('landing-steps-title', copy.stepsTitle);
+  updateMarketingText('landing-step-1', copy.step1);
+  updateMarketingText('landing-step-2', copy.step2);
+  updateMarketingText('landing-step-3', copy.step3);
+
+  document.querySelectorAll('[data-lang-option]').forEach((button) => {
+    const isActive = button.dataset.langOption === nextLanguage;
+    button.classList.toggle('is-active', isActive);
+    button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+
+  const mobileSelect = document.getElementById('landing-language-select-mobile');
+  if (mobileSelect) {
+    mobileSelect.value = nextLanguage;
+  }
+
+  if (persist) {
+    marketingLandingRequiresLanguageChoice = false;
+    try {
+      localStorage.setItem('railsaathiLandingLang', nextLanguage);
+    } catch (error) {
+      console.warn('Unable to persist landing language:', error);
+    }
+  }
+
+  updateMarketingLanguageGuideVisibility();
+  primeMarketingLandingCounts(landing || document);
+  renderMarketingMarvel(currentMarketingMarvelIndex);
+  startMarketingMarvelCycle();
+  startMarketingHeadlineTyping();
+
+  if (document.body.classList.contains('show-marketing-landing')) {
+    window.requestAnimationFrame(() => queueMarketingLandingCounts(landing || document, { force: true }));
+  }
+}
+
+function setMarketingHash(hash, method = 'replace') {
+  try {
+    const url = new URL(window.location.href);
+    url.hash = hash ? hash.replace(/^#/, '') : '';
+    const targetUrl = `${url.pathname}${url.search}${url.hash}`;
+    if (method === 'push') {
+      history.pushState({}, '', targetUrl);
+    } else {
+      history.replaceState({}, '', targetUrl);
+    }
+  } catch (error) {
+    console.warn('Unable to update pre-auth hash:', error);
+  }
+}
+
+function scrollPreAuthTop() {
+  window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+}
+
+function updateLandingProgress() {
+  const { body, landing } = getMarketingLandingElements();
+  if (!body || !landing || landing.hidden || !body.classList.contains('show-marketing-landing')) {
+    document.documentElement.style.setProperty('--landing-progress', '0');
+    return;
+  }
+
+  const maxScroll = Math.max(landing.scrollHeight - window.innerHeight, 1);
+  const currentScroll = Math.max(window.scrollY || window.pageYOffset || 0, 0);
+  const progress = Math.min(100, (currentScroll / maxScroll) * 100);
+  document.documentElement.style.setProperty('--landing-progress', progress.toFixed(2));
+}
+
+function hideMarketingLanding() {
+  const { body, landing } = getMarketingLandingElements();
+  if (!body || !landing) return;
+
+  body.classList.remove('show-marketing-landing');
+  body.classList.remove('landing-language-prompt-active');
+  landing.hidden = true;
+  landing.setAttribute('aria-hidden', 'true');
+  document.documentElement.style.setProperty('--landing-progress', '0');
+}
+
+function showMarketingLanding() {
+  const { body, landing, loginScreen, mainApp } = getMarketingLandingElements();
+  if (!body || !landing) return;
+
+  body.classList.add('show-marketing-landing');
+  landing.hidden = false;
+  landing.setAttribute('aria-hidden', 'false');
+
+  if (loginScreen) {
+    loginScreen.style.display = 'flex';
+    loginScreen.style.opacity = '1';
+    loginScreen.style.pointerEvents = '';
+  }
+
+  if (mainApp) {
+    mainApp.style.display = 'none';
+  }
+
+  window.requestAnimationFrame(() => {
+    updateLandingProgress();
+    queueMarketingLandingCounts(landing, { force: true });
+    updateMarketingLanguageGuideVisibility();
+  });
+}
+
+function navigatePreAuthSurface(mode, options = {}) {
+  const { updateUrl = true, focusLogin = false, historyMode = 'replace' } = options;
+  const { loginScreen, mainApp } = getMarketingLandingElements();
+
+  if (mode === 'login') {
+    hideMarketingLanding();
+
+    if (loginScreen) {
+      loginScreen.style.display = 'flex';
+      loginScreen.style.opacity = '1';
+      loginScreen.style.pointerEvents = '';
+    }
+
+    if (mainApp) {
+      mainApp.style.display = 'none';
+    }
+
+    if (updateUrl) {
+      setMarketingHash('login', historyMode);
+    }
+
+    scrollPreAuthTop();
+
+    if (focusLogin) {
+      setTimeout(() => {
+        document.getElementById('login-email')?.focus();
+      }, 120);
+    }
+
+    return 'login';
+  }
+
+  showMarketingLanding();
+
+  if (updateUrl) {
+    setMarketingHash('', historyMode);
+  }
+
+  scrollPreAuthTop();
+  return 'landing';
+}
+
+function resolvePreAuthExperience(forceMode) {
+  if (window.currentUserAuth) {
+    hideMarketingLanding();
+    return 'app';
+  }
+
+  const hash = (window.location.hash || '').toLowerCase();
+  if (forceMode === 'login' || hash === '#login') {
+    return navigatePreAuthSurface('login', {
+      updateUrl: forceMode === 'login',
+      focusLogin: forceMode === 'login'
+    });
+  }
+
+  showMarketingLanding();
+  return 'landing';
+}
+
+function setActiveLandingPhoneScreen(screenId) {
+  const tabs = document.querySelectorAll('[data-phone-tab]');
+  const screens = document.querySelectorAll('[data-phone-screen]');
+
+  tabs.forEach((tab) => {
+    tab.classList.toggle('is-active', tab.dataset.phoneTab === screenId);
+  });
+
+  screens.forEach((screen) => {
+    screen.classList.toggle('is-active', screen.dataset.phoneScreen === screenId);
+  });
+}
+
+function startLandingPhoneCycle() {
+  clearInterval(marketingLandingCycleTimer);
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  const tabs = Array.from(document.querySelectorAll('[data-phone-tab]'));
+  if (tabs.length < 2) return;
+
+  let currentIndex = Math.max(tabs.findIndex((tab) => tab.classList.contains('is-active')), 0);
+  marketingLandingCycleTimer = setInterval(() => {
+    if (!document.body.classList.contains('show-marketing-landing')) return;
+    currentIndex = (currentIndex + 1) % tabs.length;
+    setActiveLandingPhoneScreen(tabs[currentIndex].dataset.phoneTab);
+  }, 3200);
+}
+
+function initLandingReveals() {
+  const revealItems = Array.from(document.querySelectorAll('#railsaathi-landing .landing-reveal'));
+  if (!revealItems.length) return;
+
+  if (!('IntersectionObserver' in window)) {
+    revealItems.forEach((item) => item.classList.add('is-visible'));
+    return;
+  }
+
+  marketingLandingObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        marketingLandingObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.16,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  revealItems.forEach((item) => marketingLandingObserver.observe(item));
+}
+
+function initMarketingLanding() {
+  if (marketingLandingInitialized) {
+    updateLandingProgress();
+    updateMarketingLanguageGuideVisibility();
+    return;
+  }
+
+  marketingLandingInitialized = true;
+  initLandingReveals();
+
+  const tabs = Array.from(document.querySelectorAll('[data-phone-tab]'));
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      setActiveLandingPhoneScreen(tab.dataset.phoneTab);
+      startLandingPhoneCycle();
+    });
+  });
+
+  if (tabs[0]) {
+    setActiveLandingPhoneScreen(tabs[0].dataset.phoneTab);
+  }
+
+  document.querySelectorAll('[data-lang-option]').forEach((button) => {
+    button.addEventListener('click', () => {
+      applyMarketingLandingLanguage(button.dataset.langOption || 'en', { persist: true });
+    });
+  });
+
+  document.querySelectorAll('[data-theme-option]').forEach((button) => {
+    button.addEventListener('click', () => {
+      applyMarketingLandingTheme(button.dataset.themeOption || 'light');
+    });
+  });
+
+  document.getElementById('landing-language-select-mobile')?.addEventListener('change', (event) => {
+    applyMarketingLandingLanguage(event.target.value || 'en', { persist: true });
+  });
+
+  document.querySelectorAll('[data-marvel-index]').forEach((dot) => {
+    dot.addEventListener('click', () => {
+      const requestedIndex = Number(dot.dataset.marvelIndex || 0);
+      renderMarketingMarvel(requestedIndex, true);
+    });
+  });
+
+  let savedLandingLanguage = 'en';
+  let hasSavedLandingLanguage = false;
+  try {
+    const storedLandingLanguage = localStorage.getItem('railsaathiLandingLang');
+    if (storedLandingLanguage && MARKETING_LANDING_COPY[storedLandingLanguage]) {
+      savedLandingLanguage = storedLandingLanguage;
+      hasSavedLandingLanguage = true;
+    }
+  } catch (error) {
+    console.warn('Unable to read saved landing language:', error);
+  }
+
+  let savedLandingTheme = 'light';
+  try {
+    savedLandingTheme = localStorage.getItem('railsaathiLandingTheme') || 'light';
+  } catch (error) {
+    console.warn('Unable to read saved landing theme:', error);
+  }
+
+  marketingLandingRequiresLanguageChoice = !hasSavedLandingLanguage;
+  applyMarketingLandingTheme(savedLandingTheme);
+  applyMarketingLandingLanguage(savedLandingLanguage, { persist: hasSavedLandingLanguage });
+  startLandingPhoneCycle();
+
+  window.addEventListener('scroll', updateLandingProgress, { passive: true });
+  window.addEventListener('resize', updateLandingProgress);
+  const handlePreAuthNavigationChange = () => {
+    if (window.currentUserAuth) return;
+    const hash = (window.location.hash || '').toLowerCase();
+    if (hash === '#login' || hash === '') {
+      resolvePreAuthExperience();
+    }
+  };
+
+  window.addEventListener('hashchange', handlePreAuthNavigationChange);
+  window.addEventListener('popstate', handlePreAuthNavigationChange);
+
+  updateLandingProgress();
+  resolvePreAuthExperience();
+  updateMarketingLanguageGuideVisibility();
+}
+
+window.openMarketingLogin = function(event) {
+  event?.preventDefault();
+  navigatePreAuthSurface('login', { focusLogin: true, historyMode: 'push' });
+  return false;
+};
+
+window.startMarketingDownload = function(event) {
+  event?.preventDefault();
+
+  if (typeof triggerAppDownload === 'function') {
+    triggerAppDownload();
+  } else {
+    window.open(MARKETING_DOWNLOAD_URL, '_blank', 'noopener,noreferrer');
+  }
+
+  return false;
+};
+
+window.hideMarketingLanding = hideMarketingLanding;
+window.showMarketingLanding = showMarketingLanding;
+window.navigatePreAuthSurface = navigatePreAuthSurface;
+window.resolvePreAuthExperience = resolvePreAuthExperience;
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMarketingLanding, { once: true });
+} else {
+  initMarketingLanding();
+}
+
 // ==========================================
 //   SUPABASE INIT
 // ==========================================
@@ -2512,6 +6072,7 @@ function initSupabase() {
     // 🔒 Dashboard security check - show login if no valid session
     window.auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_IN' && session) {
+        window.hideMarketingLanding?.();
         window.currentUserAuth = session.user;
         // Initialize user role on login
         if (typeof initializeUserRole === 'function') {
@@ -2528,6 +6089,7 @@ function initSupabase() {
         console.log('✅ No active session found - Login screen shown');
         window.currentUserAuth = null;
         window.currentUserRole = 'employee';
+        window.resolvePreAuthExperience?.();
       }
     });
   } catch (err) {
@@ -3273,7 +6835,7 @@ function showAppDownloadStatus(title, text, progress, isSuccess = false) {
 }
 
 function triggerAppDownload() {
-  const downloadUrl = 'https://github.com/aaditya3006/Railsaathi/releases/download/Railsaathi/Railsaathi.apk';
+  const downloadUrl = MARKETING_DOWNLOAD_URL;
 
   clearTimeout(downloadStatusTimerA);
   clearTimeout(downloadStatusTimerB);
@@ -3291,7 +6853,7 @@ function triggerAppDownload() {
   link.remove();
 
   downloadStatusTimerA = setTimeout(() => {
-    showAppDownloadStatus('Download started', 'Your browser is opening the GitHub APK file.', 55);
+    showAppDownloadStatus('Download started', 'Your browser is opening the APK file.', 55);
   }, 700);
 
   downloadStatusTimerB = setTimeout(() => {
@@ -3783,6 +7345,7 @@ function setupAuthFormListeners() {
 
 function dismissLoginScreen() {
   const loginScreen = document.getElementById('login-screen');
+  window.hideMarketingLanding?.();
   loginScreen.style.transition = 'opacity 0.3s ease-out';
   loginScreen.style.opacity = '0';
   loginScreen.style.pointerEvents = 'none';
@@ -3853,6 +7416,8 @@ async function confirmLogout() {
     
     const introSplash = document.getElementById('intro-splash');
     if (introSplash) introSplash.style.display = 'none';
+
+    window.navigatePreAuthSurface?.('login');
     
     console.log('User logged out successfully');
   }).catch(err => {
@@ -4382,6 +7947,7 @@ async function logoutAllDevices() {
 // Check auth state on load
 window.auth?.onAuthStateChange(async (event, session) => {
   if (session?.user) {
+    window.hideMarketingLanding?.();
     const user = session.user;
     console.log('User already logged in:', user.email);
     
@@ -4417,6 +7983,7 @@ window.auth?.onAuthStateChange(async (event, session) => {
     console.log('User not logged in - showing login screen');
     const loginScreen = document.getElementById('login-screen');
     loginScreen.style.display = 'flex';
+    window.resolvePreAuthExperience?.();
   }
 });
 
@@ -5499,6 +9066,7 @@ function showSection(id) {
     mainWrapper.style.display = 'none'; navEl.style.display = 'none';
     footerEl.style.display = 'none'; bgEl.style.display = 'none';
     previewEl.style.display = 'none'; attPreviewEl.style.display = 'none'; taPreviewEl.style.display = 'flex';
+    updateTaPreviewModeUI();
   } else {
     mainWrapper.style.display = 'block'; navEl.style.display = 'block';
     footerEl.style.display = 'block'; bgEl.style.display = 'block';
@@ -5534,8 +9102,7 @@ function switchToTaJournal() {
   currentTaViewMode = 'journal';
   document.getElementById('ta-pdf-content').style.display = 'block';
   document.getElementById('ta-report-content').style.display = 'none';
-  document.getElementById('btn-ta-journal-view').style.background = '#d97706';
-  document.getElementById('btn-ta-report-view').style.background = '#7c3aed';
+  updateTaPreviewModeUI();
 }
 
 function switchToTaReport() {
@@ -5543,13 +9110,39 @@ function switchToTaReport() {
   currentTaViewMode = 'report';
   document.getElementById('ta-pdf-content').style.display = 'none';
   document.getElementById('ta-report-content').style.display = 'block';
-  document.getElementById('btn-ta-journal-view').style.background = '#92400e';
-  document.getElementById('btn-ta-report-view').style.background = '#5b21b6';
+  updateTaPreviewModeUI();
 }
 
 function printCurrentTaView() {
   if (currentTaViewMode === 'journal') printTaJournal();
   else printTaReport();
+}
+
+function updateTaPreviewModeUI() {
+  const isJournal = currentTaViewMode === 'journal';
+
+  ['btn-ta-journal-view', 'btn-ta-journal-view-toolbar'].forEach((id) => {
+    const button = document.getElementById(id);
+    if (button) button.classList.toggle('is-active', isJournal);
+  });
+
+  ['btn-ta-report-view', 'btn-ta-report-view-toolbar'].forEach((id) => {
+    const button = document.getElementById(id);
+    if (button) button.classList.toggle('is-active', !isJournal);
+  });
+
+  const label = document.getElementById('ta-preview-mode-label');
+  const caption = document.getElementById('ta-preview-mode-caption');
+
+  if (label) {
+    label.textContent = isJournal ? 'TA Journal Preview' : 'TA Report Preview';
+  }
+
+  if (caption) {
+    caption.textContent = isJournal
+      ? 'Detailed TA journal page prepared for review and printing from the top header.'
+      : 'Condensed TA report prepared for review and printing from the top header.';
+  }
 }
 
 function renderEmployeeTable() {
@@ -5868,7 +9461,7 @@ function generatePreview() {
       colgroupHTML = `<col style="width:13%;"><col style="width:19%;"><col style="width:39%;"><col style="width:13%;"><col style="width:16%;">`;
       theadHTML = `<tr><th class="th-bit">Bit No.</th><th class="th-range">From........ To</th><th class="th-rail">रेल कर्मचारी</th><th class="th-rail">Duty No.</th><th class="th-contract">कॉन्ट्रैक्ट लेबर &amp; मोब. न.</th></tr>`;
     } else {
-      titleEl.innerHTML = `RGD -TIA keyman duty&nbsp;&nbsp;&nbsp;&nbsp;@<span id="pdf-date-display">${displayDate}</span>`;
+      titleEl.innerHTML = `Railsaathi keyman duty&nbsp;&nbsp;&nbsp;&nbsp;@<span id="pdf-date-display">${displayDate}</span>`;
       colgroupHTML = `<col style="width:13%;"><col style="width:35%;"><col style="width:39%;"><col style="width:13%;">`;
       theadHTML = `<tr><th class="th-bit">Bit No.</th><th class="th-range">From........ To</th><th class="th-rail">रेल कर्मचारी</th><th class="th-gps">GPS NO.</th></tr>`;
     }
