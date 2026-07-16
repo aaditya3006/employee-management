@@ -40,8 +40,10 @@ body {
   inset: 0;
   z-index: 999999;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 16px;
   padding: 1rem;
   background: linear-gradient(-45deg, #0f172a, #1e3a8a, #312e81, #1e1b4b);
   background-size: 400% 400%;
@@ -50,296 +52,227 @@ body {
 }
 
 #login-screen .track-container {
-  .login-download-float {
-    position: fixed;
-    right: 18px;
-    bottom: 18px;
-    z-index: 40;
-    width: auto;
-    max-width: min(360px, calc(100vw - 36px));
-    pointer-events: none;
-    padding: 0;
-    background: transparent;
-    border: 0;
-    box-shadow: none;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-  }
-
-  .login-download-float__button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 10px 14px;
-    border-radius: 999px;
-    background: rgba(15, 23, 42, 0.72);
-    color: #fff;
-    .login-download-float {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 40;
-      width: auto;
-      max-width: min(360px, calc(100vw - 36px));
-      pointer-events: none;
-      padding: 0;
-      background: transparent;
-      border: 0;
-      box-shadow: none;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
-
-    .login-download-float__button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.72);
-      color: #fff;
-      font-size: 12px;
-      font-weight: 700;
-      text-decoration: none;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.26);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      pointer-events: auto;
-    }
-
-    .login-download-float__button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.32);
-    }
-
-    .login-download-status {
-      position: fixed;
-      right: 18px;
-      bottom: 74px;
-      z-index: 41;
-      width: min(320px, calc(100vw - 36px));
-      padding: 12px 14px;
-      border-radius: 16px;
-      background: rgba(15, 23, 42, 0.88);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
-      color: #fff;
-      display: none;
-      pointer-events: none;
-    }
-
-    .login-download-status__title {
-      font-size: 12px;
-      font-weight: 700;
-      margin: 0 0 4px;
-    }
-
-    .login-download-status__text {
-      font-size: 11px;
-      line-height: 1.5;
-      color: #cbd5e1;
-      margin: 0;
-    }
-
-    .login-download-status__bar {
-      margin-top: 10px;
-      width: 100%;
-      height: 4px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.12);
-      overflow: hidden;
-    }
-
-    .login-download-status__bar span {
-      display: block;
-      width: 0%;
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #60a5fa 0%, #22c55e 100%);
-      transition: width 0.3s ease;
-    }
-
-    .login-download-status.is-success .login-download-status__bar span {
-      width: 100% !important;
-    }
-
-    @media (max-width: 640px) {
-      #login-screen {
-        align-items: flex-start;
-        justify-content: flex-start;
-        overflow-y: auto;
-        padding: 0.75rem;
-      }
-
-      .login-glass-card {
-        width: min(100%, 340px);
-        max-width: none;
-        margin: 0 auto;
-        padding: 1.1rem;
-      }
-
-      .login-download-float {
-        left: 12px;
-        right: 12px;
-        bottom: 10px;
-        max-width: none;
-      }
-
-      .login-download-float__button {
-        width: 100%;
-        justify-content: center;
-        max-width: none;
-        padding: 12px 14px;
-        font-size: 11px;
-      }
-
-      .login-download-status {
-        left: 12px;
-        right: 12px;
-        bottom: 62px;
-        width: auto;
-      }
-    }
-
-    @media (max-height: 760px) and (max-width: 700px) {
-      #login-screen {
-        align-items: flex-start;
-        justify-content: flex-start;
-        overflow-y: auto;
-        padding-top: 0.75rem;
-      }
-
-      .login-glass-card {
-        margin-top: 0.5rem;
-      }
-    }
+  position: absolute;
+  bottom: 8%;
+  width: 100%;
+  height: 8px;
+  background: #334155;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
 }
 
-@media (max-width: 640px) {
-  .login-download-float {
-    right: 12px;
-    bottom: 12px;
-    left: 12px;
-  }
+#login-screen .sleepers {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(90deg, transparent 50%, #0f172a 50%);
+  background-size: 30px 100%;
+  animation: moveTracks 0.4s linear infinite;
+}
 
-  .login-download-float__button {
-    width: 100%;
-    justify-content: center;
-    max-width: none;
-    padding: 12px 14px;
-  #login-screen {
-    align-items: flex-start;
-    justify-content: flex-start;
-    overflow-y: auto;
-    padding: 0.75rem;
-  }
+#login-screen .login-train {
+  position: absolute;
+  bottom: calc(8% + 8px);
+  left: -500px;
+  width: 320px;
+  height: 42px;
+  background: linear-gradient(to bottom, #cf1d1d 0%, #b91c1c 50%, #7f1d1d 100%);
+  border-radius: 4px 30px 2px 5px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.6);
+  animation: trainRun 12s linear infinite;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
 
-  .login-glass-card {
-    width: min(100%, 340px);
-    max-width: none;
-    margin: 0 auto;
-    padding: 1.1rem;
-  }
+#login-screen .login-train::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50px;
+  width: 220px;
+  height: 14px;
+  background-image: repeating-linear-gradient(90deg, #1e293b 0px, #1e293b 15px, transparent 15px, transparent 25px);
+  opacity: 0.8;
+}
 
-    font-size: 11px;
-  }
+#login-screen .login-train::after {
+  content: "INDIAN RAILWAYS";
+  position: absolute;
+  bottom: 4px;
+  left: 60px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
 
-    bottom: 10px;
-    right: 12px;
-    left: 12px;
-    bottom: 68px;
-    width: auto;
-  }
+#login-particles-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.login-particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: floatParticle 8s infinite linear;
+}
+
+.login-glass-card {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  animation: cardFadeIn 0.8s ease-out forwards;
+  position: relative;
+  z-index: 30;
+  width: min(100%, 340px);
+  max-width: 340px;
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.login-modal-container {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999999;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.login-modal-container.active {
+  display: flex;
+}
+
+.login-input-focus:focus {
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+  border-color: #60a5fa;
+}
+
+.login-btn-primary {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.login-spinner {
+  display: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: loginSpin 0.8s linear infinite;
 }
 
 #login-error-msg {
-  background: rgba(239,68,68,0.15);
-  border: 1px solid rgba(239,68,68,0.4);
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
   color: #fca5a5;
   padding: 8px 12px;
-    bottom: 62px;
+  border-radius: 8px;
   font-size: 12px;
   text-align: center;
   margin-top: 8px;
-
-@media (max-height: 760px) and (max-width: 700px) {
-  #login-screen {
-    align-items: flex-start;
-    justify-content: flex-start;
-    overflow-y: auto;
-    padding-top: 0.75rem;
-  }
-
-  .login-glass-card {
-    margin-top: 0.5rem;
-  }
-}
   display: none;
 }
 
 .login-download-float {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
+  position: relative;
   z-index: 40;
-  width: auto;
-  max-width: min(360px, calc(100vw - 36px));
-  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  width: min(100%, 340px);
+  max-width: 340px;
+  pointer-events: auto;
   padding: 0;
   background: transparent;
   border: 0;
   box-shadow: none;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
 }
 
-.login-download-float__button {
-  display: inline-flex;
+.login-download-qr {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
+  gap: 12px;
   width: 100%;
-  padding: 10px 14px;
-  border-radius: 999px;
-  background: rgba(15, 23, 42, 0.72);
+  padding: 12px;
+  border-radius: 18px;
+  background: rgba(15, 23, 42, 0.78);
   color: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  text-decoration: none;
   border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.26);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
   pointer-events: auto;
 }
 
-.login-download-float__button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.32);
+.login-download-qr__image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 82px;
+  height: 82px;
+  padding: 8px;
+  border-radius: 16px;
+  background: #fff;
+  flex-shrink: 0;
+  overflow: hidden;
 }
 
-@media (max-width: 640px) {
-  .login-download-float {
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
-    max-width: none;
-  }
+.login-download-qr__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 
-  .login-download-float__button {
-    width: 100%;
-    padding: 11px 14px;
-    font-size: 11px;
-  }
+.login-download-qr__content {
+  min-width: 0;
+}
+
+.login-download-qr__title {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.login-download-qr__text {
+  margin: 0;
+  font-size: 10px;
+  line-height: 1.45;
+  color: #cbd5e1;
+}
+
+.login-download-qr__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  color: #93c5fd;
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.login-download-qr__link:hover {
+  color: #bfdbfe;
 }
 
 .login-download-status {
   position: fixed;
   right: 18px;
-  bottom: 74px;
+  bottom: 18px;
   z-index: 41;
   width: min(320px, calc(100vw - 36px));
   padding: 12px 14px;
@@ -383,17 +316,88 @@ body {
   transition: width 0.3s ease;
 }
 
-.login-download-status.success .login-download-status__bar span {
+.login-download-status.is-success .login-download-status__bar span {
   width: 100% !important;
 }
 
 @media (max-width: 640px) {
+  #login-screen {
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow-y: auto;
+    padding: 0.75rem;
+  }
+
+  .login-glass-card {
+    margin: 0 auto;
+    padding: 1.1rem;
+  }
+
+  .login-download-float {
+    width: min(100%, 340px);
+    max-width: 340px;
+  }
+
+  .login-download-qr {
+    padding: 10px 12px;
+  }
+
+  .login-download-qr__image {
+    width: 72px;
+    height: 72px;
+  }
+
   .login-download-status {
     left: 12px;
     right: 12px;
-    bottom: 72px;
+    bottom: 12px;
     width: auto;
   }
+}
+
+@media (max-height: 760px) and (max-width: 700px) {
+  #login-screen {
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow-y: auto;
+    padding-top: 0.75rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .login-glass-card {
+    margin-top: 0.5rem;
+  }
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes moveTracks {
+  from { background-position: 0 0; }
+  to { background-position: -30px 0; }
+}
+
+@keyframes trainRun {
+  0% { left: -500px; }
+  100% { left: 120%; }
+}
+
+@keyframes floatParticle {
+  0% { transform: translateY(110vh) translateX(0); opacity: 0; }
+  50% { opacity: 0.4; }
+  100% { transform: translateY(-10vh) translateX(20px); opacity: 0; }
+}
+
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes loginSpin {
+  to { transform: rotate(360deg); }
 }
 
 /* ============================================
@@ -1426,10 +1430,19 @@ body {
   </div>
 
   <div class="login-download-float">
-    <button type="button" class="login-download-float__button" onclick="startAppDownload()" aria-label="Download the app">
-      <i class="fa-solid fa-cloud-arrow-down"></i>
-      Download the app - one tap access
-    </button>
+    <div class="login-download-qr" aria-label="Scan to download Railsaathi APK">
+      <a class="login-download-qr__image" href="https://github.com/aaditya3006/Railsaathi/releases/download/Railsaathi/Railsaathi.apk" target="_blank" rel="noopener noreferrer" aria-label="Open Railsaathi APK download link">
+        <img src="Railsaathi.svg" alt="QR code to download the Railsaathi APK">
+      </a>
+      <div class="login-download-qr__content">
+        <p class="login-download-qr__title">Scan or tap to download</p>
+        <p class="login-download-qr__text">Use your phone camera to scan this QR, or tap the link below to open the latest Railsaathi APK.</p>
+        <a class="login-download-qr__link" href="https://github.com/aaditya3006/Railsaathi/releases/download/Railsaathi/Railsaathi.apk" target="_blank" rel="noopener noreferrer">
+          <i class="fa-solid fa-up-right-from-square"></i>
+          Open Railsaathi APK link
+        </a>
+      </div>
+    </div>
   </div>
 
   <div id="login-download-status" class="login-download-status" aria-live="polite" aria-atomic="true">
@@ -3222,13 +3235,13 @@ function showAppDownloadStatus(title, text, progress, isSuccess = false) {
 }
 
 function triggerAppDownload() {
-  const downloadUrl = 'https://drive.google.com/uc?export=download&id=199d0Cd8iF8NNQeUS1ZZmLCsF9HcvkVxl';
+  const downloadUrl = 'https://github.com/aaditya3006/Railsaathi/releases/download/Railsaathi/Railsaathi.apk';
 
   clearTimeout(downloadStatusTimerA);
   clearTimeout(downloadStatusTimerB);
   clearTimeout(downloadStatusTimerC);
 
-  showAppDownloadStatus('Preparing download', 'Starting the app download now.', 20);
+  showAppDownloadStatus('Preparing download', 'Opening the Railsaathi APK download now.', 20);
 
   const link = document.createElement('a');
   link.href = downloadUrl;
@@ -3240,15 +3253,15 @@ function triggerAppDownload() {
   link.remove();
 
   downloadStatusTimerA = setTimeout(() => {
-    showAppDownloadStatus('Download started', 'Your browser is fetching the app file.', 55);
+    showAppDownloadStatus('Download started', 'Your browser is opening the GitHub APK file.', 55);
   }, 700);
 
   downloadStatusTimerB = setTimeout(() => {
-    showAppDownloadStatus('Almost done', 'Please confirm the save prompt if it appears.', 82);
+    showAppDownloadStatus('Almost done', 'Please confirm the download prompt if it appears.', 82);
   }, 1800);
 
   downloadStatusTimerC = setTimeout(() => {
-    showAppDownloadStatus('Thank you', 'Thank you for downloading the app.', 100, true);
+    showAppDownloadStatus('Thank you', 'Thank you for downloading Railsaathi.', 100, true);
     setTimeout(hideAppDownloadStatus, 2500);
   }, 3200);
 }
