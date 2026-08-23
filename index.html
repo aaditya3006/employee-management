@@ -4891,9 +4891,12 @@ body.show-marketing-landing[data-landing-theme="dark"] {
           </div>
         </div>
 
-        <div class="flex gap-2 mt-2">
-          <button onclick="saveTaJournalToDB()" class="flex-1 bg-green-600 text-white py-2 rounded-xl font-bold hover:bg-green-700 shadow-lg transition-all active:scale-95">💾 Save to DB</button>
-          <button onclick="generateTaPreview(); printCurrentTaView()" class="flex-1 bg-amber-600 text-white py-2 rounded-xl font-bold hover:bg-amber-700 shadow-lg transition-all active:scale-95">Print</button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
+          <button onclick="saveTaJournalToDB()" style="background:linear-gradient(135deg,#059669,#047857);color:white;padding:12px 8px;border-radius:14px;font-weight:700;font-size:13px;border:none;cursor:pointer;box-shadow:0 4px 12px rgba(5,150,105,0.3);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">💾 Save to Database</button>
+          <button onclick="generateTaPreview(); printCurrentTaView()" style="background:linear-gradient(135deg,#d97706,#b45309);color:white;padding:12px 8px;border-radius:14px;font-weight:700;font-size:13px;border:none;cursor:pointer;box-shadow:0 4px 12px rgba(217,119,6,0.3);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">🖨️ Print Journal</button>
+        </div>
+        <div style="margin-top:8px;">
+          <button onclick="generateTaPreview(); switchToTaReport()" style="width:100%;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:white;padding:12px 8px;border-radius:14px;font-weight:700;font-size:13px;border:none;cursor:pointer;box-shadow:0 4px 12px rgba(124,58,237,0.3);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">📊 Generate TA Report</button>
         </div>
       </div>
     </div>
@@ -11599,10 +11602,13 @@ function generateTaReport() {
   const entries = keys.map(k => taPageEntries[k]);
   const header = getTaHeaderData();
   
-  const mon = document.getElementById("ta-month-sel").value; // e.g. "04"
+  const monRaw = document.getElementById("ta-month-sel").value; // e.g. "AUG." or "JAN."
   const yr = document.getElementById("ta-year-sel").value; // e.g. "2026"
-  const monthNames = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
-  const monthYear = monthNames[parseInt(mon, 10) - 1] + '/' + yr;
+  // Convert month name abbreviation to zero-padded numeric (e.g. "AUG." -> "08")
+  const monthAbbrs = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  const monIndex = monthAbbrs.findIndex(abbr => monRaw.toUpperCase().startsWith(abbr));
+  const mon = monIndex >= 0 ? String(monIndex + 1).padStart(2, '0') : monRaw;
+  const monthYear = (monthAbbrs[monIndex] || monRaw) + '/' + yr;
   const ff = "font-family:Arial,'Noto Sans Devanagari',sans-serif;";
   
   // Combine all entries (journeys, rest, leave) by date
