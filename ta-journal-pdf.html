@@ -630,7 +630,14 @@ textarea.ta-input {
     margin: 0 auto !important;
     box-shadow: none !important;
     border: 0 !important;
+    border-radius: 0 !important;
     background: #fff !important;
+  }
+
+  #ta-preview-section {
+    background: #fff !important;
+    min-height: 0 !important;
+    padding: 0 !important;
   }
 
   * {
@@ -643,8 +650,8 @@ textarea.ta-input {
     height: 210mm !important;
     max-height: 210mm !important;
     overflow: hidden !important;
-    zoom: 0.85;
-    width: 117.647% !important;
+    zoom: 0.83;
+    width: 100% !important;
   }
 
   #ta-pdf-content .ta-page-1 {
@@ -653,6 +660,12 @@ textarea.ta-input {
 
   #ta-pdf-content .ta-j-table td {
     height: 32px !important;
+  }
+
+  #ta-pdf-content .ta-certificate {
+    font-size: 8.5pt !important;
+    line-height: 1.1 !important;
+    margin-top: 1mm !important;
   }
 }
 </style>
@@ -1749,15 +1762,15 @@ function generateTaPreview() {
 
     const certificateFont = "font-family:'Noto Sans Devanagari',Arial,sans-serif;";
     const dottedLine = (text, width) => `<span style="display:inline-block;min-width:${width};border-bottom:1.5px dotted #000;font-weight:bold;padding:0 2px 1px 2px;line-height:1.05;vertical-align:bottom;text-align:center;">${text}</span>`;
-    const certHTML = `<div style="width:100%;margin-top:3mm;${certificateFont}font-size:9.2pt;font-weight:bold;line-height:1.2;word-spacing:4.5px;text-align:justify;">
+    const certHTML = `<div class="ta-certificate" style="width:100%;margin-top:3mm;${certificateFont}font-size:9.2pt;font-weight:bold;line-height:1.2;word-spacing:4.5px;text-align:justify;">
       <div style="word-spacing:4.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;मैं प्रमाणित करता हूँ कि श्री ${dottedLine(pdfName, "200px")} बिल में दिये गये समय के लिए रेलवे के काम के सदर मुकाम स्टेशन से बाहर गये थे उन्हीं ने रेल / सड़क / जहाज / हवाई जहाज</div>
       <div style="word-spacing:5px;">से जो यात्रा की है उसके लिए उन्हें सरकारी स्थानीय निधि से मुक्त टिकट या मुफ्त सवारी दी गयी/नहीं दी गई I hereby certify that the above mentioned ${dottedLine("", "120px")} was absent</div>
-      <div style="word-spacing:3.5px;">on duty from his headquarters' station during the period mentioned in the bill on railway business and that the officer performed the journey by Rail / Air / Sea / Road and was</div>
-      <div> allowed / not allowed free pass or free locomotion at the expenses of Government / local fund of Indian State.</div>
+      <div style="word-spacing:normal;">on duty from his headquarters' station during the period mentioned in the bill on railway business and that the officer performed the journey by Rail / Air / Sea / Road and was</div>
+      <div style="word-spacing:4.5px;"> allowed / not allowed free pass or free locomotion at the expenses of Government / local fund of Indian State.</div>
       <div style="height:3pt;"></div>
       <div style="word-spacing:5.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ड्यूटी पास पर की गयी यात्राओं तथा ठहरावों के लिए, जिनके इस बिल में यात्रा भत्ते / दैनिक भत्ते के दावे पेश किये गये हैं, किसी अन्य माध्यम से यात्रा भत्ता/दैनिक भत्ता तथा अन्य पारिश्रमिक </div>
       <div style="word-spacing:4.5px;">नहीं लिया गया है / No T.A./D.A. or any other remuneration has been drawn from any other source in respect of the journeys performed on Duty Pass and also for the halts</div>
-      <div>for which T.A./D.A. has been claimed in this bill.</div>
+      <div style="word-spacing:normal;">for which T.A./D.A. has been claimed in this bill.</div>
       <div style="height:3pt;"></div>
       <div style="word-spacing:5.5px;">प्रति हस्ताक्षरित / Countersigned नियंत्रक अफसर/Controlling Officer कार्यालय के प्रधान/Head of Office यात्रा भत्ता लेनेवाले अफसर के हस्ताक्षर / Signature of Officer claiming T.A</div>
       <div style="margin-top:5pt;">
@@ -1880,7 +1893,7 @@ function printTaJournal() {
     #ta-pdf-content { position: static !important; width: 100% !important; padding: 0 !important; box-shadow: none !important; display: block !important; }
     #ta-report-content { display: none !important; }
     #ta-pdf-content .ta-page-1,
-    #ta-pdf-content .ta-page-2 { height: 210mm !important; max-height: 210mm !important; overflow: hidden !important; zoom: 0.85; width: 117.647% !important; }
+    #ta-pdf-content .ta-page-2 { height: 210mm !important; max-height: 210mm !important; overflow: hidden !important; zoom: 0.83; width: 100% !important; }
     #ta-pdf-content .ta-j-table td { height: 32px !important; }
     #ta-pdf-content .ta-page-1 { page-break-after: always !important; break-after: page !important; }
     #ta-pdf-content .ta-page-2 { page-break-before: always !important; break-before: page !important; }
