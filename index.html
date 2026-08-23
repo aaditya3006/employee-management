@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -11680,27 +11680,42 @@ function generateTaReport() {
   // Sort by date
   allDateEntries.sort((a, b) => a.dateRaw.localeCompare(b.dateRaw));
   
-  let reportRows = allDateEntries.map((e) => {
-    return `<tr>
-      <td style="border:none;padding:2px 12px 2px 0;font-size:8.5pt;font-weight:bold;${ff}text-align:left;vertical-align:top;width:22%;white-space:nowrap;line-height:1;">${e.dateFormatted}</td>
-      <td style="border:none;padding:2px 0 2px 12px;font-size:8.5pt;font-weight:bold;${ff}text-align:left;vertical-align:top;line-height:1;">${e.work || '-'}</td>
-    </tr>`;
+  let reportRows = allDateEntries.map(function(e) {
+    var dateCell = '<td class="ta-report-cell" style="border:none;padding:1px 10px 1px 0;font-size:8.5pt;font-weight:bold;font-family:Arial,sans-serif;text-align:left;vertical-align:top;width:22%;white-space:nowrap;line-height:1.3;">' + e.dateFormatted + '</td>';
+    var workCell = '<td class="ta-report-cell" style="border:none;padding:1px 0 1px 10px;font-size:8.5pt;font-weight:bold;font-family:Arial,sans-serif;text-align:left;vertical-align:top;line-height:1.3;">' + (e.work || '-') + '</td>';
+    return '<tr>' + dateCell + workCell + '</tr>';
   }).join('');
 
-  const reportHTML = `<div style="background:white;width:100%;${ff}color:#000;border:2px solid #000;padding:12px 16px 16px 16px;">
-    <div style="text-align:center;font-size:11pt;font-weight:bold;text-decoration:underline;text-underline-offset:2px;letter-spacing:0.08em;margin-bottom:8px;${ff}color:#000;">T.A MOVEMENT (${monthYear})</div>
-    <div style="font-size:8.5pt;${ff}line-height:1.4;color:#000;"><span style="font-weight:bold;">Name</span> &nbsp;:&nbsp; ${header.name || ''}</div>
-    <div style="font-size:8.5pt;${ff}line-height:1.4;color:#000;"><span style="font-weight:bold;">Designation</span> &nbsp;:&nbsp; ${header.post || header.designation || ''}</div>
-    <div style="font-size:8.5pt;${ff}line-height:1.4;color:#000;"><span style="font-weight:bold;">Station</span> &nbsp;:&nbsp; ${header.reportUnit || ''}</div>
-    <div style="font-size:8.5pt;${ff}line-height:1.4;color:#000;"><span style="font-weight:bold;">PF Number</span> &nbsp;:&nbsp; ${header.pfNumber || ''}</div>
-    <div style="font-size:8.5pt;${ff}line-height:1.4;color:#000;margin-bottom:6px;"><span style="font-weight:bold;">Month</span> &nbsp;:&nbsp; ${monthYear}</div>
-    <div style="border-top:2px dashed #000;width:100%;margin:4px 0 6px 0;"></div>
-    <table style="width:100%;border-collapse:collapse;border:none;line-height:1;">
-      <tbody>${reportRows}</tbody>
-    </table>
-  </div>`;
+  var reportHTML = '<div id="ta-report-wrapper" style="background:white;width:100%;font-family:Arial,sans-serif;color:#000;border:1.5px solid #000;padding:10px 14px 14px 14px;">'
+    + '<div class="ta-report-title" style="text-align:center;font-size:11pt;font-weight:bold;text-decoration:underline;letter-spacing:0.06em;margin-bottom:6px;color:#000;">T.A MOVEMENT (' + monthYear + ')</div>'
+    + '<div class="ta-report-header-line" style="font-size:8.5pt;line-height:1.4;color:#000;"><b>Name</b> &nbsp;:&nbsp; ' + (header.name || '') + '</div>'
+    + '<div class="ta-report-header-line" style="font-size:8.5pt;line-height:1.4;color:#000;"><b>Designation</b> &nbsp;:&nbsp; ' + (header.post || header.designation || '') + '</div>'
+    + '<div class="ta-report-header-line" style="font-size:8.5pt;line-height:1.4;color:#000;"><b>Station</b> &nbsp;:&nbsp; ' + (header.reportUnit || '') + '</div>'
+    + '<div class="ta-report-header-line" style="font-size:8.5pt;line-height:1.4;color:#000;"><b>PF Number</b> &nbsp;:&nbsp; ' + (header.pfNumber || '') + '</div>'
+    + '<div class="ta-report-header-line" style="font-size:8.5pt;line-height:1.4;color:#000;margin-bottom:5px;"><b>Month</b> &nbsp;:&nbsp; ' + monthYear + '</div>'
+    + '<div style="border-top:1.5px solid #000;width:100%;margin:3px 0 5px 0;"></div>'
+    + '<table style="width:100%;border-collapse:collapse;border:none;line-height:1;"><tbody>' + reportRows + '</tbody></table>'
+    + '</div>';
   document.getElementById('ta-report-content').innerHTML = reportHTML;
+  setTimeout(fitReportToPage, 60);
 }
+
+function fitReportToPage() {
+  var wrapper = document.getElementById('ta-report-wrapper');
+  if (!wrapper) return;
+  var MAX_HEIGHT = 970;
+  var fontSize = 8.5;
+  var MIN_FONT = 5.0;
+  var step = 0.3;
+  while (wrapper.scrollHeight > MAX_HEIGHT && fontSize > MIN_FONT) {
+    fontSize = Math.max(MIN_FONT, fontSize - step);
+    var px = fontSize.toFixed(1) + 'pt';
+    var titleSize = (fontSize + 1.5).toFixed(1) + 'pt';
+    wrapper.querySelectorAll('.ta-report-title').forEach(function(el) { el.style.fontSize = titleSize; });
+    wrapper.querySelectorAll('.ta-report-header-line').forEach(function(el) { el.style.fontSize = px; });
+    wrapper.querySelectorAll('.ta-report-cell').forEach(function(el) { el.style.fontSize = px; });
+  }
+
 
 function printTaJournal() {
   clearDynamicPrintStyles();
@@ -11726,9 +11741,10 @@ function printTaReport() {
   const styleEl = document.createElement('style');
   styleEl.id = 'dynamic-print-style';
   styleEl.innerHTML = `@media print {
-    @page { size: A4 portrait; margin: 12mm; }
+    @page { size: A4 portrait; margin: 8mm; }
     #ta-report-content { position: static !important; width: 100% !important; padding: 0 !important; box-shadow: none !important; display: block !important; }
     #ta-pdf-content { display: none !important; }
+    #ta-report-wrapper { border: 1.5px solid #000 !important; }
   }`;
   document.head.appendChild(styleEl);
   window.print();
