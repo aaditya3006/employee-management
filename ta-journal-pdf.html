@@ -1785,7 +1785,7 @@ function generateTaPreview() {
       <div class="ta-page-1" style="page-break-after:always;break-after:page;width:100%;padding-bottom:3mm;">
         ${topBarHTML}${titleHTML}${metaRow1}${metaRow2}${metaRow3}${page1TableHTML}${ptoHTML}
       </div>
-      <div class="ta-page-2" style="page-break-before:always;break-before:page;width:100%;">
+      <div class="ta-page-2" style="width:100%;">
         <div style="height:8mm;width:100%;"></div>
         ${page2TableHTML}${certHTML}
       </div>
@@ -1896,7 +1896,6 @@ function printTaJournal() {
     #ta-pdf-content .ta-page-2 { height: 297mm !important; max-height: 297mm !important; overflow: hidden !important; zoom: 0.79; width: 100% !important; }
     #ta-pdf-content .ta-j-table td { height: 32px !important; }
     #ta-pdf-content .ta-page-1 { page-break-after: always !important; break-after: page !important; }
-    #ta-pdf-content .ta-page-2 { page-break-before: always !important; break-before: page !important; }
   }`;
   document.head.appendChild(styleEl);
   window.print();
