@@ -3,7 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Railsaathi Employee Management System</title>
+<title>Online TA Journal for Railway Employees | Railway TA Journal</title>
+<meta name="description" content="Create, manage and maintain your Railway TA Journal online. Record journeys, calculate travel allowance, manage TA entries and generate professional TA Journal records digitally.">
+<link rel="canonical" href="https://www.rgdtiaportal.live/">
+<link rel="icon" type="image/png" href="https://www.rgdtiaportal.live/railsaathi-logo.png">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0b1d31">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Railsaathi">
+<meta property="og:title" content="Online TA Journal for Railway Employees | Railway TA Journal">
+<meta property="og:description" content="Record railway journeys, organize travel allowance entries and generate a digital TA Journal for railway employee workflows.">
+<meta property="og:url" content="https://www.rgdtiaportal.live/">
+<meta property="og:image" content="https://www.rgdtiaportal.live/railsaathi-logo.png">
+<meta property="og:image:alt" content="Railsaathi online TA Journal logo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Online TA Journal for Railway Employees">
+<meta name="twitter:description" content="A practical digital Railway TA Journal for recording journeys, travel allowance entries and printable records.">
+<meta name="twitter:image" content="https://www.rgdtiaportal.live/railsaathi-logo.png">
+<meta name="twitter:image:alt" content="Railsaathi online TA Journal logo">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.rgdtiaportal.live/#website",
+      "url": "https://www.rgdtiaportal.live/",
+      "name": "Railsaathi Online TA Journal",
+      "description": "An independent digital tool for maintaining Railway TA Journal records."
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://www.rgdtiaportal.live/#application",
+      "url": "https://www.rgdtiaportal.live/",
+      "name": "Railsaathi Online TA Journal",
+      "description": "Record railway journeys, organize travel allowance entries and generate digital TA Journal records.",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "isAccessibleForFree": true,
+      "browserRequirements": "Requires JavaScript"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.rgdtiaportal.live/#organization",
+      "name": "Railsaathi",
+      "url": "https://www.rgdtiaportal.live/",
+      "logo": "https://www.rgdtiaportal.live/railsaathi-logo.png",
+      "description": "Independent digital workflow software for railway employee teams; not an official Indian Railways service."
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.rgdtiaportal.live/#faq",
+      "url": "https://www.rgdtiaportal.live/#faq",
+      "mainEntity": [
+        { "@type": "Question", "name": "What is a TA Journal?", "acceptedAnswer": { "@type": "Answer", "text": "A TA Journal is a record of official journeys, dates, routes, travel mode, timings, distance and allowance details used to prepare a travelling allowance claim." } },
+        { "@type": "Question", "name": "What is a Railway TA Journal?", "acceptedAnswer": { "@type": "Answer", "text": "A Railway TA Journal organizes the journey and allowance information a railway employee may need for a travelling allowance record, including journey dates, stations, timings, mode and rates." } },
+        { "@type": "Question", "name": "Can railway employees maintain a TA Journal online?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. An online TA Journal can help railway employees enter journeys, maintain monthly records, review calculations and generate a printable record." } },
+        { "@type": "Question", "name": "What information is required in a Railway TA Journal?", "acceptedAnswer": { "@type": "Answer", "text": "Typical fields include employee and posting details, month, date, origin and destination stations, departure and arrival times, mode of travel, distance, allowance rate and the purpose of the journey." } },
+        { "@type": "Question", "name": "What is the difference between a TA Journal and a TA Bill?", "acceptedAnswer": { "@type": "Answer", "text": "A TA Journal is the detailed movement and journey record. A TA Bill is the claim submitted for payment, usually supported by the journal and required certifications." } },
+        { "@type": "Question", "name": "Can I download my TA Journal?", "acceptedAnswer": { "@type": "Answer", "text": "Railsaathi provides a printable journal preview that can be saved or printed as a PDF through the browser print workflow." } },
+        { "@type": "Question", "name": "Can I maintain a monthly TA Journal online?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Journey entries can be organized by date and allowance month, with rest, leave and CR details available for the journal header." } },
+        { "@type": "Question", "name": "Can I calculate travel allowance using an online TA Journal?", "acceptedAnswer": { "@type": "Answer", "text": "The tool organizes rates and journey entries for calculation, but employees should verify eligibility, applicable rules and final amounts with their controlling office." } },
+        { "@type": "Question", "name": "Is the online TA Journal an official Indian Railways system?", "acceptedAnswer": { "@type": "Answer", "text": "No. Railsaathi is an independent digital workflow tool and is not an official Indian Railways website or an authorized government submission system unless explicitly approved by the relevant authority." } }
+      ]
+    }
+  ]
+}
+</script>
 <script src="https://cdn.tailwindcss.com"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -2042,6 +2108,54 @@ body.show-marketing-landing[data-landing-theme="dark"] {
   border-bottom-color: color-mix(in srgb, var(--landing-accent-strong) 30%, transparent);
 }
 
+.landing-seo-section {
+  padding-top: 8px;
+}
+
+.landing-seo-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.landing-seo-copy,
+.landing-seo-list li {
+  color: var(--landing-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.landing-seo-copy {
+  max-width: 48rem;
+  margin: 0;
+}
+
+.landing-seo-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.landing-seo-list li {
+  padding: 12px 14px;
+  border-left: 3px solid var(--landing-accent);
+  background: var(--landing-surface-soft);
+  border-radius: 0 12px 12px 0;
+}
+
+.landing-seo-list strong {
+  color: var(--landing-text);
+}
+
+.landing-seo-disclaimer {
+  margin: 18px 0 0;
+  color: var(--landing-muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
 .landing-download-card__ribbon {
   background: var(--landing-pill);
   color: var(--landing-accent);
@@ -2647,9 +2761,10 @@ body.show-marketing-landing[data-landing-theme="dark"] {
     gap: 0;
   }
 
-  .login-glass-card {
+  #login-screen > .login-glass-card {
     margin: 0 auto;
-    padding: 1.1rem;
+    padding: 2rem 1.1rem 1.1rem;
+    transform: translateY(-3vh);
   }
 
   #login-screen .login-brand-mark {
@@ -2821,9 +2936,9 @@ body.show-marketing-landing[data-landing-theme="dark"] {
   width: 100%;
   background: white;
   font-family: Arial, 'Noto Sans Devanagari', sans-serif;
-  font-size: 7pt;
+  font-size: 8pt;
   color: #000;
-  line-height: 0.95;
+  line-height: 1.05;
 }
 .ta-j-table {
   width: 100%;
@@ -2833,24 +2948,61 @@ body.show-marketing-landing[data-landing-theme="dark"] {
 }
 .ta-j-table th, .ta-j-table td {
   border: 1px solid #000;
-  padding: 1px 1px;
+  padding: 3px 2px;
   text-align: center;
   vertical-align: middle;
   font-family: Arial, 'Noto Sans Devanagari', sans-serif;
   overflow: hidden;
   word-break: break-word;
-  font-size: 8pt;
+  font-size: 13pt !important;
 }
 .ta-j-table th {
   font-weight: bold;
-  font-size: 9pt;
-  line-height: 1.15;
+  font-size: 13pt !important;
+  line-height: 1.25;
   background: white;
 }
 .ta-j-table td {
-  height: 24px;
-  font-size: 9pt;
+  height: 44px !important;
   margin: 0;
+}
+
+.ta-certificate > div {
+  word-spacing: 7px !important;
+  letter-spacing: 0.15px;
+  text-align: justify !important;
+  text-align-last: justify !important;
+}
+
+.ta-certificate-notes,
+.ta-certificate-notes > div {
+  word-spacing: normal !important;
+  letter-spacing: normal;
+}
+
+.ta-certificate > div.ta-certificate-no-word-spacing,
+.ta-certificate-notes > div.ta-certificate-no-word-spacing {
+  word-spacing: normal !important;
+  letter-spacing: normal !important;
+  text-align: left !important;
+  text-align-last: left !important;
+}
+
+.ta-certificate > div.ta-certificate-no-word-spacing.ta-certificate-wide-word-spacing,
+.ta-certificate-notes > div.ta-certificate-no-word-spacing.ta-certificate-wide-word-spacing {
+  word-spacing: 8px !important;
+}
+
+.ta-certificate > div.ta-certificate-duty-line {
+  word-spacing: 7.5px !important;
+}
+
+.ta-certificate .ta-certificate-notes > div.ta-certificate-note-one {
+  word-spacing: 6px !important;
+}
+
+.ta-certificate .ta-certificate-notes > div.ta-certificate-note-one-english {
+  word-spacing: 4.5px !important;
 }
 
 /* ── Dashboard home cards ── */
@@ -3822,7 +3974,7 @@ body.show-marketing-landing[data-landing-theme="dark"] {
   <div class="landing-topbar">
     <div class="landing-brand">
       <div class="landing-brand__mark">
-        <img src="Railsaathi-logo.png" alt="Railsaathi logo">
+        <img src="railsaathi-logo.png" alt="Railsaathi logo">
       </div>
       <div class="landing-brand__meta">
         <p class="landing-brand__name">Railsaathi</p>
@@ -3864,7 +4016,7 @@ body.show-marketing-landing[data-landing-theme="dark"] {
           <span id="landing-kicker-text">Built around latest public Indian Railways data</span>
         </div>
         <h1 class="landing-headline">
-          <span id="landing-headline-main">Railsaathi</span>
+          <span id="landing-headline-main">Online TA Journal for Railway Employees</span>
         </h1>
         <p class="landing-manifesto" id="landing-manifesto">
           A smarter way to manage railway field operations—attendance, patrols, TA journals, reports, and everything in between.
@@ -3938,6 +4090,37 @@ body.show-marketing-landing[data-landing-theme="dark"] {
             <a href="https://en.wikipedia.org/wiki/Bogibeel_Bridge" target="_blank" rel="noopener noreferrer">Bogibeel</a>.
           </p>
         </div>
+      </div>
+    </section>
+
+    <section class="landing-section landing-seo-section landing-reveal" id="online-ta-journal">
+      <p class="landing-section-label">Online TA Journal</p>
+      <h2 class="landing-section-title">A practical Railway TA Journal for everyday records.</h2>
+      <div class="landing-seo-grid">
+        <p class="landing-seo-copy">Railsaathi helps railway employees in India maintain a digital Travelling Allowance Journal without losing the structure of a familiar paper record. Add journey dates, stations, timings, travel mode, distance, allowance rate and the purpose of each Railway TA entry, then review the record before printing.</p>
+        <ul class="landing-seo-list">
+          <li><strong>Who can use it:</strong> Railway employee teams who need an organized online TA Journal, monthly movement record or Railway TA Bill supporting record.</li>
+          <li><strong>How to maintain it:</strong> Enter employee details and the allowance month, add each journey by date, and include Rest, Leave or CR details when they belong in the journal.</li>
+          <li><strong>How journeys are recorded:</strong> Capture the origin and destination stations, departure and arrival times, train or road travel, kilometers, rate and official duty purpose.</li>
+          <li><strong>How records are organized:</strong> Entries are grouped into the Railway TA Journal format so totals and supporting movement details can be checked before a printable record is generated.</li>
+          <li><strong>What to verify:</strong> Travel allowance eligibility and final submission requirements depend on the applicable railway rules and the employee's controlling office.</li>
+        </ul>
+      </div>
+      <p class="landing-seo-disclaimer">Railsaathi is an independent digital tool, not an official Indian Railways website or government submission portal unless explicitly authorized by the relevant authority.</p>
+    </section>
+
+    <section class="landing-section landing-seo-section landing-reveal" id="faq">
+      <p class="landing-section-label">TA Journal questions</p>
+      <h2 class="landing-section-title">Answers about Railway TA Journal records.</h2>
+      <div class="landing-faq">
+        <details><summary>What is a TA Journal?</summary><p>A TA Journal is a detailed record of official journeys, dates, routes, travel mode, timings, distance and allowance details used to prepare a travelling allowance claim.</p></details>
+        <details><summary>What is a Railway TA Journal?</summary><p>It organizes the journey and allowance information a railway employee may need for a travelling allowance record, including journey dates, stations, timings, mode and applicable rates.</p></details>
+        <details><summary>Can railway employees maintain a TA Journal online?</summary><p>Yes. An online TA Journal can help employees enter journeys, maintain monthly records, review calculations and generate a printable record.</p></details>
+        <details><summary>What information is required in a Railway TA Journal?</summary><p>Typical fields include employee and posting details, month, date, origin and destination stations, departure and arrival times, mode of travel, distance, allowance rate and journey purpose.</p></details>
+        <details><summary>What is the difference between a TA Journal and a TA Bill?</summary><p>The TA Journal is the detailed movement and journey record. The TA Bill is the claim submitted for payment, usually supported by the journal and required certifications.</p></details>
+        <details><summary>Can I download my TA Journal?</summary><p>Railsaathi provides a printable journal preview that can be saved or printed as a PDF through the browser print workflow.</p></details>
+        <details><summary>Can I calculate travel allowance using an online TA Journal?</summary><p>The tool organizes rates and journey entries for calculation, but employees should verify eligibility, applicable rules and final amounts with their controlling office.</p></details>
+        <details><summary>Is this an official Indian Railways system?</summary><p>No. Railsaathi is an independent digital workflow tool and is not an official Indian Railways website or authorized government submission system unless explicitly approved by the relevant authority.</p></details>
       </div>
     </section>
 
@@ -4019,9 +4202,9 @@ body.show-marketing-landing[data-landing-theme="dark"] {
   <div class="login-glass-card">
     <div class="text-center mb-2">
       <div class="login-brand-mark" style="width:84px;height:84px;margin:0 auto 12px;border-radius:22px;border:2px solid rgba(255,255,255,0.18);overflow:hidden;display:flex;align-items:center;justify-content:center;background:#ffffff;padding:10px;box-shadow:0 18px 36px rgba(2,6,23,0.22);">
-        <img src="Railsaathi-logo.png" alt="Railsaathi logo">
+        <img src="railsaathi-logo.png" alt="Railsaathi logo">
       </div>
-      <h1 class="text-xl font-bold text-white tracking-tight" style="font-family:'Inter',sans-serif;">Railsaathi</h1>
+      <h2 class="text-xl font-bold text-white tracking-tight" style="font-family:'Inter',sans-serif;">Railsaathi</h2>
       <p style="margin:6px 0 0;color:rgba(255,255,255,0.82);font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;font-family:'Inter',sans-serif;">Empowering railway employee</p>
     </div>
 
@@ -4077,7 +4260,7 @@ body.show-marketing-landing[data-landing-theme="dark"] {
       </div>
     </form>
 
-    <p style="margin-top:20px;text-align:center;font-size:9px;color:#000000;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;font-family:'Inter',sans-serif;">
+    <p style="margin-top:20px;text-align:center;font-size:9px;color:#ffffff;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;font-family:'Inter',sans-serif;">
       Independent workflow access for railway teams.
     </p>
   </div>
@@ -4312,13 +4495,13 @@ body.show-marketing-landing[data-landing-theme="dark"] {
       <button onclick="openSidebar()" class="text-white hover:text-blue-200 focus:outline-none">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
       </button>
-      <h1 class="font-bold text-lg md:text-xl flex items-center gap-2">
+      <h2 class="font-bold text-lg md:text-xl flex items-center gap-2">
         <div class="app-brand-mark h-8 w-8 bg-white rounded-lg p-1 flex items-center justify-center border border-slate-200 shadow-sm">
-          <img src="Railsaathi-logo.png" alt="Railsaathi logo" class="h-full w-full">
+          <img src="railsaathi-logo.png" alt="Railsaathi logo" class="h-full w-full">
         </div>
         <span class="hidden sm:inline">Railsaathi</span>
         <span class="sm:hidden text-sm uppercase">Railsaathi</span>
-      </h1>
+      </h2>
     </div>
     <div class="flex gap-1 text-xs md:text-sm items-center">
       <button onclick="showSection('admin-section')"   class="px-3 py-2 rounded-full hover:bg-white/20 transition font-medium">Employees</button>
@@ -5041,7 +5224,7 @@ body.show-marketing-landing[data-landing-theme="dark"] {
       
       <!-- Header -->
       <div class="mb-6 sm:mb-8">
-        <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-2">User Management</h1>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-2">User Management</h2>
         <p class="text-sm sm:text-base text-slate-600">View and manage user accounts</p>
       </div>
 
@@ -5499,7 +5682,10 @@ function startMarketingHeadlineTyping() {
   const node = document.getElementById('landing-headline-main');
   if (!node) return;
 
-  const fullText = 'Railsaathi';
+  const fullText = 'Online TA Journal for Railway Employees';
+  node.textContent = fullText;
+  return;
+
   marketingHeadlineTypingToken += 1;
   const token = marketingHeadlineTypingToken;
   clearTimeout(marketingHeadlineTypingTimer);
@@ -11083,9 +11269,9 @@ function buildBlankRows(n) {
 
 function buildBlankRowsOverlay(n, numEntriesBefore) {
   if (n === 0) return '';
-  const rowHeight = 36; // each row is 36px
+  const rowHeight = 44; // each row is 44px
   const blankRowsHeight = n * rowHeight;
-  const headerHeight = 48; // Table header height (accounts for colgroup + 2 header rows with padding, adjusted for new sizes)
+  const headerHeight = 60; // Table header height after enlargement
   const startY = headerHeight + (numEntriesBefore * rowHeight); // Y position where blanks start
   // RS column: 92% to 97%
   // P column: 97% to 100%
@@ -11150,7 +11336,7 @@ function buildSummaryOverlay(summaryGroupArr, grandTotalRs, grandTotalPaise, gra
   const addPaise = hasPaise ? (100 - grandTotalPaise) : 0;
   const roundedTotal = hasPaise ? (grandTotalRs + 1) : grandTotalRs;
 
-  const ff = "font-family:Arial,sans-serif;font-size:10pt;line-height:1.1;";
+  const ff = "font-family:Arial,sans-serif;font-size:11pt;line-height:1.2;";
 
   let summaryLines = '';
   summaryGroupArr.forEach((g, idx) => {
@@ -11244,16 +11430,15 @@ function generateTaPreview() {
   const ROWS_PAGE2 = 14;
   const page2Blanks = Math.max(0, (ROWS_PAGE2 - totalRowCount) - page2Entries.length);
 
-  let restLeaveText = '';
-  if (header.crEntries) {
-    restLeaveText = header.crEntries;
-  }
+  const page2HeaderText = header.crEntries
+    ? header.crEntries.replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]))
+    : '';
 
   const metaFF = "font-family:'Noto Sans Devanagari',Arial,sans-serif;";
   const crLeft = '&nbsp;';
 
   const topBarHTML = `<div style="display:flex;justify-content:space-between;align-items:baseline;width:100%;margin-bottom:1px;${metaFF}font-size:11pt;line-height:1.8;">
-    <span style="font-weight:bold;min-height:12px;">${restLeaveText || '&nbsp;'}</span>
+    <span style="font-weight:bold;min-height:12px;max-width:72%;overflow:hidden;text-overflow:clip;white-space:nowrap;font-size:8pt;line-height:1.2;">${page2HeaderText || '&nbsp;'}</span>
     <span style="font-weight:bold;min-height:12px;text-align:center;flex:1;padding:0 8px;">${crLeft}</span>
     <span style="font-weight:bold;min-height:12px;">${header.pfNumber ? 'PF No. ' + header.pfNumber : '&nbsp;'}</span>
   </div>`;
@@ -11261,12 +11446,12 @@ function generateTaPreview() {
   const titleHTML = `<div style="text-align:center;font-size:12pt;font-weight:bold;margin:1px 0 5px 0;width:100%;${metaFF}letter-spacing:0.04em;">यात्रा भत्ता विवरण / TRAVELLING ALLOWANCE JOURNAL</div>`;
 
   const mFF = "font-family:'Noto Sans Devanagari',Arial,sans-serif;";
-  const rowStyle = `display:flex;align-items:flex-end;width:calc(100% - 1.6cm);margin-left:0.8cm;margin-right:0.8cm;${mFF}font-size:11pt;line-height:1;flex-wrap:nowrap;font-weight:bold;word-spacing:4.5px;`;
-  const lblStyle = `white-space:nowrap;flex-shrink:0;font-weight:bold;word-spacing:4.5px;`;
+  const rowStyle = `display:flex;align-items:flex-end;width:calc(100% - 0.8cm);margin-left:0.8cm;margin-right:0;${mFF}font-size:11.5pt;line-height:1;flex-wrap:nowrap;font-weight:bold;word-spacing:8px;letter-spacing:0.25px;`;
+  const lblStyle = `white-space:nowrap;flex-shrink:0;font-weight:bold;`;
   const val = (text, minW, grow) => {
     const g = grow ? 'flex:1 1 auto;' : `flex:0 0 ${minW};`;
     const border = 'border-bottom:2px dotted #000;';
-    return `<span style="${g}min-width:${minW};${border}padding:0 2px 1px 2px;font-weight:bold;word-spacing:4.5px;text-align:center;display:inline-block;line-height:1.05;vertical-align:bottom;">${text || ''}</span>`;
+    return `<span style="${g}min-width:${minW};${border}padding:0 2px 1px 2px;font-weight:bold;text-align:center;display:inline-block;line-height:1.05;vertical-align:bottom;">${text || ''}</span>`;
   };
   const sp = `<span style="flex-shrink:0;width:2px;"></span>`;
 
@@ -11277,27 +11462,27 @@ function generateTaPreview() {
   const pdfApptDate  = isNandKishor ? '24/07/2014'    : header.apptDate;
 
   const metaRow1 = `<div style="${rowStyle}margin-bottom:4px;">
-    <span style="display:inline-flex;flex-direction:column;align-items:center;flex:0 0 auto;min-width:120px;max-width:180px;">
+    <span style="display:inline-flex;flex-direction:column;align-items:center;flex:0 0 auto;min-width:130px;max-width:190px;">
       <span style="font-size:10pt;font-weight:800;letter-spacing:0.06em;line-height:1;white-space:nowrap;align-self:center;">ENGINEERING</span>
       <span style="width:100%;border-bottom:2px dotted #000;display:block;min-height:3px;margin-top:2px;"></span>
     </span>
-    ${sp}<span style="${lblStyle}">शाखा/Branch</span>${val(header.branch || 'DANAPUR','110px',false)}${sp}
-    <span style="${lblStyle}">डिविजन का सदर मुकाम/Divisional Headquarter at.</span>${val(header.hqStation,'60px',false)}${sp}
+    ${sp}<span style="${lblStyle}">शाखा/Branch</span>${val(header.branch || 'DANAPUR','140px',false)}${sp}
+    <span style="${lblStyle}">डिविजन का सदर मुकाम/Divisional Headquarter at.</span>${val(header.hqStation,'90px',false)}${sp}
     <span style="${lblStyle}">काम का विवरण जिसके लिए श्री/Journal of duties performed</span>
   </div>`;
 
   const metaRow2 = `<div style="${rowStyle}margin-bottom:4px;">
-    <span style="${lblStyle}">by Sri.</span>${val(pdfName,'150px',false)}${sp}
-    <span style="${lblStyle}">for which allowance for</span>${val(header.allowanceFor || '','90px',false)}${sp}
-    <span style="${lblStyle}">में भत्ता मांगे हैं/is claimed</span>${val('T.A','60px',false)}${sp}
+    <span style="${lblStyle}">by Sri.</span>${val(pdfName,'195px',false)}${sp}
+    <span style="${lblStyle}">for which allowance for</span>${val(header.allowanceFor || '','125px',false)}${sp}
+    <span style="${lblStyle}">में भत्ता मांगे हैं/is claimed</span>${val('T.A','90px',false)}${sp}
     <span style="${lblStyle}">पद/Designation</span>${val(header.post,'1px',true)}
   </div>`;
 
   const metaRow3 = `<div style="${rowStyle}margin-bottom:5mm;">
     <span style="${lblStyle}">वेतन/Pay</span>${val(pdfPay,'80px',false)}${sp}
     <span style="${lblStyle}">वेतनमान/Scale of Pay</span>${val(pdfScale,'130px',false)}${sp}
-    <span style="${lblStyle}">नियुक्ति की तारीख/Date of appointment</span>${val(pdfApptDate,'90px',false)}${sp}
-    <span style="${lblStyle}">किस नियम में शासित/Rule by which governed</span>${val('SR','40px',false)}
+    <span style="${lblStyle}">नियुक्ति की तारीख/Date of appointment</span>${val(pdfApptDate,'125px',false)}${sp}
+    <span style="${lblStyle}">किस नियम में शासित/Rule by which governed</span>${val('SR','75px',false)}
   </div>`;
 
 
@@ -11334,22 +11519,22 @@ function generateTaPreview() {
   const dline = (txt, w) =>
     `<span style="display:inline-block;min-width:${w};border-bottom:1.5px dotted #000;font-weight:bold;padding:0 2px 1px 2px;line-height:1.05;vertical-align:bottom;text-align:center;">${txt}</span>`;
 
-  const certHTML = `<div class="ta-certificate" style="width:100%;margin-top:3mm;${certFF}font-size:9.2pt;font-weight:bold;line-height:1.2;word-spacing:6px;text-align:justify;">
+  const certHTML = `<div class="ta-certificate" style="width:100%;margin-top:3mm;${certFF}font-size:10.5pt;font-weight:bold;line-height:1.3;word-spacing:6px;text-align:justify;">
     <div style="word-spacing:6px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;मैं प्रमाणित करता हूँ कि श्री ${dline(pdfName,'200px')} बिल में दिये गये समय के लिए रेलवे के काम के सदर मुकाम स्टेशन से बाहर गये थे उन्हीं ने रेल / सड़क / जहाज / हवाई जहाज</div>
     <div style="word-spacing:6px;">से जो यात्रा की है उसके लिए उन्हें सरकारी स्थानीय निधि से मुक्त टिकट या मुफ्त सवारी दी गयी/नहीं दी गई I hereby certify that the above mentioned ${dline('','120px')} was absent</div>
-    <div style="word-spacing:normal;">on duty from his headquarters' station during the period mentioned in the bill on railway business and that the officer performed the journey by Rail / Air / Sea / Road and was</div>
-    <div style="word-spacing:6px;"> allowed / not allowed free pass or free locomotion at the expenses of Government / local fund of Indian State.</div>
+    <div class="ta-certificate-no-word-spacing ta-certificate-wide-word-spacing ta-certificate-duty-line" style="word-spacing:normal;">on duty from his headquarters' station during the period mentioned in the bill on railway business and that the officer performed the journey by Rail / Air / Sea / Road and was</div>
+    <div class="ta-certificate-no-word-spacing" style="word-spacing:6px;"> allowed / not allowed free pass or free locomotion at the expenses of Government / local fund of Indian State.</div>
     <div style="height:3pt;"></div>
     <div style="word-spacing:6px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ड्यूटी पास पर की गयी यात्राओं तथा ठहरावों के लिए, जिनके इस बिल में यात्रा भत्ते / दैनिक भत्ते के दावे पेश किये गये हैं, किसी अन्य माध्यम से यात्रा भत्ता/दैनिक भत्ता तथा अन्य पारिश्रमिक </div>
-    <div style="word-spacing:6px;">नहीं लिया गया है / No T.A./D.A. or any other remuneration has been drawn from any other source in respect of the journeys performed on Duty Pass and also for the halts</div>
-    <div style="word-spacing:normal;">for which T.A./D.A. has been claimed in this bill.</div>
+    <div class="ta-certificate-no-word-spacing ta-certificate-wide-word-spacing" style="word-spacing:6px;">नहीं लिया गया है / No T.A./D.A. or any other remuneration has been drawn from any other source in respect of the journeys performed on Duty Pass and also for the halts</div>
+    <div class="ta-certificate-no-word-spacing" style="word-spacing:normal;">for which T.A./D.A. has been claimed in this bill.</div>
     <div style="height:3pt;"></div>
-    <div style="word-spacing:5.5px;">प्रति हस्ताक्षरित / Countersigned नियंत्रक अफसर/Controlling Officer कार्यालय के प्रधान/Head of Office यात्रा भत्ता लेनेवाले अफसर के हस्ताक्षर / Signature of Officer claiming T.A</div>
-    <div style="margin-top:5pt;">
-      <div>नोट :– 1. &nbsp;एक रेलवे से दूसरी रेलवे में बदली होने पर जो यात्रा भत्ता मांगा जाय उसे बिल में यह स्पष्ट लिख देना चाहिए कि सरकार की ओर से यात्रा के लिए मुक्त टिकट या मुफ्त सवारी दी गई है या नहीं दी गई है।</div>
-      <div>Note :– 1. &nbsp;On T.A. Bills for transfer from one railway to another, a certificate whether or not a free pass or free locomotion at government expense was allowed should be recorded on the bill.</div>
-      <div>नोट :– 2. &nbsp;यात्रा भत्ता लेनेवाले अफसर यदि हिन्दी या प्रादेशिक भाषा में फार्म भर कर दें तो सम्बन्धित कार्यालय उसका अंग्रेजी में भाषान्तरण कर लें।</div>
-      <div>Note :– 2. &nbsp;Entries made by the claimant in Hindi/Regional language should be transliterated in English by the office concerned.</div>
+    <div style="word-spacing:8px;letter-spacing:0.25px;">प्रति हस्ताक्षरित / Countersigned नियंत्रक अफसर/Controlling Officer कार्यालय के प्रधान/Head of Office यात्रा भत्ता लेनेवाले अफसर के हस्ताक्षर / Signature of Officer claiming T.A</div>
+    <div class="ta-certificate-notes" style="margin-top:5pt;">
+      <div class="ta-certificate-no-word-spacing ta-certificate-wide-word-spacing ta-certificate-note-one">नोट :– 1. &nbsp;एक रेलवे से दूसरी रेलवे में बदली होने पर जो यात्रा भत्ता मांगा जाय उसे बिल में यह स्पष्ट लिख देना चाहिए कि सरकार की ओर से यात्रा के लिए मुक्त टिकट या मुफ्त सवारी दी गई है या नहीं दी गई है।</div>
+      <div class="ta-certificate-no-word-spacing ta-certificate-wide-word-spacing ta-certificate-note-one ta-certificate-note-one-english" style="word-spacing:normal;letter-spacing:normal;">Note :– 1. &nbsp;On T.A. Bills for transfer from one railway to another, a certificate whether or not a free pass or free locomotion at government expense was allowed should be recorded on the bill.</div>
+      <div class="ta-certificate-no-word-spacing ta-certificate-wide-word-spacing">नोट :– 2. &nbsp;यात्रा भत्ता लेनेवाले अफसर यदि हिन्दी या प्रादेशिक भाषा में फार्म भर कर दें तो सम्बन्धित कार्यालय उसका अंग्रेजी में भाषान्तरण कर लें।</div>
+      <div class="ta-certificate-no-word-spacing ta-certificate-wide-word-spacing">Note :– 2. &nbsp;Entries made by the claimant in Hindi/Regional language should be transliterated in English by the office concerned.</div>
     </div>
   </div>`;
 
@@ -11357,11 +11542,11 @@ function generateTaPreview() {
   const sigHTML = ``;
   const notesHTML = ``;
 
-  const fullHTML = `<div style="font-family:'Noto Sans Devanagari',Arial,sans-serif;font-size:7pt;color:#000;background:white;width:100%;">
-    <div class="ta-page-1" style="page-break-after:always;break-after:page;width:100%;padding-bottom:3mm;">
+  const fullHTML = `<div style="font-family:'Noto Sans Devanagari',Arial,sans-serif;font-size:8pt;color:#000;background:white;width:100%;">
+    <div class="ta-page-1" style="page-break-after:always;break-after:page;width:100%;padding-bottom:0;">
       ${topBarHTML}${titleHTML}${metaRow1}${metaRow2}${metaRow3}${page1TableHTML}${ptoHTML}
     </div>
-    <div class="ta-page-2" style="page-break-before:always;break-before:page;width:100%;">
+    <div class="ta-page-2" style="page-break-before:always;break-before:page;width:100%;padding-bottom:0;">
       ${page2SpacerHTML}${page2TableHTML}${certHTML}${sigSpacerHTML}${sigHTML}${notesHTML}
     </div>
   </div>`;
@@ -11487,14 +11672,14 @@ function printTaJournal() {
   const styleEl = document.createElement('style');
   styleEl.id = 'dynamic-print-style';
   styleEl.innerHTML = `@media print {
-    @page { size: A4 landscape; margin: 4mm; }
+    @page { size: A4 landscape; margin: 4mm 4mm 0; }
     #ta-pdf-content { position: static !important; width: 100% !important; padding: 0 !important; box-shadow: none !important; display: block !important; }
     #ta-report-content { display: none !important; }
     #ta-pdf-content .ta-page-1,
     #ta-pdf-content .ta-page-2 { height: auto !important; max-height: none !important; overflow: visible !important; zoom: 0.79; width: 100% !important; }
     #ta-pdf-content .ta-page-1 { padding-bottom: 0 !important; }
-    #ta-pdf-content .ta-j-table td { height: 32px !important; }
-    #ta-pdf-content .ta-certificate { font-size: 8.5pt !important; line-height: 1.1 !important; margin-top: 1mm !important; }
+    #ta-pdf-content .ta-j-table td { height: 44px !important; }
+    #ta-pdf-content .ta-certificate { font-size: 10pt !important; line-height: 1.2 !important; margin-top: 2mm !important; }
     #ta-pdf-content .ta-page-1 { page-break-after: always !important; break-after: page !important; }
     #ta-pdf-content .ta-page-2 { page-break-before: always !important; break-before: page !important; }
   }`;
@@ -11896,7 +12081,7 @@ if (taJournalWrapper) taJournalWrapper.classList.add('hidden');
   <div class="intro-bg-image"></div>
   <div id="intro-brand">
     <div class="glass-overlay">
-      <h1 class="modern-text">INDIAN<BR>RAILWAYS</h1>
+      <h2 class="modern-text">INDIAN<BR>RAILWAYS</h2>
       <div class="line-reveal"></div>
     </div>
   </div>
