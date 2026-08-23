@@ -11596,12 +11596,13 @@ function generateTaPreview() {
 
 function generateTaReport() {
   const keys = Object.keys(taPageEntries).sort();
-  if (keys.length === 0) { customAlert("Please add at least one journey entry first."); return; }
   const entries = keys.map(k => taPageEntries[k]);
   const header = getTaHeaderData();
-  const firstDate = new Date(keys[0] + 'T00:00:00');
+  
+  const mon = document.getElementById("ta-month-sel").value; // e.g. "04"
+  const yr = document.getElementById("ta-year-sel").value; // e.g. "2026"
   const monthNames = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
-  const monthYear = monthNames[firstDate.getMonth()] + '/' + firstDate.getFullYear();
+  const monthYear = monthNames[parseInt(mon, 10) - 1] + '/' + yr;
   const ff = "font-family:Arial,'Noto Sans Devanagari',sans-serif;";
   
   // Combine all entries (journeys, rest, leave) by date
@@ -11609,34 +11610,43 @@ function generateTaReport() {
   
   // Add journey entries
   entries.forEach((e) => {
-    allDateEntries.push({
-      dateRaw: e.dateRaw,
-      dateFormatted: formatTaDate(e.dateRaw),
-      type: 'Work',
-      work: e.obj || '-'
-    });
+    const [y, m] = e.dateRaw.split('-');
+    if (y === yr && m === mon) {
+      allDateEntries.push({
+        dateRaw: e.dateRaw,
+        dateFormatted: formatTaDate(e.dateRaw),
+        type: 'Work',
+        work: e.obj || '-'
+      });
+    }
   });
   
   // Add rest dates
   const restDatesRaw = JSON.parse(document.getElementById('ta-rest-dates-json').value || '[]');
   restDatesRaw.forEach(d => {
-    allDateEntries.push({
-      dateRaw: d,
-      dateFormatted: formatTaDate(d),
-      type: 'Rest',
-      work: 'Rest'
-    });
+    const [y, m] = d.split('-');
+    if (y === yr && m === mon) {
+      allDateEntries.push({
+        dateRaw: d,
+        dateFormatted: formatTaDate(d),
+        type: 'Rest',
+        work: 'Rest'
+      });
+    }
   });
   
   // Add leave dates
   const leaveDatesRaw = JSON.parse(document.getElementById('ta-leave-dates-json').value || '[]');
   leaveDatesRaw.forEach(d => {
-    allDateEntries.push({
-      dateRaw: d,
-      dateFormatted: formatTaDate(d),
-      type: 'Leave',
-      work: 'Leave'
-    });
+    const [y, m] = d.split('-');
+    if (y === yr && m === mon) {
+      allDateEntries.push({
+        dateRaw: d,
+        dateFormatted: formatTaDate(d),
+        type: 'Leave',
+        work: 'Leave'
+      });
+    }
   });
   
   // Add CR entries
@@ -11644,23 +11654,30 @@ function generateTaReport() {
   crDetailsRaw.forEach(dateVal => {
     if (dateVal) {
       const [y, m, d] = dateVal.split('-');
-      const crDateFormatted = `${d}/${m}/${y}`;
-      allDateEntries.push({
-        dateRaw: dateVal,
-        dateFormatted: crDateFormatted,
-        type: 'CR',
-        work: 'CR'
-      });
+      if (y === yr && m === mon) {
+        const crDateFormatted = `${d}/${m}/${y}`;
+        allDateEntries.push({
+          dateRaw: dateVal,
+          dateFormatted: crDateFormatted,
+          type: 'CR',
+          work: 'CR'
+        });
+      }
     }
   });
+  
+  if (allDateEntries.length === 0) {
+    customAlert("No entries found for the selected month.");
+    return;
+  }
   
   // Sort by date
   allDateEntries.sort((a, b) => a.dateRaw.localeCompare(b.dateRaw));
   
   let reportRows = allDateEntries.map((e) => {
     return `<tr>
-      <td style="border:none;padding:2px 12px 2px 0;font-size:8.5pt;font-weight:normal;${ff}text-align:left;vertical-align:top;width:22%;white-space:nowrap;line-height:1;">${e.dateFormatted}</td>
-      <td style="border:none;padding:2px 0 2px 12px;font-size:8.5pt;font-weight:normal;${ff}text-align:left;vertical-align:top;line-height:1;">${e.work || '-'}</td>
+      <td style="border:none;padding:2px 12px 2px 0;font-size:8.5pt;font-weight:bold;${ff}text-align:left;vertical-align:top;width:22%;white-space:nowrap;line-height:1;">${e.dateFormatted}</td>
+      <td style="border:none;padding:2px 0 2px 12px;font-size:8.5pt;font-weight:bold;${ff}text-align:left;vertical-align:top;line-height:1;">${e.work || '-'}</td>
     </tr>`;
   }).join('');
 

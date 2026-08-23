@@ -1819,45 +1819,59 @@ function generateTaPreview() {
 
 function generateTaReport() {
   const keys = Object.keys(taPageEntries).sort();
-  if (!keys.length) {
-    customAlert("Please add at least one journey entry first.");
-    return false;
-  }
-
   const entries = keys.map((key) => taPageEntries[key]);
   const header = getTaHeaderData();
-  const firstDate = new Date(`${keys[0]}T00:00:00`);
+
+  const mon = document.getElementById("ta-month-sel").value; // e.g. "04"
+  const yr = document.getElementById("ta-year-sel").value; // e.g. "2026"
   const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-  const monthYear = `${monthNames[firstDate.getMonth()]}/${firstDate.getFullYear()}`;
+  const monthYear = `${monthNames[parseInt(mon, 10) - 1]}/${yr}`;
   const fontStyle = "font-family:Arial,'Noto Sans Devanagari',sans-serif;";
 
   const reportEntries = [];
   entries.forEach((entry) => {
-    reportEntries.push({
-      dateRaw: entry.dateRaw,
-      dateFormatted: formatTaDate(entry.dateRaw),
-      work: entry.obj || "-"
-    });
+    const [y, m] = entry.dateRaw.split('-');
+    if (y === yr && m === mon) {
+      reportEntries.push({
+        dateRaw: entry.dateRaw,
+        dateFormatted: formatTaDate(entry.dateRaw),
+        work: entry.obj || "-"
+      });
+    }
   });
 
   getJsonArray("ta-rest-dates-json").forEach((dateValue) => {
-    reportEntries.push({ dateRaw: dateValue, dateFormatted: formatTaDate(dateValue), work: "Rest" });
+    const [y, m] = dateValue.split('-');
+    if (y === yr && m === mon) {
+      reportEntries.push({ dateRaw: dateValue, dateFormatted: formatTaDate(dateValue), work: "Rest" });
+    }
   });
 
   getJsonArray("ta-leave-dates-json").forEach((dateValue) => {
-    reportEntries.push({ dateRaw: dateValue, dateFormatted: formatTaDate(dateValue), work: "Leave" });
+    const [y, m] = dateValue.split('-');
+    if (y === yr && m === mon) {
+      reportEntries.push({ dateRaw: dateValue, dateFormatted: formatTaDate(dateValue), work: "Leave" });
+    }
   });
 
   getJsonArray("ta-cr-details-json").forEach((dateValue) => {
-    reportEntries.push({ dateRaw: dateValue, dateFormatted: formatTaDate(dateValue), work: "CR" });
+    const [y, m] = dateValue.split('-');
+    if (y === yr && m === mon) {
+      reportEntries.push({ dateRaw: dateValue, dateFormatted: formatTaDate(dateValue), work: "CR" });
+    }
   });
+
+  if (reportEntries.length === 0) {
+    customAlert("No entries found for the selected month.");
+    return false;
+  }
 
   reportEntries.sort((a, b) => a.dateRaw.localeCompare(b.dateRaw));
 
   const reportRows = reportEntries.map((entry) => `
     <tr>
-      <td style="border:none;padding:2px 12px 2px 0;font-size:8.5pt;font-weight:normal;${fontStyle}text-align:left;vertical-align:top;width:22%;white-space:nowrap;line-height:1;">${escapeHTML(entry.dateFormatted)}</td>
-      <td style="border:none;padding:2px 0 2px 12px;font-size:8.5pt;font-weight:normal;${fontStyle}text-align:left;vertical-align:top;line-height:1;">${escapeHTML(entry.work || "-")}</td>
+      <td style="border:none;padding:2px 12px 2px 0;font-size:8.5pt;font-weight:bold;${fontStyle}text-align:left;vertical-align:top;width:22%;white-space:nowrap;line-height:1;">${escapeHTML(entry.dateFormatted)}</td>
+      <td style="border:none;padding:2px 0 2px 12px;font-size:8.5pt;font-weight:bold;${fontStyle}text-align:left;vertical-align:top;line-height:1;">${escapeHTML(entry.work || "-")}</td>
     </tr>
   `).join("");
 
