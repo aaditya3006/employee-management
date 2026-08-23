@@ -647,9 +647,9 @@ textarea.ta-input {
 
   #ta-pdf-content .ta-page-1,
   #ta-pdf-content .ta-page-2 {
-    height: auto !important;
-    max-height: none !important;
-    overflow: visible !important;
+    height: 297mm !important;
+    max-height: 297mm !important;
+    overflow: hidden !important;
     zoom: 0.79;
     width: 100% !important;
   }
@@ -1692,8 +1692,8 @@ function generateTaPreview() {
 
     const metaFont = "font-family:'Noto Sans Devanagari',Arial,sans-serif;";
     const restLeaveText = header.crEntries ? escapeHTML(header.crEntries) : "&nbsp;";
-    const topBarHTML = `<div style="display:flex;justify-content:space-between;align-items:baseline;width:100%;margin-bottom:1px;${metaFont}font-size:11pt;line-height:1.8;">
-      <span style="font-weight:bold;min-height:12px;font-size:10.5pt;">${restLeaveText}</span>
+    const topBarHTML = `<div style="display:flex;justify-content:space-between;align-items:baseline;width:100%;margin-bottom:1px;${metaFont}font-size:11pt;line-height:1.8;word-spacing:normal !important;">
+      <span style="font-weight:bold;min-height:12px;font-size:10.5pt;word-spacing:normal !important;">${restLeaveText}</span>
       <span style="font-weight:bold;min-height:12px;text-align:center;flex:1;padding:0 8px;">&nbsp;</span>
       <span style="font-weight:bold;min-height:12px;">${header.pfNumber ? `PF No. ${escapeHTML(header.pfNumber)}` : "&nbsp;"}</span>
     </div>`;
@@ -1893,7 +1893,7 @@ function printTaJournal() {
     #ta-pdf-content { position: static !important; width: 100% !important; padding: 0 !important; box-shadow: none !important; display: block !important; }
     #ta-report-content { display: none !important; }
     #ta-pdf-content .ta-page-1,
-    #ta-pdf-content .ta-page-2 { height: auto !important; max-height: none !important; overflow: visible !important; zoom: 0.79; width: 100% !important; }
+    #ta-pdf-content .ta-page-2 { height: 297mm !important; max-height: 297mm !important; overflow: hidden !important; zoom: 0.79; width: 100% !important; }
     #ta-pdf-content .ta-j-table td { height: 32px !important; }
     #ta-pdf-content .ta-page-1 { page-break-after: always !important; break-after: page !important; }
     #ta-pdf-content .ta-page-2 { page-break-before: always !important; break-before: page !important; }
