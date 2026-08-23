@@ -1478,8 +1478,8 @@ function makeSplitCell(topLeft, bottomRight) {
   }
 
   return `<td style="border:1px solid #000;height:36px;padding:0;position:relative;overflow:hidden;">
-    <div style="position:absolute;top:1px;left:3px;font-size:12pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;font-weight:bold;overflow:hidden;">${escapeHTML(topLeft || "")}</div>
-    <div style="position:absolute;bottom:1px;right:3px;font-size:12pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;text-align:right;font-weight:bold;overflow:hidden;">${escapeHTML(bottomRight || "")}</div>
+    <div style="position:absolute;top:1px;left:3px;font-size:13.5pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;font-weight:bold;overflow:hidden;">${escapeHTML(topLeft || "")}</div>
+    <div style="position:absolute;bottom:1px;right:3px;font-size:13.5pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;text-align:right;font-weight:bold;overflow:hidden;">${escapeHTML(bottomRight || "")}</div>
   </td>`;
 }
 
@@ -1492,8 +1492,8 @@ function makeStationCell(fromStn, toStn, colType) {
   }
 
   return `<td style="border:1px solid #000;height:36px;padding:0;position:relative;overflow:hidden;">
-    <div style="position:absolute;top:1px;left:3px;font-size:11pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;text-align:left;font-weight:bold;overflow:hidden;">${escapeHTML(topValue)}</div>
-    <div style="position:absolute;bottom:1px;right:3px;font-size:11pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;text-align:right;font-weight:bold;overflow:hidden;">${escapeHTML(bottomValue)}</div>
+    <div style="position:absolute;top:1px;left:3px;font-size:12.5pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;text-align:left;font-weight:bold;overflow:hidden;">${escapeHTML(topValue)}</div>
+    <div style="position:absolute;bottom:1px;right:3px;font-size:12.5pt;font-family:'Times New Roman',serif;line-height:1;white-space:nowrap;text-align:right;font-weight:bold;overflow:hidden;">${escapeHTML(bottomValue)}</div>
   </td>`;
 }
 
@@ -1515,22 +1515,22 @@ function buildTaDataRows(entries) {
       : "By Road";
     const objectText = escapeHTML(toSentenceCaseWithAcronyms(entry.obj || ""));
     const pctLabel = escapeHTML(displayPctLabel(entry.pct));
-    const modeFontSize = entry.mode === "bytrain" ? "10pt" : "12pt";
-    const pctFontSize = String(entry.pct).includes("+") ? "10pt" : "12pt";
+    const modeFontSize = entry.mode === "bytrain" ? "11.5pt" : "13.5pt";
+    const pctFontSize = String(entry.pct).includes("+") ? "11.5pt" : "13.5pt";
 
     return `<tr>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;">${escapeHTML(entry.monthDate || "")}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:13.5pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;">${escapeHTML(entry.monthDate || "")}</td>
       <td style="border:1px solid #000;padding:1px 2px;font-size:${modeFontSize};font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;white-space:normal;line-height:1.2;">${modeLabel}</td>
       ${makeSplitCell(entry.leftSrc, entry.leftDest)}
       ${makeSplitCell(entry.arrDest, entry.arrSrc)}
       ${makeStationCell(entry.fromStn, entry.toStn, "from")}
       ${makeStationCell(entry.fromStn, entry.toStn, "to")}
-      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;"></td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:13.5pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;"></td>
       <td style="border:1px solid #000;padding:1px 2px;font-size:${pctFontSize};font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;">${pctLabel}</td>
-      <td style="border:1px solid #000;padding:2px 3px;font-size:10pt;font-family:'Times New Roman',serif;height:36px;text-align:left;vertical-align:middle;overflow:hidden;word-wrap:break-word;word-break:break-word;white-space:normal;line-height:1.3;font-weight:bold;">${objectText}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;">${escapeHTML(entry.rate)}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;font-weight:bold;height:36px;text-align:center;vertical-align:middle;overflow:hidden;">${escapeHTML(entry.rs)}</td>
-      <td style="border:1px solid #000;padding:1px 2px;font-size:12pt;font-family:'Times New Roman',serif;font-weight:bold;height:36px;text-align:center;vertical-align:middle;overflow:hidden;">${escapeHTML(String(entry.paise).padStart(2, "0"))}</td>
+      <td style="border:1px solid #000;padding:2px 3px;font-size:11.5pt;font-family:'Times New Roman',serif;height:36px;text-align:left;vertical-align:middle;overflow:hidden;word-wrap:break-word;word-break:break-word;white-space:normal;line-height:1.3;font-weight:bold;">${objectText}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:13.5pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;">${escapeHTML(entry.rate)}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:13.5pt;font-family:'Times New Roman',serif;font-weight:bold;height:36px;text-align:center;vertical-align:middle;overflow:hidden;">${escapeHTML(entry.rs)}</td>
+      <td style="border:1px solid #000;padding:1px 2px;font-size:13.5pt;font-family:'Times New Roman',serif;font-weight:bold;height:36px;text-align:center;vertical-align:middle;overflow:hidden;">${escapeHTML(String(entry.paise).padStart(2, "0"))}</td>
     </tr>`;
   }).join("");
 }
@@ -1693,7 +1693,7 @@ function generateTaPreview() {
     const metaFont = "font-family:'Noto Sans Devanagari',Arial,sans-serif;";
     const restLeaveText = header.crEntries ? escapeHTML(header.crEntries) : "&nbsp;";
     const topBarHTML = `<div style="display:flex;justify-content:space-between;align-items:baseline;width:100%;margin-bottom:1px;${metaFont}font-size:11pt;line-height:1.8;">
-      <span style="font-weight:bold;min-height:12px;">${restLeaveText}</span>
+      <span style="font-weight:bold;min-height:12px;font-size:10.5pt;">${restLeaveText}</span>
       <span style="font-weight:bold;min-height:12px;text-align:center;flex:1;padding:0 8px;">&nbsp;</span>
       <span style="font-weight:bold;min-height:12px;">${header.pfNumber ? `PF No. ${escapeHTML(header.pfNumber)}` : "&nbsp;"}</span>
     </div>`;
@@ -1765,7 +1765,7 @@ function generateTaPreview() {
     const certHTML = `<div class="ta-certificate" style="width:100%;margin-top:3mm;${certificateFont}font-size:9.2pt;font-weight:bold;line-height:1.2;word-spacing:6px;text-align:justify;">
       <div style="word-spacing:6px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;मैं प्रमाणित करता हूँ कि श्री ${dottedLine(pdfName, "200px")} बिल में दिये गये समय के लिए रेलवे के काम के सदर मुकाम स्टेशन से बाहर गये थे उन्हीं ने रेल / सड़क / जहाज / हवाई जहाज</div>
       <div style="word-spacing:6px;">से जो यात्रा की है उसके लिए उन्हें सरकारी स्थानीय निधि से मुक्त टिकट या मुफ्त सवारी दी गयी/नहीं दी गई I hereby certify that the above mentioned ${dottedLine("", "120px")} was absent</div>
-      <div style="word-spacing:normal;">on duty from his headquarters' station during the period mentioned in the bill on railway business and that the officer performed the journey by Rail / Air / Sea / Road and was</div>
+      <div style="word-spacing:7px;">on duty from his headquarters' station during the period mentioned in the bill on railway business and that the officer performed the journey by Rail / Air / Sea / Road and was</div>
       <div style="word-spacing:6px;"> allowed / not allowed free pass or free locomotion at the expenses of Government / local fund of Indian State.</div>
       <div style="height:3pt;"></div>
       <div style="word-spacing:6px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ड्यूटी पास पर की गयी यात्राओं तथा ठहरावों के लिए, जिनके इस बिल में यात्रा भत्ते / दैनिक भत्ते के दावे पेश किये गये हैं, किसी अन्य माध्यम से यात्रा भत्ता/दैनिक भत्ता तथा अन्य पारिश्रमिक </div>
