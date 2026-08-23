@@ -11271,14 +11271,14 @@ function buildBlankRowsOverlay(n, numEntriesBefore) {
   if (n === 0) return '';
   const rowHeight = 44; // each row is 44px
   const blankRowsHeight = n * rowHeight;
-  const headerHeight = 80; // Adjusted from 60 to match actual header height
+  const headerHeight = 84; // Adjusted from 80 to shift more downward
   const startY = headerHeight + (numEntriesBefore * rowHeight); // Y position where blanks start
   // RS column: 92% to 97% -> Shifted left to 90.5% to 95.5%
   // P column: 97% to 100% -> Shifted left to 95.5% to 98.5%
-  // Diagonal lines shifted 5px downward from top
+  // Diagonal lines shifted 8px downward from top
   return `<svg style="position:absolute;top:${startY}px;left:0;width:100%;height:${blankRowsHeight}px;pointer-events:none;overflow:visible;">
-    <line x1="95.5%" y1="5" x2="90.5%" y2="${blankRowsHeight}px" stroke="#000" stroke-width="1"/>
-    <line x1="98.5%" y1="5" x2="95.5%" y2="${blankRowsHeight}px" stroke="#000" stroke-width="1"/>
+    <line x1="95.5%" y1="8" x2="90.5%" y2="${blankRowsHeight}px" stroke="#000" stroke-width="1"/>
+    <line x1="98.5%" y1="8" x2="95.5%" y2="${blankRowsHeight}px" stroke="#000" stroke-width="1"/>
   </svg>`;
 }
 
