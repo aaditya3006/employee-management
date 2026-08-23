@@ -1822,10 +1822,13 @@ function generateTaReport() {
   const entries = keys.map((key) => taPageEntries[key]);
   const header = getTaHeaderData();
 
-  const mon = document.getElementById("ta-month-sel").value; // e.g. "04"
+  const monRaw = document.getElementById("ta-month-sel").value; // e.g. "AUG." or "JAN."
   const yr = document.getElementById("ta-year-sel").value; // e.g. "2026"
-  const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-  const monthYear = `${monthNames[parseInt(mon, 10) - 1]}/${yr}`;
+  // Convert month name abbreviation to zero-padded numeric (e.g. "AUG." -> "08")
+  const monthAbbrs = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+  const monIndex = monthAbbrs.findIndex(abbr => monRaw.toUpperCase().startsWith(abbr));
+  const mon = monIndex >= 0 ? String(monIndex + 1).padStart(2, "0") : monRaw;
+  const monthYear = `${monthAbbrs[monIndex] || monRaw}/${yr}`;
   const fontStyle = "font-family:Arial,'Noto Sans Devanagari',sans-serif;";
 
   const reportEntries = [];
