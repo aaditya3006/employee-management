@@ -11434,11 +11434,23 @@ function generateTaPreview() {
     ? header.crEntries.replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]))
     : '';
 
+  const textLength = page2HeaderText ? page2HeaderText.length : 0;
+  let dynamicFontSize = '10.5pt';
+  if (textLength > 180) {
+    dynamicFontSize = '5.5pt';
+  } else if (textLength > 140) {
+    dynamicFontSize = '6.5pt';
+  } else if (textLength > 100) {
+    dynamicFontSize = '8pt';
+  } else if (textLength > 70) {
+    dynamicFontSize = '9.2pt';
+  }
+
   const metaFF = "font-family:'Noto Sans Devanagari',Arial,sans-serif;";
   const crLeft = '&nbsp;';
 
   const topBarHTML = `<div style="display:flex;justify-content:space-between;align-items:baseline;width:100%;margin-bottom:1px;${metaFF}font-size:11pt;line-height:1.8;word-spacing:normal !important;">
-    <span style="font-weight:bold;min-height:12px;max-width:72%;overflow:hidden;text-overflow:clip;white-space:nowrap;font-size:10.5pt;line-height:1.2;word-spacing:normal !important;">${page2HeaderText || '&nbsp;'}</span>
+    <span style="font-weight:bold;min-height:12px;max-width:82%;overflow:hidden;text-overflow:clip;white-space:nowrap;font-size:${dynamicFontSize};line-height:1.2;word-spacing:normal !important;">${page2HeaderText || '&nbsp;'}</span>
     <span style="font-weight:bold;min-height:12px;text-align:center;flex:1;padding:0 8px;">${crLeft}</span>
     <span style="font-weight:bold;min-height:12px;">${header.pfNumber ? 'PF No. ' + header.pfNumber : '&nbsp;'}</span>
   </div>`;
@@ -11676,7 +11688,7 @@ function printTaJournal() {
     #ta-pdf-content { position: static !important; width: 100% !important; padding: 0 !important; box-shadow: none !important; display: block !important; }
     #ta-report-content { display: none !important; }
     #ta-pdf-content .ta-page-1,
-    #ta-pdf-content .ta-page-2 { height: 297mm !important; max-height: 297mm !important; overflow: hidden !important; zoom: 0.79; width: 100% !important; }
+    #ta-pdf-content .ta-page-2 { height: auto !important; max-height: none !important; overflow: visible !important; zoom: 0.79; width: 100% !important; }
     #ta-pdf-content .ta-page-1 { padding-bottom: 0 !important; }
     #ta-pdf-content .ta-j-table td { height: 44px !important; }
     #ta-pdf-content .ta-certificate { font-size: 10pt !important; line-height: 1.2 !important; margin-top: 2mm !important; }
