@@ -2525,7 +2525,7 @@ body.show-marketing-landing[data-landing-theme="dark"] {
 }
 
 .login-glass-card {
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(2, 6, 23, 0.78);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -2650,6 +2650,22 @@ body.show-marketing-landing[data-landing-theme="dark"] {
   .login-glass-card {
     margin: 0 auto;
     padding: 1.1rem;
+  }
+
+  #login-screen .login-brand-mark {
+    width: 84px !important;
+    height: 84px !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  #login-screen .login-brand-mark img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   .login-download-status {
@@ -3815,6 +3831,9 @@ body.show-marketing-landing[data-landing-theme="dark"] {
     </div>
     <div class="landing-topbar__controls">
       <div class="landing-theme-switch" role="group" aria-label="Landing page theme">
+        <button type="button" class="landing-theme-switch__button" data-theme-option="light" aria-pressed="false" aria-label="Use light theme">
+          <i class="fa-solid fa-sun"></i>
+        </button>
         <button type="button" class="landing-theme-switch__button is-active" data-theme-option="dark" aria-pressed="true" aria-label="Use dark theme">
           <i class="fa-solid fa-moon"></i>
         </button>
