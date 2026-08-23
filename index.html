@@ -1666,34 +1666,6 @@ body.show-marketing-landing[data-landing-theme="dark"] {
   line-height: 1.5;
 }
 
-body.landing-language-prompt-active .landing-language-switch,
-body.landing-language-prompt-active .landing-language-select-wrap {
-  box-shadow:
-    0 0 0 2px color-mix(in srgb, var(--landing-accent) 28%, transparent),
-    0 14px 26px rgba(23, 55, 104, 0.16);
-}
-
-body.landing-language-prompt-active .landing-language-switch::after,
-body.landing-language-prompt-active .landing-language-select-wrap::after {
-  content: "\f002";
-  position: absolute;
-  top: -12px;
-  right: -8px;
-  width: 28px;
-  height: 28px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--landing-accent-strong);
-  color: var(--landing-accent-contrast);
-  font-family: "Font Awesome 6 Free";
-  font-size: 12px;
-  font-weight: 900;
-  box-shadow: 0 14px 24px rgba(23, 55, 104, 0.22);
-  animation: landingLensHover 1.6s ease-in-out infinite;
-}
-
 .landing-topbar__cta {
   background: var(--landing-accent-strong);
   color: var(--landing-accent-contrast);
@@ -3834,7 +3806,7 @@ body.landing-language-prompt-active .landing-language-select-wrap::after {
   <div class="landing-topbar">
     <div class="landing-brand">
       <div class="landing-brand__mark">
-        <img src="Railsaathi-logo.png" alt="Railsaathi logo">
+        <img src="Railsaathi.svg" alt="Railsaathi logo">
       </div>
       <div class="landing-brand__meta">
         <p class="landing-brand__name">Railsaathi</p>
@@ -3843,10 +3815,7 @@ body.landing-language-prompt-active .landing-language-select-wrap::after {
     </div>
     <div class="landing-topbar__controls">
       <div class="landing-theme-switch" role="group" aria-label="Landing page theme">
-        <button type="button" class="landing-theme-switch__button is-active" data-theme-option="light" aria-pressed="true" aria-label="Use light theme">
-          <i class="fa-solid fa-sun"></i>
-        </button>
-        <button type="button" class="landing-theme-switch__button" data-theme-option="dark" aria-pressed="false" aria-label="Use dark theme">
+        <button type="button" class="landing-theme-switch__button is-active" data-theme-option="dark" aria-pressed="true" aria-label="Use dark theme">
           <i class="fa-solid fa-moon"></i>
         </button>
       </div>
@@ -3861,13 +3830,6 @@ body.landing-language-prompt-active .landing-language-select-wrap::after {
           <option value="hi">हिं</option>
           <option value="mr">मर</option>
         </select>
-      </div>
-      <div class="landing-language-guide" id="landing-language-guide" hidden>
-        <span class="landing-language-guide__lens"><i class="fa-solid fa-magnifying-glass"></i></span>
-        <div class="landing-language-guide__content">
-          <strong>Choose your language</strong>
-          <span>Use the language button first, then Railsaathi will continue in that language.</span>
-        </div>
       </div>
       <a href="#login" class="landing-topbar__cta" id="landing-topbar-login" onclick="return window.openMarketingLogin(event)">
         Login
@@ -4038,7 +4000,7 @@ body.landing-language-prompt-active .landing-language-select-wrap::after {
   <div class="login-glass-card">
     <div class="text-center mb-2">
       <div class="login-brand-mark" style="width:84px;height:84px;margin:0 auto 12px;border-radius:22px;border:2px solid rgba(255,255,255,0.18);overflow:hidden;display:flex;align-items:center;justify-content:center;background:#ffffff;padding:10px;box-shadow:0 18px 36px rgba(2,6,23,0.22);">
-        <img src="Railsaathi-logo.png" alt="Railsaathi logo">
+        <img src="Railsaathi.svg" alt="Railsaathi logo">
       </div>
       <h1 class="text-xl font-bold text-white tracking-tight" style="font-family:'Inter',sans-serif;">Railsaathi</h1>
       <p style="margin:6px 0 0;color:rgba(255,255,255,0.82);font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;font-family:'Inter',sans-serif;">Empowering railway employee</p>
@@ -4333,7 +4295,7 @@ body.landing-language-prompt-active .landing-language-select-wrap::after {
       </button>
       <h1 class="font-bold text-lg md:text-xl flex items-center gap-2">
         <div class="app-brand-mark h-8 w-8 bg-white rounded-lg p-1 flex items-center justify-center border border-slate-200 shadow-sm">
-          <img src="Railsaathi-logo.png" alt="Railsaathi logo" class="h-full w-full">
+          <img src="Railsaathi.svg" alt="Railsaathi logo" class="h-full w-full">
         </div>
         <span class="hidden sm:inline">Railsaathi</span>
         <span class="sm:hidden text-sm uppercase">Railsaathi</span>
@@ -4729,7 +4691,7 @@ body.landing-language-prompt-active .landing-language-select-wrap::after {
 
         <div class="flex gap-2 mt-2">
           <button onclick="saveTaJournalToDB()" class="flex-1 bg-green-600 text-white py-2 rounded-xl font-bold hover:bg-green-700 shadow-lg transition-all active:scale-95">💾 Save to DB</button>
-          <button onclick="generateTaPreview()" class="flex-1 bg-amber-600 text-white py-2 rounded-xl font-bold hover:bg-amber-700 shadow-lg transition-all active:scale-95">👁️ Preview &amp; Print</button>
+          <button onclick="generateTaPreview(); printCurrentTaView()" class="flex-1 bg-amber-600 text-white py-2 rounded-xl font-bold hover:bg-amber-700 shadow-lg transition-all active:scale-95">Print</button>
         </div>
       </div>
     </div>
@@ -5041,7 +5003,6 @@ body.landing-language-prompt-active .landing-language-select-wrap::after {
     </div>
     <div class="preview-toolbar__actions">
       <button onclick="showSection('form-section'); handleMenuSelect('tajournal');" class="preview-btn preview-btn--ghost">Back</button>
-      <button onclick="switchToTaJournal()" id="btn-ta-journal-view-toolbar" class="preview-btn preview-btn--mode is-active">TA Journal</button>
       <button onclick="switchToTaReport()" id="btn-ta-report-view-toolbar" class="preview-btn preview-btn--mode">Generate Report</button>
       <button onclick="printCurrentTaView()" id="btn-ta-print-toolbar" class="preview-btn preview-btn--success">Print</button>
     </div>
@@ -5050,7 +5011,6 @@ body.landing-language-prompt-active .landing-language-select-wrap::after {
   <div id="ta-report-content" style="width:210mm;background:white;box-shadow:0 6px 40px rgba(0,0,0,0.28);padding:10mm;display:none;"></div>
   <div class="no-print" hidden style="display:none !important;">
     <button onclick="showSection('form-section'); handleMenuSelect('tajournal');" style="background:white;border:2px solid #d1d5db;padding:13px 30px;border-radius:50px;font-weight:bold;font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;">← Back</button>
-    <button onclick="switchToTaJournal()" id="btn-ta-journal-view" style="background:#d97706;color:white;padding:13px 24px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(217,119,6,0.35);cursor:pointer;">TA Journal</button>
     <button onclick="switchToTaReport()" id="btn-ta-report-view" style="background:#7c3aed;color:white;padding:13px 24px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(124,58,237,0.35);cursor:pointer;">Generate Report</button>
     <button onclick="printCurrentTaView()" id="btn-ta-print" style="background:#059669;color:white;padding:13px 24px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(5,150,105,0.35);cursor:pointer;">🖨️ Print</button>
   </div>
@@ -5974,15 +5934,8 @@ function initMarketingLanding() {
     console.warn('Unable to read saved landing language:', error);
   }
 
-  let savedLandingTheme = 'light';
-  try {
-    savedLandingTheme = localStorage.getItem('railsaathiLandingTheme') || 'light';
-  } catch (error) {
-    console.warn('Unable to read saved landing theme:', error);
-  }
-
   marketingLandingRequiresLanguageChoice = !hasSavedLandingLanguage;
-  applyMarketingLandingTheme(savedLandingTheme);
+  applyMarketingLandingTheme('dark');
   applyMarketingLandingLanguage(savedLandingLanguage, { persist: hasSavedLandingLanguage });
   startLandingPhoneCycle();
 
@@ -11289,12 +11242,12 @@ function generateTaPreview() {
   const titleHTML = `<div style="text-align:center;font-size:12pt;font-weight:bold;margin:1px 0 5px 0;width:100%;${metaFF}letter-spacing:0.04em;">यात्रा भत्ता विवरण / TRAVELLING ALLOWANCE JOURNAL</div>`;
 
   const mFF = "font-family:'Noto Sans Devanagari',Arial,sans-serif;";
-  const rowStyle = `display:flex;align-items:flex-end;width:calc(100% - 1.6cm);margin-left:0.8cm;margin-right:0.8cm;${mFF}font-size:11pt;line-height:1;flex-wrap:nowrap;font-weight:bold;word-spacing:3px;`;
-  const lblStyle = `white-space:nowrap;flex-shrink:0;font-weight:bold;word-spacing:3px;`;
+  const rowStyle = `display:flex;align-items:flex-end;width:calc(100% - 1.6cm);margin-left:0.8cm;margin-right:0.8cm;${mFF}font-size:11pt;line-height:1;flex-wrap:nowrap;font-weight:bold;word-spacing:4.5px;`;
+  const lblStyle = `white-space:nowrap;flex-shrink:0;font-weight:bold;word-spacing:4.5px;`;
   const val = (text, minW, grow) => {
     const g = grow ? 'flex:1 1 auto;' : `flex:0 0 ${minW};`;
     const border = 'border-bottom:2px dotted #000;';
-    return `<span style="${g}min-width:${minW};${border}padding:0 2px 1px 2px;font-weight:bold;word-spacing:3px;text-align:center;display:inline-block;line-height:1.05;vertical-align:bottom;">${text || ''}</span>`;
+    return `<span style="${g}min-width:${minW};${border}padding:0 2px 1px 2px;font-weight:bold;word-spacing:4.5px;text-align:center;display:inline-block;line-height:1.05;vertical-align:bottom;">${text || ''}</span>`;
   };
   const sp = `<span style="flex-shrink:0;width:2px;"></span>`;
 
@@ -11362,14 +11315,14 @@ function generateTaPreview() {
   const dline = (txt, w) =>
     `<span style="display:inline-block;min-width:${w};border-bottom:1.5px dotted #000;font-weight:bold;padding:0 2px 1px 2px;line-height:1.05;vertical-align:bottom;text-align:center;">${txt}</span>`;
 
-  const certHTML = `<div class="ta-certificate" style="width:100%;margin-top:3mm;${certFF}font-size:9.2pt;font-weight:bold;line-height:1.2;word-spacing:4.5px;text-align:justify;">
-    <div style="word-spacing:4.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;मैं प्रमाणित करता हूँ कि श्री ${dline(pdfName,'200px')} बिल में दिये गये समय के लिए रेलवे के काम के सदर मुकाम स्टेशन से बाहर गये थे उन्हीं ने रेल / सड़क / जहाज / हवाई जहाज</div>
-    <div style="word-spacing:5px;">से जो यात्रा की है उसके लिए उन्हें सरकारी स्थानीय निधि से मुक्त टिकट या मुफ्त सवारी दी गयी/नहीं दी गई I hereby certify that the above mentioned ${dline('','120px')} was absent</div>
+  const certHTML = `<div class="ta-certificate" style="width:100%;margin-top:3mm;${certFF}font-size:9.2pt;font-weight:bold;line-height:1.2;word-spacing:6px;text-align:justify;">
+    <div style="word-spacing:6px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;मैं प्रमाणित करता हूँ कि श्री ${dline(pdfName,'200px')} बिल में दिये गये समय के लिए रेलवे के काम के सदर मुकाम स्टेशन से बाहर गये थे उन्हीं ने रेल / सड़क / जहाज / हवाई जहाज</div>
+    <div style="word-spacing:6px;">से जो यात्रा की है उसके लिए उन्हें सरकारी स्थानीय निधि से मुक्त टिकट या मुफ्त सवारी दी गयी/नहीं दी गई I hereby certify that the above mentioned ${dline('','120px')} was absent</div>
     <div style="word-spacing:normal;">on duty from his headquarters' station during the period mentioned in the bill on railway business and that the officer performed the journey by Rail / Air / Sea / Road and was</div>
-    <div style="word-spacing:4.5px;"> allowed / not allowed free pass or free locomotion at the expenses of Government / local fund of Indian State.</div>
+    <div style="word-spacing:6px;"> allowed / not allowed free pass or free locomotion at the expenses of Government / local fund of Indian State.</div>
     <div style="height:3pt;"></div>
-    <div style="word-spacing:5.5px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ड्यूटी पास पर की गयी यात्राओं तथा ठहरावों के लिए, जिनके इस बिल में यात्रा भत्ते / दैनिक भत्ते के दावे पेश किये गये हैं, किसी अन्य माध्यम से यात्रा भत्ता/दैनिक भत्ता तथा अन्य पारिश्रमिक </div>
-    <div style="word-spacing:4.5px;">नहीं लिया गया है / No T.A./D.A. or any other remuneration has been drawn from any other source in respect of the journeys performed on Duty Pass and also for the halts</div>
+    <div style="word-spacing:6px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ड्यूटी पास पर की गयी यात्राओं तथा ठहरावों के लिए, जिनके इस बिल में यात्रा भत्ते / दैनिक भत्ते के दावे पेश किये गये हैं, किसी अन्य माध्यम से यात्रा भत्ता/दैनिक भत्ता तथा अन्य पारिश्रमिक </div>
+    <div style="word-spacing:6px;">नहीं लिया गया है / No T.A./D.A. or any other remuneration has been drawn from any other source in respect of the journeys performed on Duty Pass and also for the halts</div>
     <div style="word-spacing:normal;">for which T.A./D.A. has been claimed in this bill.</div>
     <div style="height:3pt;"></div>
     <div style="word-spacing:5.5px;">प्रति हस्ताक्षरित / Countersigned नियंत्रक अफसर/Controlling Officer कार्यालय के प्रधान/Head of Office यात्रा भत्ता लेनेवाले अफसर के हस्ताक्षर / Signature of Officer claiming T.A</div>
@@ -11519,9 +11472,9 @@ function printTaJournal() {
     #ta-pdf-content { position: static !important; width: 100% !important; padding: 0 !important; box-shadow: none !important; display: block !important; }
     #ta-report-content { display: none !important; }
     #ta-pdf-content .ta-page-1,
-    #ta-pdf-content .ta-page-2 { height: auto !important; max-height: none !important; overflow: visible !important; zoom: 0.83; width: 100% !important; }
+    #ta-pdf-content .ta-page-2 { height: auto !important; max-height: none !important; overflow: visible !important; zoom: 0.79; width: 100% !important; }
     #ta-pdf-content .ta-page-1 { padding-bottom: 0 !important; }
-    #ta-pdf-content .ta-j-table td { height: 30px !important; }
+    #ta-pdf-content .ta-j-table td { height: 32px !important; }
     #ta-pdf-content .ta-certificate { font-size: 8.5pt !important; line-height: 1.1 !important; margin-top: 1mm !important; }
     #ta-pdf-content .ta-page-1 { page-break-after: always !important; break-after: page !important; }
     #ta-pdf-content .ta-page-2 { page-break-before: always !important; break-before: page !important; }
