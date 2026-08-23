@@ -1546,13 +1546,14 @@ function buildBlankRows(count) {
 
 function buildBlankRowsOverlay(blankCount, entriesBefore) {
   if (!blankCount) return "";
-  const rowHeight = 36;
+  const rowHeight = 32; // Matches print height (32px)
   const overlayHeight = blankCount * rowHeight;
-  const headerHeight = 48;
+  const headerHeight = 64; // Matches 2-row table header height in print (64px)
   const startY = headerHeight + (entriesBefore * rowHeight);
+  // Shifted left and 5px downward
   return `<svg style="position:absolute;top:${startY}px;left:0;width:100%;height:${overlayHeight}px;pointer-events:none;overflow:visible;">
-    <line x1="97%" y1="0" x2="92%" y2="${overlayHeight}px" stroke="#000" stroke-width="1"></line>
-    <line x1="100%" y1="0" x2="97%" y2="${overlayHeight}px" stroke="#000" stroke-width="1"></line>
+    <line x1="95.5%" y1="5" x2="90.5%" y2="${overlayHeight}px" stroke="#000" stroke-width="1"></line>
+    <line x1="98.5%" y1="5" x2="95.5%" y2="${overlayHeight}px" stroke="#000" stroke-width="1"></line>
   </svg>`;
 }
 
