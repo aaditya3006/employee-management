@@ -605,6 +605,8 @@ textarea.ta-input {
 }
 
 @media print {
+  @page { size: A4 landscape; margin: 0; }
+
   body {
     background: #fff !important;
     margin: 0 !important;
@@ -634,6 +636,23 @@ textarea.ta-input {
   * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+  }
+
+  #ta-pdf-content .ta-page-1,
+  #ta-pdf-content .ta-page-2 {
+    height: 210mm !important;
+    max-height: 210mm !important;
+    overflow: hidden !important;
+    zoom: 0.85;
+    width: 117.647% !important;
+  }
+
+  #ta-pdf-content .ta-page-1 {
+    padding-bottom: 0 !important;
+  }
+
+  #ta-pdf-content .ta-j-table td {
+    height: 32px !important;
   }
 }
 </style>
@@ -1857,9 +1876,12 @@ function printTaJournal() {
   const styleEl = document.createElement("style");
   styleEl.id = "dynamic-print-style";
   styleEl.innerHTML = `@media print {
-    @page { size: A4 landscape; margin: 5mm 6mm; }
+    @page { size: A4 landscape; margin: 0; }
     #ta-pdf-content { position: static !important; width: 100% !important; padding: 0 !important; box-shadow: none !important; display: block !important; }
     #ta-report-content { display: none !important; }
+    #ta-pdf-content .ta-page-1,
+    #ta-pdf-content .ta-page-2 { height: 210mm !important; max-height: 210mm !important; overflow: hidden !important; zoom: 0.85; width: 117.647% !important; }
+    #ta-pdf-content .ta-j-table td { height: 32px !important; }
     #ta-pdf-content .ta-page-1 { page-break-after: always !important; break-after: page !important; }
     #ta-pdf-content .ta-page-2 { page-break-before: always !important; break-before: page !important; }
   }`;

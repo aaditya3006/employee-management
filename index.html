@@ -3387,7 +3387,7 @@ body.landing-language-prompt-active .landing-language-select-wrap::after {
 }
 
 @media print {
-  @page { size: A4; margin: 0; }
+  @page { size: A4 landscape; margin: 0; }
   #pdf-content, #pdf-content *,
   #att-pdf-content, #att-pdf-content *,
   #ta-pdf-content, #ta-pdf-content *,
@@ -3418,7 +3418,7 @@ body.landing-language-prompt-active .landing-language-select-wrap::after {
   #ta-pdf-content {
     position: static !important;
     width: 100% !important;
-    padding: 6mm 7mm !important;
+    padding: 0 !important;
     margin: 0 !important;
     box-shadow: none !important;
     transform: none !important;
@@ -11511,9 +11511,13 @@ function printTaJournal() {
   const styleEl = document.createElement('style');
   styleEl.id = 'dynamic-print-style';
   styleEl.innerHTML = `@media print {
-    @page { size: A4 landscape; margin: 5mm 6mm; }
+    @page { size: A4 landscape; margin: 0; }
     #ta-pdf-content { position: static !important; width: 100% !important; padding: 0 !important; box-shadow: none !important; display: block !important; }
     #ta-report-content { display: none !important; }
+    #ta-pdf-content .ta-page-1,
+    #ta-pdf-content .ta-page-2 { height: 210mm !important; max-height: 210mm !important; overflow: hidden !important; zoom: 0.85; width: 117.647% !important; }
+    #ta-pdf-content .ta-page-1 { padding-bottom: 0 !important; }
+    #ta-pdf-content .ta-j-table td { height: 32px !important; }
     #ta-pdf-content .ta-page-1 { page-break-after: always !important; break-after: page !important; }
     #ta-pdf-content .ta-page-2 { page-break-before: always !important; break-before: page !important; }
   }`;
