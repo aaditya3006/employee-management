@@ -1819,95 +1819,63 @@ function generateTaPreview() {
 
 function generateTaReport() {
   const keys = Object.keys(taPageEntries).sort();
+  if (!keys.length) {
+    customAlert("Please add at least one journey entry first.");
+    return false;
+  }
+
   const entries = keys.map((key) => taPageEntries[key]);
   const header = getTaHeaderData();
-
-  const monRaw = document.getElementById("ta-month-sel").value; // e.g. "AUG." or "JAN."
-  const yr = document.getElementById("ta-year-sel").value; // e.g. "2026"
-  // Convert month name abbreviation to zero-padded numeric (e.g. "AUG." -> "08")
-  const monthAbbrs = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-  const monIndex = monthAbbrs.findIndex(abbr => monRaw.toUpperCase().startsWith(abbr));
-  const mon = monIndex >= 0 ? String(monIndex + 1).padStart(2, "0") : monRaw;
-  const monthYear = `${monthAbbrs[monIndex] || monRaw}/${yr}`;
+  const firstDate = new Date(`${keys[0]}T00:00:00`);
+  const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+  const monthYear = `${monthNames[firstDate.getMonth()]}/${firstDate.getFullYear()}`;
   const fontStyle = "font-family:Arial,'Noto Sans Devanagari',sans-serif;";
 
   const reportEntries = [];
   entries.forEach((entry) => {
-    const [y, m] = entry.dateRaw.split('-');
-    if (y === yr && m === mon) {
-      reportEntries.push({
-        dateRaw: entry.dateRaw,
-        dateFormatted: formatTaDate(entry.dateRaw),
-        work: entry.obj || "-"
-      });
-    }
+    reportEntries.push({
+      dateRaw: entry.dateRaw,
+      dateFormatted: formatTaDate(entry.dateRaw),
+      work: entry.obj || "-"
+    });
   });
 
   getJsonArray("ta-rest-dates-json").forEach((dateValue) => {
-    const [y, m] = dateValue.split('-');
-    if (y === yr && m === mon) {
-      reportEntries.push({ dateRaw: dateValue, dateFormatted: formatTaDate(dateValue), work: "Rest" });
-    }
+    reportEntries.push({ dateRaw: dateValue, dateFormatted: formatTaDate(dateValue), work: "Rest" });
   });
 
   getJsonArray("ta-leave-dates-json").forEach((dateValue) => {
-    const [y, m] = dateValue.split('-');
-    if (y === yr && m === mon) {
-      reportEntries.push({ dateRaw: dateValue, dateFormatted: formatTaDate(dateValue), work: "Leave" });
-    }
+    reportEntries.push({ dateRaw: dateValue, dateFormatted: formatTaDate(dateValue), work: "Leave" });
   });
 
   getJsonArray("ta-cr-details-json").forEach((dateValue) => {
-    const [y, m] = dateValue.split('-');
-    if (y === yr && m === mon) {
-      reportEntries.push({ dateRaw: dateValue, dateFormatted: formatTaDate(dateValue), work: "CR" });
-    }
+    reportEntries.push({ dateRaw: dateValue, dateFormatted: formatTaDate(dateValue), work: "CR" });
   });
-
-  if (reportEntries.length === 0) {
-    customAlert("No entries found for the selected month.");
-    return false;
-  }
 
   reportEntries.sort((a, b) => a.dateRaw.localeCompare(b.dateRaw));
 
-  var reportRows = reportEntries.map(function(entry) {
-    var dateCell = '<td class="ta-report-cell" style="border:none;padding:1px 10px 1px 0;font-size:8.5pt;font-weight:bold;font-family:Arial,sans-serif;text-align:left;vertical-align:top;width:22%;white-space:nowrap;line-height:1.3;">' + escapeHTML(entry.dateFormatted) + '</td>';
-    var workCell = '<td class="ta-report-cell" style="border:none;padding:1px 0 1px 10px;font-size:8.5pt;font-weight:bold;font-family:Arial,sans-serif;text-align:left;vertical-align:top;line-height:1.3;">' + escapeHTML(entry.work || '-') + '</td>';
-    return '<tr>' + dateCell + workCell + '</tr>';
-  }).join('');
+  const reportRows = reportEntries.map((entry) => `
+    <tr>
+      <td style="border:none;padding:2px 12px 2px 0;font-size:8.5pt;font-weight:normal;${fontStyle}text-align:left;vertical-align:top;width:22%;white-space:nowrap;line-height:1;">${escapeHTML(entry.dateFormatted)}</td>
+      <td style="border:none;padding:2px 0 2px 12px;font-size:8.5pt;font-weight:normal;${fontStyle}text-align:left;vertical-align:top;line-height:1;">${escapeHTML(entry.work || "-")}</td>
+    </tr>
+  `).join("");
 
-  var reportHTML = '<div id="ta-report-wrapper" style="background:white;width:100%;font-family:Arial,sans-serif;color:#000;border:1.5px solid #000;padding:10px 14px 14px 14px;">'
-    + '<div class="ta-report-title" style="text-align:center;font-size:11pt;font-weight:bold;text-decoration:underline;letter-spacing:0.06em;margin-bottom:6px;color:#000;">T.A MOVEMENT (' + escapeHTML(monthYear) + ')</div>'
-    + '<div class="ta-report-header-line" style="font-size:8.5pt;line-height:1.4;color:#000;"><b>Name</b> &nbsp;:&nbsp; ' + escapeHTML(header.name || '') + '</div>'
-    + '<div class="ta-report-header-line" style="font-size:8.5pt;line-height:1.4;color:#000;"><b>Designation</b> &nbsp;:&nbsp; ' + escapeHTML(header.post || header.designation || '') + '</div>'
-    + '<div class="ta-report-header-line" style="font-size:8.5pt;line-height:1.4;color:#000;"><b>Station</b> &nbsp;:&nbsp; ' + escapeHTML(header.reportUnit || '') + '</div>'
-    + '<div class="ta-report-header-line" style="font-size:8.5pt;line-height:1.4;color:#000;"><b>PF Number</b> &nbsp;:&nbsp; ' + escapeHTML(header.pfNumber || '') + '</div>'
-    + '<div class="ta-report-header-line" style="font-size:8.5pt;line-height:1.4;color:#000;margin-bottom:5px;"><b>Month</b> &nbsp;:&nbsp; ' + escapeHTML(monthYear) + '</div>'
-    + '<div style="border-top:1.5px solid #000;width:100%;margin:3px 0 5px 0;"></div>'
-    + '<table style="width:100%;border-collapse:collapse;border:none;line-height:1;"><tbody>' + reportRows + '</tbody></table>'
-    + '</div>';
+  const reportHTML = `<div style="background:white;width:100%;${fontStyle}color:#000;border:2px solid #000;padding:12px 16px 16px 16px;">
+    <div style="text-align:center;font-size:11pt;font-weight:bold;text-decoration:underline;text-underline-offset:2px;letter-spacing:0.08em;margin-bottom:8px;${fontStyle}color:#000;">T.A MOVEMENT (${escapeHTML(monthYear)})</div>
+    <div style="font-size:8.5pt;${fontStyle}line-height:1.4;color:#000;"><span style="font-weight:bold;">Name</span> : ${escapeHTML(header.name || "")}</div>
+    <div style="font-size:8.5pt;${fontStyle}line-height:1.4;color:#000;"><span style="font-weight:bold;">Designation</span> : ${escapeHTML(header.post || header.designation || "")}</div>
+    <div style="font-size:8.5pt;${fontStyle}line-height:1.4;color:#000;"><span style="font-weight:bold;">Station</span> : ${escapeHTML(header.reportUnit || "")}</div>
+    <div style="font-size:8.5pt;${fontStyle}line-height:1.4;color:#000;"><span style="font-weight:bold;">PF Number</span> : ${escapeHTML(header.pfNumber || "")}</div>
+    <div style="font-size:8.5pt;${fontStyle}line-height:1.4;color:#000;margin-bottom:6px;"><span style="font-weight:bold;">Month</span> : ${escapeHTML(monthYear)}</div>
+    <div style="border-top:2px dashed #000;width:100%;margin:4px 0 6px 0;"></div>
+    <table style="width:100%;border-collapse:collapse;border:none;line-height:1;">
+      <tbody>${reportRows}</tbody>
+    </table>
+  </div>`;
 
   document.getElementById("ta-report-content").innerHTML = reportHTML;
-  setTimeout(fitReportToPage, 60);
   return true;
-}
-
-function fitReportToPage() {
-  var wrapper = document.getElementById('ta-report-wrapper');
-  if (!wrapper) return;
-  var MAX_HEIGHT = 970;
-  var fontSize = 8.5;
-  var MIN_FONT = 5.0;
-  var step = 0.3;
-  while (wrapper.scrollHeight > MAX_HEIGHT && fontSize > MIN_FONT) {
-    fontSize = Math.max(MIN_FONT, fontSize - step);
-    var px = fontSize.toFixed(1) + 'pt';
-    var titleSize = (fontSize + 1.5).toFixed(1) + 'pt';
-    wrapper.querySelectorAll('.ta-report-title').forEach(function(el) { el.style.fontSize = titleSize; });
-    wrapper.querySelectorAll('.ta-report-header-line').forEach(function(el) { el.style.fontSize = px; });
-    wrapper.querySelectorAll('.ta-report-cell').forEach(function(el) { el.style.fontSize = px; });
-  }
 }
 
 function switchToTaJournal() {
