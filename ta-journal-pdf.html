@@ -514,6 +514,30 @@ textarea.ta-input {
   word-break: break-word;
 }
 
+.ta-obj-cell {
+  border: 1px solid #000;
+  padding: 0 !important;
+  text-align: left;
+  vertical-align: middle;
+  overflow: hidden !important;
+  box-sizing: border-box;
+}
+
+.ta-obj-container {
+  padding: 2px 3px;
+  font-size: 8.5pt;
+  font-family: 'Times New Roman', serif;
+  font-weight: bold;
+  line-height: 1.15 !important;
+  overflow: hidden !important;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  box-sizing: border-box;
+  height: 36px !important;
+  max-height: 36px !important;
+}
+
 .preview-actions {
   position: fixed;
   left: 0;
@@ -554,9 +578,16 @@ textarea.ta-input {
 
 @media (max-width: 900px) {
   .header-grid,
-  .form-grid,
   .entry-grid {
     grid-template-columns: 1fr;
+  }
+  .form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ta-field-name,
+  .ta-field-allowance,
+  .ta-field-station {
+    grid-column: span 2;
   }
 }
 
@@ -662,6 +693,18 @@ textarea.ta-input {
     height: 32px !important;
   }
 
+  #ta-pdf-content .ta-j-table td.ta-obj-cell {
+    height: 32px !important;
+    padding: 0 !important;
+  }
+
+  #ta-pdf-content .ta-j-table .ta-obj-container {
+    height: 32px !important;
+    max-height: 32px !important;
+    font-size: 8.5pt !important;
+    line-height: 1.1 !important;
+  }
+
   #ta-pdf-content .ta-certificate {
     font-size: 8.5pt !important;
     line-height: 1.1 !important;
@@ -673,8 +716,10 @@ textarea.ta-input {
 <body>
   <div id="form-section" class="app-shell no-print">
     <div class="card">
-      <h1>RGD - TIA TA Journal PDF</h1>
-      <p>Standalone combined HTML, CSS, and JS version of the TA journal with its journal PDF and TA movement report.</p>
+      <h2 style="display:flex; flex-direction:column; justify-content:center; line-height:1; margin:0 0 16px;">
+        <span style="font-size:20px; font-weight:bold; color:#1e3a8a;">Railsaathi</span>
+        <span style="font-size:10px; font-weight:bold; color:#3b82f6; text-transform:uppercase; letter-spacing:1px; margin-top:4px;">TA Journal</span>
+      </h2>
 
       <div class="ta-section-card">
         <div class="ta-section-title">Header Details</div>
@@ -734,7 +779,7 @@ textarea.ta-input {
             <input type="text" id="ta-hq-input" value="NES" class="ta-input">
           </div>
 
-          <div class="field">
+          <div class="field ta-field-name">
             <label for="ta-name-select" class="ta-label">Name</label>
             <div class="inline-row">
               <select id="ta-name-select" onchange="updateTaName()" class="ta-input flex-1">
@@ -745,7 +790,7 @@ textarea.ta-input {
             </div>
           </div>
 
-          <div class="field">
+          <div class="field ta-field-allowance">
             <label class="ta-label">Allowance For</label>
             <div class="inline-row">
               <select id="ta-month-sel" class="ta-input flex-1">
@@ -823,7 +868,7 @@ textarea.ta-input {
             <div class="readonly-pill">SR</div>
           </div>
 
-          <div class="field">
+          <div class="field ta-field-station">
             <label for="ta-report-unit" class="ta-label">Station (for T.A Movement)</label>
             <input type="text" id="ta-report-unit" placeholder="e.g. TM-I / P.Way" class="ta-input">
           </div>
@@ -852,42 +897,48 @@ textarea.ta-input {
             <input type="text" id="ta-train-no-single" placeholder="Train Number" class="ta-input hidden" style="margin-top:8px;">
           </div>
 
-          <div class="field">
-            <label for="ta-left-src" class="ta-label">Time Left from Source Station</label>
-            <input type="text" id="ta-left-src" placeholder="HH:MM" class="ta-input" maxlength="5">
+          <!-- Row 1: Time Left from Source & Time Arrived at Destination -->
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; grid-column: span 2;">
+            <div class="field">
+              <label for="ta-left-src" class="ta-label" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;" title="Time Left from Source Station">Time Left from Source Station</label>
+              <input type="text" id="ta-left-src" placeholder="HH:MM" class="ta-input" maxlength="5">
+            </div>
+            <div class="field">
+              <label for="ta-arr-dest" class="ta-label" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;" title="Time Arrived at Destination">Time Arrived at Destination</label>
+              <input type="text" id="ta-arr-dest" placeholder="HH:MM" class="ta-input" maxlength="5">
+            </div>
           </div>
 
-          <div class="field">
-            <label for="ta-arr-dest" class="ta-label">Time Arrived at Destination</label>
-            <input type="text" id="ta-arr-dest" placeholder="HH:MM" class="ta-input" maxlength="5">
+          <!-- Row 2: Time Left from Destination (Return) & Time Arrived back at Source -->
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; grid-column: span 2;">
+            <div class="field">
+              <label for="ta-left-dest" class="ta-label" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;" title="Time Left from Destination (Return)">Time Left from Destination (Return)</label>
+              <input type="text" id="ta-left-dest" placeholder="HH:MM" class="ta-input" maxlength="5">
+            </div>
+            <div class="field">
+              <label for="ta-arr-src" class="ta-label" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;" title="Time Arrived back at Source">Time Arrived back at Source</label>
+              <input type="text" id="ta-arr-src" placeholder="HH:MM" class="ta-input" maxlength="5">
+            </div>
           </div>
 
-          <div class="field">
-            <label for="ta-left-dest" class="ta-label">Time Left from Destination (Return)</label>
-            <input type="text" id="ta-left-dest" placeholder="HH:MM" class="ta-input" maxlength="5">
-          </div>
-
-          <div class="field">
-            <label for="ta-arr-src" class="ta-label">Time Arrived back at Source</label>
-            <input type="text" id="ta-arr-src" placeholder="HH:MM" class="ta-input" maxlength="5">
-          </div>
-
-          <div class="field" style="position:relative;">
-            <label for="ta-from-stn-single" class="ta-label">From Station</label>
-            <input type="text" id="ta-from-stn-single" value="NES" class="ta-input" autocomplete="off"
-              oninput="showStnSuggestions(this, 'stn-from-list')"
-              onkeydown="stnKeyNav(event, 'stn-from-list')"
-              onblur="setTimeout(() => hideStnList('stn-from-list'), 200)">
-            <ul id="stn-from-list" class="stn-suggest-list hidden"></ul>
-          </div>
-
-          <div class="field" style="position:relative;">
-            <label for="ta-to-stn-single" class="ta-label">To Station</label>
-            <input type="text" id="ta-to-stn-single" placeholder="e.g. DNR" class="ta-input" autocomplete="off"
-              oninput="showStnSuggestions(this, 'stn-to-list')"
-              onkeydown="stnKeyNav(event, 'stn-to-list')"
-              onblur="setTimeout(() => hideStnList('stn-to-list'), 200)">
-            <ul id="stn-to-list" class="stn-suggest-list hidden"></ul>
+          <!-- Row 3: From Station & To Station -->
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; grid-column: span 2;">
+            <div class="field" style="position:relative;">
+              <label for="ta-from-stn-single" class="ta-label" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">From Station</label>
+              <input type="text" id="ta-from-stn-single" value="NES" class="ta-input" autocomplete="off"
+                oninput="showStnSuggestions(this, 'stn-from-list')"
+                onkeydown="stnKeyNav(event, 'stn-from-list')"
+                onblur="setTimeout(() => hideStnList('stn-from-list'), 200)">
+              <ul id="stn-from-list" class="stn-suggest-list hidden"></ul>
+            </div>
+            <div class="field" style="position:relative;">
+              <label for="ta-to-stn-single" class="ta-label" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">To Station</label>
+              <input type="text" id="ta-to-stn-single" placeholder="e.g. DNR" class="ta-input" autocomplete="off"
+                oninput="showStnSuggestions(this, 'stn-to-list')"
+                onkeydown="stnKeyNav(event, 'stn-to-list')"
+                onblur="setTimeout(() => hideStnList('stn-to-list'), 200)">
+              <ul id="stn-to-list" class="stn-suggest-list hidden"></ul>
+            </div>
           </div>
 
           <div class="field">
@@ -904,8 +955,8 @@ textarea.ta-input {
           <div class="field">
             <label for="ta-obj-single" class="ta-label">Object of Journey</label>
             <div class="char-wrap">
-              <textarea id="ta-obj-single" class="ta-input" placeholder="Purpose of journey" maxlength="102" oninput="updateCharCount()"></textarea>
-              <span id="ta-char-count" class="char-counter">0/102</span>
+              <textarea id="ta-obj-single" class="ta-input" placeholder="Purpose of journey" maxlength="95" oninput="updateCharCount()" style="font-size: 12px;"></textarea>
+              <span id="ta-char-count" class="char-counter">0/95</span>
             </div>
           </div>
 
@@ -1130,7 +1181,7 @@ function handleRateChange() {
 function updateCharCount() {
   const input = document.getElementById("ta-obj-single");
   const counter = document.getElementById("ta-char-count");
-  counter.textContent = `${input.value.length}/102`;
+  counter.textContent = `${input.value.length}/95`;
 }
 
 function normalizePercentageValue(value) {
@@ -1527,7 +1578,9 @@ function buildTaDataRows(entries) {
       ${makeStationCell(entry.fromStn, entry.toStn, "to")}
       <td style="border:1px solid #000;padding:1px 2px;font-size:13.5pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;"></td>
       <td style="border:1px solid #000;padding:1px 2px;font-size:${pctFontSize};font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;">${pctLabel}</td>
-      <td style="border:1px solid #000;padding:2px 3px;font-size:11.5pt;font-family:'Times New Roman',serif;height:36px;text-align:left;vertical-align:middle;overflow:hidden;word-wrap:break-word;word-break:break-word;white-space:normal;line-height:1.3;font-weight:bold;">${objectText}</td>
+      <td class="ta-obj-cell" style="border:1px solid #000;padding:0 !important;height:36px !important;text-align:left;vertical-align:middle;overflow:hidden;box-sizing:border-box;">
+        <div class="ta-obj-container" style="padding:2px 3px;font-size:8.5pt;font-family:'Times New Roman',serif;height:36px !important;max-height:36px !important;overflow:hidden !important;word-wrap:break-word;word-break:break-word;white-space:normal;line-height:1.15 !important;font-weight:bold;box-sizing:border-box;">${objectText}</div>
+      </td>
       <td style="border:1px solid #000;padding:1px 2px;font-size:13.5pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;">${escapeHTML(entry.rate)}</td>
       <td style="border:1px solid #000;padding:1px 2px;font-size:13.5pt;font-family:'Times New Roman',serif;font-weight:bold;height:36px;text-align:center;vertical-align:middle;overflow:hidden;">${escapeHTML(entry.rs)}</td>
       <td style="border:1px solid #000;padding:1px 2px;font-size:13.5pt;font-family:'Times New Roman',serif;font-weight:bold;height:36px;text-align:center;vertical-align:middle;overflow:hidden;">${escapeHTML(String(entry.paise).padStart(2, "0"))}</td>
@@ -1647,7 +1700,58 @@ function buildSummaryOverlay(summaryGroups, grandTotalRs, grandTotalPaise, grand
   </div>`;
 }
 
-function adjustObjectOfJourneyFontSize() {}
+function adjustObjectOfJourneyFontSize() {
+  const containers = document.querySelectorAll('.ta-obj-container');
+  containers.forEach((container) => {
+    const text = container.textContent.trim();
+    if (!text) return;
+
+    // Create a temporary span to measure the text width
+    const span = document.createElement('span');
+    span.style.fontFamily = "'Times New Roman', serif";
+    span.style.fontWeight = 'bold';
+    span.style.whiteSpace = 'nowrap';
+    span.style.position = 'absolute';
+    span.style.visibility = 'hidden';
+    document.body.appendChild(span);
+    span.textContent = text;
+
+    // Reverted fallback width back to 260px to match 26% column width
+    const containerWidth = container.clientWidth || 260;
+    
+    // Scale font sizes to make 2-line entries significantly larger
+    let bestSize = 9.8;
+    let fitsOneLine = false;
+    
+    // 1-line check (scale from 14.0pt down to 11.5pt)
+    for (let size = 14.0; size >= 11.5; size -= 0.2) {
+      span.style.fontSize = `${size}pt`;
+      if (span.offsetWidth <= containerWidth - 4) {
+        bestSize = size;
+        fitsOneLine = true;
+        break;
+      }
+    }
+    
+    // 2-line check (scale from 11.5pt down to 9.8pt to keep it larger)
+    if (!fitsOneLine) {
+      for (let size = 11.5; size >= 9.8; size -= 0.2) {
+        span.style.fontSize = `${size}pt`;
+        if (span.offsetWidth <= (containerWidth - 6) * 2.02) {
+          bestSize = size;
+          break;
+        }
+        bestSize = size; // default to smallest if very long
+      }
+    }
+    
+    document.body.removeChild(span);
+    
+    // Apply style inline with important to override CSS
+    container.style.setProperty('font-size', `${bestSize}pt`, 'important');
+    container.style.setProperty('line-height', '1.15', 'important');
+  });
+}
 
 function showPreviewSection() {
   document.getElementById("form-section").style.display = "none";
@@ -1810,7 +1914,8 @@ function generateTaPreview() {
     currentTaViewMode = "journal";
     switchToTaJournal();
     showPreviewSection();
-    setTimeout(adjustObjectOfJourneyFontSize, 200);
+    // Adjust Object of Journey font size synchronously to avoid race condition with window.print()
+    adjustObjectOfJourneyFontSize();
   } catch (error) {
     console.error(error);
     customAlert(`Error generating preview: ${error.message}`);
@@ -1819,63 +1924,131 @@ function generateTaPreview() {
 
 function generateTaReport() {
   const keys = Object.keys(taPageEntries).sort();
-  if (!keys.length) {
-    customAlert("Please add at least one journey entry first.");
-    return false;
-  }
-
   const entries = keys.map((key) => taPageEntries[key]);
   const header = getTaHeaderData();
-  const firstDate = new Date(`${keys[0]}T00:00:00`);
-  const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-  const monthYear = `${monthNames[firstDate.getMonth()]}/${firstDate.getFullYear()}`;
-  const fontStyle = "font-family:Arial,'Noto Sans Devanagari',sans-serif;";
 
-  const reportEntries = [];
+  const monRaw = document.getElementById("ta-month-sel").value; // e.g. "AUG." or "JAN."
+  const yr = document.getElementById("ta-year-sel").value; // e.g. "2026"
+  // Convert month name abbreviation to zero-padded numeric (e.g. "AUG." -> "08")
+  const monthAbbrs = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+  const monIndex = monthAbbrs.findIndex(abbr => monRaw.toUpperCase().startsWith(abbr));
+  const mon = monIndex >= 0 ? String(monIndex + 1).padStart(2, "0") : monRaw;
+  const monthYear = `${monthAbbrs[monIndex] || monRaw}/${yr}`;
+
+  const yearNum = parseInt(yr, 10);
+  const monthNum = monIndex >= 0 ? (monIndex + 1) : parseInt(monRaw, 10);
+  let daysInMonth = 30;
+  if (!isNaN(yearNum) && !isNaN(monthNum) && monthNum >= 1 && monthNum <= 12) {
+    daysInMonth = new Date(yearNum, monthNum, 0).getDate();
+  }
+
+  const dateMap = {};
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dayStr = String(d).padStart(2, "0");
+    const dateValue = `${yr}-${mon}-${dayStr}`;
+    dateMap[dateValue] = "";
+  }
+
   entries.forEach((entry) => {
-    reportEntries.push({
-      dateRaw: entry.dateRaw,
-      dateFormatted: formatTaDate(entry.dateRaw),
-      work: entry.obj || "-"
-    });
+    const [y, m] = entry.dateRaw.split('-');
+    if (y === yr && m === mon) {
+      dateMap[entry.dateRaw] = entry.obj || "";
+    }
   });
 
   getJsonArray("ta-rest-dates-json").forEach((dateValue) => {
-    reportEntries.push({ dateRaw: dateValue, dateFormatted: formatTaDate(dateValue), work: "Rest" });
+    const [y, m] = dateValue.split('-');
+    if (y === yr && m === mon) {
+      dateMap[dateValue] = "Rest";
+    }
   });
 
   getJsonArray("ta-leave-dates-json").forEach((dateValue) => {
-    reportEntries.push({ dateRaw: dateValue, dateFormatted: formatTaDate(dateValue), work: "Leave" });
+    const [y, m] = dateValue.split('-');
+    if (y === yr && m === mon) {
+      dateMap[dateValue] = "Leave";
+    }
   });
 
   getJsonArray("ta-cr-details-json").forEach((dateValue) => {
-    reportEntries.push({ dateRaw: dateValue, dateFormatted: formatTaDate(dateValue), work: "CR" });
+    const [y, m] = dateValue.split('-');
+    if (y === yr && m === mon) {
+      dateMap[dateValue] = "CR";
+    }
   });
 
-  reportEntries.sort((a, b) => a.dateRaw.localeCompare(b.dateRaw));
+  const reportEntries = Object.keys(dateMap).sort().map((dateValue) => {
+    return {
+      dateRaw: dateValue,
+      dateFormatted: formatTaDate(dateValue),
+      work: dateMap[dateValue]
+    };
+  });
 
-  const reportRows = reportEntries.map((entry) => `
-    <tr>
-      <td style="border:none;padding:2px 12px 2px 0;font-size:8.5pt;font-weight:normal;${fontStyle}text-align:left;vertical-align:top;width:22%;white-space:nowrap;line-height:1;">${escapeHTML(entry.dateFormatted)}</td>
-      <td style="border:none;padding:2px 0 2px 12px;font-size:8.5pt;font-weight:normal;${fontStyle}text-align:left;vertical-align:top;line-height:1;">${escapeHTML(entry.work || "-")}</td>
-    </tr>
-  `).join("");
+  var reportRows = reportEntries.map(function(entry) {
+    var dateCell = '<td class="ta-report-cell" style="border:none;padding:3px 10px 3px 15px;font-size:26pt;font-weight:bold;font-family:Arial,sans-serif;text-align:left;vertical-align:top;width:22%;white-space:nowrap;line-height:1.3;">' + escapeHTML(entry.dateFormatted) + '</td>';
+    var workCell = '<td class="ta-report-cell" style="border:none;padding:3px 0 3px 10px;font-size:26pt;font-weight:bold;font-family:Arial,sans-serif;text-align:left;vertical-align:top;line-height:1.3;">' + escapeHTML(entry.work || '') + '</td>';
+    return '<tr>' + dateCell + workCell + '</tr>';
+  }).join('');
 
-  const reportHTML = `<div style="background:white;width:100%;${fontStyle}color:#000;border:2px solid #000;padding:12px 16px 16px 16px;">
-    <div style="text-align:center;font-size:11pt;font-weight:bold;text-decoration:underline;text-underline-offset:2px;letter-spacing:0.08em;margin-bottom:8px;${fontStyle}color:#000;">T.A MOVEMENT (${escapeHTML(monthYear)})</div>
-    <div style="font-size:8.5pt;${fontStyle}line-height:1.4;color:#000;"><span style="font-weight:bold;">Name</span> : ${escapeHTML(header.name || "")}</div>
-    <div style="font-size:8.5pt;${fontStyle}line-height:1.4;color:#000;"><span style="font-weight:bold;">Designation</span> : ${escapeHTML(header.post || header.designation || "")}</div>
-    <div style="font-size:8.5pt;${fontStyle}line-height:1.4;color:#000;"><span style="font-weight:bold;">Station</span> : ${escapeHTML(header.reportUnit || "")}</div>
-    <div style="font-size:8.5pt;${fontStyle}line-height:1.4;color:#000;"><span style="font-weight:bold;">PF Number</span> : ${escapeHTML(header.pfNumber || "")}</div>
-    <div style="font-size:8.5pt;${fontStyle}line-height:1.4;color:#000;margin-bottom:6px;"><span style="font-weight:bold;">Month</span> : ${escapeHTML(monthYear)}</div>
-    <div style="border-top:2px dashed #000;width:100%;margin:4px 0 6px 0;"></div>
-    <table style="width:100%;border-collapse:collapse;border:none;line-height:1;">
-      <tbody>${reportRows}</tbody>
-    </table>
-  </div>`;
+  var reportHTML = '<div id="ta-report-wrapper" style="background:white;width:100%;min-height:272mm;box-sizing:border-box;font-family:Arial,sans-serif;color:#000;border:1.5px solid #000;border-radius:0 !important;padding:10px 14px 14px 14px;">'
+    + '<div class="ta-report-title" style="text-align:center;font-size:34pt;font-weight:bold;text-decoration:underline;letter-spacing:0.06em;margin-bottom:6px;color:#000;">T.A MOVEMENT (' + escapeHTML(monthYear) + ')</div>'
+    + '<div class="ta-report-header-line" style="font-size:26pt;line-height:1.4;color:#000;"><b>Name</b> &nbsp;:&nbsp; ' + escapeHTML(header.name || '') + '</div>'
+    + '<div class="ta-report-header-line" style="font-size:26pt;line-height:1.4;color:#000;"><b>Designation</b> &nbsp;:&nbsp; ' + escapeHTML(header.post || header.designation || '') + '</div>'
+    + '<div class="ta-report-header-line" style="font-size:26pt;line-height:1.4;color:#000;"><b>Station</b> &nbsp;:&nbsp; ' + escapeHTML(header.reportUnit || '') + '</div>'
+    + '<div class="ta-report-header-line" style="font-size:26pt;line-height:1.4;color:#000;"><b>PF Number</b> &nbsp;:&nbsp; ' + escapeHTML(header.pfNumber || '') + '</div>'
+    + '<div class="ta-report-header-line" style="font-size:26pt;line-height:1.4;color:#000;margin-bottom:5px;"><b>Month</b> &nbsp;:&nbsp; ' + escapeHTML(monthYear) + '</div>'
+    + '<div style="border-top:1.5px solid #000;width:100%;margin:3px 0 5px 0;"></div>'
+    + '<table style="width:100%;border-collapse:collapse;border:none;line-height:1;"><tbody>' + reportRows + '</tbody></table>'
+    + '</div>';
 
   document.getElementById("ta-report-content").innerHTML = reportHTML;
+  setTimeout(fitReportToPage, 60);
   return true;
+}
+
+function fitReportToPage() {
+  var wrapper = document.getElementById('ta-report-wrapper');
+  if (!wrapper) return;
+
+  // Save original style properties
+  var origMinHeight = wrapper.style.minHeight;
+  var origWidth = wrapper.style.width;
+  var origPosition = wrapper.style.position;
+  var origBoxSizing = wrapper.style.boxSizing;
+
+  // Force wrapper to A4 layout dimensions for measurement
+  wrapper.style.minHeight = '0';
+  wrapper.style.width = '794px';
+  wrapper.style.position = 'relative';
+  wrapper.style.boxSizing = 'border-box';
+
+  var MAX_HEIGHT = 1020; // content height for A4 (~1028px)
+  var fontSize = 26.0;
+  var MIN_FONT = 9.0; // Keep font size legible (min 9pt)
+  var step = 0.3;
+
+  // Set initial font sizes
+  var px = fontSize.toFixed(1) + 'pt';
+  var titleSize = (fontSize + 8.0).toFixed(1) + 'pt';
+  wrapper.querySelectorAll('.ta-report-title').forEach(function(el) { el.style.fontSize = titleSize; });
+  wrapper.querySelectorAll('.ta-report-header-line').forEach(function(el) { el.style.fontSize = px; });
+  wrapper.querySelectorAll('.ta-report-cell').forEach(function(el) { el.style.fontSize = px; });
+
+  while (wrapper.scrollHeight > MAX_HEIGHT && fontSize > MIN_FONT) {
+    fontSize = Math.max(MIN_FONT, fontSize - step);
+    px = fontSize.toFixed(1) + 'pt';
+    titleSize = (fontSize + 8.0).toFixed(1) + 'pt';
+    wrapper.querySelectorAll('.ta-report-title').forEach(function(el) { el.style.fontSize = titleSize; });
+    wrapper.querySelectorAll('.ta-report-header-line').forEach(function(el) { el.style.fontSize = px; });
+    wrapper.querySelectorAll('.ta-report-cell').forEach(function(el) { el.style.fontSize = px; });
+  }
+
+  // Restore original styles
+  wrapper.style.minHeight = origMinHeight || '272mm';
+  wrapper.style.width = origWidth;
+  wrapper.style.position = origPosition;
+  wrapper.style.boxSizing = origBoxSizing;
 }
 
 function switchToTaJournal() {
@@ -1900,15 +2073,19 @@ function printTaJournal() {
   clearDynamicPrintStyles();
   const styleEl = document.createElement("style");
   styleEl.id = "dynamic-print-style";
-  styleEl.innerHTML = `@media print {
+  styleEl.innerHTML = `
     @page { size: A4 landscape; margin: 4mm; }
-    #ta-pdf-content { position: static !important; width: 100% !important; padding: 0 !important; box-shadow: none !important; display: block !important; }
-    #ta-report-content { display: none !important; }
-    #ta-pdf-content .ta-page-1,
-    #ta-pdf-content .ta-page-2 { height: auto !important; max-height: none !important; overflow: visible !important; zoom: 0.79; width: 100% !important; }
-    #ta-pdf-content .ta-j-table td { height: 32px !important; }
-    #ta-pdf-content .ta-page-1 { page-break-after: always !important; break-after: page !important; }
-  }`;
+    @media print {
+      #ta-pdf-content { position: static !important; width: 100% !important; padding: 0 !important; box-shadow: none !important; display: block !important; }
+      #ta-report-content { display: none !important; }
+      #ta-pdf-content .ta-page-1,
+      #ta-pdf-content .ta-page-2 { height: auto !important; max-height: none !important; overflow: visible !important; zoom: 0.79; width: 100% !important; }
+      #ta-pdf-content .ta-j-table td { height: 32px !important; }
+      #ta-pdf-content .ta-j-table td.ta-obj-cell { height: 32px !important; padding: 0 !important; }
+      #ta-pdf-content .ta-j-table .ta-obj-container { height: 32px !important; max-height: 32px !important; line-height: 1.1 !important; }
+      #ta-pdf-content .ta-page-1 { page-break-after: always !important; break-after: page !important; }
+    }
+  `;
   document.head.appendChild(styleEl);
   window.print();
 }
@@ -1917,11 +2094,13 @@ function printTaReport() {
   clearDynamicPrintStyles();
   const styleEl = document.createElement("style");
   styleEl.id = "dynamic-print-style";
-  styleEl.innerHTML = `@media print {
+  styleEl.innerHTML = `
     @page { size: A4 portrait; margin: 12mm; }
-    #ta-report-content { position: static !important; width: 100% !important; padding: 0 !important; box-shadow: none !important; display: block !important; }
-    #ta-pdf-content { display: none !important; }
-  }`;
+    @media print {
+      #ta-report-content { position: static !important; width: 100% !important; padding: 0 !important; box-shadow: none !important; display: block !important; border-radius: 0px !important; }
+      #ta-pdf-content { display: none !important; }
+    }
+  `;
   document.head.appendChild(styleEl);
   window.print();
 }
@@ -2006,8 +2185,36 @@ function setupTaJournal() {
   updateCharCount();
 }
 
+function initMobileFullscreen() {
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (window.innerWidth <= 768);
+  if (!isMobile) return;
+
+  const enterFullscreen = () => {
+    const doc = document.documentElement;
+    if (doc.requestFullscreen) {
+      doc.requestFullscreen().catch(err => console.log("Fullscreen request blocked:", err));
+    } else if (doc.webkitRequestFullscreen) {
+      doc.webkitRequestFullscreen();
+    } else if (doc.mozRequestFullScreen) {
+      doc.mozRequestFullScreen();
+    } else if (doc.msRequestFullscreen) {
+      doc.msRequestFullscreen();
+    }
+    document.removeEventListener('click', enterFullscreen);
+    document.removeEventListener('touchstart', enterFullscreen);
+  };
+
+  document.addEventListener('click', enterFullscreen);
+  document.addEventListener('touchstart', enterFullscreen);
+}
+
 window.addEventListener("afterprint", clearDynamicPrintStyles);
 setupTaJournal();
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMobileFullscreen);
+} else {
+  initMobileFullscreen();
+}
 </script>
 </body>
 </html>

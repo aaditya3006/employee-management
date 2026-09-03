@@ -1,8 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
 <title>Online TA Journal for Railway Employees | Railway TA Journal</title>
 <meta name="description" content="Create, manage and maintain your Railway TA Journal online. Record journeys, calculate travel allowance, manage TA entries and generate professional TA Journal records digitally.">
 <link rel="canonical" href="https://www.rgdtiaportal.live/">
@@ -2967,6 +2970,30 @@ body.show-marketing-landing[data-landing-theme="dark"] {
   margin: 0;
 }
 
+.ta-obj-cell {
+  border: 1px solid #000;
+  padding: 0 !important;
+  text-align: left;
+  vertical-align: middle;
+  overflow: hidden !important;
+  box-sizing: border-box;
+}
+
+.ta-obj-container {
+  padding: 2px 3px;
+  font-size: 8.5pt !important;
+  font-family: 'Times New Roman', serif;
+  font-weight: bold;
+  line-height: 1.15 !important;
+  overflow: hidden !important;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  box-sizing: border-box;
+  height: 36px !important;
+  max-height: 36px !important;
+}
+
 .ta-certificate > div {
   word-spacing: 7px !important;
   letter-spacing: 0.15px;
@@ -3114,10 +3141,16 @@ body.show-marketing-landing[data-landing-theme="dark"] {
 }
 
 #att-pdf-content,
-#ta-pdf-content,
-#ta-report-content {
+#ta-pdf-content {
   border: 1px solid rgba(148, 163, 184, 0.28);
   border-radius: 30px;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.16);
+  overflow: hidden;
+}
+
+#ta-report-content {
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 0px;
   box-shadow: 0 20px 60px rgba(15, 23, 42, 0.16);
   overflow: hidden;
 }
@@ -3239,14 +3272,22 @@ body.show-marketing-landing[data-landing-theme="dark"] {
 
   #pdf-content,
   #att-pdf-content,
-  #ta-pdf-content,
-  #ta-report-content {
+  #ta-pdf-content {
     width: 100% !important;
     max-width: 100vw;
     padding: 8px 6px 6px 6px;
     margin: 0;
     box-shadow: none;
     border-radius: 20px;
+  }
+
+  #ta-report-content {
+    width: 100% !important;
+    max-width: 100vw;
+    padding: 8px 6px 6px 6px;
+    margin: 0;
+    box-shadow: none;
+    border-radius: 0px !important;
   }
 
   .preview-toolbar {
@@ -4489,9 +4530,9 @@ body.show-marketing-landing[data-landing-theme="dark"] {
   </div>
 </div>
 
-<nav id="top-nav" class="no-print bg-blue-900/90 backdrop-blur-md text-white p-4 shadow-2xl sticky top-0 z-50">
-  <div class="container mx-auto flex justify-between items-center px-4">
-    <div class="flex items-center gap-3">
+<nav id="top-nav" class="no-print bg-blue-900/90 backdrop-blur-md text-white py-2 px-2 shadow-2xl sticky top-0 z-50">
+  <div class="container mx-auto flex justify-between items-center px-1 sm:px-4">
+    <div class="flex items-center gap-2 sm:gap-3">
       <button onclick="openSidebar()" class="text-white hover:text-blue-200 focus:outline-none">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
       </button>
@@ -4499,8 +4540,10 @@ body.show-marketing-landing[data-landing-theme="dark"] {
         <div class="app-brand-mark h-8 w-8 bg-white rounded-lg p-1 flex items-center justify-center border border-slate-200 shadow-sm">
           <img src="railsaathi-logo.png" alt="Railsaathi logo" class="h-full w-full">
         </div>
-        <span class="hidden sm:inline">Railsaathi</span>
-        <span class="sm:hidden text-sm uppercase">Railsaathi</span>
+        <div class="flex flex-col leading-none">
+          <span class="font-bold text-base md:text-lg">Railsaathi</span>
+          <span id="nav-section-subtitle" class="text-[9px] text-blue-200 font-bold uppercase tracking-wider" style="margin-top:1px;">Night Patrolling</span>
+        </div>
       </h2>
     </div>
     <div class="flex gap-1 text-xs md:text-sm items-center">
@@ -4541,8 +4584,8 @@ body.show-marketing-landing[data-landing-theme="dark"] {
 
 <main id="main-wrapper" class="no-print flex-grow container mx-auto py-4 md:py-8 px-2 md:px-4">
 
-  <section id="form-section" class="max-w-3xl mx-auto glass p-4 md:p-8 rounded-2xl md:rounded-3xl shadow-2xl">
-    <div class="flex items-center gap-3 mb-4 border-b pb-4">
+  <section id="form-section" class="max-w-5xl mx-auto glass p-2 md:p-8 rounded-2xl md:rounded-3xl shadow-2xl">
+    <div class="flex items-center gap-3 mb-4 border-b pb-4" style="display:none !important;">
       <div class="bg-blue-100 p-2 rounded-lg text-blue-800 text-xl">📝</div>
       <h2 id="section-heading-text" class="railway-typing-heading" data-heading-text="Night Patrolling" aria-label="Night Patrolling">Night Patrolling</h2>
     </div>
@@ -4632,8 +4675,8 @@ body.show-marketing-landing[data-landing-theme="dark"] {
 
     <!-- TA JOURNAL FORM -->
     <div id="ta-journal-wrapper" class="hidden w-full mt-4">
-      <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5">
-        <h3 class="text-lg font-bold text-amber-800 mb-4 border-b border-amber-200 pb-2"></h3>Form</h3>
+      <div class="w-full">
+        <!-- Form title removed -->
         <div class="ta-section-card">
           <div class="ta-section-title">Header Details</div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -4673,7 +4716,7 @@ body.show-marketing-landing[data-landing-theme="dark"] {
         </div>
         <div class="ta-section-card">
           <div class="ta-section-title">Document Fields</div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="ta-label">Department</label>
               <div style="position:relative;">
@@ -4689,7 +4732,7 @@ body.show-marketing-landing[data-landing-theme="dark"] {
               <label class="ta-label">Headquarter At</label>
               <input type="text" id="ta-hq-input" value="NES" class="ta-input">
             </div>
-            <div>
+            <div class="col-span-2 md:col-span-1">
               <label class="ta-label">Name</label>
               <div class="flex gap-2">
                 <select id="ta-name-select" onchange="updateTaName()" class="ta-input flex-1">
@@ -4699,7 +4742,7 @@ body.show-marketing-landing[data-landing-theme="dark"] {
                 <input type="text" id="ta-name-other" placeholder="Enter name" class="ta-input flex-1 hidden">
               </div>
             </div>
-            <div>
+            <div class="col-span-2 md:col-span-1">
               <label class="ta-label">Allowance For</label>
               <div class="flex gap-2">
                 <select id="ta-month-sel" class="ta-input flex-1">
@@ -4762,7 +4805,7 @@ body.show-marketing-landing[data-landing-theme="dark"] {
               <label class="ta-label">Rule Governed</label>
               <input type="text" value="SR" readonly class="ta-input bg-gray-100 text-gray-500 cursor-not-allowed font-bold">
             </div>
-            <div><label class="ta-label">Station(for T.A Movement)</label><input type="text" id="ta-report-unit" placeholder="e.g. TM-I / P.Way" class="ta-input"></div>
+            <div class="col-span-2 md:col-span-1"><label class="ta-label">Station(for T.A Movement)</label><input type="text" id="ta-report-unit" placeholder="e.g. TM-I / P.Way" class="ta-input"></div>
           </div>
         </div>
 
@@ -4782,37 +4825,46 @@ body.show-marketing-landing[data-landing-theme="dark"] {
               </div>
               <input type="text" id="ta-train-no-single" placeholder="Train Number" class="ta-input hidden" style="margin-top:2px;">
             </div>
-            <div>
-              <label class="ta-label">Time Left from Source Station</label>
-              <input type="text" id="ta-left-src" placeholder="HH:MM" class="ta-input" maxlength="5" style="font-size:15px;font-weight:bold;">
+            <!-- Row 1: Time Left from Source & Time Arrived at Destination -->
+            <div class="grid grid-cols-2 gap-2 col-span-1 md:col-span-2">
+              <div>
+                <label class="ta-label text-xs font-bold text-gray-600 block truncate" title="Time Left from Source Station">Time Left from Source Station</label>
+                <input type="text" id="ta-left-src" placeholder="HH:MM" class="ta-input" maxlength="5" style="font-size:15px;font-weight:bold;">
+              </div>
+              <div>
+                <label class="ta-label text-xs font-bold text-gray-600 block truncate" title="Time Arrived at Destination">Time Arrived at Destination</label>
+                <input type="text" id="ta-arr-dest" placeholder="HH:MM" class="ta-input" maxlength="5" style="font-size:15px;font-weight:bold;">
+              </div>
             </div>
-            <div>
-              <label class="ta-label">Time Arrived at Destination</label>
-              <input type="text" id="ta-arr-dest" placeholder="HH:MM" class="ta-input" maxlength="5" style="font-size:15px;font-weight:bold;">
+            <!-- Row 2: Time Left from Destination (Return) & Time Arrived back at Source -->
+            <div class="grid grid-cols-2 gap-2 col-span-1 md:col-span-2">
+              <div>
+                <label class="ta-label text-xs font-bold text-gray-600 block truncate" title="Time Left from Destination (Return)">Time Left from Destination (Return)</label>
+                <input type="text" id="ta-left-dest" placeholder="HH:MM" class="ta-input" maxlength="5" style="font-size:15px;font-weight:bold;">
+              </div>
+              <div>
+                <label class="ta-label text-xs font-bold text-gray-600 block truncate" title="Time Arrived back at Source">Time Arrived back at Source</label>
+                <input type="text" id="ta-arr-src" placeholder="HH:MM" class="ta-input" maxlength="5" style="font-size:15px;font-weight:bold;">
+              </div>
             </div>
-            <div>
-              <label class="ta-label">Time Left from Destination (Return)</label>
-              <input type="text" id="ta-left-dest" placeholder="HH:MM" class="ta-input" maxlength="5" style="font-size:15px;font-weight:bold;">
-            </div>
-            <div>
-              <label class="ta-label">Time Arrived back at Source</label>
-              <input type="text" id="ta-arr-src" placeholder="HH:MM" class="ta-input" maxlength="5" style="font-size:15px;font-weight:bold;">
-            </div>
-            <div style="position:relative;">
-              <label class="ta-label">🚉 From Station</label>
-              <input type="text" id="ta-from-stn-single" value="NES" class="ta-input" autocomplete="off"
-                oninput="showStnSuggestions(this,'stn-from-list')"
-                onkeydown="stnKeyNav(event,'stn-from-list')"
-                onblur="setTimeout(()=>hideStnList('stn-from-list'),200)">
-              <ul id="stn-from-list" class="stn-suggest-list" style="display:none;"></ul>
-            </div>
-            <div style="position:relative;">
-              <label class="ta-label">🚉 To Station</label>
-              <input type="text" id="ta-to-stn-single" placeholder="e.g. DNR" class="ta-input" autocomplete="off"
-                oninput="showStnSuggestions(this,'stn-to-list')"
-                onkeydown="stnKeyNav(event,'stn-to-list')"
-                onblur="setTimeout(()=>hideStnList('stn-to-list'),200)">
-              <ul id="stn-to-list" class="stn-suggest-list" style="display:none;"></ul>
+            <!-- Row 3: From Station & To Station -->
+            <div class="grid grid-cols-2 gap-2 col-span-1 md:col-span-2">
+              <div style="position:relative;">
+                <label class="ta-label text-xs font-bold text-gray-600 block truncate">🚉 From Station</label>
+                <input type="text" id="ta-from-stn-single" value="NES" class="ta-input" autocomplete="off"
+                  oninput="showStnSuggestions(this,'stn-from-list')"
+                  onkeydown="stnKeyNav(event,'stn-from-list')"
+                  onblur="setTimeout(()=>hideStnList('stn-from-list'),200)">
+                <ul id="stn-from-list" class="stn-suggest-list" style="display:none;"></ul>
+              </div>
+              <div style="position:relative;">
+                <label class="ta-label text-xs font-bold text-gray-600 block truncate">🚉 To Station</label>
+                <input type="text" id="ta-to-stn-single" placeholder="e.g. DNR" class="ta-input" autocomplete="off"
+                  oninput="showStnSuggestions(this,'stn-to-list')"
+                  onkeydown="stnKeyNav(event,'stn-to-list')"
+                  onblur="setTimeout(()=>hideStnList('stn-to-list'),200)">
+                <ul id="stn-to-list" class="stn-suggest-list" style="display:none;"></ul>
+              </div>
             </div>
             <div>
               <label class="ta-label">Percentage (%)</label>
@@ -4824,7 +4876,7 @@ body.show-marketing-landing[data-landing-theme="dark"] {
                 <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="70+30" onchange="calcTaAmountSingle()"> 70%+30%</label>
               </div>
             </div>
-            <div><label class="ta-label">Object of Journey</label><div style="position:relative;"><textarea id="ta-obj-single" placeholder="Purpose of journey" class="ta-input" style="font-size:14px;padding:15px 10px;height:80px;width:100%;resize:none;overflow:hidden;white-space:normal;word-wrap:break-word;font-family:inherit;" maxlength="102" oninput="updateCharCount()"></textarea><span id="ta-char-count" style="position:absolute;bottom:15px;right:8px;font-size:11px;color:#999;font-weight:bold;">0/102</span></div></div>
+            <div><label class="ta-label">Object of Journey</label><div style="position:relative;"><textarea id="ta-obj-single" placeholder="Purpose of journey" class="ta-input" style="font-size:12px;padding:15px 10px;height:80px;width:100%;resize:none;overflow:hidden;white-space:normal;word-wrap:break-word;font-family:inherit;" maxlength="95" oninput="updateCharCount()"></textarea><span id="ta-char-count" style="position:absolute;bottom:15px;right:8px;font-size:11px;color:#999;font-weight:bold;">0/95</span></div></div>
             <div>
               <label class="ta-label">Rate</label>
               <div class="ta-radio-group">
@@ -9261,7 +9313,7 @@ function showSection(id) {
     loadActivityLogs();
     loadUserRoles();
   }
-  if (id === 'history-section') renderHistory();
+  if (id === 'history-section') loadHistoryFromDB();
   window.scrollTo(0, 0);
 }
 
@@ -9695,6 +9747,50 @@ async function handlePrint() {
   }
 }
 
+async function loadHistoryFromDB() {
+  try {
+    const c = document.getElementById('history-list-container');
+    if (c) {
+      c.innerHTML = `<div class="p-12 text-center text-slate-400"><svg class="animate-spin h-5 w-5 mx-auto mb-2 text-slate-400" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Loading history...</div>`;
+    }
+    
+    const { data, error } = await db.from("print_history").select("*");
+    if (error) throw error;
+    
+    if (data) {
+      data.sort((a, b) => {
+        const timeA = new Date(a.printed_at || a.serverTime || a.timestamp || 0).getTime();
+        const timeB = new Date(b.printed_at || b.serverTime || b.timestamp || 0).getTime();
+        return timeB - timeA;
+      });
+
+      printHistory = data.map(h => {
+        let rangeStr = '';
+        let timeStr = '';
+        
+        if (h.document_type) {
+          rangeStr = `📁 ${h.document_type} - ${h.month || ''} ${h.year || ''} (Rs. ${h.total_amount || 0})`;
+          timeStr = h.printed_at ? new Date(h.printed_at).toLocaleString() : new Date().toLocaleString();
+        } else {
+          rangeStr = `📄 Print: ${h.range || 'Document'}`;
+          timeStr = h.timestamp || (h.serverTime ? new Date(h.serverTime).toLocaleString() : '');
+        }
+        
+        return {
+          id: h.id,
+          range: rangeStr,
+          timestamp: timeStr
+        };
+      });
+      
+      renderHistory();
+    }
+  } catch (err) {
+    console.error("❌ Error fetching print history:", err);
+    renderHistory();
+  }
+}
+
 function renderHistory() {
   const c = document.getElementById('history-list-container');
   c.innerHTML = printHistory.length
@@ -10095,6 +10191,8 @@ function handleMenuSelect(cat) {
     taWrapper.classList.add('hidden');
     taWrapper.style.display = 'none';
     setupForm();
+    const sub = document.getElementById('nav-section-subtitle');
+    if (sub) sub.innerText = cat === 'night' ? 'Night Patrolling' : 'Keyman Duty';
   } else if (cat === 'tajournal') {
     legacyContainer.classList.add('hidden');
     legacyContainer.style.display = 'none';
@@ -10104,6 +10202,8 @@ function handleMenuSelect(cat) {
     taWrapper.style.display = 'block';
     setSectionHeading("TA Journal");
     initTaJournal();
+    const sub = document.getElementById('nav-section-subtitle');
+    if (sub) sub.innerText = 'TA Journal';
   } else {
     legacyContainer.classList.add('hidden');
     legacyContainer.style.display = 'none';
@@ -10113,6 +10213,8 @@ function handleMenuSelect(cat) {
     newAttWrapper.style.display = 'block';
     setSectionHeading(categoryConfig[cat].title);
     renderSubCategories(cat);
+    const sub = document.getElementById('nav-section-subtitle');
+    if (sub) sub.innerText = categoryConfig[cat].title;
   }
 }
 
@@ -10375,7 +10477,7 @@ function updateCharCount() {
   const input = document.getElementById('ta-obj-single');
   const counter = document.getElementById('ta-char-count');
   if (input && counter) {
-    counter.textContent = input.value.length + '/102';
+    counter.textContent = input.value.length + '/95';
   }
 }
 
@@ -11249,7 +11351,9 @@ function buildTaDataRows(entries) {
       ${timeLeftCell}${timeArrivedCell}${fromStnCell}${toStnCell}
       <td style="border:1px solid #000;padding:1px 2px;font-size:13.5pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;"></td>
       <td style="border:1px solid #000;padding:1px 2px;font-size:${pctFontSize};font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;">${pctLabel}</td>
-      <td style="border:1px solid #000;padding:2px 3px;font-size:11.5pt;font-family:'Times New Roman',serif;height:36px;text-align:left !important;vertical-align:middle;overflow:hidden;word-wrap:break-word;word-break:break-word;white-space:normal;line-height:1.3;font-weight:bold;">${objText}</td>
+      <td class="ta-obj-cell" style="border:1px solid #000;padding:0 !important;height:36px !important;text-align:left !important;vertical-align:middle;overflow:hidden;box-sizing:border-box;">
+        <div class="ta-obj-container" style="padding:2px 3px;font-size:8.5pt;font-family:'Times New Roman',serif;height:36px !important;max-height:36px !important;overflow:hidden !important;word-wrap:break-word;word-break:break-word;white-space:normal;line-height:1.15 !important;font-weight:bold;box-sizing:border-box;">${objText}</div>
+      </td>
       <td style="border:1px solid #000;padding:1px 2px;font-size:13.5pt;font-family:'Times New Roman',serif;height:36px;text-align:center;vertical-align:middle;font-weight:bold;overflow:hidden;">${e.rate}</td>
       <td style="border:1px solid #000;padding:1px 2px;font-size:13.5pt;font-family:'Times New Roman',serif;font-weight:bold;height:36px;text-align:center;vertical-align:middle;overflow:hidden;">${e.rs}</td>
       <td style="border:1px solid #000;padding:1px 2px;font-size:13.5pt;font-family:'Times New Roman',serif;font-weight:bold;height:36px;text-align:center;vertical-align:middle;overflow:hidden;">${e.paise}</td>
@@ -11329,9 +11433,56 @@ function buildGrandTotalTableRow(grandTotalRs, grandTotalPaise) {
 }
 
 function adjustObjectOfJourneyFontSize() {
-  // Disabled: Row heights are now fixed and do not increase with text content
-  // All Object of Journey cells maintain consistent height in PDF
-  // Character limit is locked to 102 and enforced in the form input
+  const containers = document.querySelectorAll('.ta-obj-container');
+  containers.forEach((container) => {
+    const text = container.textContent.trim();
+    if (!text) return;
+
+    // Create a temporary span to measure the text width
+    const span = document.createElement('span');
+    span.style.fontFamily = "'Times New Roman', serif";
+    span.style.fontWeight = 'bold';
+    span.style.whiteSpace = 'nowrap';
+    span.style.position = 'absolute';
+    span.style.visibility = 'hidden';
+    document.body.appendChild(span);
+    span.textContent = text;
+
+    // Reverted fallback width back to 260px to match 26% column width
+    const containerWidth = container.clientWidth || 260;
+    
+    // Scale font sizes to make 2-line entries significantly larger
+    let bestSize = 9.8;
+    let fitsOneLine = false;
+    
+    // 1-line check (scale from 14.0pt down to 11.5pt)
+    for (let size = 14.0; size >= 11.5; size -= 0.2) {
+      span.style.fontSize = `${size}pt`;
+      if (span.offsetWidth <= containerWidth - 4) {
+        bestSize = size;
+        fitsOneLine = true;
+        break;
+      }
+    }
+    
+    // 2-line check (scale from 11.5pt down to 9.8pt to keep it larger)
+    if (!fitsOneLine) {
+      for (let size = 11.5; size >= 9.8; size -= 0.2) {
+        span.style.fontSize = `${size}pt`;
+        if (span.offsetWidth <= (containerWidth - 6) * 2.02) {
+          bestSize = size;
+          break;
+        }
+        bestSize = size; // default to smallest if very long
+      }
+    }
+    
+    document.body.removeChild(span);
+    
+    // Apply style inline with important to override CSS
+    container.style.setProperty('font-size', `${bestSize}pt`, 'important');
+    container.style.setProperty('line-height', '1.15', 'important');
+  });
 }
 
 function buildSummaryOverlay(summaryGroupArr, grandTotalRs, grandTotalPaise, grandTotalWords) {
@@ -11581,11 +11732,8 @@ function generateTaPreview() {
   currentTaViewMode = 'journal';
   console.log('✅ display styles set');
   
-  // Adjust Object of Journey font size based on content wrapping
-  setTimeout(() => {
-    console.log('Calling adjustObjectOfJourneyFontSize...');
-    adjustObjectOfJourneyFontSize();
-  }, 300);
+  // Adjust Object of Journey font size synchronously to avoid race condition with window.print()
+  adjustObjectOfJourneyFontSize();
   
   console.log('✅ About to show section: ta-preview-section');
   showSection('ta-preview-section');
@@ -11609,21 +11757,36 @@ function generateTaReport() {
   const monIndex = monthAbbrs.findIndex(abbr => monRaw.toUpperCase().startsWith(abbr));
   const mon = monIndex >= 0 ? String(monIndex + 1).padStart(2, '0') : monRaw;
   const monthYear = (monthAbbrs[monIndex] || monRaw) + '/' + yr;
-  const ff = "font-family:Arial,'Noto Sans Devanagari',sans-serif;";
   
-  // Combine all entries (journeys, rest, leave) by date
-  let allDateEntries = [];
-  
+  const yearNum = parseInt(yr, 10);
+  const monthNum = monIndex >= 0 ? (monIndex + 1) : parseInt(monRaw, 10);
+  let daysInMonth = 30;
+  if (!isNaN(yearNum) && !isNaN(monthNum) && monthNum >= 1 && monthNum <= 12) {
+    daysInMonth = new Date(yearNum, monthNum, 0).getDate();
+  }
+
+  const dateMap = {};
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dayStr = String(d).padStart(2, '0');
+    const dateValue = `${yr}-${mon}-${dayStr}`;
+    dateMap[dateValue] = {
+      dateRaw: dateValue,
+      dateFormatted: formatTaDate(dateValue),
+      type: 'Blank',
+      work: ''
+    };
+  }
+
   // Add journey entries
   entries.forEach((e) => {
     const [y, m] = e.dateRaw.split('-');
     if (y === yr && m === mon) {
-      allDateEntries.push({
+      dateMap[e.dateRaw] = {
         dateRaw: e.dateRaw,
         dateFormatted: formatTaDate(e.dateRaw),
         type: 'Work',
-        work: e.obj || '-'
-      });
+        work: e.obj || ''
+      };
     }
   });
   
@@ -11632,12 +11795,12 @@ function generateTaReport() {
   restDatesRaw.forEach(d => {
     const [y, m] = d.split('-');
     if (y === yr && m === mon) {
-      allDateEntries.push({
+      dateMap[d] = {
         dateRaw: d,
         dateFormatted: formatTaDate(d),
         type: 'Rest',
         work: 'Rest'
-      });
+      };
     }
   });
   
@@ -11646,12 +11809,12 @@ function generateTaReport() {
   leaveDatesRaw.forEach(d => {
     const [y, m] = d.split('-');
     if (y === yr && m === mon) {
-      allDateEntries.push({
+      dateMap[d] = {
         dateRaw: d,
         dateFormatted: formatTaDate(d),
         type: 'Leave',
         work: 'Leave'
-      });
+      };
     }
   });
   
@@ -11662,37 +11825,31 @@ function generateTaReport() {
       const [y, m, d] = dateVal.split('-');
       if (y === yr && m === mon) {
         const crDateFormatted = `${d}/${m}/${y}`;
-        allDateEntries.push({
+        dateMap[dateVal] = {
           dateRaw: dateVal,
           dateFormatted: crDateFormatted,
           type: 'CR',
           work: 'CR'
-        });
+        };
       }
     }
   });
   
-  if (allDateEntries.length === 0) {
-    customAlert("No entries found for the selected month.");
-    return;
-  }
-  
-  // Sort by date
-  allDateEntries.sort((a, b) => a.dateRaw.localeCompare(b.dateRaw));
+  const allDateEntries = Object.keys(dateMap).sort().map(k => dateMap[k]);
   
   let reportRows = allDateEntries.map(function(e) {
-    var dateCell = '<td class="ta-report-cell" style="border:none;padding:1px 10px 1px 0;font-size:8.5pt;font-weight:bold;font-family:Arial,sans-serif;text-align:left;vertical-align:top;width:22%;white-space:nowrap;line-height:1.3;">' + e.dateFormatted + '</td>';
-    var workCell = '<td class="ta-report-cell" style="border:none;padding:1px 0 1px 10px;font-size:8.5pt;font-weight:bold;font-family:Arial,sans-serif;text-align:left;vertical-align:top;line-height:1.3;">' + (e.work || '-') + '</td>';
+    var dateCell = '<td class="ta-report-cell" style="border:none;padding:3px 10px 3px 15px;font-size:26pt;font-weight:bold;font-family:Arial,sans-serif;text-align:left;vertical-align:top;width:22%;white-space:nowrap;line-height:1.3;">' + e.dateFormatted + '</td>';
+    var workCell = '<td class="ta-report-cell" style="border:none;padding:3px 0 3px 10px;font-size:26pt;font-weight:bold;font-family:Arial,sans-serif;text-align:left;vertical-align:top;line-height:1.3;">' + (e.work || '') + '</td>';
     return '<tr>' + dateCell + workCell + '</tr>';
   }).join('');
 
-  var reportHTML = '<div id="ta-report-wrapper" style="background:white;width:100%;font-family:Arial,sans-serif;color:#000;border:1.5px solid #000;padding:10px 14px 14px 14px;">'
-    + '<div class="ta-report-title" style="text-align:center;font-size:11pt;font-weight:bold;text-decoration:underline;letter-spacing:0.06em;margin-bottom:6px;color:#000;">T.A MOVEMENT (' + monthYear + ')</div>'
-    + '<div class="ta-report-header-line" style="font-size:8.5pt;line-height:1.4;color:#000;"><b>Name</b> &nbsp;:&nbsp; ' + (header.name || '') + '</div>'
-    + '<div class="ta-report-header-line" style="font-size:8.5pt;line-height:1.4;color:#000;"><b>Designation</b> &nbsp;:&nbsp; ' + (header.post || header.designation || '') + '</div>'
-    + '<div class="ta-report-header-line" style="font-size:8.5pt;line-height:1.4;color:#000;"><b>Station</b> &nbsp;:&nbsp; ' + (header.reportUnit || '') + '</div>'
-    + '<div class="ta-report-header-line" style="font-size:8.5pt;line-height:1.4;color:#000;"><b>PF Number</b> &nbsp;:&nbsp; ' + (header.pfNumber || '') + '</div>'
-    + '<div class="ta-report-header-line" style="font-size:8.5pt;line-height:1.4;color:#000;margin-bottom:5px;"><b>Month</b> &nbsp;:&nbsp; ' + monthYear + '</div>'
+  var reportHTML = '<div id="ta-report-wrapper" style="background:white;width:100%;min-height:272mm;box-sizing:border-box;font-family:Arial,sans-serif;color:#000;border:1.5px solid #000;border-radius:0 !important;padding:10px 14px 14px 14px;">'
+    + '<div class="ta-report-title" style="text-align:center;font-size:34pt;font-weight:bold;text-decoration:underline;letter-spacing:0.06em;margin-bottom:6px;color:#000;">T.A MOVEMENT (' + monthYear + ')</div>'
+    + '<div class="ta-report-header-line" style="font-size:26pt;line-height:1.4;color:#000;"><b>Name</b> &nbsp;:&nbsp; ' + (header.name || '') + '</div>'
+    + '<div class="ta-report-header-line" style="font-size:26pt;line-height:1.4;color:#000;"><b>Designation</b> &nbsp;:&nbsp; ' + (header.post || header.designation || '') + '</div>'
+    + '<div class="ta-report-header-line" style="font-size:26pt;line-height:1.4;color:#000;"><b>Station</b> &nbsp;:&nbsp; ' + (header.reportUnit || '') + '</div>'
+    + '<div class="ta-report-header-line" style="font-size:26pt;line-height:1.4;color:#000;"><b>PF Number</b> &nbsp;:&nbsp; ' + (header.pfNumber || '') + '</div>'
+    + '<div class="ta-report-header-line" style="font-size:26pt;line-height:1.4;color:#000;margin-bottom:5px;"><b>Month</b> &nbsp;:&nbsp; ' + monthYear + '</div>'
     + '<div style="border-top:1.5px solid #000;width:100%;margin:3px 0 5px 0;"></div>'
     + '<table style="width:100%;border-collapse:collapse;border:none;line-height:1;"><tbody>' + reportRows + '</tbody></table>'
     + '</div>';
@@ -11703,35 +11860,66 @@ function generateTaReport() {
 function fitReportToPage() {
   var wrapper = document.getElementById('ta-report-wrapper');
   if (!wrapper) return;
-  var MAX_HEIGHT = 970;
-  var fontSize = 8.5;
-  var MIN_FONT = 5.0;
+
+  // Save original style properties
+  var origMinHeight = wrapper.style.minHeight;
+  var origWidth = wrapper.style.width;
+  var origPosition = wrapper.style.position;
+  var origBoxSizing = wrapper.style.boxSizing;
+
+  // Force wrapper to A4 layout dimensions for measurement
+  wrapper.style.minHeight = '0';
+  wrapper.style.width = '794px';
+  wrapper.style.position = 'relative';
+  wrapper.style.boxSizing = 'border-box';
+
+  var MAX_HEIGHT = 1020; // content height for A4 (~1028px)
+  var fontSize = 26.0;
+  var MIN_FONT = 9.0; // Keep font size legible (min 9pt)
   var step = 0.3;
+
+  // Set initial font sizes
+  var px = fontSize.toFixed(1) + 'pt';
+  var titleSize = (fontSize + 8.0).toFixed(1) + 'pt';
+  wrapper.querySelectorAll('.ta-report-title').forEach(function(el) { el.style.fontSize = titleSize; });
+  wrapper.querySelectorAll('.ta-report-header-line').forEach(function(el) { el.style.fontSize = px; });
+  wrapper.querySelectorAll('.ta-report-cell').forEach(function(el) { el.style.fontSize = px; });
+
   while (wrapper.scrollHeight > MAX_HEIGHT && fontSize > MIN_FONT) {
     fontSize = Math.max(MIN_FONT, fontSize - step);
-    var px = fontSize.toFixed(1) + 'pt';
-    var titleSize = (fontSize + 1.5).toFixed(1) + 'pt';
+    px = fontSize.toFixed(1) + 'pt';
+    titleSize = (fontSize + 8.0).toFixed(1) + 'pt';
     wrapper.querySelectorAll('.ta-report-title').forEach(function(el) { el.style.fontSize = titleSize; });
     wrapper.querySelectorAll('.ta-report-header-line').forEach(function(el) { el.style.fontSize = px; });
     wrapper.querySelectorAll('.ta-report-cell').forEach(function(el) { el.style.fontSize = px; });
   }
+
+  // Restore original styles
+  wrapper.style.minHeight = origMinHeight || '272mm';
+  wrapper.style.width = origWidth;
+  wrapper.style.position = origPosition;
+  wrapper.style.boxSizing = origBoxSizing;
 }
 
 function printTaJournal() {
   clearDynamicPrintStyles();
   const styleEl = document.createElement('style');
   styleEl.id = 'dynamic-print-style';
-  styleEl.innerHTML = `@media print {
+  styleEl.innerHTML = `
     @page { size: A4 landscape; margin: 4mm 4mm 0; }
-    #ta-pdf-content { position: static !important; width: 100% !important; padding: 0 !important; box-shadow: none !important; display: block !important; }
-    #ta-report-content { display: none !important; }
-    #ta-pdf-content .ta-page-1,
-    #ta-pdf-content .ta-page-2 { height: auto !important; max-height: none !important; overflow: visible !important; zoom: 0.79; width: 100% !important; }
-    #ta-pdf-content .ta-page-1 { padding-bottom: 0 !important; }
-    #ta-pdf-content .ta-j-table td { height: 44px !important; }
-    #ta-pdf-content .ta-certificate { font-size: 10pt !important; line-height: 1.2 !important; margin-top: 2mm !important; }
-    #ta-pdf-content .ta-page-1 { page-break-after: always !important; break-after: page !important; }
-  }`;
+    @media print {
+      #ta-pdf-content { position: static !important; width: 100% !important; padding: 0 !important; box-shadow: none !important; display: block !important; }
+      #ta-report-content { display: none !important; }
+      #ta-pdf-content .ta-page-1,
+      #ta-pdf-content .ta-page-2 { height: auto !important; max-height: none !important; overflow: visible !important; zoom: 0.79; width: 100% !important; }
+      #ta-pdf-content .ta-page-1 { padding-bottom: 0 !important; }
+      #ta-pdf-content .ta-j-table td { height: 44px !important; }
+      #ta-pdf-content .ta-j-table td.ta-obj-cell { height: 44px !important; padding: 0 !important; }
+      #ta-pdf-content .ta-j-table .ta-obj-container { height: 44px !important; max-height: 44px !important; line-height: 1.15 !important; }
+      #ta-pdf-content .ta-certificate { font-size: 10pt !important; line-height: 1.2 !important; margin-top: 2mm !important; }
+      #ta-pdf-content .ta-page-1 { page-break-after: always !important; break-after: page !important; }
+    }
+  `;
   document.head.appendChild(styleEl);
   window.print();
 }
@@ -11740,15 +11928,19 @@ function printTaReport() {
   clearDynamicPrintStyles();
   const styleEl = document.createElement('style');
   styleEl.id = 'dynamic-print-style';
-  styleEl.innerHTML = `@media print {
+  styleEl.innerHTML = `
     @page { size: A4 portrait; margin: 8mm; }
-    #ta-report-content { position: static !important; width: 100% !important; padding: 0 !important; box-shadow: none !important; display: block !important; }
-    #ta-pdf-content { display: none !important; }
-    #ta-report-wrapper { border: 1.5px solid #000 !important; }
-  }`;
+    @media print {
+      #ta-report-content { position: static !important; width: 100% !important; padding: 0 !important; box-shadow: none !important; display: block !important; border-radius: 0px !important; }
+      #ta-pdf-content { display: none !important; }
+      #ta-report-wrapper { border: 1.5px solid #000 !important; }
+    }
+  `;
   document.head.appendChild(styleEl);
   window.print();
 }
+
+window.addEventListener('afterprint', clearDynamicPrintStyles);
 
 async function saveTaJournalToDB() {
   const keys = Object.keys(taPageEntries).sort();
@@ -11833,12 +12025,8 @@ async function saveTaJournalToDB() {
       printed_at: new Date().toISOString()
     }]);
     
-    // Clear entries after successful save
-    taPageEntries = {};
-    const countEl = document.getElementById('ta-days-count');
-    if (countEl) countEl.textContent = '0';
-    const listEl = document.getElementById('ta-saved-days-list');
-    if (listEl) listEl.innerHTML = '<p class="text-slate-400 text-sm text-center py-4 italic">✅ Entries saved to database</p>';
+    // Keep entries in UI after successful save as requested by user
+    // taPageEntries is NOT cleared, and the count and list remain visible.
     
   } catch (error) {
     console.error("❌ Error saving TA Journal:", error);
@@ -12461,6 +12649,19 @@ window.addEventListener('DOMContentLoaded', () => {
   if (introSplash) {
     introSplash.style.display = 'none'; // Hidden by default
   }
+  
+  // Auto-detect current month and year for Allowance Section
+  const today = new Date();
+  const monthValues = ["JAN.", "FEB.", "MAR.", "APR.", "MAY", "JUN.", "JUL.", "AUG.", "SEP.", "OCT.", "NOV.", "DEC."];
+  const monthSel = document.getElementById('ta-month-sel');
+  if (monthSel) {
+    monthSel.value = monthValues[today.getMonth()];
+  }
+  const yearSel = document.getElementById('ta-year-sel');
+  if (yearSel) {
+    yearSel.value = String(today.getFullYear());
+  }
+
   console.log('DOM Content Loaded - ready for auth check');
 });
 
@@ -12476,7 +12677,420 @@ window.showSection = function(id) {
   if (hs) hs.style.display = 'none';
   // Call original function
   _originalShowSection(id);
+  
+  // Update subtitle
+  const sub = document.getElementById('nav-section-subtitle');
+  if (sub) {
+    if (id === 'settings-section') sub.innerText = 'Settings';
+    else if (id === 'admin-section') sub.innerText = 'Employees';
+    else if (id === 'history-section') sub.innerText = 'History';
+    else if (id === 'approve-section') sub.innerText = 'Approvals';
+    else if (id === 'home-section') sub.innerText = 'Home';
+  }
 };
+
+function initMobileFullscreen() {
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (window.innerWidth <= 768);
+  if (!isMobile) return;
+
+  const enterFullscreen = () => {
+    const doc = document.documentElement;
+    if (doc.requestFullscreen) {
+      doc.requestFullscreen().catch(err => console.log("Fullscreen request blocked:", err));
+    } else if (doc.webkitRequestFullscreen) {
+      doc.webkitRequestFullscreen();
+    } else if (doc.mozRequestFullScreen) {
+      doc.mozRequestFullScreen();
+    } else if (doc.msRequestFullscreen) {
+      doc.msRequestFullscreen();
+    }
+    document.removeEventListener('click', enterFullscreen);
+    document.removeEventListener('touchstart', enterFullscreen);
+  };
+
+  document.addEventListener('click', enterFullscreen);
+  document.addEventListener('touchstart', enterFullscreen);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMobileFullscreen);
+} else {
+  initMobileFullscreen();
+}
+</script>
+
+
+<!-- ==========================================
+     HAPPY JANMASHTAMI FESTIVE INTEGRATION
+     Active till 4th Sep 2026 (IST)
+============================================= -->
+<style id="jm-festive-styles">
+  #jm-video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.16;
+    filter: brightness(0.95) saturate(1.1);
+    transition: opacity 0.5s ease;
+  }
+
+  body.show-marketing-landing #jm-video-bg {
+    opacity: 0.22;
+  }
+
+  /* Ensure all content layers sit cleanly above the video background */
+  #railsaathi-landing,
+  #login-screen,
+  #main-wrapper,
+  #top-nav,
+  #sidebar,
+  #main-footer,
+  .modal-overlay,
+  .dialog-overlay {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Floating Festive Janmashtami Pill Widget */
+  #jm-floating-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99998;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    background: rgba(15, 23, 42, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1.5px solid rgba(250, 204, 21, 0.45);
+    border-radius: 9999px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 16px rgba(250, 204, 21, 0.25);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    user-select: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: auto;
+  }
+
+  #jm-floating-widget:hover {
+    border-color: rgba(250, 204, 21, 0.85);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55), 0 0 24px rgba(250, 204, 21, 0.4);
+  }
+
+  #jm-floating-widget.jm-minimized {
+    padding: 7px 10px;
+    gap: 0;
+  }
+
+  #jm-floating-widget.jm-minimized .jm-hide-on-min {
+    display: none !important;
+  }
+
+  .jm-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    line-height: 1.2;
+  }
+
+  .jm-pill-btn:hover {
+    background: rgba(255, 255, 255, 0.22);
+    transform: translateY(-1px);
+  }
+
+  .jm-pill-btn-gold {
+    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+    border-color: #fde047;
+    color: #fef08a;
+  }
+
+  .jm-pill-btn-gold:hover {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  }
+
+  .jm-icon-btn {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 2px 5px;
+    border-radius: 6px;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+  }
+
+  .jm-icon-btn:hover {
+    color: #fff;
+  }
+
+  /* Janmashtami Celebration Modal */
+  #jm-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000000;
+    background: rgba(3, 11, 24, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  #jm-modal.jm-modal-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .jm-modal-card {
+    position: relative;
+    width: 100%;
+    max-width: 680px;
+    background: #0b1528;
+    border: 1.5px solid rgba(250, 204, 21, 0.45);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 30px rgba(250, 204, 21, 0.25);
+  }
+
+  .jm-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px;
+    background: rgba(15, 23, 42, 0.95);
+    border-bottom: 1px solid rgba(250, 204, 21, 0.25);
+  }
+
+  .jm-modal-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fef08a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .jm-modal-video {
+    width: 100%;
+    max-height: 60vh;
+    display: block;
+    background: #000;
+    object-fit: contain;
+  }
+
+  .jm-modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 18px;
+    background: rgba(15, 23, 42, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  @media (max-width: 640px) {
+    #jm-floating-widget {
+      bottom: 12px;
+      right: 12px;
+      padding: 6px 10px;
+      font-size: 11px;
+    }
+    .jm-pill-btn {
+      padding: 3px 7px;
+      font-size: 11px;
+    }
+  }
+
+  /* Critical Print Safe Rule: Absolutely no festive overlay or video in prints */
+  @media print {
+    #jm-video-bg,
+    #jm-floating-widget,
+    #jm-modal,
+    .jm-festive-el {
+      display: none !important;
+      visibility: hidden !important;
+    }
+  }
+</style>
+
+<video id="jm-video-bg" class="jm-festive-el" src="video.mp4" autoplay loop muted playsinline aria-hidden="true"></video>
+
+<div id="jm-floating-widget" class="jm-festive-el no-print" role="complementary" aria-label="Janmashtami Celebration">
+  <span style="font-weight:700;color:#fef08a;display:inline-flex;align-items:center;gap:5px;cursor:pointer;" id="jm-pill-trigger">
+    <span>🪈</span>
+    <span class="jm-hide-on-min">Happy Janmashtami</span>
+  </span>
+  <button type="button" class="jm-pill-btn jm-pill-btn-gold jm-hide-on-min" id="jm-watch-btn" title="Watch Janmashtami Video">
+    <span>🎬</span> <span>Watch</span>
+  </button>
+  <button type="button" class="jm-pill-btn jm-hide-on-min" id="jm-audio-toggle-btn" title="Toggle Sound">
+    <span id="jm-audio-icon">🔇</span>
+  </button>
+  <button type="button" class="jm-icon-btn" id="jm-min-btn" title="Minimize / Expand">
+    <span id="jm-min-icon">➖</span>
+  </button>
+  <button type="button" class="jm-icon-btn jm-hide-on-min" id="jm-close-btn" title="Dismiss for session">
+    ✕
+  </button>
+</div>
+
+<div id="jm-modal" class="jm-festive-el no-print" aria-hidden="true">
+  <div class="jm-modal-card">
+    <div class="jm-modal-header">
+      <div class="jm-modal-title">
+        <span>🪈</span>
+        <span>Happy Janmashtami Greetings</span>
+      </div>
+      <button type="button" class="jm-icon-btn" id="jm-modal-close-btn" style="font-size:18px;color:#fff;" aria-label="Close modal">✕</button>
+    </div>
+    <video id="jm-modal-video" class="jm-modal-video" src="video.mp4" loop playsinline controls></video>
+    <div class="jm-modal-footer">
+      <span style="font-size:12px;color:#94a3b8;">Railsaathi wishes you a very Happy Janmashtami!</span>
+      <a href="jm.html" class="jm-pill-btn jm-pill-btn-gold" target="_blank" rel="noopener">Full Screen Mode ↗</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function initJanmashtamiFestive() {
+  // Janmashtami active till 4th Sep 2026 end of day (IST: 2026-09-05 00:00:00)
+  const expireTimestamp = new Date('2026-09-05T00:00:00+05:30').getTime();
+  if (Date.now() >= expireTimestamp) {
+    const els = document.querySelectorAll('.jm-festive-el, #jm-festive-styles');
+    els.forEach(el => el.remove());
+    return;
+  }
+
+  // Session dismissal check
+  if (sessionStorage.getItem('jm_festive_dismissed') === 'true') {
+    const widget = document.getElementById('jm-floating-widget');
+    if (widget) widget.style.display = 'none';
+  }
+
+  const bgVideo = document.getElementById('jm-video-bg');
+  const widget = document.getElementById('jm-floating-widget');
+  const watchBtn = document.getElementById('jm-watch-btn');
+  const pillTrigger = document.getElementById('jm-pill-trigger');
+  const audioBtn = document.getElementById('jm-audio-toggle-btn');
+  const audioIcon = document.getElementById('jm-audio-icon');
+  const minBtn = document.getElementById('jm-min-btn');
+  const minIcon = document.getElementById('jm-min-icon');
+  const closeBtn = document.getElementById('jm-close-btn');
+  const modal = document.getElementById('jm-modal');
+  const modalVideo = document.getElementById('jm-modal-video');
+  const modalCloseBtn = document.getElementById('jm-modal-close-btn');
+
+  if (bgVideo) {
+    bgVideo.play().catch(() => {});
+  }
+
+  // Audio toggle for background video
+  if (audioBtn && bgVideo) {
+    audioBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (bgVideo.muted) {
+        bgVideo.muted = false;
+        bgVideo.play().then(() => {
+          if (audioIcon) audioIcon.textContent = '🔊';
+        }).catch(() => {
+          bgVideo.muted = true;
+          if (audioIcon) audioIcon.textContent = '🔇';
+        });
+      } else {
+        bgVideo.muted = true;
+        if (audioIcon) audioIcon.textContent = '🔇';
+      }
+    });
+  }
+
+  // Open modal video
+  function openJmModal() {
+    if (!modal) return;
+    modal.classList.add('jm-modal-open');
+    modal.setAttribute('aria-hidden', 'false');
+    if (bgVideo) bgVideo.muted = true;
+    if (audioIcon) audioIcon.textContent = '🔇';
+    if (modalVideo) {
+      modalVideo.muted = false;
+      modalVideo.currentTime = bgVideo ? bgVideo.currentTime : 0;
+      modalVideo.play().catch(() => {
+        modalVideo.muted = true;
+        modalVideo.play().catch(() => {});
+      });
+    }
+  }
+
+  function closeJmModal() {
+    if (!modal) return;
+    modal.classList.remove('jm-modal-open');
+    modal.setAttribute('aria-hidden', 'true');
+    if (modalVideo) {
+      modalVideo.pause();
+    }
+  }
+
+  if (watchBtn) watchBtn.addEventListener('click', (e) => { e.stopPropagation(); openJmModal(); });
+  if (pillTrigger) pillTrigger.addEventListener('click', (e) => {
+    if (widget && widget.classList.contains('jm-minimized')) {
+      widget.classList.remove('jm-minimized');
+      if (minIcon) minIcon.textContent = '➖';
+    } else {
+      openJmModal();
+    }
+  });
+
+  if (modalCloseBtn) modalCloseBtn.addEventListener('click', (e) => { e.stopPropagation(); closeJmModal(); });
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeJmModal();
+    });
+  }
+
+  // Minimize / expand widget
+  if (minBtn && widget) {
+    minBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      widget.classList.toggle('jm-minimized');
+      if (minIcon) {
+        minIcon.textContent = widget.classList.contains('jm-minimized') ? '➕' : '➖';
+      }
+    });
+  }
+
+  // Dismiss widget for current session
+  if (closeBtn && widget) {
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      widget.style.display = 'none';
+      sessionStorage.setItem('jm_festive_dismissed', 'true');
+    });
+  }
+})();
 </script>
 
 </body>

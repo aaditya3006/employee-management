@@ -14,5 +14,8 @@
     "supabase"
   ],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "acorn": "^8.18.0"
+  }
 }
