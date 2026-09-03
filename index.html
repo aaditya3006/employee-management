@@ -12825,13 +12825,30 @@ if (document.readyState === 'loading') {
   const video = document.getElementById('jm-banner-video');
   if (!video) return;
 
+  function applyVideoSettings() {
+    if (video) {
+      video.playbackRate = 1.25;
+      video.defaultPlaybackRate = 1.25;
+    }
+  }
+
   function ensureSoundOn() {
     if (video) {
       video.muted = false;
       video.volume = 1.0;
+      applyVideoSettings();
       video.play().catch(function() {});
     }
   }
+
+  applyVideoSettings();
+  video.addEventListener('play', applyVideoSettings);
+  video.addEventListener('loadedmetadata', applyVideoSettings);
+  video.addEventListener('ratechange', function() {
+    if (video.playbackRate !== 1.25) {
+      video.playbackRate = 1.25;
+    }
+  });
 
   // Ensure playback starts immediately
   video.play().catch(function() {});
@@ -12846,6 +12863,7 @@ if (document.readyState === 'loading') {
     }).catch(function() {
       // Browser autoplay policy restricted unmuted playback on initial load
       video.muted = true;
+      applyVideoSettings();
       video.play().catch(function() {});
 
       // Instantly unmute on any first user gesture across the document

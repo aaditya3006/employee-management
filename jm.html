@@ -186,13 +186,30 @@
         });
       }
 
+      function applyVideoSettings() {
+        if (screen) {
+          screen.playbackRate = 1.25;
+          screen.defaultPlaybackRate = 1.25;
+        }
+      }
+
       function ensureSoundOn() {
         if (screen) {
           screen.muted = false;
           screen.volume = 1.0;
+          applyVideoSettings();
           screen.play().catch(() => {});
         }
       }
+
+      applyVideoSettings();
+      screen.addEventListener('play', applyVideoSettings);
+      screen.addEventListener('loadedmetadata', applyVideoSettings);
+      screen.addEventListener('ratechange', () => {
+        if (screen.playbackRate !== 1.25) {
+          screen.playbackRate = 1.25;
+        }
+      });
 
       // Autoplay handling: start playback immediately & enable unmuted sound
       const startPlayback = () => {
@@ -208,6 +225,7 @@
           }).catch(() => {
             // Autoplay policy prevented unmuted play before gesture
             screen.muted = true;
+            applyVideoSettings();
             screen.play().catch(() => {});
 
             const unmuteOnTap = () => {
