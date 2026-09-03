@@ -4889,7 +4889,7 @@
   ============================================= -->
     <div id="jm-landing-banner" class="jm-festive-banner no-print" role="region" aria-label="Festive Banner">
       <div class="jm-banner-container">
-        <video id="jm-banner-video" src="video.mp4" autoplay loop playsinline webkit-playsinline preload="auto"></video>
+        <video id="jm-banner-video" src="video.mp4" autoplay loop muted playsinline webkit-playsinline preload="auto"></video>
       </div>
     </div>
 
@@ -14054,6 +14054,10 @@
       const video = document.getElementById('jm-banner-video');
       if (!video) return;
 
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.playsInline = true;
+
       function setVideoSpeed() {
         if (video) {
           video.playbackRate = 1.25;
@@ -14061,26 +14065,29 @@
         }
       }
 
-      function tryPlayWithSound() {
+      function startPlayback() {
         if (!video) return;
+        setVideoSpeed();
+
+        // 1. Attempt unmuted playback
         video.muted = false;
         video.defaultMuted = false;
         video.removeAttribute('muted');
         video.volume = 1.0;
-        setVideoSpeed();
 
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise.then(function () {
+        const p = video.play();
+        if (p !== undefined) {
+          p.then(function () {
             setVideoSpeed();
             removeActivationListeners();
           }).catch(function () {
-            // Autoplay with audio blocked by browser policy: play muted first,
-            // and unmute immediately on any user interaction anywhere on the page
+            // Autoplay with audio was restricted by mobile browser policy:
+            // Play muted immediately so video starts with zero delay on mobile!
             video.muted = true;
+            video.defaultMuted = true;
             video.play().then(function () {
               setVideoSpeed();
-            }).catch(function () { });
+            }).catch(function () {});
           });
         }
       }
@@ -14092,12 +14099,12 @@
         video.removeAttribute('muted');
         video.volume = 1.0;
         setVideoSpeed();
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise.then(function () {
+        const p = video.play();
+        if (p !== undefined) {
+          p.then(function () {
             setVideoSpeed();
             removeActivationListeners();
-          }).catch(function () { });
+          }).catch(function () {});
         }
       }
 
@@ -14129,9 +14136,8 @@
 
       attachActivationListeners();
       setVideoSpeed();
-      tryPlayWithSound();
+      startPlayback();
 
-      // Keep speed and audio volume consistent on play / replay
       video.addEventListener('play', function () {
         setVideoSpeed();
         if (!video.muted) {
@@ -14139,10 +14145,16 @@
           removeActivationListeners();
         }
       });
+      video.addEventListener('loadeddata', function () {
+        setVideoSpeed();
+        if (video.paused) {
+          startPlayback();
+        }
+      });
       video.addEventListener('loadedmetadata', function () {
         setVideoSpeed();
-        if (video.muted) {
-          tryPlayWithSound();
+        if (video.paused) {
+          startPlayback();
         }
       });
       video.addEventListener('ratechange', function () {
@@ -14151,8 +14163,17 @@
         }
       });
       document.addEventListener('visibilitychange', function () {
-        if (document.visibilityState === 'visible' && video.muted) {
-          unlockAudio();
+        if (document.visibilityState === 'visible') {
+          if (video.paused) {
+            startPlayback();
+          } else if (video.muted) {
+            unlockAudio();
+          }
+        }
+      });
+      window.addEventListener('pageshow', function () {
+        if (video.paused) {
+          startPlayback();
         }
       });
     })();
