@@ -4055,7 +4055,7 @@ body.show-marketing-landing[data-landing-theme="dark"] {
   ============================================= -->
   <div id="jm-landing-banner" class="jm-festive-banner no-print" role="region" aria-label="Festive Banner">
     <div class="jm-banner-container">
-      <video id="jm-banner-video" src="video.mp4" autoplay loop playsinline preload="auto"></video>
+      <video id="jm-banner-video" src="video.mp4" autoplay muted loop playsinline preload="auto"></video>
       <div class="jm-banner-greeting" aria-live="polite">
         <span id="jm-greeting-text" class="jm-greeting-text">RailSaathi wishes you and your loved ones a very Happy Janmashtami! 🦚✨</span>
       </div>
@@ -12829,36 +12829,44 @@ if (document.readyState === 'loading') {
     if (video) {
       video.muted = false;
       video.volume = 1.0;
+      video.play().catch(function() {});
     }
   }
 
-  // Attempt unmuted play with sound by default
+  // Ensure playback starts immediately
+  video.play().catch(function() {});
+
+  // Try unmuting directly
   video.muted = false;
   video.volume = 1.0;
-  video.play().then(() => {
-    ensureSoundOn();
-  }).catch(() => {
-    // Autoplay policy prevented unmuted play before user gesture
-    video.muted = true;
-    video.play().then(() => {
-      // Unmute on first user interaction anywhere on the page
-      const unmuteOnInteraction = () => {
+  const playPromise = video.play();
+  if (playPromise !== undefined) {
+    playPromise.then(function() {
+      ensureSoundOn();
+    }).catch(function() {
+      // Browser autoplay policy restricted unmuted playback on initial load
+      video.muted = true;
+      video.play().catch(function() {});
+
+      // Instantly unmute on any first user gesture across the document
+      const unmuteOnInteraction = function() {
         ensureSoundOn();
-        ['click', 'touchstart', 'pointerdown', 'keydown', 'scroll'].forEach((evt) => {
+        ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown', 'scroll', 'mousedown'].forEach(function(evt) {
           window.removeEventListener(evt, unmuteOnInteraction, true);
+          document.removeEventListener(evt, unmuteOnInteraction, true);
         });
       };
-      ['click', 'touchstart', 'pointerdown', 'keydown', 'scroll'].forEach((evt) => {
-        window.addEventListener(evt, unmuteOnInteraction, { once: true, capture: true, passive: true });
+      ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown', 'scroll', 'mousedown'].forEach(function(evt) {
+        window.addEventListener(evt, unmuteOnInteraction, { capture: true, passive: true });
+        document.addEventListener(evt, unmuteOnInteraction, { capture: true, passive: true });
       });
-    }).catch(() => {});
-  });
+    });
+  }
 
   // Always keep sound on on click or replay
   video.addEventListener('click', ensureSoundOn);
-  video.addEventListener('play', ensureSoundOn);
 
-  // Rotating festive greeting text (English -> Hindi every 3 seconds)
+  // Rotating festive greeting text (English <-> Hindi every 6 seconds)
   const greetingEl = document.getElementById('jm-greeting-text');
   if (greetingEl) {
     const messages = [
@@ -12866,16 +12874,16 @@ if (document.readyState === 'loading') {
       "रेलसाथी की ओर से आपको एवं आपके प्रियजनों को जन्माष्टमी की हार्दिक शुभकामनाएँ! 🦚✨"
     ];
     let msgIndex = 0;
-    setInterval(() => {
+    setInterval(function() {
       greetingEl.style.opacity = '0';
       greetingEl.style.transform = 'translateY(3px)';
-      setTimeout(() => {
+      setTimeout(function() {
         msgIndex = (msgIndex + 1) % messages.length;
         greetingEl.textContent = messages[msgIndex];
         greetingEl.style.opacity = '1';
         greetingEl.style.transform = 'translateY(0)';
       }, 400);
-    }, 3000);
+    }, 6000);
   }
 })();
 </script>

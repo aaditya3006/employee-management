@@ -169,18 +169,14 @@
       screen.id = "screen";
       screen.src = "video.mp4";
       screen.autoplay = true;
-      screen.loop = false; // Video completes naturally and transitions into the portal
-      screen.muted = false;
-      screen.volume = 1.0;
+      screen.loop = true; // Video plays continuously in loop
+      screen.muted = true; // Initial muted ensures instant autoplay across all browsers
       screen.playsInline = true;
       screen.controls = false;
       screen.setAttribute("controlsList", "nodownload noplaybackrate");
       screen.setAttribute("disablePictureInPicture", "");
 
       document.body.prepend(screen);
-
-      // On video natural finish, smoothly transition to portal
-      screen.addEventListener("ended", goToPortal);
 
       // Handle Skip / Enter Portal button
       if (enterBtn) {
@@ -194,40 +190,48 @@
         if (screen) {
           screen.muted = false;
           screen.volume = 1.0;
+          screen.play().catch(() => {});
         }
       }
 
-      // Autoplay handling with fallback to muted & immediate unmuting on any first user interaction
+      // Autoplay handling: start playback immediately & enable unmuted sound
       const startPlayback = () => {
+        screen.play().catch(() => {});
+
+        // Try unmuting directly
         screen.muted = false;
         screen.volume = 1.0;
-        screen.play().then(() => {
-          ensureSoundOn();
-        }).catch(() => {
-          // Browser requires user gesture for unmuted autoplay
-          screen.muted = true;
-          screen.play().then(() => {
+        const playPromise = screen.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            ensureSoundOn();
+          }).catch(() => {
+            // Autoplay policy prevented unmuted play before gesture
+            screen.muted = true;
+            screen.play().catch(() => {});
+
             const unmuteOnTap = () => {
               ensureSoundOn();
-              ['click', 'touchstart', 'pointerdown', 'keydown', 'scroll'].forEach((evt) => {
+              ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown', 'scroll', 'mousedown'].forEach((evt) => {
                 window.removeEventListener(evt, unmuteOnTap, true);
+                document.removeEventListener(evt, unmuteOnTap, true);
               });
             };
 
-            ['click', 'touchstart', 'pointerdown', 'keydown', 'scroll'].forEach((evt) => {
-              window.addEventListener(evt, unmuteOnTap, { once: true, capture: true, passive: true });
+            ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown', 'scroll', 'mousedown'].forEach((evt) => {
+              window.addEventListener(evt, unmuteOnTap, { capture: true, passive: true });
+              document.addEventListener(evt, unmuteOnTap, { capture: true, passive: true });
             });
-          }).catch(() => {});
-        });
+          });
+        }
       };
 
       startPlayback();
 
-      // Ensure sound is enabled on click or play
+      // Ensure sound is enabled on click
       screen.addEventListener("click", ensureSoundOn);
-      screen.addEventListener("play", ensureSoundOn);
 
-      // Rotating festive greeting text (English -> Hindi every 3 seconds)
+      // Rotating festive greeting text (English <-> Hindi every 6 seconds)
       const greetingEl = document.getElementById('jm-greeting-text');
       if (greetingEl) {
         const messages = [
@@ -244,7 +248,7 @@
             greetingEl.style.opacity = '1';
             greetingEl.style.transform = 'translateY(0)';
           }, 400);
-        }, 3000);
+        }, 6000);
       }
     })();
   </script>
