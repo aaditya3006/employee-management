@@ -12825,64 +12825,78 @@ if (document.readyState === 'loading') {
   const video = document.getElementById('jm-banner-video');
   if (!video) return;
 
-  function applyVideoSettings() {
+  function setVideoSpeed() {
     if (video) {
       video.playbackRate = 1.25;
       video.defaultPlaybackRate = 1.25;
     }
   }
 
-  function ensureSoundOn() {
-    if (video) {
-      video.muted = false;
-      video.volume = 1.0;
-      applyVideoSettings();
-      video.play().catch(function() {});
+  function unmuteAudio() {
+    if (!video) return;
+    video.muted = false;
+    video.defaultMuted = false;
+    video.removeAttribute('muted');
+    video.volume = 1.0;
+    setVideoSpeed();
+    const playPromise = video.play();
+    if (playPromise && playPromise.then) {
+      playPromise.then(function() {
+        setVideoSpeed();
+      }).catch(function() {});
     }
   }
 
-  applyVideoSettings();
-  video.addEventListener('play', applyVideoSettings);
-  video.addEventListener('loadedmetadata', applyVideoSettings);
+  // Set initial speed
+  setVideoSpeed();
+
+  // Attempt initial unmuted playback
+  unmuteAudio();
+
+  // If unmuted autoplay is blocked by browser policy, ensure muted autoplay runs
+  const initialPlay = video.play();
+  if (initialPlay !== undefined) {
+    initialPlay.catch(function() {
+      video.muted = true;
+      video.play().catch(function() {});
+      setVideoSpeed();
+    });
+  }
+
+  // Handle user gestures to unlock audio
+  const activationEvents = ['click', 'touchend', 'pointerup', 'keydown'];
+  const handleUserActivation = function() {
+    unmuteAudio();
+    if (!video.muted) {
+      activationEvents.forEach(function(evt) {
+        window.removeEventListener(evt, handleUserActivation, true);
+        document.removeEventListener(evt, handleUserActivation, true);
+      });
+    }
+  };
+
+  activationEvents.forEach(function(evt) {
+    window.addEventListener(evt, handleUserActivation, { capture: true, passive: true });
+    document.addEventListener(evt, handleUserActivation, { capture: true, passive: true });
+  });
+
+  // Direct click on video or banner
+  video.addEventListener('click', unmuteAudio);
+  if (banner) {
+    banner.addEventListener('click', unmuteAudio);
+  }
+
+  // Keep speed and audio volume consistent on play / replay
+  video.addEventListener('play', function() {
+    setVideoSpeed();
+    if (!video.muted) video.volume = 1.0;
+  });
+  video.addEventListener('loadedmetadata', setVideoSpeed);
   video.addEventListener('ratechange', function() {
     if (video.playbackRate !== 1.25) {
       video.playbackRate = 1.25;
     }
   });
-
-  // Ensure playback starts immediately
-  video.play().catch(function() {});
-
-  // Try unmuting directly
-  video.muted = false;
-  video.volume = 1.0;
-  const playPromise = video.play();
-  if (playPromise !== undefined) {
-    playPromise.then(function() {
-      ensureSoundOn();
-    }).catch(function() {
-      // Browser autoplay policy restricted unmuted playback on initial load
-      video.muted = true;
-      applyVideoSettings();
-      video.play().catch(function() {});
-
-      // Instantly unmute on any first user gesture across the document
-      const unmuteOnInteraction = function() {
-        ensureSoundOn();
-        ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown', 'scroll', 'mousedown'].forEach(function(evt) {
-          window.removeEventListener(evt, unmuteOnInteraction, true);
-          document.removeEventListener(evt, unmuteOnInteraction, true);
-        });
-      };
-      ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown', 'scroll', 'mousedown'].forEach(function(evt) {
-        window.addEventListener(evt, unmuteOnInteraction, { capture: true, passive: true });
-        document.addEventListener(evt, unmuteOnInteraction, { capture: true, passive: true });
-      });
-    });
-  }
-
-  // Always keep sound on on click or replay
-  video.addEventListener('click', ensureSoundOn);
 
   // Rotating festive greeting text (English <-> Hindi every 6 seconds)
   const greetingEl = document.getElementById('jm-greeting-text');

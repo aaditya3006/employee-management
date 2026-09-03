@@ -186,68 +186,69 @@
         });
       }
 
-      function applyVideoSettings() {
+      function setVideoSpeed() {
         if (screen) {
           screen.playbackRate = 1.25;
           screen.defaultPlaybackRate = 1.25;
         }
       }
 
-      function ensureSoundOn() {
-        if (screen) {
-          screen.muted = false;
-          screen.volume = 1.0;
-          applyVideoSettings();
-          screen.play().catch(() => {});
+      function unmuteAudio() {
+        if (!screen) return;
+        screen.muted = false;
+        screen.defaultMuted = false;
+        screen.removeAttribute('muted');
+        screen.volume = 1.0;
+        setVideoSpeed();
+        const playPromise = screen.play();
+        if (playPromise && playPromise.then) {
+          playPromise.then(() => {
+            setVideoSpeed();
+          }).catch(() => {});
         }
       }
 
-      applyVideoSettings();
-      screen.addEventListener('play', applyVideoSettings);
-      screen.addEventListener('loadedmetadata', applyVideoSettings);
+      setVideoSpeed();
+      unmuteAudio();
+
+      const initialPlay = screen.play();
+      if (initialPlay !== undefined) {
+        initialPlay.catch(() => {
+          screen.muted = true;
+          screen.play().catch(() => {});
+          setVideoSpeed();
+        });
+      }
+
+      const activationEvents = ['click', 'touchend', 'pointerup', 'keydown'];
+      const handleUserActivation = () => {
+        unmuteAudio();
+        if (!screen.muted) {
+          activationEvents.forEach((evt) => {
+            window.removeEventListener(evt, handleUserActivation, true);
+            document.removeEventListener(evt, handleUserActivation, true);
+          });
+        }
+      };
+
+      activationEvents.forEach((evt) => {
+        window.addEventListener(evt, handleUserActivation, { capture: true, passive: true });
+        document.addEventListener(evt, handleUserActivation, { capture: true, passive: true });
+      });
+
+      screen.addEventListener('click', unmuteAudio);
+      document.body.addEventListener('click', unmuteAudio);
+
+      screen.addEventListener('play', () => {
+        setVideoSpeed();
+        if (!screen.muted) screen.volume = 1.0;
+      });
+      screen.addEventListener('loadedmetadata', setVideoSpeed);
       screen.addEventListener('ratechange', () => {
         if (screen.playbackRate !== 1.25) {
           screen.playbackRate = 1.25;
         }
       });
-
-      // Autoplay handling: start playback immediately & enable unmuted sound
-      const startPlayback = () => {
-        screen.play().catch(() => {});
-
-        // Try unmuting directly
-        screen.muted = false;
-        screen.volume = 1.0;
-        const playPromise = screen.play();
-        if (playPromise !== undefined) {
-          playPromise.then(() => {
-            ensureSoundOn();
-          }).catch(() => {
-            // Autoplay policy prevented unmuted play before gesture
-            screen.muted = true;
-            applyVideoSettings();
-            screen.play().catch(() => {});
-
-            const unmuteOnTap = () => {
-              ensureSoundOn();
-              ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown', 'scroll', 'mousedown'].forEach((evt) => {
-                window.removeEventListener(evt, unmuteOnTap, true);
-                document.removeEventListener(evt, unmuteOnTap, true);
-              });
-            };
-
-            ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown', 'scroll', 'mousedown'].forEach((evt) => {
-              window.addEventListener(evt, unmuteOnTap, { capture: true, passive: true });
-              document.addEventListener(evt, unmuteOnTap, { capture: true, passive: true });
-            });
-          });
-        }
-      };
-
-      startPlayback();
-
-      // Ensure sound is enabled on click
-      screen.addEventListener("click", ensureSoundOn);
 
       // Rotating festive greeting text (English <-> Hindi every 6 seconds)
       const greetingEl = document.getElementById('jm-greeting-text');
