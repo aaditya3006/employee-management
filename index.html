@@ -8130,217 +8130,82 @@ window.showSection = function(id) {
 </script>
 
 
+
 <!-- ==========================================
-     HAPPY JANMASHTAMI FESTIVE INTEGRATION
+     HAPPY JANMASHTAMI FULLSCREEN INTRO
      Active till 4th Sep 2026 (IST)
 ============================================= -->
 <style id="jm-festive-styles">
-  #jm-video-bg {
+  #jm-fullscreen-intro {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    z-index: 99999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+
+  #jm-fullscreen-intro.jm-intro-fadeout {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  #jm-intro-video {
+    position: absolute;
+    inset: 0;
     width: 100vw;
     height: 100vh;
     object-fit: cover;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.16;
-    filter: brightness(0.95) saturate(1.1);
-    transition: opacity 0.5s ease;
-  }
-
-  body.show-marketing-landing #jm-video-bg {
-    opacity: 0.22;
-  }
-
-  /* Ensure all content layers sit cleanly above the video background */
-  #railsaathi-landing,
-  #login-screen,
-  #main-wrapper,
-  #top-nav,
-  #sidebar,
-  #main-footer,
-  .modal-overlay,
-  .dialog-overlay {
-    position: relative;
-    z-index: 1;
-  }
-
-  /* Floating Festive Janmashtami Pill Widget */
-  #jm-floating-widget {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 99998;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 7px 14px;
-    background: rgba(15, 23, 42, 0.88);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1.5px solid rgba(250, 204, 21, 0.45);
-    border-radius: 9999px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 16px rgba(250, 204, 21, 0.25);
-    color: #fff;
-    font-family: 'Poppins', sans-serif;
-    font-size: 13px;
-    user-select: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 0;
+    outline: 0;
     pointer-events: auto;
   }
 
-  #jm-floating-widget:hover {
-    border-color: rgba(250, 204, 21, 0.85);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55), 0 0 24px rgba(250, 204, 21, 0.4);
-  }
-
-  #jm-floating-widget.jm-minimized {
-    padding: 7px 10px;
-    gap: 0;
-  }
-
-  #jm-floating-widget.jm-minimized .jm-hide-on-min {
-    display: none !important;
-  }
-
-  .jm-pill-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    padding: 4px 10px;
-    border-radius: 9999px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    color: #fff;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    line-height: 1.2;
-  }
-
-  .jm-pill-btn:hover {
-    background: rgba(255, 255, 255, 0.22);
-    transform: translateY(-1px);
-  }
-
-  .jm-pill-btn-gold {
-    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
-    border-color: #fde047;
-    color: #fef08a;
-  }
-
-  .jm-pill-btn-gold:hover {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-  }
-
-  .jm-icon-btn {
-    background: none;
-    border: none;
-    color: #94a3b8;
-    cursor: pointer;
-    padding: 2px 5px;
-    border-radius: 6px;
-    font-size: 13px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: color 0.2s ease;
-  }
-
-  .jm-icon-btn:hover {
-    color: #fff;
-  }
-
-  /* Janmashtami Celebration Modal */
-  #jm-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 1000000;
-    background: rgba(3, 11, 24, 0.88);
+  .jm-skip-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    padding: 8px 18px;
+    background: rgba(15, 23, 42, 0.75);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+    color: #fff;
+    font-family: 'Poppins', sans-serif, system-ui;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    user-select: none;
   }
 
-  #jm-modal.jm-modal-open {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .jm-modal-card {
-    position: relative;
-    width: 100%;
-    max-width: 680px;
-    background: #0b1528;
-    border: 1.5px solid rgba(250, 204, 21, 0.45);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 30px rgba(250, 204, 21, 0.25);
-  }
-
-  .jm-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 18px;
+  .jm-skip-btn:hover {
     background: rgba(15, 23, 42, 0.95);
-    border-bottom: 1px solid rgba(250, 204, 21, 0.25);
-  }
-
-  .jm-modal-title {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #fef08a;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .jm-modal-video {
-    width: 100%;
-    max-height: 60vh;
-    display: block;
-    background: #000;
-    object-fit: contain;
-  }
-
-  .jm-modal-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 18px;
-    background: rgba(15, 23, 42, 0.95);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-color: rgba(250, 204, 21, 0.85);
+    transform: scale(1.04);
   }
 
   @media (max-width: 640px) {
-    #jm-floating-widget {
-      bottom: 12px;
-      right: 12px;
-      padding: 6px 10px;
-      font-size: 11px;
-    }
-    .jm-pill-btn {
-      padding: 3px 7px;
-      font-size: 11px;
+    .jm-skip-btn {
+      top: 14px;
+      right: 14px;
+      padding: 6px 14px;
+      font-size: 12px;
     }
   }
 
-  /* Critical Print Safe Rule: Absolutely no festive overlay or video in prints */
+  /* Critical Print Safety */
   @media print {
-    #jm-video-bg,
-    #jm-floating-widget,
-    #jm-modal,
+    #jm-fullscreen-intro,
     .jm-festive-el {
       display: none !important;
       visibility: hidden !important;
@@ -8348,158 +8213,78 @@ window.showSection = function(id) {
   }
 </style>
 
-<video id="jm-video-bg" class="jm-festive-el" src="video.mp4" autoplay loop muted playsinline aria-hidden="true"></video>
-
-<div id="jm-floating-widget" class="jm-festive-el no-print" role="complementary" aria-label="Janmashtami Celebration">
-  <span style="font-weight:700;color:#fef08a;display:inline-flex;align-items:center;gap:5px;cursor:pointer;" id="jm-pill-trigger">
-    <span>🪈</span>
-    <span class="jm-hide-on-min">Happy Janmashtami</span>
-  </span>
-  <button type="button" class="jm-pill-btn jm-pill-btn-gold jm-hide-on-min" id="jm-watch-btn" title="Watch Janmashtami Video">
-    <span>🎬</span> <span>Watch</span>
+<div id="jm-fullscreen-intro" class="jm-festive-el no-print" role="dialog" aria-label="Janmashtami Celebration Video">
+  <video id="jm-intro-video" src="video.mp4" autoplay playsinline></video>
+  <button id="jm-skip-btn" class="jm-skip-btn" type="button" aria-label="Enter Website">
+    Enter Website →
   </button>
-  <button type="button" class="jm-pill-btn jm-hide-on-min" id="jm-audio-toggle-btn" title="Toggle Sound">
-    <span id="jm-audio-icon">🔇</span>
-  </button>
-  <button type="button" class="jm-icon-btn" id="jm-min-btn" title="Minimize / Expand">
-    <span id="jm-min-icon">➖</span>
-  </button>
-  <button type="button" class="jm-icon-btn jm-hide-on-min" id="jm-close-btn" title="Dismiss for session">
-    ✕
-  </button>
-</div>
-
-<div id="jm-modal" class="jm-festive-el no-print" aria-hidden="true">
-  <div class="jm-modal-card">
-    <div class="jm-modal-header">
-      <div class="jm-modal-title">
-        <span>🪈</span>
-        <span>Happy Janmashtami Greetings</span>
-      </div>
-      <button type="button" class="jm-icon-btn" id="jm-modal-close-btn" style="font-size:18px;color:#fff;" aria-label="Close modal">✕</button>
-    </div>
-    <video id="jm-modal-video" class="jm-modal-video" src="video.mp4" loop playsinline controls></video>
-    <div class="jm-modal-footer">
-      <span style="font-size:12px;color:#94a3b8;">Railsaathi wishes you a very Happy Janmashtami!</span>
-      <a href="jm.html" class="jm-pill-btn jm-pill-btn-gold" target="_blank" rel="noopener">Full Screen Mode ↗</a>
-    </div>
-  </div>
 </div>
 
 <script>
-(function initJanmashtamiFestive() {
-  // Janmashtami active till 4th Sep 2026 end of day (IST: 2026-09-05 00:00:00)
+(function initJanmashtamiFullscreen() {
+  // Active till 4th Sep 2026 end of day (IST: 2026-09-05 00:00:00)
   const expireTimestamp = new Date('2026-09-05T00:00:00+05:30').getTime();
   if (Date.now() >= expireTimestamp) {
-    const els = document.querySelectorAll('.jm-festive-el, #jm-festive-styles');
-    els.forEach(el => el.remove());
+    const el = document.getElementById('jm-fullscreen-intro');
+    if (el) el.remove();
+    const st = document.getElementById('jm-festive-styles');
+    if (st) st.remove();
     return;
   }
 
-  // Session dismissal check
-  if (sessionStorage.getItem('jm_festive_dismissed') === 'true') {
-    const widget = document.getElementById('jm-floating-widget');
-    if (widget) widget.style.display = 'none';
-  }
+  const introOverlay = document.getElementById('jm-fullscreen-intro');
+  const introVideo = document.getElementById('jm-intro-video');
+  const skipBtn = document.getElementById('jm-skip-btn');
 
-  const bgVideo = document.getElementById('jm-video-bg');
-  const widget = document.getElementById('jm-floating-widget');
-  const watchBtn = document.getElementById('jm-watch-btn');
-  const pillTrigger = document.getElementById('jm-pill-trigger');
-  const audioBtn = document.getElementById('jm-audio-toggle-btn');
-  const audioIcon = document.getElementById('jm-audio-icon');
-  const minBtn = document.getElementById('jm-min-btn');
-  const minIcon = document.getElementById('jm-min-icon');
-  const closeBtn = document.getElementById('jm-close-btn');
-  const modal = document.getElementById('jm-modal');
-  const modalVideo = document.getElementById('jm-modal-video');
-  const modalCloseBtn = document.getElementById('jm-modal-close-btn');
+  if (!introOverlay || !introVideo) return;
 
-  if (bgVideo) {
-    bgVideo.play().catch(() => {});
-  }
-
-  // Audio toggle for background video
-  if (audioBtn && bgVideo) {
-    audioBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (bgVideo.muted) {
-        bgVideo.muted = false;
-        bgVideo.play().then(() => {
-          if (audioIcon) audioIcon.textContent = '🔊';
-        }).catch(() => {
-          bgVideo.muted = true;
-          if (audioIcon) audioIcon.textContent = '🔇';
-        });
-      } else {
-        bgVideo.muted = true;
-        if (audioIcon) audioIcon.textContent = '🔇';
+  function closeIntro() {
+    introOverlay.classList.add('jm-intro-fadeout');
+    setTimeout(() => {
+      if (introVideo) introVideo.pause();
+      introOverlay.style.display = 'none';
+      if (introOverlay.parentNode) {
+        introOverlay.parentNode.removeChild(introOverlay);
       }
-    });
+    }, 650);
   }
 
-  // Open modal video
-  function openJmModal() {
-    if (!modal) return;
-    modal.classList.add('jm-modal-open');
-    modal.setAttribute('aria-hidden', 'false');
-    if (bgVideo) bgVideo.muted = true;
-    if (audioIcon) audioIcon.textContent = '🔇';
-    if (modalVideo) {
-      modalVideo.muted = false;
-      modalVideo.currentTime = bgVideo ? bgVideo.currentTime : 0;
-      modalVideo.play().catch(() => {
-        modalVideo.muted = true;
-        modalVideo.play().catch(() => {});
-      });
-    }
-  }
-
-  function closeJmModal() {
-    if (!modal) return;
-    modal.classList.remove('jm-modal-open');
-    modal.setAttribute('aria-hidden', 'true');
-    if (modalVideo) {
-      modalVideo.pause();
-    }
-  }
-
-  if (watchBtn) watchBtn.addEventListener('click', (e) => { e.stopPropagation(); openJmModal(); });
-  if (pillTrigger) pillTrigger.addEventListener('click', (e) => {
-    if (widget && widget.classList.contains('jm-minimized')) {
-      widget.classList.remove('jm-minimized');
-      if (minIcon) minIcon.textContent = '➖';
-    } else {
-      openJmModal();
-    }
+  // Play video with audio, handling browser autoplay policies
+  introVideo.muted = false;
+  introVideo.play().catch(() => {
+    // If browser prevents unmuted autoplay, start muted
+    introVideo.muted = true;
+    introVideo.play().then(() => {
+      // Unmute on first user interaction anywhere
+      const unmute = () => {
+        if (introVideo) introVideo.muted = false;
+        window.removeEventListener('click', unmute);
+        window.removeEventListener('touchstart', unmute);
+      };
+      window.addEventListener('click', unmute, { once: true });
+      window.addEventListener('touchstart', unmute, { once: true, passive: true });
+    }).catch(() => {});
   });
 
-  if (modalCloseBtn) modalCloseBtn.addEventListener('click', (e) => { e.stopPropagation(); closeJmModal(); });
-  if (modal) {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeJmModal();
+  // When video naturally finishes, transition to landing page
+  introVideo.addEventListener('ended', closeIntro);
+
+  // Skip button click
+  if (skipBtn) {
+    skipBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeIntro();
     });
   }
 
-  // Minimize / expand widget
-  if (minBtn && widget) {
-    minBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      widget.classList.toggle('jm-minimized');
-      if (minIcon) {
-        minIcon.textContent = widget.classList.contains('jm-minimized') ? '➕' : '➖';
+  // Also close intro if user clicks on the video after watching
+  introOverlay.addEventListener('click', (e) => {
+    if (e.target !== skipBtn) {
+      if (introVideo.muted) {
+        introVideo.muted = false;
       }
-    });
-  }
-
-  // Dismiss widget for current session
-  if (closeBtn && widget) {
-    closeBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      widget.style.display = 'none';
-      sessionStorage.setItem('jm_festive_dismissed', 'true');
-    });
-  }
+    }
+  });
 })();
 </script>
 
