@@ -40,7 +40,7 @@
       pointer-events: auto;
       user-select: none;
       background: #000;
-      cursor: pointer;
+      cursor: default;
     }
 
     /* Top bar for skip / enter button */
@@ -92,30 +92,6 @@
       box-shadow: 0 6px 20px rgba(250, 204, 21, 0.25);
     }
 
-    .jm-bottom-greeting {
-      position: fixed;
-      bottom: 24px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      z-index: 100;
-      pointer-events: none;
-      padding: 0 20px;
-      background: transparent !important;
-    }
-
-    .jm-greeting-text {
-      display: inline-block;
-      color: #ffffff;
-      font-size: clamp(13px, 2.6vw, 17px);
-      font-weight: 600;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95), 0 4px 16px rgba(0, 0, 0, 0.9), 0 0 24px rgba(0, 0, 0, 0.85);
-      letter-spacing: 0.3px;
-      line-height: 1.4;
-      transition: opacity 0.4s ease, transform 0.4s ease;
-      will-change: opacity, transform;
-    }
-
     @media (max-width: 640px) {
       .top-controls {
         padding: 12px 14px;
@@ -123,10 +99,6 @@
       .enter-btn {
         padding: 6px 14px;
         font-size: 12px;
-      }
-      .jm-bottom-greeting {
-        bottom: 16px;
-        padding: 0 12px;
       }
     }
   </style>
@@ -138,10 +110,6 @@
         Enter Portal →
       </button>
     </div>
-  </div>
-
-  <div class="jm-bottom-greeting" aria-live="polite">
-    <span id="jm-greeting-text" class="jm-greeting-text">RailSaathi wishes you and your loved ones a very Happy Janmashtami! 🦚✨</span>
   </div>
 
   <script>
@@ -169,9 +137,12 @@
       screen.id = "screen";
       screen.src = "video.mp4";
       screen.autoplay = true;
-      screen.loop = true; // Video plays continuously in loop
-      screen.muted = true; // Initial muted ensures instant autoplay across all browsers
+      screen.loop = true;
+      screen.muted = false;
+      screen.volume = 1.0;
       screen.playsInline = true;
+      screen.setAttribute("playsinline", "true");
+      screen.setAttribute("webkit-playsinline", "true");
       screen.controls = false;
       screen.setAttribute("controlsList", "nodownload noplaybackrate");
       screen.setAttribute("disablePictureInPicture", "");
@@ -193,7 +164,31 @@
         }
       }
 
-      function unmuteAudio() {
+      function tryPlayWithSound() {
+        if (!screen) return;
+        screen.muted = false;
+        screen.defaultMuted = false;
+        screen.removeAttribute('muted');
+        screen.volume = 1.0;
+        setVideoSpeed();
+
+        const playPromise = screen.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            setVideoSpeed();
+            removeActivationListeners();
+          }).catch(() => {
+            // Autoplay with audio blocked by browser policy: play muted first,
+            // and unmute immediately on any interaction anywhere on the screen
+            screen.muted = true;
+            screen.play().then(() => {
+              setVideoSpeed();
+            }).catch(() => {});
+          });
+        }
+      }
+
+      function unlockAudio() {
         if (!screen) return;
         screen.muted = false;
         screen.defaultMuted = false;
@@ -201,74 +196,67 @@
         screen.volume = 1.0;
         setVideoSpeed();
         const playPromise = screen.play();
-        if (playPromise && playPromise.then) {
+        if (playPromise !== undefined) {
           playPromise.then(() => {
             setVideoSpeed();
+            removeActivationListeners();
           }).catch(() => {});
         }
       }
 
-      setVideoSpeed();
-      unmuteAudio();
+      const activationEvents = [
+        'touchstart', 'touchend', 'touchmove',
+        'pointerdown', 'pointerup',
+        'mousedown', 'mouseup', 'click',
+        'keydown', 'scroll', 'wheel', 'focus', 'pageshow', 'visibilitychange'
+      ];
 
-      const initialPlay = screen.play();
-      if (initialPlay !== undefined) {
-        initialPlay.catch(() => {
-          screen.muted = true;
-          screen.play().catch(() => {});
-          setVideoSpeed();
+      let listenersAttached = false;
+      function attachActivationListeners() {
+        if (listenersAttached) return;
+        listenersAttached = true;
+        activationEvents.forEach((evt) => {
+          window.addEventListener(evt, unlockAudio, { capture: true, passive: true });
+          document.addEventListener(evt, unlockAudio, { capture: true, passive: true });
         });
       }
 
-      const activationEvents = ['click', 'touchend', 'pointerup', 'keydown'];
-      const handleUserActivation = () => {
-        unmuteAudio();
-        if (!screen.muted) {
-          activationEvents.forEach((evt) => {
-            window.removeEventListener(evt, handleUserActivation, true);
-            document.removeEventListener(evt, handleUserActivation, true);
-          });
-        }
-      };
+      function removeActivationListeners() {
+        if (!listenersAttached) return;
+        listenersAttached = false;
+        activationEvents.forEach((evt) => {
+          window.removeEventListener(evt, unlockAudio, { capture: true });
+          document.removeEventListener(evt, unlockAudio, { capture: true });
+        });
+      }
 
-      activationEvents.forEach((evt) => {
-        window.addEventListener(evt, handleUserActivation, { capture: true, passive: true });
-        document.addEventListener(evt, handleUserActivation, { capture: true, passive: true });
-      });
-
-      screen.addEventListener('click', unmuteAudio);
-      document.body.addEventListener('click', unmuteAudio);
+      attachActivationListeners();
+      setVideoSpeed();
+      tryPlayWithSound();
 
       screen.addEventListener('play', () => {
         setVideoSpeed();
-        if (!screen.muted) screen.volume = 1.0;
+        if (!screen.muted) {
+          screen.volume = 1.0;
+          removeActivationListeners();
+        }
       });
-      screen.addEventListener('loadedmetadata', setVideoSpeed);
+      screen.addEventListener('loadedmetadata', () => {
+        setVideoSpeed();
+        if (screen.muted) {
+          tryPlayWithSound();
+        }
+      });
       screen.addEventListener('ratechange', () => {
         if (screen.playbackRate !== 1.25) {
           screen.playbackRate = 1.25;
         }
       });
-
-      // Rotating festive greeting text (English <-> Hindi every 6 seconds)
-      const greetingEl = document.getElementById('jm-greeting-text');
-      if (greetingEl) {
-        const messages = [
-          "RailSaathi wishes you and your loved ones a very Happy Janmashtami! 🦚✨",
-          "रेलसाथी की ओर से आपको एवं आपके प्रियजनों को जन्माष्टमी की हार्दिक शुभकामनाएँ! 🦚✨"
-        ];
-        let msgIndex = 0;
-        setInterval(() => {
-          greetingEl.style.opacity = '0';
-          greetingEl.style.transform = 'translateY(3px)';
-          setTimeout(() => {
-            msgIndex = (msgIndex + 1) % messages.length;
-            greetingEl.textContent = messages[msgIndex];
-            greetingEl.style.opacity = '1';
-            greetingEl.style.transform = 'translateY(0)';
-          }, 400);
-        }, 6000);
-      }
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && screen.muted) {
+          unlockAudio();
+        }
+      });
     })();
   </script>
 </body>
