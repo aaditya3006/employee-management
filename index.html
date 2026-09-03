@@ -4050,22 +4050,12 @@ body.show-marketing-landing[data-landing-theme="dark"] {
   </div>
 
   <!-- ==========================================
-       HAPPY JANMASHTAMI FESTIVE BANNER (BELOW TOPBAR)
+       FESTIVE VIDEO BANNER (BELOW TOPBAR)
        Active till 4th Sep 2026 (IST)
   ============================================= -->
-  <div id="jm-landing-banner" class="jm-festive-banner no-print" role="region" aria-label="Happy Janmashtami">
+  <div id="jm-landing-banner" class="jm-festive-banner no-print" role="region" aria-label="Festive Banner">
     <div class="jm-banner-container">
       <video id="jm-banner-video" src="video.mp4" autoplay loop playsinline preload="auto"></video>
-      <div class="jm-banner-top-bar">
-        <div class="jm-banner-badge">
-          <span>🪈</span>
-          <span>Happy Janmashtami</span>
-        </div>
-        <button id="jm-banner-sound-btn" class="jm-banner-sound-btn" type="button" aria-label="Toggle Sound">
-          <span id="jm-banner-sound-icon">🔊</span>
-          <span id="jm-banner-sound-text">Sound ON</span>
-        </button>
-      </div>
     </div>
   </div>
 
@@ -12738,7 +12728,7 @@ if (document.readyState === 'loading') {
 
 
 <!-- ==========================================
-     HAPPY JANMASHTAMI FESTIVE BANNER STYLES & SCRIPT
+     FESTIVE VIDEO BANNER STYLES & SCRIPT
      Active till 4th Sep 2026 (IST)
 ============================================= -->
 <style id="jm-festive-styles">
@@ -12775,75 +12765,9 @@ if (document.readyState === 'loading') {
     cursor: pointer;
   }
 
-  .jm-banner-top-bar {
-    position: absolute;
-    top: 14px;
-    left: 16px;
-    right: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    pointer-events: none;
-    z-index: 5;
-  }
-
-  .jm-banner-badge {
-    pointer-events: auto;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    background: rgba(15, 23, 42, 0.8);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    color: #fef08a;
-    font-size: 12px;
-    font-weight: 600;
-    border: 1px solid rgba(250, 204, 21, 0.4);
-    border-radius: 9999px;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-    user-select: none;
-  }
-
-  .jm-banner-sound-btn {
-    pointer-events: auto;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 14px;
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    color: #fff;
-    font-family: inherit;
-    font-size: 12px;
-    font-weight: 600;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 9999px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-    user-select: none;
-  }
-
-  .jm-banner-sound-btn:hover {
-    background: rgba(15, 23, 42, 0.95);
-    border-color: rgba(250, 204, 21, 0.85);
-    transform: scale(1.04);
-  }
-
   @media (max-width: 768px) {
     .jm-banner-container {
       height: 240px;
-    }
-    .jm-banner-top-bar {
-      top: 10px;
-      left: 10px;
-      right: 10px;
-    }
-    .jm-banner-badge, .jm-banner-sound-btn {
-      font-size: 11px;
-      padding: 5px 10px;
     }
   }
 
@@ -12868,75 +12792,40 @@ if (document.readyState === 'loading') {
   }
 
   const video = document.getElementById('jm-banner-video');
-  const soundBtn = document.getElementById('jm-banner-sound-btn');
-  const soundIcon = document.getElementById('jm-banner-sound-icon');
-  const soundText = document.getElementById('jm-banner-sound-text');
-
   if (!video) return;
 
-  function updateSoundUI(unmuted) {
-    if (soundIcon && soundText) {
-      if (unmuted) {
-        soundIcon.textContent = '🔊';
-        soundText.textContent = 'Sound ON';
-      } else {
-        soundIcon.textContent = '🔇';
-        soundText.textContent = 'Sound OFF';
-      }
+  function ensureSoundOn() {
+    if (video) {
+      video.muted = false;
+      video.volume = 1.0;
     }
   }
 
-  // Attempt unmuted play with sound
+  // Attempt unmuted play with sound by default
   video.muted = false;
   video.volume = 1.0;
   video.play().then(() => {
-    updateSoundUI(true);
+    ensureSoundOn();
   }).catch(() => {
     // Autoplay policy prevented unmuted play before user gesture
     video.muted = true;
-    updateSoundUI(false);
     video.play().then(() => {
       // Unmute on first user interaction anywhere on the page
       const unmuteOnInteraction = () => {
-        if (video) {
-          video.muted = false;
-          video.volume = 1.0;
-          updateSoundUI(true);
-        }
-        window.removeEventListener('click', unmuteOnInteraction);
-        window.removeEventListener('touchstart', unmuteOnInteraction);
-        window.removeEventListener('keydown', unmuteOnInteraction);
+        ensureSoundOn();
+        ['click', 'touchstart', 'pointerdown', 'keydown', 'scroll'].forEach((evt) => {
+          window.removeEventListener(evt, unmuteOnInteraction, true);
+        });
       };
-      window.addEventListener('click', unmuteOnInteraction, { once: true });
-      window.addEventListener('touchstart', unmuteOnInteraction, { once: true, passive: true });
-      window.addEventListener('keydown', unmuteOnInteraction, { once: true });
+      ['click', 'touchstart', 'pointerdown', 'keydown', 'scroll'].forEach((evt) => {
+        window.addEventListener(evt, unmuteOnInteraction, { once: true, capture: true, passive: true });
+      });
     }).catch(() => {});
   });
 
-  // Sound toggle button click
-  if (soundBtn) {
-    soundBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (video.muted) {
-        video.muted = false;
-        video.volume = 1.0;
-        video.play().catch(() => {});
-        updateSoundUI(true);
-      } else {
-        video.muted = true;
-        updateSoundUI(false);
-      }
-    });
-  }
-
-  // Click on video toggles unmute if muted
-  video.addEventListener('click', () => {
-    if (video.muted) {
-      video.muted = false;
-      video.volume = 1.0;
-      updateSoundUI(true);
-    }
-  });
+  // Always keep sound on on click or replay
+  video.addEventListener('click', ensureSoundOn);
+  video.addEventListener('play', ensureSoundOn);
 })();
 </script>
 
