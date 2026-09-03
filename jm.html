@@ -3,26 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Happy Janmashtami | Railsaathi</title>
+  <title>Happy Janmashtami</title>
   <link rel="icon" type="image/png" href="railsaathi-logo.png">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     html, body {
       width: 100%;
       height: 100%;
       margin: 0;
       padding: 0;
       overflow: hidden;
-      background: #030b18;
-      font-family: 'Poppins', sans-serif;
-      color: #fff;
+      background: #000;
     }
 
     #screen {
@@ -34,179 +24,45 @@
       display: block;
       border: 0;
       outline: 0;
-      z-index: 1;
-      pointer-events: none;
+      pointer-events: auto;
       user-select: none;
     }
 
-    /* Ambient gradient overlay to maintain elegance */
-    .overlay {
+    /* Subtle skip/portal button if user wants to enter website */
+    .enter-btn {
       position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at center, transparent 40%, rgba(3, 11, 24, 0.45) 100%);
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    /* Top navigation and festive badge bar */
-    .top-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 10;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 24px;
-      background: linear-gradient(180deg, rgba(3, 11, 24, 0.75) 0%, rgba(3, 11, 24, 0) 100%);
-      pointer-events: auto;
-    }
-
-    .festive-title {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #fef08a;
-      text-shadow: 0 2px 12px rgba(250, 204, 21, 0.5);
-      background: rgba(15, 23, 42, 0.65);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      top: 20px;
+      right: 20px;
+      z-index: 100;
       padding: 8px 18px;
-      border-radius: 9999px;
-      border: 1px solid rgba(250, 204, 21, 0.3);
-    }
-
-    .controls-group {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 18px;
-      font-size: 0.92rem;
-      font-weight: 600;
-      font-family: inherit;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       color: #fff;
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 9999px;
-      cursor: pointer;
+      font-family: 'Poppins', sans-serif, system-ui;
+      font-size: 13px;
+      font-weight: 600;
       text-decoration: none;
-      transition: all 0.2s ease;
-      user-select: none;
-    }
-
-    .btn:hover {
-      background: rgba(30, 41, 59, 0.9);
-      border-color: rgba(56, 189, 248, 0.5);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
-      border-color: rgba(96, 165, 250, 0.4);
-    }
-
-    .btn-primary:hover {
-      background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
-      box-shadow: 0 4px 18px rgba(37, 99, 235, 0.4);
-    }
-
-    /* Sound indicator pill */
-    .sound-btn {
-      min-width: 44px;
-      justify-content: center;
-    }
-
-    /* Bottom prompt for user interaction / sound hint */
-    .sound-hint {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      padding: 10px 22px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: 9999px;
-      font-size: 0.88rem;
-      color: #e2e8f0;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      pointer-events: auto;
+      transition: all 0.2s ease;
       cursor: pointer;
-      animation: pulseHint 2.5s infinite;
-      transition: opacity 0.3s ease;
     }
 
-    @keyframes pulseHint {
-      0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.95; }
-      50% { transform: translateX(-50%) scale(1.03); opacity: 1; }
-    }
-
-    @media (max-width: 640px) {
-      .top-bar {
-        padding: 12px 14px;
-      }
-      .festive-title {
-        font-size: 0.95rem;
-        padding: 6px 14px;
-      }
-      .btn {
-        padding: 7px 14px;
-        font-size: 0.84rem;
-      }
-      .sound-hint {
-        font-size: 0.8rem;
-        padding: 8px 16px;
-        bottom: 16px;
-      }
+    .enter-btn:hover {
+      background: rgba(15, 23, 42, 0.95);
+      border-color: rgba(250, 204, 21, 0.8);
+      transform: scale(1.04);
     }
   </style>
 </head>
 <body>
-  <div class="overlay"></div>
-
-  <header class="top-bar">
-    <div class="festive-title">
-      <span>🪈</span>
-      <span>Happy Janmashtami</span>
-    </div>
-
-    <div class="controls-group">
-      <button id="sound-btn" class="btn sound-btn" aria-label="Toggle Sound" title="Toggle Sound">
-        <span id="sound-icon">🔇</span>
-        <span id="sound-label">Unmute</span>
-      </button>
-
-      <a href="/" class="btn btn-primary" title="Go to Railsaathi Portal">
-        <span>← Portal</span>
-      </a>
-    </div>
-  </header>
-
-  <div id="sound-hint" class="sound-hint">
-    Tap anywhere or click 🔊 to enable audio
-  </div>
+  <a href="/" class="enter-btn">Enter Portal →</a>
 
   <script>
     (function () {
-      // Validity check: Janmashtami active till 4th Sep 2026 end of day (IST: 2026-09-05 00:00:00)
       const expireTimestamp = new Date('2026-09-05T00:00:00+05:30').getTime();
-      const isExpired = Date.now() >= expireTimestamp;
-
-      if (isExpired) {
-        // If expired, smoothly redirect to home
+      if (Date.now() >= expireTimestamp) {
         window.location.replace('/');
         return;
       }
@@ -216,7 +72,7 @@
       screen.src = "video.mp4";
       screen.autoplay = true;
       screen.loop = true;
-      screen.muted = true; // Start muted for cross-browser autoplay compliance
+      screen.muted = false;
       screen.playsInline = true;
       screen.controls = false;
       screen.setAttribute("controlsList", "nodownload noplaybackrate");
@@ -224,66 +80,27 @@
 
       document.body.prepend(screen);
 
-      const soundBtn = document.getElementById("sound-btn");
-      const soundIcon = document.getElementById("sound-icon");
-      const soundLabel = document.getElementById("sound-label");
-      const soundHint = document.getElementById("sound-hint");
-
-      function updateSoundUI(unmuted) {
-        if (unmuted) {
-          soundIcon.textContent = "🔊";
-          soundLabel.textContent = "Mute";
-          if (soundHint) soundHint.style.display = "none";
-        } else {
-          soundIcon.textContent = "🔇";
-          soundLabel.textContent = "Unmute";
-        }
-      }
-
-      const unmuteAndPlay = () => {
+      const start = () => {
         screen.muted = false;
-        screen.play().then(() => {
-          updateSoundUI(true);
-        }).catch(() => {
-          // If browser policy rejects unmuted, keep muted
+        screen.play().catch(() => {
+          // If browser requires muted first for autoplay
           screen.muted = true;
-          updateSoundUI(false);
+          screen.play().then(() => {
+            const unmuteOnTap = () => {
+              screen.muted = false;
+              window.removeEventListener("click", unmuteOnTap);
+              window.removeEventListener("touchstart", unmuteOnTap);
+            };
+            window.addEventListener("click", unmuteOnTap, { once: true });
+            window.addEventListener("touchstart", unmuteOnTap, { once: true, passive: true });
+          }).catch(() => {});
         });
       };
 
-      // Play initially muted
-      screen.play().catch(() => {});
-
-      // Sound toggle button click
-      soundBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        if (screen.muted) {
-          unmuteAndPlay();
-        } else {
-          screen.muted = true;
-          updateSoundUI(false);
-        }
-      });
-
-      // Sound hint click
-      if (soundHint) {
-        soundHint.addEventListener("click", (e) => {
-          e.stopPropagation();
-          unmuteAndPlay();
-        });
-      }
-
-      // First user interaction anywhere on the window unmutes
-      const handleFirstInteraction = () => {
-        unmuteAndPlay();
-        window.removeEventListener("click", handleFirstInteraction);
-        window.removeEventListener("keydown", handleFirstInteraction);
-        window.removeEventListener("touchstart", handleFirstInteraction);
-      };
-
-      window.addEventListener("click", handleFirstInteraction, { once: true });
-      window.addEventListener("keydown", handleFirstInteraction, { once: true });
-      window.addEventListener("touchstart", handleFirstInteraction, { once: true, passive: true });
+      start();
+      window.addEventListener("click", start, { once: true });
+      window.addEventListener("keydown", start, { once: true });
+      window.addEventListener("touchstart", start, { once: true, passive: true });
     })();
   </script>
 </body>
