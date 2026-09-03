@@ -92,6 +92,30 @@
       box-shadow: 0 6px 20px rgba(250, 204, 21, 0.25);
     }
 
+    .jm-bottom-greeting {
+      position: fixed;
+      bottom: 24px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      z-index: 100;
+      pointer-events: none;
+      padding: 0 20px;
+      background: transparent !important;
+    }
+
+    .jm-greeting-text {
+      display: inline-block;
+      color: #ffffff;
+      font-size: clamp(13px, 2.6vw, 17px);
+      font-weight: 600;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95), 0 4px 16px rgba(0, 0, 0, 0.9), 0 0 24px rgba(0, 0, 0, 0.85);
+      letter-spacing: 0.3px;
+      line-height: 1.4;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      will-change: opacity, transform;
+    }
+
     @media (max-width: 640px) {
       .top-controls {
         padding: 12px 14px;
@@ -99,6 +123,10 @@
       .enter-btn {
         padding: 6px 14px;
         font-size: 12px;
+      }
+      .jm-bottom-greeting {
+        bottom: 16px;
+        padding: 0 12px;
       }
     }
   </style>
@@ -110,6 +138,10 @@
         Enter Portal →
       </button>
     </div>
+  </div>
+
+  <div class="jm-bottom-greeting" aria-live="polite">
+    <span id="jm-greeting-text" class="jm-greeting-text">RailSaathi wishes you and your loved ones a very Happy Janmashtami! 🦚✨</span>
   </div>
 
   <script>
@@ -194,6 +226,26 @@
       // Ensure sound is enabled on click or play
       screen.addEventListener("click", ensureSoundOn);
       screen.addEventListener("play", ensureSoundOn);
+
+      // Rotating festive greeting text (English -> Hindi every 3 seconds)
+      const greetingEl = document.getElementById('jm-greeting-text');
+      if (greetingEl) {
+        const messages = [
+          "RailSaathi wishes you and your loved ones a very Happy Janmashtami! 🦚✨",
+          "रेलसाथी की ओर से आपको एवं आपके प्रियजनों को जन्माष्टमी की हार्दिक शुभकामनाएँ! 🦚✨"
+        ];
+        let msgIndex = 0;
+        setInterval(() => {
+          greetingEl.style.opacity = '0';
+          greetingEl.style.transform = 'translateY(3px)';
+          setTimeout(() => {
+            msgIndex = (msgIndex + 1) % messages.length;
+            greetingEl.textContent = messages[msgIndex];
+            greetingEl.style.opacity = '1';
+            greetingEl.style.transform = 'translateY(0)';
+          }, 400);
+        }, 3000);
+      }
     })();
   </script>
 </body>

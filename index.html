@@ -4056,6 +4056,9 @@ body.show-marketing-landing[data-landing-theme="dark"] {
   <div id="jm-landing-banner" class="jm-festive-banner no-print" role="region" aria-label="Festive Banner">
     <div class="jm-banner-container">
       <video id="jm-banner-video" src="video.mp4" autoplay loop playsinline preload="auto"></video>
+      <div class="jm-banner-greeting" aria-live="polite">
+        <span id="jm-greeting-text" class="jm-greeting-text">RailSaathi wishes you and your loved ones a very Happy Janmashtami! 🦚✨</span>
+      </div>
     </div>
   </div>
 
@@ -12765,9 +12768,37 @@ if (document.readyState === 'loading') {
     cursor: pointer;
   }
 
+  .jm-banner-greeting {
+    position: absolute;
+    bottom: 16px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 5;
+    pointer-events: none;
+    padding: 0 16px;
+    background: transparent !important;
+  }
+
+  .jm-greeting-text {
+    display: inline-block;
+    color: #ffffff;
+    font-size: clamp(12.5px, 2.2vw, 15.5px);
+    font-weight: 600;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95), 0 4px 14px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.85);
+    letter-spacing: 0.25px;
+    line-height: 1.4;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    will-change: opacity, transform;
+  }
+
   @media (max-width: 768px) {
     .jm-banner-container {
       height: 240px;
+    }
+    .jm-banner-greeting {
+      bottom: 10px;
+      padding: 0 10px;
     }
   }
 
@@ -12826,6 +12857,26 @@ if (document.readyState === 'loading') {
   // Always keep sound on on click or replay
   video.addEventListener('click', ensureSoundOn);
   video.addEventListener('play', ensureSoundOn);
+
+  // Rotating festive greeting text (English -> Hindi every 3 seconds)
+  const greetingEl = document.getElementById('jm-greeting-text');
+  if (greetingEl) {
+    const messages = [
+      "RailSaathi wishes you and your loved ones a very Happy Janmashtami! 🦚✨",
+      "रेलसाथी की ओर से आपको एवं आपके प्रियजनों को जन्माष्टमी की हार्दिक शुभकामनाएँ! 🦚✨"
+    ];
+    let msgIndex = 0;
+    setInterval(() => {
+      greetingEl.style.opacity = '0';
+      greetingEl.style.transform = 'translateY(3px)';
+      setTimeout(() => {
+        msgIndex = (msgIndex + 1) % messages.length;
+        greetingEl.textContent = messages[msgIndex];
+        greetingEl.style.opacity = '1';
+        greetingEl.style.transform = 'translateY(0)';
+      }, 400);
+    }, 3000);
+  }
 })();
 </script>
 
