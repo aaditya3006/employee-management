@@ -148,6 +148,28 @@
       padding: 0;
     }
 
+    body.show-marketing-landing #login-screen {
+      display: none !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+
+    body.show-marketing-landing #sidebar,
+    body.show-marketing-landing #sidebar-backdrop,
+    body.show-marketing-landing #main-wrapper,
+    body.show-marketing-landing #top-nav,
+    body.show-marketing-landing #main-footer,
+    body.show-marketing-landing #bg-image,
+    body.show-marketing-landing #preview-section,
+    body.show-marketing-landing #attendance-preview-section,
+    body.show-marketing-landing #ta-preview-section {
+      display: none !important;
+    }
+
+    body:not(.show-marketing-landing) #railsaathi-landing {
+      display: none !important;
+    }
+
     #railsaathi-landing {
       --rs-bg-deep: #030712;
       --rs-bg-navy: #070b14;
@@ -6482,9 +6504,6 @@
 
 <body id="app-body" class="show-marketing-landing">
 
-  <!-- ==========================================
-   MARKETING LANDING
-============================================= -->
   
   <!-- ==========================================
        RAILSAATHI ULTRA-PREMIUM CINEMATIC LANDING
@@ -9922,6 +9941,9 @@
     }
 
 
+    // ==========================================
+    //   SUPABASE INIT
+    // ==========================================
     function initSupabase() {
       if (window.auth && window.db) {
         console.log('✅ Supabase already initialized');
