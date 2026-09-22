@@ -53,13 +53,6 @@ body {
     right: 0;
     bottom: 0;
     z-index: 10;
-    transition: opacity 0.35s ease, visibility 0.35s ease;
-}
-
-.page.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
 }
 
 /* Main card */
@@ -264,12 +257,12 @@ h1 span {
     }
 }
 
-/* Maintenance Image Display (No text, pure responsive photo adjusted to phone/laptop) */
+/* Maintenance Image Display (Pure responsive photo adjusted to phone/laptop) */
 .image-container {
     width: 100vw;
     height: 100vh;
     height: 100dvh;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     background: #0a0d14;
@@ -301,12 +294,31 @@ h1 span {
     user-select: none;
     -webkit-user-drag: none;
 }
+
+/* Smooth Whitening Effect Overlay */
+.white-flash-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    background: #ffffff;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.white-flash-overlay.active {
+    opacity: 1;
+}
 </style>
 </head>
 
 <body>
 
-<!-- Initial / Slow Load Fallback Card -->
+<!-- Initial 3-Second Maintenance HTML Card -->
 <div class="page" id="fallbackCard">
     <div class="card">
         <!-- Railsaathi Logo -->
@@ -365,39 +377,93 @@ h1 span {
             src="maintenancelp.png"
             class="maintenance-photo"
             alt="Railsaathi Under Maintenance"
-            onload="handleImageLoaded()"
         >
     </picture>
 </div>
 
+<!-- Whitening Transition Overlay -->
+<div class="white-flash-overlay" id="whiteFlash"></div>
+
 <script>
-function handleImageLoaded() {
+var imageLoaded = false;
+var timerElapsed = false;
+var transitioned = false;
+
+function doWhiteningTransition() {
+    if (transitioned) return;
+    transitioned = true;
+
+    var flash = document.getElementById('whiteFlash');
     var fallback = document.getElementById('fallbackCard');
-    if (fallback) {
-        fallback.classList.add('hidden');
+    var container = document.getElementById('imageContainer');
+
+    if (!flash) {
+        if (fallback) fallback.style.display = 'none';
+        if (container) container.style.display = 'flex';
+        return;
+    }
+
+    // Step 1: Smoothly fade in white flash
+    flash.classList.add('active');
+
+    setTimeout(function() {
+        // Step 2: Swap view behind the white flash
+        if (fallback) fallback.style.display = 'none';
+        if (container) container.style.display = 'flex';
+
+        // Step 3: Smoothly fade out white flash to reveal maintenance photo
+        requestAnimationFrame(function() {
+            setTimeout(function() {
+                flash.classList.remove('active');
+            }, 60);
+        });
+    }, 500);
+}
+
+function checkAndTransition() {
+    if (timerElapsed && imageLoaded) {
+        doWhiteningTransition();
     }
 }
 
-// Fallback check if already loaded from cache
+// 1. Mark image as loaded
+function onImageReady() {
+    imageLoaded = true;
+    checkAndTransition();
+}
+
 var img = document.getElementById('maintenanceImg');
-if (img && img.complete && img.naturalHeight !== 0) {
-    handleImageLoaded();
+if (img) {
+    if (img.complete && img.naturalWidth > 0) {
+        onImageReady();
+    } else {
+        img.addEventListener('load', onImageReady);
+    }
 }
 
-// Check responsive image preload on orientation / resize change
-function checkResponsivePreload() {
-    var isPhone = window.innerWidth <= 768 || (window.innerHeight > window.innerWidth && window.innerWidth <= 1024);
-    var targetSrc = isPhone ? 'maintenancesp.png' : 'maintenancelp.png';
-    var preloader = new Image();
-    preloader.onload = function() {
-        handleImageLoaded();
-    };
-    preloader.src = targetSrc;
-}
+// Preload both smartphone and laptop images
+var pPhone = new Image();
+pPhone.src = 'maintenancesp.png';
+var pLaptop = new Image();
+pLaptop.src = 'maintenancelp.png';
 
-window.addEventListener('load', checkResponsivePreload);
-window.addEventListener('resize', checkResponsivePreload);
-window.addEventListener('orientationchange', checkResponsivePreload);
+pPhone.onload = onImageReady;
+pLaptop.onload = onImageReady;
+
+// 2. 3-second timer
+setTimeout(function() {
+    timerElapsed = true;
+    // If image is already ready or cached, transition immediately
+    checkAndTransition();
+    
+    // Safety fallback: if image takes a few moments more on slow connection, trigger as soon as it arrives
+    setTimeout(function() {
+        if (!transitioned) {
+            imageLoaded = true;
+            doWhiteningTransition();
+        }
+    }, 4000);
+}, 3000);
 </script>
 
 </body>
