@@ -141,9 +141,14 @@
    Exclusively scoped to body.show-marketing-landing and #railsaathi-landing
    ========================================================================== */
 
+/* ==========================================================================
+   SCOPED LANDING PAGE DESIGN SYSTEM (RAILSAATHI / RGDTIA PORTAL)
+   Exclusively scoped to body.show-marketing-landing and #railsaathi-landing
+   ========================================================================== */
+
 body.show-marketing-landing {
-  background: #030816;
-  color: #f8fafc;
+  background: #f8fafc;
+  color: #0f172a;
   overflow-x: hidden;
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
@@ -162,13 +167,69 @@ body.show-marketing-landing #ta-preview-section {
   visibility: hidden !important;
 }
 
-/* Landing Page Variables & Theme Scoping */
+/* Landing Page Scoped Design Tokens */
 #railsaathi-landing {
+  /* Default: Light Theme */
+  --lp-bg: #f8fafc;
+  --lp-bg-elevated: #ffffff;
+  --lp-surface: rgba(255, 255, 255, 0.92);
+  --lp-surface-hover: #ffffff;
+  --lp-surface-card: rgba(255, 255, 255, 0.96);
+  --lp-surface-solid: #ffffff;
+  --lp-border: rgba(37, 99, 235, 0.16);
+  --lp-border-subtle: rgba(15, 23, 42, 0.08);
+  --lp-border-focus: #0284c7;
+  --lp-primary: #1d4ed8;
+  --lp-primary-hover: #1e40af;
+  --lp-primary-glow: rgba(29, 78, 216, 0.22);
+  --lp-accent: #0284c7;
+  --lp-accent-gold: #d97706;
+  --lp-accent-green: #059669;
+  --lp-text-title: #0f172a;
+  --lp-text-body: #334155;
+  --lp-text-muted: #64748b;
+  --lp-gradient-hero: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1d4ed8 100%);
+  --lp-gradient-accent: linear-gradient(135deg, #0284c7 0%, #1d4ed8 100%);
+  --lp-gradient-gold: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  --lp-shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06);
+  --lp-shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --lp-shadow-lg: 0 16px 40px rgba(15, 23, 42, 0.12);
+  --lp-shadow-glow: 0 0 25px rgba(2, 132, 199, 0.18);
+  --lp-radius-sm: 8px;
+  --lp-radius-md: 14px;
+  --lp-radius-lg: 20px;
+  --lp-radius-xl: 28px;
+  --lp-radius-pill: 9999px;
+
+  position: relative;
+  display: none;
+  min-height: 100vh;
+  color: var(--lp-text-body);
+  background-color: var(--lp-bg);
+  background-image: 
+    radial-gradient(circle at 10% 8%, rgba(2, 132, 199, 0.08), transparent 28%),
+    radial-gradient(circle at 90% 12%, rgba(29, 78, 216, 0.08), transparent 32%),
+    radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.04), transparent 45%),
+    linear-gradient(180deg, #f8fafc 0%, #f1f5f9 35%, #e2e8f0 70%, #f8fafc 100%);
+  isolation: isolate;
+  overflow-x: hidden;
+}
+
+body.show-marketing-landing #railsaathi-landing {
+  display: block;
+}
+
+#railsaathi-landing[hidden] {
+  display: none !important;
+}
+
+/* Dark Theme Scope */
+#railsaathi-landing[data-theme="dark"] {
   --lp-bg: #04091a;
   --lp-bg-elevated: #071026;
-  --lp-surface: rgba(11, 23, 48, 0.72);
-  --lp-surface-hover: rgba(16, 33, 68, 0.85);
-  --lp-surface-card: rgba(13, 27, 56, 0.65);
+  --lp-surface: rgba(11, 23, 48, 0.76);
+  --lp-surface-hover: rgba(16, 33, 68, 0.88);
+  --lp-surface-card: rgba(13, 27, 56, 0.7);
   --lp-surface-solid: #0d1e3d;
   --lp-border: rgba(56, 189, 248, 0.16);
   --lp-border-subtle: rgba(255, 255, 255, 0.08);
@@ -189,198 +250,141 @@ body.show-marketing-landing #ta-preview-section {
   --lp-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
   --lp-shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
   --lp-shadow-glow: 0 0 25px rgba(56, 189, 248, 0.25);
-  --lp-radius-sm: 8px;
-  --lp-radius-md: 14px;
-  --lp-radius-lg: 20px;
-  --lp-radius-xl: 28px;
-  --lp-radius-pill: 9999px;
 
-  position: relative;
-  display: none;
-  min-height: 100vh;
-  color: var(--lp-text-body);
   background-color: var(--lp-bg);
   background-image: 
     radial-gradient(circle at 10% 8%, rgba(56, 189, 248, 0.15), transparent 28%),
     radial-gradient(circle at 90% 12%, rgba(37, 99, 235, 0.18), transparent 32%),
     radial-gradient(circle at 50% 50%, rgba(30, 58, 138, 0.12), transparent 45%),
     linear-gradient(180deg, #030816 0%, #060e22 35%, #08122d 70%, #030816 100%);
-  isolation: isolate;
-  overflow-x: hidden;
 }
 
-body.show-marketing-landing #railsaathi-landing {
-  display: block;
+/* Background Grids & Ambience */
+#railsaathi-landing .landing-ambient {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1440px;
+  height: 600px;
+  background: radial-gradient(circle at 50% 0%, var(--lp-primary-glow), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
 }
 
-#railsaathi-landing[hidden] {
-  display: none !important;
-}
-
-/* Light Theme Scope */
-#railsaathi-landing[data-theme="light"] {
-  --lp-bg: #f8fafc;
-  --lp-bg-elevated: #ffffff;
-  --lp-surface: rgba(255, 255, 255, 0.88);
-  --lp-surface-hover: #ffffff;
-  --lp-surface-card: rgba(255, 255, 255, 0.92);
-  --lp-surface-solid: #ffffff;
-  --lp-border: rgba(37, 99, 235, 0.18);
-  --lp-border-subtle: rgba(15, 23, 42, 0.08);
-  --lp-border-focus: #0284c7;
-  --lp-primary: #1d4ed8;
-  --lp-primary-hover: #1e40af;
-  --lp-primary-glow: rgba(29, 78, 216, 0.2);
-  --lp-accent: #0284c7;
-  --lp-accent-gold: #d97706;
-  --lp-accent-green: #059669;
-  --lp-text-title: #0f172a;
-  --lp-text-body: #334155;
-  --lp-text-muted: #64748b;
-  --lp-gradient-hero: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1d4ed8 100%);
-  --lp-shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06);
-  --lp-shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
-  --lp-shadow-lg: 0 16px 40px rgba(15, 23, 42, 0.12);
-  --lp-shadow-glow: 0 0 25px rgba(37, 99, 235, 0.15);
+#railsaathi-landing .landing-grid {
+  position: absolute;
+  inset: 0;
+  background-size: 40px 40px;
   background-image: 
-    radial-gradient(circle at 10% 8%, rgba(2, 132, 199, 0.1), transparent 30%),
-    radial-gradient(circle at 90% 12%, rgba(37, 99, 235, 0.1), transparent 32%),
-    linear-gradient(180deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+    linear-gradient(to right, var(--lp-border-subtle) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--lp-border-subtle) 1px, transparent 1px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.45;
+  mask-image: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.1) 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.1) 80%, transparent 100%);
 }
 
-/* Ambient Railway Grid & Particles */
+/* Scroll Progress Bar */
 #railsaathi-landing .landing-scroll-progress {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000001;
   width: calc(var(--landing-progress, 0) * 1%);
   height: 3px;
-  background: linear-gradient(90deg, #38bdf8 0%, #3b82f6 50%, #10b981 100%);
-  box-shadow: 0 0 14px rgba(56, 189, 248, 0.7);
+  background: var(--lp-gradient-accent);
+  z-index: 9999;
   transition: width 0.1s linear;
 }
 
-#railsaathi-landing .landing-grid,
-#railsaathi-landing .landing-ambient {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-#railsaathi-landing .landing-grid {
-  background-image: 
-    linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(circle at 50% 30%, black 40%, transparent 80%);
-  -webkit-mask-image: radial-gradient(circle at 50% 30%, black 40%, transparent 80%);
-}
-
-/* Top Navigation Header */
+/* Top Navigation Bar */
 #railsaathi-landing .landing-topbar {
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 14px 24px;
-  background: rgba(4, 9, 26, 0.85);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-bottom: 1px solid var(--lp-border);
-  transition: all 0.3s ease;
-}
-
-#railsaathi-landing[data-theme="light"] .landing-topbar {
-  background: rgba(255, 255, 255, 0.9);
-  border-bottom-color: var(--lp-border-subtle);
+  padding: 12px 24px;
+  background: var(--lp-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--lp-border-subtle);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 #railsaathi-landing .landing-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   text-decoration: none;
-  color: inherit;
-}
-
-#railsaathi-landing .landing-brand__mark {
-  width: 44px;
-  height: 44px;
-  padding: 6px;
-  border-radius: var(--lp-radius-md);
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  min-width: 0;
+  flex-shrink: 1;
 }
 
 #railsaathi-landing .landing-brand__mark img {
-  width: 100%;
-  height: 100%;
+  width: 36px;
+  height: 36px;
   object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
+#railsaathi-landing .landing-brand__meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #railsaathi-landing .landing-brand__name {
   font-size: 1.25rem;
   font-weight: 800;
-  letter-spacing: -0.02em;
   color: var(--lp-text-title);
+  letter-spacing: -0.02em;
   margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-#railsaathi-landing .landing-brand__name span {
-  background: var(--lp-gradient-hero);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+  white-space: nowrap;
 }
 
 #railsaathi-landing .landing-brand__copy {
-  font-size: 0.76rem;
+  font-size: 0.72rem;
   color: var(--lp-text-muted);
   margin: 0;
-  font-weight: 500;
+  line-height: 1.2;
 }
 
-/* Desktop Navigation Menu */
 #railsaathi-landing .landing-nav-links {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 24px;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 #railsaathi-landing .landing-nav-link {
+  color: var(--lp-text-body);
   font-size: 0.88rem;
   font-weight: 600;
-  color: var(--lp-text-body);
   text-decoration: none;
-  padding: 6px 10px;
-  border-radius: var(--lp-radius-sm);
-  transition: all 0.2s ease;
+  transition: color 0.2s ease;
+  position: relative;
+  padding: 4px 0;
 }
 
 #railsaathi-landing .landing-nav-link:hover {
   color: var(--lp-accent);
-  background: rgba(56, 189, 248, 0.08);
 }
 
-/* Header Controls */
 #railsaathi-landing .landing-topbar__controls {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
 #railsaathi-landing .landing-theme-switch,
@@ -392,6 +396,7 @@ body.show-marketing-landing #railsaathi-landing {
   border: 1px solid var(--lp-border-subtle);
   border-radius: var(--lp-radius-pill);
   gap: 2px;
+  flex-shrink: 0;
 }
 
 #railsaathi-landing .landing-theme-switch__button,
@@ -406,6 +411,9 @@ body.show-marketing-landing #railsaathi-landing {
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #railsaathi-landing .landing-theme-switch__button.is-active,
@@ -422,19 +430,22 @@ body.show-marketing-landing #railsaathi-landing {
 #railsaathi-landing .landing-topbar__cta {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 9px 22px;
-  font-size: 0.88rem;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 18px;
+  font-size: 0.86rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #ffffff !important;
   background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--lp-radius-pill);
   text-decoration: none;
   cursor: pointer;
-  box-shadow: 0 4px 16px var(--lp-primary-glow);
+  box-shadow: 0 4px 14px var(--lp-primary-glow);
   transition: all 0.25s ease;
   white-space: nowrap;
+  flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 #railsaathi-landing .landing-topbar__cta:hover {
@@ -449,17 +460,18 @@ body.show-marketing-landing #railsaathi-landing {
   background: var(--lp-surface-card);
   border: 1px solid var(--lp-border-subtle);
   color: var(--lp-text-title);
-  padding: 8px 12px;
+  padding: 6px 10px;
   border-radius: var(--lp-radius-sm);
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 #railsaathi-landing .landing-mobile-drawer {
   display: none;
   flex-direction: column;
-  gap: 12px;
-  padding: 16px 20px;
+  gap: 10px;
+  padding: 14px 18px;
   background: var(--lp-bg-elevated);
   border-bottom: 1px solid var(--lp-border);
 }
@@ -471,7 +483,7 @@ body.show-marketing-landing #railsaathi-landing {
 #railsaathi-landing .landing-mobile-drawer a {
   color: var(--lp-text-title);
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 600;
   padding: 8px 0;
   border-bottom: 1px solid var(--lp-border-subtle);
@@ -488,54 +500,53 @@ body.show-marketing-landing #railsaathi-landing {
 
 /* Generic Section Scoping */
 #railsaathi-landing .landing-section {
-  padding: 72px 0;
+  padding: 64px 0;
+  position: relative;
 }
 
 #railsaathi-landing .landing-section-header {
   text-align: center;
-  max-width: 760px;
+  max-width: 780px;
   margin: 0 auto 48px auto;
 }
 
 #railsaathi-landing .landing-section-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 14px;
-  font-size: 0.76rem;
-  font-weight: 700;
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   color: var(--lp-accent);
-  background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  background: rgba(2, 132, 199, 0.1);
+  padding: 4px 14px;
   border-radius: var(--lp-radius-pill);
+  border: 1px solid rgba(2, 132, 199, 0.2);
   margin-bottom: 12px;
 }
 
 #railsaathi-landing .landing-section-title {
-  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
   font-weight: 800;
   color: var(--lp-text-title);
-  line-height: 1.25;
+  line-height: 1.2;
   letter-spacing: -0.02em;
   margin: 0 0 14px 0;
 }
 
 #railsaathi-landing .landing-section-subtitle {
   font-size: 1rem;
-  color: var(--lp-text-muted);
+  color: var(--lp-text-body);
   line-height: 1.6;
   margin: 0;
 }
 
 /* Hero Section */
 #railsaathi-landing .landing-hero {
-  padding: 48px 0 64px 0;
   display: grid;
-  grid-template-columns: 1.15fr 0.95fr;
-  gap: 40px;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 48px;
   align-items: center;
+  padding: 48px 0 64px 0;
   min-height: calc(100vh - 80px);
 }
 
@@ -545,61 +556,29 @@ body.show-marketing-landing #railsaathi-landing {
   gap: 20px;
 }
 
-#railsaathi-landing .landing-kicker-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  background: rgba(37, 99, 235, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  border-radius: var(--lp-radius-pill);
-  width: fit-content;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--lp-accent);
-  box-shadow: 0 2px 10px rgba(56, 189, 248, 0.1);
-}
-
-#railsaathi-landing .landing-kicker-pill__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 8px #10b981;
-  animation: lpPulseDot 2s infinite;
-}
-
-@keyframes lpPulseDot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
-}
-
 #railsaathi-landing .landing-headline {
-  font-size: clamp(2.2rem, 4.4vw, 3.4rem);
+  font-size: clamp(2.3rem, 4vw, 3.5rem);
   font-weight: 900;
+  color: var(--lp-text-title);
   line-height: 1.12;
   letter-spacing: -0.03em;
-  color: var(--lp-text-title);
   margin: 0;
 }
 
 #railsaathi-landing .landing-headline span {
-  background: var(--lp-gradient-hero);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   display: block;
 }
 
 #railsaathi-landing .landing-headline .landing-headline-sub {
-  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
-  font-weight: 700;
+  font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+  font-weight: 600;
   color: var(--lp-accent);
-  -webkit-text-fill-color: var(--lp-accent);
-  margin-top: 6px;
+  margin-top: 10px;
+  line-height: 1.35;
 }
 
 #railsaathi-landing .landing-manifesto {
-  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  font-size: 1.05rem;
   color: var(--lp-text-body);
   line-height: 1.65;
   margin: 0;
@@ -620,34 +599,33 @@ body.show-marketing-landing #railsaathi-landing {
   justify-content: center;
   gap: 10px;
   padding: 13px 26px;
+  border-radius: var(--lp-radius-pill);
   font-size: 0.95rem;
   font-weight: 700;
-  border-radius: var(--lp-radius-pill);
   text-decoration: none;
   cursor: pointer;
-  font-family: inherit;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  white-space: nowrap;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
 }
 
 #railsaathi-landing .landing-button--primary {
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+  background: var(--lp-primary);
+  color: #ffffff !important;
+  border: 1px solid var(--lp-primary);
+  box-shadow: 0 4px 18px var(--lp-primary-glow);
 }
 
 #railsaathi-landing .landing-button--primary:hover {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.55);
+  background: var(--lp-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--lp-primary-glow);
 }
 
 #railsaathi-landing .landing-button--ghost {
   background: var(--lp-surface-card);
-  color: var(--lp-text-title);
+  color: var(--lp-text-title) !important;
   border: 1px solid var(--lp-border);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
 }
 
 #railsaathi-landing .landing-button--ghost:hover {
@@ -657,19 +635,18 @@ body.show-marketing-landing #railsaathi-landing {
 }
 
 #railsaathi-landing .landing-button--secondary {
-  background: linear-gradient(135deg, #059669 0%, #047857 100%);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 6px 20px rgba(5, 150, 105, 0.35);
+  background: #10b981;
+  color: #ffffff !important;
+  border: 1px solid #059669;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
 }
 
 #railsaathi-landing .landing-button--secondary:hover {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: #059669;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.45);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
 }
 
-/* Metrics Row */
 #railsaathi-landing .landing-metrics {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -677,40 +654,41 @@ body.show-marketing-landing #railsaathi-landing {
   margin-top: 14px;
   padding-top: 20px;
   border-top: 1px solid var(--lp-border-subtle);
+  max-width: 580px;
 }
 
 #railsaathi-landing .landing-metric {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
 }
 
 #railsaathi-landing .landing-metric__value {
-  font-size: 1.55rem;
-  font-weight: 800;
+  font-size: 1.6rem;
+  font-weight: 900;
   color: var(--lp-text-title);
   letter-spacing: -0.02em;
 }
 
 #railsaathi-landing .landing-metric__label {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: var(--lp-text-muted);
   line-height: 1.4;
 }
 
-/* Hero Right: Engineering & Visual Showcase */
+/* Dynamic Railway Showcase / Visual Section */
 #railsaathi-landing .landing-hero__visual {
   position: relative;
 }
 
 #railsaathi-landing .landing-hero__panel {
-  position: relative;
   background: var(--lp-surface-card);
   border: 1px solid var(--lp-border);
   border-radius: var(--lp-radius-xl);
   padding: 16px;
-  backdrop-filter: blur(20px);
   box-shadow: var(--lp-shadow-lg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 #railsaathi-landing .landing-marvel-gallery {
@@ -720,7 +698,7 @@ body.show-marketing-landing #railsaathi-landing {
   margin: 0;
   background: #000;
   aspect-ratio: 16 / 10;
-  max-height: 380px;
+  max-height: 320px;
 }
 
 #railsaathi-landing .landing-marvel-gallery img {
@@ -728,91 +706,112 @@ body.show-marketing-landing #railsaathi-landing {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.8s ease, filter 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+}
+
+#railsaathi-landing .landing-marvel-gallery.is-animating img {
+  animation: landingMarvelSwap 0.5s ease;
+}
+
+#railsaathi-landing .landing-marvel-category-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 4px 10px;
+  border-radius: var(--lp-radius-pill);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  z-index: 2;
 }
 
 #railsaathi-landing .landing-marvel-dots {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 12px;
+  right: 12px;
   display: flex;
   gap: 6px;
-  z-index: 10;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.55);
   padding: 4px 8px;
   border-radius: var(--lp-radius-pill);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  z-index: 2;
 }
 
 #railsaathi-landing .landing-marvel-dot {
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
   border: none;
+  background: rgba(255, 255, 255, 0.4);
   cursor: pointer;
   padding: 0;
   transition: all 0.25s ease;
 }
 
 #railsaathi-landing .landing-marvel-dot.is-active {
-  width: 24px;
-  border-radius: 6px;
+  width: 22px;
+  border-radius: var(--lp-radius-pill);
   background: var(--lp-accent);
-  box-shadow: 0 0 8px var(--lp-accent);
 }
 
 #railsaathi-landing .landing-hero__media-caption {
   position: absolute;
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  padding: 24px 18px 16px 18px;
-  background: linear-gradient(180deg, transparent 0%, rgba(3, 8, 22, 0.95) 75%);
+  padding: 24px 16px 14px 16px;
+  background: linear-gradient(180deg, transparent 0%, rgba(3, 8, 22, 0.75) 40%, rgba(3, 8, 22, 0.95) 100%);
   color: #ffffff;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
+  z-index: 2;
 }
 
 #railsaathi-landing .landing-hero__media-caption span {
-  font-size: 0.76rem;
-  font-weight: 700;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #38bdf8;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--lp-accent);
 }
 
 #railsaathi-landing .landing-hero__media-caption strong {
-  font-size: 0.96rem;
-  font-weight: 700;
-  line-height: 1.35;
-  color: #f8fafc;
+  font-size: 0.95rem;
+  color: #ffffff;
+  line-height: 1.3;
 }
 
 #railsaathi-landing .landing-hero__media-caption small {
-  font-size: 0.78rem;
-  color: #94a3b8;
+  font-size: 0.75rem;
+  color: #cbd5e1;
+  line-height: 1.35;
 }
 
 #railsaathi-landing .landing-marvel-gallery__metric {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #fef08a;
-  background: rgba(245, 158, 11, 0.25);
-  border: 1px solid rgba(245, 158, 11, 0.4);
-  padding: 2px 8px;
-  border-radius: var(--lp-radius-pill);
-  width: fit-content;
-  margin-top: 4px;
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(2, 132, 199, 0.85);
+  backdrop-filter: blur(6px);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: var(--lp-radius-sm);
+  z-index: 3;
 }
 
-/* Live Data HUD Panel Grid */
 #railsaathi-landing .landing-hero__hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 14px;
 }
 
@@ -820,35 +819,35 @@ body.show-marketing-landing #railsaathi-landing {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  margin-top: 8px;
+  margin-top: 10px;
 }
 
 #railsaathi-landing .landing-context-card {
-  background: var(--lp-surface-solid);
+  background: var(--lp-surface);
   border: 1px solid var(--lp-border-subtle);
   border-radius: var(--lp-radius-md);
-  padding: 10px 12px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-#railsaathi-landing .landing-context-card__eyebrow {
+#railsaathi-landing .landing-context-card__eyebrow,
+#railsaathi-landing .landing-context-corridor-eyebrow {
   font-size: 0.68rem;
   font-weight: 700;
+  color: var(--lp-accent);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--lp-text-muted);
 }
 
 #railsaathi-landing .landing-context-card strong {
-  font-size: 0.88rem;
-  font-weight: 800;
+  font-size: 0.85rem;
   color: var(--lp-text-title);
+  line-height: 1.2;
 }
 
 #railsaathi-landing .landing-context-card span:last-child {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: var(--lp-text-muted);
   line-height: 1.3;
 }
@@ -856,16 +855,16 @@ body.show-marketing-landing #railsaathi-landing {
 #railsaathi-landing .landing-source-note {
   font-size: 0.7rem;
   color: var(--lp-text-muted);
-  margin: 10px 0 0 0;
+  margin-top: 10px;
   text-align: right;
 }
 
 #railsaathi-landing .landing-source-note a {
   color: var(--lp-accent);
-  text-decoration: underline;
+  text-decoration: none;
 }
 
-/* Feature Cards Section */
+/* Features Grid */
 #railsaathi-landing .landing-features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -873,97 +872,91 @@ body.show-marketing-landing #railsaathi-landing {
 }
 
 #railsaathi-landing .landing-feature-card {
-  position: relative;
   background: var(--lp-surface-card);
-  border: 1px solid var(--lp-border-subtle);
+  border: 1px solid var(--lp-border);
   border-radius: var(--lp-radius-lg);
-  padding: 28px 24px;
+  padding: 28px;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: var(--lp-shadow-sm);
+  backdrop-filter: blur(12px);
 }
 
 #railsaathi-landing .landing-feature-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--lp-border);
-  background: var(--lp-surface-hover);
-  box-shadow: var(--lp-shadow-glow), var(--lp-shadow-md);
+  transform: translateY(-4px);
+  border-color: var(--lp-accent);
+  box-shadow: var(--lp-shadow-md), var(--lp-shadow-glow);
 }
 
 #railsaathi-landing .landing-feature-icon {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border-radius: var(--lp-radius-md);
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, rgba(37, 99, 235, 0.25) 100%);
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: var(--lp-surface-hover);
+  border: 1px solid var(--lp-border);
+  color: var(--lp-accent);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem;
-  color: var(--lp-accent);
-  margin-bottom: 4px;
+  font-size: 1.3rem;
 }
 
 #railsaathi-landing .landing-feature-title {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--lp-text-title);
   margin: 0;
-  line-height: 1.3;
 }
 
 #railsaathi-landing .landing-feature-desc {
-  font-size: 0.88rem;
-  color: var(--lp-text-muted);
+  font-size: 0.92rem;
+  color: var(--lp-text-body);
   line-height: 1.6;
   margin: 0;
-  flex-grow: 1;
 }
 
 #railsaathi-landing .landing-feature-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 6px;
+  margin-top: auto;
 }
 
 #railsaathi-landing .landing-feature-tag {
   font-size: 0.72rem;
   font-weight: 600;
   color: var(--lp-accent);
-  background: rgba(56, 189, 248, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.18);
-  padding: 3px 9px;
+  background: rgba(2, 132, 199, 0.08);
+  padding: 3px 10px;
   border-radius: var(--lp-radius-pill);
+  border: 1px solid rgba(2, 132, 199, 0.15);
 }
 
-/* Workforce Pipeline Section */
+/* Operational Flow Section */
 #railsaathi-landing .landing-workflow-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  position: relative;
 }
 
 #railsaathi-landing .landing-workflow-step {
   background: var(--lp-surface-card);
   border: 1px solid var(--lp-border-subtle);
   border-radius: var(--lp-radius-lg);
-  padding: 24px 20px;
+  padding: 24px;
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  position: relative;
   backdrop-filter: blur(12px);
   transition: all 0.3s ease;
 }
 
 #railsaathi-landing .landing-workflow-step:hover {
-  border-color: var(--lp-border);
-  transform: translateY(-4px);
+  border-color: var(--lp-accent);
+  transform: translateY(-3px);
 }
 
 #railsaathi-landing .landing-workflow-step__num {
@@ -972,11 +965,11 @@ body.show-marketing-landing #railsaathi-landing {
   border-radius: 50%;
   background: var(--lp-primary);
   color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
   box-shadow: 0 4px 12px var(--lp-primary-glow);
 }
 
@@ -988,45 +981,45 @@ body.show-marketing-landing #railsaathi-landing {
 }
 
 #railsaathi-landing .landing-workflow-step p {
-  font-size: 0.84rem;
-  color: var(--lp-text-muted);
+  font-size: 0.88rem;
+  color: var(--lp-text-body);
   line-height: 1.55;
   margin: 0;
 }
 
-/* SEO & TA Journal Guidelines */
+/* SEO / Knowledge Section */
 #railsaathi-landing .landing-seo-grid {
   background: var(--lp-surface-card);
-  border: 1px solid var(--lp-border-subtle);
+  border: 1px solid var(--lp-border);
   border-radius: var(--lp-radius-xl);
   padding: 36px;
-  backdrop-filter: blur(16px);
-  box-shadow: var(--lp-shadow-md);
-  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 #railsaathi-landing .landing-seo-copy {
-  font-size: 1.02rem;
-  color: var(--lp-text-body);
+  font-size: 1rem;
   line-height: 1.7;
-  margin: 0 0 24px 0;
+  color: var(--lp-text-body);
+  margin: 0;
 }
 
 #railsaathi-landing .landing-seo-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 #railsaathi-landing .landing-seo-list li {
-  background: var(--lp-surface-solid);
+  background: var(--lp-surface);
   border: 1px solid var(--lp-border-subtle);
   border-radius: var(--lp-radius-md);
-  padding: 16px 18px;
-  font-size: 0.88rem;
+  padding: 16px;
+  font-size: 0.9rem;
   color: var(--lp-text-body);
   line-height: 1.55;
 }
@@ -1038,21 +1031,20 @@ body.show-marketing-landing #railsaathi-landing {
 }
 
 #railsaathi-landing .landing-seo-disclaimer {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--lp-text-muted);
-  line-height: 1.6;
-  margin-top: 18px;
-  padding-left: 12px;
-  border-left: 3px solid var(--lp-accent);
+  line-height: 1.4;
+  margin-top: 14px;
+  text-align: center;
 }
 
-/* FAQ Section */
+/* FAQ Accordion */
 #railsaathi-landing .landing-faq {
+  max-width: 820px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 900px;
-  margin: 0 auto;
+  gap: 12px;
 }
 
 #railsaathi-landing .landing-faq details {
@@ -1060,26 +1052,22 @@ body.show-marketing-landing #railsaathi-landing {
   border: 1px solid var(--lp-border-subtle);
   border-radius: var(--lp-radius-md);
   padding: 16px 20px;
-  transition: all 0.25s ease;
-  backdrop-filter: blur(12px);
+  transition: border-color 0.2s ease;
 }
 
 #railsaathi-landing .landing-faq details[open] {
-  border-color: var(--lp-border);
-  background: var(--lp-surface-hover);
-  box-shadow: var(--lp-shadow-sm);
+  border-color: var(--lp-accent);
 }
 
 #railsaathi-landing .landing-faq summary {
-  font-size: 1rem;
   font-weight: 700;
   color: var(--lp-text-title);
   cursor: pointer;
   list-style: none;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  user-select: none;
+  align-items: center;
+  font-size: 0.98rem;
 }
 
 #railsaathi-landing .landing-faq summary::-webkit-details-marker {
@@ -1089,52 +1077,48 @@ body.show-marketing-landing #railsaathi-landing {
 #railsaathi-landing .landing-faq summary::after {
   content: '+';
   font-size: 1.3rem;
-  font-weight: 400;
   color: var(--lp-accent);
+  font-weight: 400;
   transition: transform 0.2s ease;
 }
 
 #railsaathi-landing .landing-faq details[open] summary::after {
   content: '−';
-  transform: rotate(180deg);
 }
 
 #railsaathi-landing .landing-faq p {
   margin: 12px 0 0 0;
   font-size: 0.9rem;
+  line-height: 1.6;
   color: var(--lp-text-body);
-  line-height: 1.65;
-  padding-top: 10px;
-  border-top: 1px solid var(--lp-border-subtle);
 }
 
-/* Download / APK Section */
+/* Android Download Card */
 #railsaathi-landing .landing-download-grid {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 28px;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 24px;
   align-items: stretch;
 }
 
 #railsaathi-landing .landing-download-card,
 #railsaathi-landing .landing-story-card {
   background: var(--lp-surface-card);
-  border: 1px solid var(--lp-border-subtle);
+  border: 1px solid var(--lp-border);
   border-radius: var(--lp-radius-xl);
-  padding: 36px 32px;
-  backdrop-filter: blur(16px);
-  box-shadow: var(--lp-shadow-md);
+  padding: 36px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  box-shadow: var(--lp-shadow-md);
 }
 
 #railsaathi-landing .landing-download-card__ribbon {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 5px 12px;
-  font-size: 0.76rem;
+  gap: 6px;
+  padding: 4px 12px;
+  font-size: 0.72rem;
   font-weight: 700;
   color: #10b981;
   background: rgba(16, 185, 129, 0.12);
@@ -1236,87 +1220,82 @@ body.show-marketing-landing #railsaathi-landing {
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--lp-border);
-  flex-shrink: 0;
 }
 
 #railsaathi-landing .landing-leader-card strong {
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: var(--lp-text-title);
   display: block;
+  font-size: 1.05rem;
+  color: var(--lp-text-title);
 }
 
 #railsaathi-landing .landing-leader-card span {
-  font-size: 0.8rem;
-  color: var(--lp-accent);
-  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--lp-text-muted);
 }
 
 #railsaathi-landing .landing-contact-card {
   background: var(--lp-surface-card);
-  border: 1px solid var(--lp-border-subtle);
+  border: 1px solid var(--lp-border);
   border-radius: var(--lp-radius-lg);
   padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 20px;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 #railsaathi-landing .landing-contact-card span:first-child {
   font-size: 0.75rem;
   font-weight: 700;
-  text-transform: uppercase;
   color: var(--lp-accent);
-  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 #railsaathi-landing .landing-contact-card strong {
-  font-size: 1.15rem;
+  display: block;
+  font-size: 1.2rem;
   color: var(--lp-text-title);
+  margin: 6px 0 10px 0;
 }
 
 #railsaathi-landing .landing-contact-card p {
   font-size: 0.88rem;
-  color: var(--lp-text-muted);
-  margin: 0 0 6px 0;
+  color: var(--lp-text-body);
+  margin: 0 0 16px 0;
 }
 
 #railsaathi-landing .landing-contact-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #ffffff;
+  padding: 10px 20px;
   background: var(--lp-primary);
-  padding: 8px 18px;
+  color: #ffffff !important;
   border-radius: var(--lp-radius-pill);
+  font-size: 0.88rem;
+  font-weight: 700;
   text-decoration: none;
-  font-weight: 600;
-  font-size: 0.85rem;
-  width: fit-content;
-  transition: all 0.2s ease;
 }
 
 #railsaathi-landing .landing-contact-link:hover {
   background: var(--lp-primary-hover);
-  transform: translateY(-2px);
 }
 
 #railsaathi-landing .landing-legal-note {
   font-size: 0.74rem;
   color: var(--lp-text-muted);
-  line-height: 1.6;
   text-align: center;
-  max-width: 900px;
-  margin: 0 auto;
+  max-width: 820px;
+  margin: 24px auto 0 auto;
+  line-height: 1.45;
 }
 
-/* Landing Footer */
+/* Footer Section */
 #railsaathi-landing .landing-footer {
-  background: rgba(3, 8, 20, 0.95);
-  border-top: 1px solid var(--lp-border);
+  border-top: 1px solid var(--lp-border-subtle);
+  background: var(--lp-bg-elevated);
   padding: 48px 0 24px 0;
-  margin-top: 64px;
+  position: relative;
+  z-index: 1;
 }
 
 #railsaathi-landing .landing-footer-inner {
@@ -1324,25 +1303,51 @@ body.show-marketing-landing #railsaathi-landing {
   margin: 0 auto;
   padding: 0 24px;
   display: grid;
-  grid-template-columns: 1.5fr repeat(3, 1fr);
-  gap: 40px;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 36px;
+}
+
+#railsaathi-landing .landing-footer-brand .landing-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  margin-bottom: 12px;
+}
+
+#railsaathi-landing .landing-footer-brand .landing-brand__mark img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
+#railsaathi-landing .landing-footer-brand .landing-brand__name {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--lp-text-title) !important;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 0;
+  display: block;
+  white-space: nowrap;
 }
 
 #railsaathi-landing .landing-footer-brand p {
-  font-size: 0.84rem;
-  color: var(--lp-text-muted);
-  line-height: 1.6;
-  margin-top: 10px;
-  max-width: 320px;
+  font-size: 0.86rem;
+  color: var(--lp-text-body);
+  line-height: 1.55;
+  max-width: 340px;
 }
 
 #railsaathi-landing .landing-footer-col h4 {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--lp-text-title);
-  margin: 0 0 14px 0;
+  font-size: 0.88rem;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
+  color: var(--lp-text-title);
+  margin: 0 0 16px 0;
 }
 
 #railsaathi-landing .landing-footer-col ul {
@@ -1355,8 +1360,8 @@ body.show-marketing-landing #railsaathi-landing {
 }
 
 #railsaathi-landing .landing-footer-col a {
-  font-size: 0.84rem;
-  color: var(--lp-text-muted);
+  color: var(--lp-text-body);
+  font-size: 0.85rem;
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -1383,7 +1388,7 @@ body.show-marketing-landing #railsaathi-landing {
     grid-template-columns: 1fr;
     gap: 36px;
     min-height: auto;
-    padding: 32px 0 48px 0;
+    padding: 24px 0 48px 0;
   }
   #railsaathi-landing .landing-features-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1407,7 +1412,77 @@ body.show-marketing-landing #railsaathi-landing {
 
 @media (max-width: 768px) {
   #railsaathi-landing .landing-topbar {
-    padding: 10px 16px;
+    padding: 8px 12px;
+    gap: 6px;
+  }
+  #railsaathi-landing .landing-brand {
+    gap: 6px;
+    min-width: 0;
+    flex-shrink: 1;
+  }
+  #railsaathi-landing .landing-brand__mark img {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
+  #railsaathi-landing .landing-brand__name {
+    font-size: 1.12rem;
+    white-space: nowrap;
+  }
+  #railsaathi-landing .landing-brand__copy {
+    display: none !important;
+  }
+  #railsaathi-landing .landing-topbar__controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  #railsaathi-landing .landing-topbar__cta {
+    padding: 6px 12px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+    gap: 4px;
+    box-sizing: border-box;
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #railsaathi-landing .landing-theme-switch {
+    padding: 2px;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+  #railsaathi-landing .landing-theme-switch__button {
+    padding: 4px 6px;
+    font-size: 0.72rem;
+  }
+  #railsaathi-landing .landing-language-switch {
+    display: none;
+  }
+  #railsaathi-landing .landing-language-select-wrap {
+    display: block;
+    flex-shrink: 0;
+  }
+  #railsaathi-landing .landing-language-select {
+    background: var(--lp-surface-card);
+    color: var(--lp-text-title);
+    border: 1px solid var(--lp-border-subtle);
+    border-radius: var(--lp-radius-pill);
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: inherit;
+    flex-shrink: 0;
+  }
+  #railsaathi-landing .landing-mobile-toggle {
+    padding: 6px 8px;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+    border-radius: var(--lp-radius-sm);
   }
   #railsaathi-landing .landing-features-grid {
     grid-template-columns: 1fr;
@@ -1436,33 +1511,17 @@ body.show-marketing-landing #railsaathi-landing {
   #railsaathi-landing .landing-metrics {
     grid-template-columns: 1fr;
   }
-  #railsaathi-landing .landing-language-switch {
-    display: none;
-  }
-  #railsaathi-landing .landing-language-select-wrap {
-    display: block;
-  }
-  #railsaathi-landing .landing-language-select {
-    background: var(--lp-surface-card);
-    color: var(--lp-text-title);
-    border: 1px solid var(--lp-border-subtle);
-    border-radius: var(--lp-radius-pill);
-    padding: 6px 10px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    font-family: inherit;
-  }
 }
 
 @media (max-width: 480px) {
   #railsaathi-landing .landing-section {
-    padding: 48px 0;
+    padding: 40px 0;
   }
   #railsaathi-landing .landing-shell {
-    padding: 0 16px;
+    padding: 0 14px;
   }
   #railsaathi-landing .landing-headline {
-    font-size: 2rem;
+    font-size: 1.9rem;
   }
   #railsaathi-landing .landing-cta-row {
     flex-direction: column;
@@ -1472,11 +1531,18 @@ body.show-marketing-landing #railsaathi-landing {
     width: 100%;
   }
   #railsaathi-landing .landing-seo-grid {
-    padding: 20px 16px;
+    padding: 20px 14px;
   }
   #railsaathi-landing .landing-download-card,
   #railsaathi-landing .landing-story-card {
-    padding: 24px 18px;
+    padding: 22px 16px;
+  }
+  #railsaathi-landing .landing-marvel-gallery {
+    aspect-ratio: 16 / 10;
+    max-height: 230px;
+  }
+  #railsaathi-landing .landing-hero__media-caption strong {
+    font-size: 0.85rem;
   }
 }
 
@@ -3712,7 +3778,11 @@ body.show-marketing-landing #railsaathi-landing {
        RAILSAATHI MARKETING LANDING PAGE
        Next-Gen Railway Workforce Management System
   ============================================= -->
-  <div id="railsaathi-landing" class="no-print" aria-hidden="false">
+    <!-- ==========================================
+       RAILSAATHI MARKETING LANDING PAGE
+       Next-Gen Railway Workforce Management System
+  ============================================= -->
+  <div id="railsaathi-landing" class="no-print" data-theme="light" aria-hidden="false">
     <div id="landing-scroll-progress" class="landing-scroll-progress"></div>
     <div class="landing-ambient"></div>
     <div class="landing-grid"></div>
@@ -3724,7 +3794,7 @@ body.show-marketing-landing #railsaathi-landing {
           <img src="railsaathi-logo.png" alt="Railsaathi Logo">
         </div>
         <div class="landing-brand__meta">
-          <h1 class="landing-brand__name">Rail<span>saathi</span></h1>
+          <h1 class="landing-brand__name">Railsaathi</h1>
           <p class="landing-brand__copy" id="landing-nav-copy">Duty, attendance and report workflows</p>
         </div>
       </a>
@@ -3742,10 +3812,10 @@ body.show-marketing-landing #railsaathi-landing {
       <!-- Controls & Actions -->
       <div class="landing-topbar__controls">
         <div class="landing-theme-switch" role="group" aria-label="Landing page theme">
-          <button type="button" class="landing-theme-switch__button" data-theme-option="light" aria-pressed="false" aria-label="Use light theme">
+          <button type="button" class="landing-theme-switch__button is-active" data-theme-option="light" aria-pressed="true" aria-label="Use light theme">
             <i class="fa-solid fa-sun"></i>
           </button>
-          <button type="button" class="landing-theme-switch__button is-active" data-theme-option="dark" aria-pressed="true" aria-label="Use dark theme">
+          <button type="button" class="landing-theme-switch__button" data-theme-option="dark" aria-pressed="false" aria-label="Use dark theme">
             <i class="fa-solid fa-moon"></i>
           </button>
         </div>
@@ -3765,7 +3835,7 @@ body.show-marketing-landing #railsaathi-landing {
         </div>
 
         <a href="#login" class="landing-topbar__cta" id="landing-topbar-login" onclick="return window.openMarketingLogin(event)">
-          <i class="fa-solid fa-lock" style="font-size:0.8rem;"></i>
+          <i class="fa-solid fa-lock" style="font-size:0.75rem;"></i>
           <span>Login</span>
         </a>
 
@@ -3791,11 +3861,6 @@ body.show-marketing-landing #railsaathi-landing {
       <!-- HERO SECTION -->
       <section class="landing-hero" id="landing-home">
         <div class="landing-hero__content landing-reveal is-visible">
-          <div class="landing-kicker-pill">
-            <span class="landing-kicker-pill__dot"></span>
-            <span>Digital Railway Workforce Platform</span>
-          </div>
-
           <h2 class="landing-headline">
             <span id="landing-headline-main">Online TA Journal for Railway Employees</span>
             <span class="landing-headline-sub">Work Smarter. Manage Duties. Stay Connected.</span>
@@ -3832,16 +3897,19 @@ body.show-marketing-landing #railsaathi-landing {
           </div>
         </div>
 
-        <!-- Hero Right: Engineering Showcase -->
+        <!-- Hero Right: Dynamic Railway Infrastructure Showcase -->
         <div class="landing-hero__visual landing-reveal is-visible">
           <div class="landing-hero__panel">
             <figure class="landing-marvel-gallery is-animating" id="landing-marvel-gallery" aria-live="polite">
-              <img id="landing-marvel-image" src="https://images.financialexpressdigital.com/2025/06/Chenab-Bridge-2.jpg?w=1600" alt="Chenab Rail Bridge in Jammu and Kashmir" loading="eager" decoding="async">
-              <div class="landing-marvel-dots" aria-label="Engineering highlights">
+              <span class="landing-marvel-category-badge" id="landing-marvel-category">ENGINEERING MARVEL</span>
+              <img id="landing-marvel-image" src="https://images.financialexpressdigital.com/2025/06/Chenab-Bridge-2.jpg?w=1600" alt="Chenab Rail Bridge in Jammu and Kashmir" loading="eager" decoding="async" onerror="this.onerror=null; this.src='https://images.financialexpressdigital.com/2025/06/Chenab-Bridge-2.jpg?w=1600';">
+              <div class="landing-marvel-dots" id="landing-marvel-dots-container" aria-label="Railway Highlights">
                 <button type="button" class="landing-marvel-dot is-active" data-marvel-index="0" aria-label="Show Chenab Rail Bridge" aria-pressed="true"></button>
-                <button type="button" class="landing-marvel-dot" data-marvel-index="1" aria-label="Show Anji Khad Bridge" aria-pressed="false"></button>
-                <button type="button" class="landing-marvel-dot" data-marvel-index="2" aria-label="Show New Pamban Bridge" aria-pressed="false"></button>
-                <button type="button" class="landing-marvel-dot" data-marvel-index="3" aria-label="Show Bogibeel Bridge" aria-pressed="false"></button>
+                <button type="button" class="landing-marvel-dot" data-marvel-index="1" aria-label="Show Vande Bharat Express" aria-pressed="false"></button>
+                <button type="button" class="landing-marvel-dot" data-marvel-index="2" aria-label="Show Anji Khad Bridge" aria-pressed="false"></button>
+                <button type="button" class="landing-marvel-dot" data-marvel-index="3" aria-label="Show New Pamban Bridge" aria-pressed="false"></button>
+                <button type="button" class="landing-marvel-dot" data-marvel-index="4" aria-label="Show Western DFC Freight" aria-pressed="false"></button>
+                <button type="button" class="landing-marvel-dot" data-marvel-index="5" aria-label="Show Bogibeel Bridge" aria-pressed="false"></button>
               </div>
               <figcaption class="landing-hero__media-caption">
                 <span id="landing-marvel-title">Chenab Rail Bridge</span>
@@ -3852,35 +3920,35 @@ body.show-marketing-landing #railsaathi-landing {
             </figure>
 
             <div class="landing-hero__hud">
-              <p class="landing-section-label" id="landing-hud-label">Latest public rail figures</p>
+              <p class="landing-section-label" id="landing-hud-label" style="margin-bottom:0;">Latest Indian Railways Data</p>
             </div>
 
             <div class="landing-hero__panel-grid">
               <article class="landing-context-card">
                 <span class="landing-context-card__eyebrow" id="landing-context-network-eyebrow">Gauge conversion</span>
                 <strong id="landing-context-network-value" data-count-up="true">67,372 km broad gauge</strong>
-                <span id="landing-context-network-copy">That is 97.02% of the network as of March 31, 2025.</span>
+                <span id="landing-context-network-copy">97.02% of the total network as of March 31, 2025.</span>
               </article>
               <article class="landing-context-card">
                 <span class="landing-context-card__eyebrow" id="landing-context-freight-eyebrow">Freight momentum</span>
                 <strong id="landing-context-freight-value" data-count-up="true">1,670 million tonnes</strong>
-                <span id="landing-context-freight-copy">Indian Railways reported record freight loading in FY 2025-26.</span>
+                <span id="landing-context-freight-copy">Record freight loading recorded in FY 2025-26.</span>
               </article>
               <article class="landing-context-card">
                 <span class="landing-context-corridor-eyebrow" id="landing-context-corridor-eyebrow">Network capacity</span>
                 <strong id="landing-context-corridor-value" data-count-up="true">1,506 km Western DFC</strong>
-                <span id="landing-context-corridor-copy">The western dedicated freight corridor reached completion in March 2026.</span>
+                <span id="landing-context-corridor-copy">Dedicated freight corridor completed in March 2026.</span>
               </article>
             </div>
 
             <p class="landing-source-note">
               <span id="landing-source-prefix">Sources:</span>
               <a href="https://en.wikipedia.org/wiki/Project_Unigauge" target="_blank" rel="noopener noreferrer">network figures</a>,
-              <a href="https://m.economictimes.com/industry/transportation/railways/railways-reports-1-67-billion-tonne-freight-loading-in-fy26/articleshow/129947715.cms" target="_blank" rel="noopener noreferrer">FY 2025-26 freight loading</a>,
+              <a href="https://m.economictimes.com/industry/transportation/railways/railways-reports-1-67-billion-tonne-freight-loading-in-fy26/articleshow/129947715.cms" target="_blank" rel="noopener noreferrer">freight data</a>,
               <a href="https://en.wikipedia.org/wiki/Chenab_Rail_Bridge" target="_blank" rel="noopener noreferrer">Chenab</a>,
+              <a href="https://en.wikipedia.org/wiki/Vande_Bharat_Express" target="_blank" rel="noopener noreferrer">Vande Bharat</a>,
               <a href="https://en.wikipedia.org/wiki/Anji_Khad_Bridge" target="_blank" rel="noopener noreferrer">Anji</a>,
-              <a href="https://en.wikipedia.org/wiki/New_Pamban_Bridge" target="_blank" rel="noopener noreferrer">New Pamban</a>,
-              <a href="https://en.wikipedia.org/wiki/Bogibeel_Bridge" target="_blank" rel="noopener noreferrer">Bogibeel</a>.
+              <a href="https://en.wikipedia.org/wiki/New_Pamban_Bridge" target="_blank" rel="noopener noreferrer">Pamban</a>.
             </p>
           </div>
         </div>
@@ -4054,7 +4122,7 @@ body.show-marketing-landing #railsaathi-landing {
             </li>
             <li>
               <strong>How journeys are recorded:</strong>
-              Capture the origin and destination stations, departure and arrival times, train or road travel, kilometers, rate and official duty purpose.
+              Capture the origin and destination stations, departure and arrival times, mode of travel, kilometers, rate and official duty purpose.
             </li>
             <li>
               <strong>How records are organized:</strong>
@@ -4175,14 +4243,14 @@ body.show-marketing-landing #railsaathi-landing {
 
         <div class="landing-leadership-grid">
           <article class="landing-leader-card">
-            <img src="https://newsonair.gov.in/wp-content/uploads/2026/01/Screenshot-2026-01-10-075157.jpg" alt="Railway Minister Ashwini Vaishnaw" loading="lazy" decoding="async">
+            <img src="https://newsonair.gov.in/wp-content/uploads/2026/01/Screenshot-2026-01-10-075157.jpg" alt="Railway Minister Ashwini Vaishnaw" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='https://images.financialexpressdigital.com/2025/06/Chenab-Bridge-2.jpg?w=1600';">
             <div>
               <strong>Ashwini Vaishnaw</strong>
               <span>Hon'ble Railway Minister</span>
             </div>
           </article>
           <article class="landing-leader-card">
-            <img src="https://static.pib.gov.in/WriteReadData/Gallery/PhotoGallery/2021/Oct/T20211012102549.JPG" alt="Prime Minister Narendra Modi" loading="lazy" decoding="async">
+            <img src="https://static.pib.gov.in/WriteReadData/Gallery/PhotoGallery/2021/Oct/T20211012102549.JPG" alt="Prime Minister Narendra Modi" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='https://images.financialexpressdigital.com/2025/06/Chenab-Bridge-2.jpg?w=1600';">
             <div>
               <strong>Narendra Modi</strong>
               <span>Hon'ble Prime Minister of India</span>
@@ -4211,12 +4279,12 @@ body.show-marketing-landing #railsaathi-landing {
     <footer class="landing-footer">
       <div class="landing-footer-inner">
         <div class="landing-footer-brand">
-          <div class="landing-brand">
+          <a href="#landing-home" class="landing-brand">
             <div class="landing-brand__mark">
               <img src="railsaathi-logo.png" alt="Railsaathi logo">
             </div>
-            <h3 class="landing-brand__name">Rail<span>saathi</span></h3>
-          </div>
+            <h3 class="landing-brand__name">Railsaathi</h3>
+          </a>
           <p>Digital Travelling Allowance & Duty Workflow Portal for Indian Railways personnel.</p>
         </div>
 
@@ -5884,9 +5952,10 @@ body.show-marketing-landing #railsaathi-landing {
       }
     };
 
-    const MARKETING_MARVELS = {
+            const MARKETING_MARVELS = {
       en: [
         {
+          category: 'ENGINEERING MARVEL',
           title: 'Chenab Rail Bridge',
           copy: "The world's highest railway arch bridge opened to rail traffic on June 6, 2025.",
           detail: 'A landmark on the Udhampur-Srinagar-Baramulla Rail Link in Jammu and Kashmir.',
@@ -5895,95 +5964,160 @@ body.show-marketing-landing #railsaathi-landing {
           alt: 'Chenab Rail Bridge in Jammu and Kashmir'
         },
         {
+          category: 'ROLLING STOCK',
+          title: 'Vande Bharat Express',
+          copy: 'Indigenous semi-high-speed trainset transforming passenger transit across 100% electrified Indian Railways.',
+          detail: 'Engineered with aerodynamic styling, regenerative braking, and intelligent safety systems.',
+          metric: '160 km/h operational speed',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Vande_Bharat_Express_at_New_Delhi_station.jpg/1280px-Vande_Bharat_Express_at_New_Delhi_station.jpg',
+          alt: 'Vande Bharat Express at New Delhi station'
+        },
+        {
+          category: 'BRIDGE ENGINEERING',
           title: 'Anji Khad Bridge',
-          copy: "India's first cable-stayed railway bridge opened on June 6, 2025 in Jammu and Kashmir.",
-          detail: 'A high-altitude cable-stayed rail crossing built as part of the USBRL link.',
-          metric: '96 steel cables',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/4/45/ANJI_KHAD_BRIDGE_PHOTO_BY_-ATANU.jpg',
+          copy: "Indian Railways' first cable-stayed railway bridge connecting Katra and Reasi.",
+          detail: 'Supported by a single asymmetric pylon towering 331 meters above the deep gorge.',
+          metric: '473 m total length',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Anji_Khad_Bridge_May_2023.jpg/1280px-Anji_Khad_Bridge_May_2023.jpg',
           alt: 'Anji Khad Bridge in Jammu and Kashmir'
         },
         {
-          title: 'New Pamban Bridge',
-          copy: "India's first vertical-lift sea railway bridge opened on April 6, 2025 between Mandapam and Rameswaram.",
-          detail: 'The new sea crossing brings a contemporary rail profile to one of the country\'s most iconic coastal routes.',
-          metric: '2,070 m sea bridge',
-          image: 'https://res.cloudinary.com/kmadmin/image/upload/v1750419513/kiomoi/Panbam_bridge_1112.jpg',
-          alt: 'New Pamban Bridge near Rameswaram'
+          category: 'SEA LINK',
+          title: 'New Pamban Sea Bridge',
+          copy: "India's first vertical lift sea railway bridge spanning the Palk Strait between Mandapam and Rameswaram.",
+          detail: 'Enables maritime vessels to navigate freely while maintaining regular train traffic.',
+          metric: '2,070 m sea span',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Pamban_Bridge_Rameswaram_Tamil_Nadu.jpg/1280px-Pamban_Bridge_Rameswaram_Tamil_Nadu.jpg',
+          alt: 'New Pamban Sea Bridge in Tamil Nadu'
         },
         {
-          title: 'Bogibeel Bridge',
-          copy: 'A 4.94 km rail-cum-road span over the Brahmaputra that remains the longest of its kind in India.',
-          detail: 'Its long steel truss profile transformed all-weather connectivity across Upper Assam.',
-          metric: '4.94 km rail-cum-road',
-          image: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/201812/bogibeel_bridge.png',
-          alt: 'Bogibeel Bridge over the Brahmaputra in Assam'
+          category: 'FREIGHT CORRIDOR',
+          title: 'Western Dedicated Freight Corridor',
+          copy: 'Heavy-haul 12,000 HP electric locomotives carrying double-stack container rakes.',
+          detail: 'High-speed dedicated logistics spine boosting national freight transit capacity.',
+          metric: '1,506 km corridor',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/WAG-12_locomotives_hauling_a_freight_train.jpg/1280px-WAG-12_locomotives_hauling_a_freight_train.jpg',
+          alt: 'WAG-12 locomotives hauling freight on DFC'
+        },
+        {
+          category: 'INFRASTRUCTURE',
+          title: 'Bogibeel Rail-Road Bridge',
+          copy: "India's longest combined rail-cum-road bridge over the Brahmaputra River in Assam.",
+          detail: 'Provides crucial year-round connectivity and strategic logistics across Northeast India.',
+          metric: '4.94 km rail-road span',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Bogibeel_Bridge_Assam.jpg/1280px-Bogibeel_Bridge_Assam.jpg',
+          alt: 'Bogibeel Bridge in Assam'
         }
       ],
       hi: [
         {
-          title: 'Chenab Rail Bridge',
-          copy: "The world's highest railway arch bridge opened to rail traffic on June 6, 2025.",
-          detail: 'A landmark on the Udhampur-Srinagar-Baramulla Rail Link in Jammu and Kashmir.',
-          metric: '359 m above river bed',
+          category: 'अभियांत्रिकी चमत्कार',
+          title: 'चिनाब रेल पुल',
+          copy: 'दुनिया का सबसे ऊंचा रेलवे आर्च पुल 6 जून 2025 को रेल यातायात के लिए खोला गया.',
+          detail: 'जम्मू और कश्मीर में उधमपुर-श्रीनगर-बारामूला रेल लिंक का प्रमुख मील का पत्थर.',
+          metric: 'नदी तल से 359 मीटर ऊंचा',
           image: 'https://images.financialexpressdigital.com/2025/06/Chenab-Bridge-2.jpg?w=1600',
-          alt: 'Chenab Rail Bridge in Jammu and Kashmir'
+          alt: 'जम्मू और कश्मीर में चिनाब रेल पुल'
         },
         {
+          category: 'रोलिंग स्टॉक',
+          title: 'वंदे भारत एक्सप्रेस',
+          copy: 'स्वदेशी सेमी-हाई स्पीड ट्रेन जो पूरे भारतीय रेलवे नेटवर्क में यात्री अनुभव को बदल रही है.',
+          detail: 'कवच संरक्षा प्रणाली और उच्च गति क्षमता से लैस आधुनिक ट्रेनसेट.',
+          metric: '160 किमी/घंटा गति',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Vande_Bharat_Express_at_New_Delhi_station.jpg/1280px-Vande_Bharat_Express_at_New_Delhi_station.jpg',
+          alt: 'नई दिल्ली में वंदे भारत एक्सप्रेस'
+        },
+        {
+          category: 'केबल-स्टेड पुल',
           title: 'अंजी खड्ड पुल',
-          copy: 'भारत का पहला केबल-स्टे रेलवे पुल 6 जून 2025 को जम्मू-कश्मीर में खुला.',
-          detail: 'यह USBRL लिंक का हिस्सा है और ऊंचाई वाले रेल इंजीनियरिंग कार्य का प्रमुख उदाहरण है.',
-          metric: '96 स्टील केबल',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/4/45/ANJI_KHAD_BRIDGE_PHOTO_BY_-ATANU.jpg',
-          alt: 'जम्मू-कश्मीर में अंजी खड्ड पुल'
+          copy: 'भारतीय रेल का पहला केबल-स्टेड रेल पुल जो कटरा और रियासी को जोड़ता है.',
+          detail: 'गहरी घाटी के ऊपर 331 मीटर ऊंचे एकल तोरण द्वारा समर्थित.',
+          metric: '473 मीटर कुल लंबाई',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Anji_Khad_Bridge_May_2023.jpg/1280px-Anji_Khad_Bridge_May_2023.jpg',
+          alt: 'जम्मू और कश्मीर में अंजी खड्ड पुल'
         },
         {
-          title: 'नया पंबन पुल',
-          copy: 'भारत का पहला वर्टिकल-लिफ्ट समुद्री रेलवे पुल 6 अप्रैल 2025 को मंडपम और रामेश्वरम के बीच खुला.',
-          detail: 'यह देश के सबसे पहचान वाले समुद्री रेल मार्गों में से एक को नई इंजीनियरिंग पहचान देता है.',
-          metric: '2,070 मीटर समुद्री पुल',
-          image: 'https://res.cloudinary.com/kmadmin/image/upload/v1750419513/kiomoi/Panbam_bridge_1112.jpg',
-          alt: 'रामेश्वरम के पास नया पंबन पुल'
+          category: 'समुद्री रेल लिंक',
+          title: 'नया पंबन समुद्री पुल',
+          copy: 'भारत का पहला वर्टिकल-लिफ्ट समुद्री रेलवे पुल जो मंडपम और रामेश्वरम को जोड़ता है.',
+          detail: 'जहाजों की आसान आवाजाही के लिए आधुनिक लिफ्ट स्पैन से सुसज्जित.',
+          metric: '2,070 मीटर समुद्री स्पैन',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Pamban_Bridge_Rameswaram_Tamil_Nadu.jpg/1280px-Pamban_Bridge_Rameswaram_Tamil_Nadu.jpg',
+          alt: 'तमिलनाडु में नया पंबन समुद्री पुल'
         },
         {
+          category: 'डेडिकेटेड फ्रेट कॉरिडोर',
+          title: 'पश्चिमी फ्रेट कॉरिडोर',
+          copy: '12,000 हॉर्सपावर WAG-12 लोकोमोटिव के साथ भारी-भरकम डबल स्टैक मालगाड़ियां.',
+          detail: 'राष्ट्रव्यापी लॉजिस्टिक्स और माल ढुलाई की रीढ़.',
+          metric: '1,506 किमी कॉरिडोर',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/WAG-12_locomotives_hauling_a_freight_train.jpg/1280px-WAG-12_locomotives_hauling_a_freight_train.jpg',
+          alt: 'पश्चिमी फ्रेट कॉरिडोर पर मालगाड़ी'
+        },
+        {
+          category: 'रेल-सह-सड़क पुल',
           title: 'बोगीबील पुल',
-          copy: 'ब्रह्मपुत्र पर 4.94 किमी लंबा रेल-सह-सड़क पुल, जो आज भी भारत में अपने प्रकार का सबसे लंबा है.',
-          detail: 'इस लंबे स्टील ट्रस पुल ने अपर असम में हर मौसम की कनेक्टिविटी को मजबूत किया.',
-          metric: '4.94 किमी रेल-सह-सड़क',
-          image: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/201812/bogibeel_bridge.png',
+          copy: 'असम में ब्रह्मपुत्र नदी पर भारत का सबसे लंबा संयुक्त रेल-सह-सड़क पुल.',
+          detail: 'पूर्वोत्तर भारत के लिए वर्षभर सुगम रणनीतिक संपर्क प्रदान करता है.',
+          metric: '4.94 किमी रेल-रोड स्पैन',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Bogibeel_Bridge_Assam.jpg/1280px-Bogibeel_Bridge_Assam.jpg',
           alt: 'असम में बोगीबील पुल'
         }
       ],
       mr: [
         {
-          title: 'Chenab Rail Bridge',
-          copy: "The world's highest railway arch bridge opened to rail traffic on June 6, 2025.",
-          detail: 'A landmark on the Udhampur-Srinagar-Baramulla Rail Link in Jammu and Kashmir.',
-          metric: '359 m above river bed',
+          category: 'अभियांत्रिकी चमत्कार',
+          title: 'चिनाब रेल्वे पूल',
+          copy: 'जगातील सर्वात उंच रेल्वे आर्च पूल 6 जून 2025 रोजी रेल्वे वाहतुकीसाठी खुला झाला.',
+          detail: 'जम्मू आणि काश्मीरमधील उधमपूर-श्रीनगर-बारामुल्ला रेल्वे मार्गावरील ऐतिहासिक मैलाचा दगड.',
+          metric: 'नदीच्या पात्रापासून 359 मीटर उंच',
           image: 'https://images.financialexpressdigital.com/2025/06/Chenab-Bridge-2.jpg?w=1600',
-          alt: 'Chenab Rail Bridge in Jammu and Kashmir'
+          alt: 'जम्मू-काश्मीरमधील चिनाब रेल्वे पूल'
         },
         {
+          category: 'रोलिंग स्टॉक',
+          title: 'वंदे भारत एक्सप्रेस',
+          copy: 'भारतीय रेल्वेचे रूप पालटणारी स्वदेशी सेमी-हाय स्पीड आधुनिक रेल्वेगाडी.',
+          detail: 'कवच सुरक्षा प्रणाली आणि अत्याधुनिक प्रवासी सुविधांनी सुसज्ज.',
+          metric: '160 किमी/तास वेग',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Vande_Bharat_Express_at_New_Delhi_station.jpg/1280px-Vande_Bharat_Express_at_New_Delhi_station.jpg',
+          alt: 'नवी दिल्ली येथील वंदे भारत एक्सप्रेस'
+        },
+        {
+          category: 'केबल-स्टेड पूल',
           title: 'अंजी खड पूल',
-          copy: 'भारताचा पहिला केबल-स्टे रेल्वे पूल 6 जून 2025 रोजी जम्मू-कश्मीरमध्ये खुला झाला.',
-          detail: 'हा USBRL लिंकचा भाग असून उंच भागातील रेल्वे अभियांत्रिकीचे ठळक उदाहरण आहे.',
-          metric: '96 स्टील केबल',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/4/45/ANJI_KHAD_BRIDGE_PHOTO_BY_-ATANU.jpg',
-          alt: 'जम्मू-कश्मीरमधील अंजी खड पूल'
+          copy: 'भारतीय रेल्वेचा पहिला केबल-स्टेड पूल जो कटरा आणि रियासीला जोडतो.',
+          detail: 'खोल दरीवर 331 मीटर उंच पेलणाऱ्या एकाच पिलॉनवर आधारलेला.',
+          metric: '473 मीटर एकूण लांबी',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Anji_Khad_Bridge_May_2023.jpg/1280px-Anji_Khad_Bridge_May_2023.jpg',
+          alt: 'जम्मू-काश्मीरमधील अंजी खड पूल'
         },
         {
+          category: 'समुद्री रेल्वे मार्ग',
           title: 'नवा पंबन पूल',
-          copy: 'भारताचा पहिला व्हर्टिकल-लिफ्ट समुद्री रेल्वे पूल 6 एप्रिल 2025 रोजी मंडपम आणि रामेश्वरम दरम्यान खुला झाला.',
-          detail: 'देशातील सर्वात ओळखल्या जाणाऱ्या समुद्री रेल मार्गाला यामुळे नवे अभियांत्रिकी रूप मिळाले.',
+          copy: 'भारताचा पहिला व्हर्टिकल-लिफ्ट समुद्री रेल्वे पूल जो मंडपम आणि रामेश्वरमला जोडतो.',
+          detail: 'जहाजांच्या सुलभ वाहतुकीसाठी आधुनिक लिफ्ट स्पॅनची सोय.',
           metric: '2,070 मीटर समुद्री पूल',
-          image: 'https://res.cloudinary.com/kmadmin/image/upload/v1750419513/kiomoi/Panbam_bridge_1112.jpg',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Pamban_Bridge_Rameswaram_Tamil_Nadu.jpg/1280px-Pamban_Bridge_Rameswaram_Tamil_Nadu.jpg',
           alt: 'रामेश्वरमजवळील नवा पंबन पूल'
         },
         {
+          category: 'डेडिकेटेड फ्रेट कॉरिडॉर',
+          title: 'पश्चिम फ्रेट कॉरिडॉर',
+          copy: '12,000 अश्वशक्तीच्या इंजिनांसह धावणाऱ्या हाय-स्पीड मालगाड्या.',
+          detail: 'देशांतर्गत मालवाहतुकीला मोठी गती देणारा स्वतंत्र कॉरिडॉर.',
+          metric: '1,506 किमी कॉरिडॉर',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/WAG-12_locomotives_hauling_a_freight_train.jpg/1280px-WAG-12_locomotives_hauling_a_freight_train.jpg',
+          alt: 'पश्चिम फ्रेट कॉरिडॉरवरील मालगाडी'
+        },
+        {
+          category: 'रेल-सह-रस्ता पूल',
           title: 'बोगीबील पूल',
-          copy: 'ब्रह्मपुत्रवरील 4.94 किमी रेल-कम-रोड पूल, जो अजूनही भारतातील आपल्या प्रकारातील सर्वात लांब आहे.',
-          detail: 'या लांब स्टील ट्रस पुलामुळे अपर आसाममधील सर्व हंगामी संपर्कात मोठी सुधारणा झाली.',
-          metric: '4.94 किमी रेल-कम-रोड',
-          image: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/201812/bogibeel_bridge.png',
+          copy: 'आसाममध्ये ब्रह्मपुत्रा नदीवरील भारताचा सर्वात लांब संयुक्त रेल-सह-रस्ता पूल.',
+          detail: 'ईशान्य भारतासाठी बारामाही अखंड दळणवळणाची सुविधा निर्माण करतो.',
+          metric: '4.94 किमी रेल-रोड',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Bogibeel_Bridge_Assam.jpg/1280px-Bogibeel_Bridge_Assam.jpg',
           alt: 'आसाममधील बोगीबील पूल'
         }
       ]
@@ -6050,118 +6184,72 @@ body.show-marketing-landing #railsaathi-landing {
     function animateMarketingLandingCount(node, options = {}) {
       if (!node) return;
 
-      const { force = false } = options;
-      const targetText = node.dataset.countValue || node.textContent.trim();
-      if (!targetText) return;
+      const targetText = node.dataset.countTarget || node.textContent.trim();
+      const parsed = parseMarketingLandingCount(targetText);
+      if (!parsed) return;
 
-      if (!force && node.dataset.countAnimated === 'true' && node.dataset.countTarget === targetText) {
-        return;
-      }
+      const { duration = 1200, force = false } = options;
+      if (!force && node.dataset.countAnimated === 'true') return;
 
+      node.dataset.countAnimated = 'true';
       if (node._landingCountAnimationFrame) {
         cancelAnimationFrame(node._landingCountAnimationFrame);
         node._landingCountAnimationFrame = null;
       }
 
-      const parsed = parseMarketingLandingCount(targetText);
-      node.dataset.countTarget = targetText;
-
-      if (!parsed || window.matchMedia('(prefers-reduced-motion: reduce)').matches || typeof window.requestAnimationFrame !== 'function') {
-        node.textContent = targetText;
-        node.dataset.countAnimated = 'true';
-        return;
-      }
-
-      const duration = parsed.value >= 1000 ? 1500 : 1200;
       const startTime = performance.now();
-      node.dataset.countAnimated = 'false';
-      node.textContent = `${parsed.prefix}${formatMarketingLandingCount(0, parsed.decimals)}${parsed.suffix}`;
+      const { prefix, value: targetValue, decimals, suffix } = parsed;
 
-      const step = (now) => {
-        const progress = Math.min((now - startTime) / duration, 1);
-        const easedProgress = 1 - Math.pow(1 - progress, 3);
-        const currentValue = progress < 1 ? parsed.value * easedProgress : parsed.value;
+      const tick = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        const currentValue = targetValue * easeProgress;
 
-        node.textContent = `${parsed.prefix}${formatMarketingLandingCount(currentValue, parsed.decimals)}${parsed.suffix}`;
+        node.textContent = `${prefix}${formatMarketingLandingCount(currentValue, decimals)}${suffix}`;
 
         if (progress < 1) {
-          node._landingCountAnimationFrame = window.requestAnimationFrame(step);
-          return;
+          node._landingCountAnimationFrame = requestAnimationFrame(tick);
+        } else {
+          node._landingCountAnimationFrame = null;
+          node.textContent = targetText;
         }
-
-        node.textContent = targetText;
-        node.dataset.countAnimated = 'true';
-        node._landingCountAnimationFrame = null;
       };
 
-      node._landingCountAnimationFrame = window.requestAnimationFrame(step);
+      node._landingCountAnimationFrame = requestAnimationFrame(tick);
     }
 
     function queueMarketingLandingCounts(root = document, options = {}) {
       const scope = root && typeof root.querySelectorAll === 'function' ? root : document;
       const countNodes = Array.from(scope.querySelectorAll('[data-count-up]'));
-      if (!countNodes.length) return;
-
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
-        countNodes.forEach((node) => animateMarketingLandingCount(node, { force: true }));
-        return;
-      }
-
-      if (!marketingLandingCountObserver) {
-        marketingLandingCountObserver = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            animateMarketingLandingCount(entry.target, { force: true });
-            marketingLandingCountObserver.unobserve(entry.target);
-          });
-        }, {
-          threshold: 0.35,
-          rootMargin: '0px 0px -28px 0px'
-        });
-      }
-
-      countNodes.forEach((node) => {
-        if (!options.force && node.dataset.countAnimated === 'true') return;
-        marketingLandingCountObserver.unobserve(node);
-        marketingLandingCountObserver.observe(node);
-      });
+      countNodes.forEach((node) => animateMarketingLandingCount(node, options));
     }
 
     function startMarketingHeadlineTyping() {
       const node = document.getElementById('landing-headline-main');
       if (!node) return;
 
-      const fullText = 'Online TA Journal for Railway Employees';
-      node.textContent = fullText;
-      return;
-
-      marketingHeadlineTypingToken += 1;
-      const token = marketingHeadlineTypingToken;
       clearTimeout(marketingHeadlineTypingTimer);
 
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        node.textContent = fullText;
+      const targetText = node.dataset.originalText || node.textContent || '';
+      node.dataset.originalText = targetText;
+      if (!targetText) return;
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) {
+        node.textContent = targetText;
         return;
       }
 
-      const typeForward = (index = 1) => {
-        if (token !== marketingHeadlineTypingToken) return;
-        node.textContent = fullText.slice(0, index);
-        if (index < fullText.length) {
-          marketingHeadlineTypingTimer = setTimeout(() => typeForward(index + 1), 170);
-          return;
-        }
-        marketingHeadlineTypingTimer = setTimeout(() => eraseBackward(fullText.length - 1), 3400);
-      };
+      let currentIndex = 0;
+      const stepDelay = Math.max(16, Math.min(38, Math.round(900 / targetText.length)));
 
-      const eraseBackward = (index) => {
-        if (token !== marketingHeadlineTypingToken) return;
-        node.textContent = fullText.slice(0, Math.max(index, 0));
-        if (index > 0) {
-          marketingHeadlineTypingTimer = setTimeout(() => eraseBackward(index - 1), 95);
-          return;
+      const typeForward = (timestamp) => {
+        currentIndex += 1;
+        node.textContent = targetText.slice(0, currentIndex);
+        if (currentIndex < targetText.length) {
+          marketingHeadlineTypingTimer = setTimeout(() => typeForward(Date.now()), stepDelay);
         }
-        marketingHeadlineTypingTimer = setTimeout(() => typeForward(1), 1300);
       };
 
       node.textContent = '';
@@ -6220,6 +6308,7 @@ body.show-marketing-landing #railsaathi-landing {
       currentMarketingMarvelIndex = ((index % marvels.length) + marvels.length) % marvels.length;
       const marvel = marvels[currentMarketingMarvelIndex];
 
+      updateMarketingText('landing-marvel-category', marvel.category || 'RAILWAY HIGHLIGHT');
       updateMarketingText('landing-marvel-title', marvel.title);
       updateMarketingText('landing-marvel-copy', marvel.copy);
       updateMarketingText('landing-marvel-detail', marvel.detail);
@@ -6262,7 +6351,7 @@ body.show-marketing-landing #railsaathi-landing {
       marketingMarvelTimer = setInterval(() => {
         if (!document.body.classList.contains('show-marketing-landing')) return;
         renderMarketingMarvel(currentMarketingMarvelIndex + 1);
-      }, 3600);
+      }, 4000);
     }
 
     function applyMarketingLandingLanguage(language, options = {}) {
@@ -6281,8 +6370,6 @@ body.show-marketing-landing #railsaathi-landing {
 
       updateMarketingText('landing-nav-copy', copy.navCopy);
       updateMarketingText('landing-topbar-login', copy.topbarLogin);
-      updateMarketingText('landing-kicker-text', copy.kicker);
-      updateMarketingText('landing-headline-accent', copy.headlineAccent);
       updateMarketingText('landing-manifesto', copy.manifesto);
       updateMarketingText('landing-hero-login', copy.heroLogin);
       updateMarketingText('landing-hero-download', copy.heroDownload);
@@ -6290,9 +6377,6 @@ body.show-marketing-landing #railsaathi-landing {
       updateMarketingText('landing-metric-route-label', copy.metricRouteLabel);
       updateMarketingText('landing-metric-freight-value', copy.metricFreightValue);
       updateMarketingText('landing-metric-freight-label', copy.metricFreightLabel);
-      updateMarketingText('landing-media-eyebrow', copy.mediaEyebrow);
-      updateMarketingText('landing-media-title', copy.mediaTitle);
-      updateMarketingText('landing-media-copy', copy.mediaCopy);
       updateMarketingText('landing-hud-label', copy.hudLabel);
       updateMarketingText('landing-context-network-eyebrow', copy.contextNetworkEyebrow);
       updateMarketingText('landing-context-network-value', copy.contextNetworkValue);
@@ -6570,8 +6654,18 @@ body.show-marketing-landing #railsaathi-landing {
         console.warn('Unable to read saved landing language:', error);
       }
 
+      let savedLandingTheme = 'light';
+      try {
+        const storedLandingTheme = localStorage.getItem('railsaathiLandingTheme');
+        if (storedLandingTheme === 'dark' || storedLandingTheme === 'light') {
+          savedLandingTheme = storedLandingTheme;
+        }
+      } catch (error) {
+        console.warn('Unable to read saved landing theme:', error);
+      }
+
       marketingLandingRequiresLanguageChoice = !hasSavedLandingLanguage;
-      applyMarketingLandingTheme('dark');
+      applyMarketingLandingTheme(savedLandingTheme);
       applyMarketingLandingLanguage(savedLandingLanguage, { persist: hasSavedLandingLanguage });
       startLandingPhoneCycle();
 
@@ -6622,8 +6716,6 @@ body.show-marketing-landing #railsaathi-landing {
       initMarketingLanding();
     }
 
-    // ==========================================
-    //   SUPABASE INIT
     // ==========================================
     function initSupabase() {
       if (window.auth && window.db) {

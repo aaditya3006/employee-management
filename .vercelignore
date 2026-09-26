@@ -1,0 +1,5 @@
+*.msi
+*.kt
+.git
+.agents
+node_modules
