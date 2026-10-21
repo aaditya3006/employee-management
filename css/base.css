@@ -1,0 +1,307 @@
+/* ==========================================================================
+   RAILSAATHI - BASE DESIGN SYSTEM & SHARED UTILITIES
+   css/base.css
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@200;300;400;600;700&family=Italiana&family=Noto+Sans+Devanagari:wght@400;700&family=Poppins:wght@300;400;600&family=Sora:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --yellow: #ffff00;
+  --light-green: #90ee90;
+  --vibrant-bg: #f8fafc;
+  --vibrant-card: #ffffff;
+  --vibrant-border: #e2e8f0;
+  --vibrant-text: #1e293b;
+  --primary-blue: #1d4ed8;
+  --landing-navy: #07142b;
+  --landing-blue: #0a1e4a;
+  --landing-cyan: #38bdf8;
+  --landing-silver: #e5e7eb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Base Theme Tokens */
+.dashboard-light {
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+.dashboard-dark {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+.dashboard-railway {
+  background: #0a1e4a;
+  color: #ffffff;
+}
+
+/* Clock Time Picker Component */
+    /* ============================================
+   MATERIAL CLOCK TIME PICKER
+   ============================================ */
+    #clock-picker-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .clock-modal {
+      background: #fff;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      width: 320px;
+      max-width: 95vw;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .clock-header {
+      background: #1d4ed8;
+      color: white;
+      padding: 20px 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .clock-header-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      opacity: 0.75;
+      text-transform: uppercase;
+    }
+
+    .clock-time-display {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      line-height: 1;
+    }
+
+    .clock-hh,
+    .clock-mm {
+      font-size: 52px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 10px;
+      transition: all 0.15s;
+      line-height: 1;
+    }
+
+    .clock-hh.active,
+    .clock-mm.active {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    .clock-hh:not(.active),
+    .clock-mm:not(.active) {
+      opacity: 0.55;
+    }
+
+    .clock-sep {
+      font-size: 52px;
+      font-weight: 700;
+      opacity: 0.8;
+    }
+
+    .clock-body {
+      padding: 20px 24px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .clock-face-wrap {
+      position: relative;
+      width: 256px;
+      height: 256px;
+      border-radius: 50%;
+      background: #f0f4ff;
+      cursor: pointer;
+      user-select: none;
+      flex-shrink: 0;
+      touch-action: none;
+    }
+
+    .clock-center-dot {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #1d4ed8;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+    }
+
+    .clock-hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: bottom center;
+      width: 2px;
+      margin-left: -1px;
+      background: #1d4ed8;
+      border-radius: 2px 2px 0 0;
+      z-index: 2;
+      transition: transform 0.15s cubic-bezier(.4, 0, .2, 1), height 0.15s;
+    }
+
+    .clock-hand-tip {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #1d4ed8;
+    }
+
+    .clock-number {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1e293b;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      transition: background 0.12s, color 0.12s;
+      z-index: 4;
+      pointer-events: none;
+      line-height: 1;
+    }
+
+    .clock-number.selected {
+      background: #1d4ed8;
+      color: white;
+    }
+
+    .clock-number.inner {
+      font-size: 11px;
+      font-weight: 500;
+      color: #475569;
+    }
+
+    .clock-number.min-major {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .clock-number.min-minor {
+      font-size: 10px;
+      color: #94a3b8;
+    }
+
+    .clock-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 0 16px 16px;
+    }
+
+    .clock-btn-cancel {
+      padding: 10px 20px;
+      border-radius: 20px;
+      border: none;
+      background: transparent;
+      font-weight: 700;
+      font-size: 13px;
+      color: #1d4ed8;
+      cursor: pointer;
+      transition: background 0.15s;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .clock-btn-cancel:hover {
+      background: #eff6ff;
+    }
+
+    .clock-btn-ok {
+      padding: 10px 24px;
+      border-radius: 20px;
+      border: none;
+      background: #1d4ed8;
+      color: white;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      box-shadow: 0 4px 12px rgba(29, 78, 216, 0.35);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .clock-btn-ok:hover {
+      background: #1e40af;
+    }
+
+    .clock-btn-ok:active {
+      transform: scale(0.96);
+    }
+
+    .clock-step-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .clock-step-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #cbd5e1;
+      transition: background 0.2s;
+    }
+
+    .clock-step-dot.active {
+      background: #1d4ed8;
+    }
+
+    .ta-time-btn {
+      background: white;
+      border: 2px solid #cbd5e1;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .ta-time-btn:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .ta-time-btn.has-value {
+      border-color: #22c55e;
+      background: #f0fdf4;
+    }
+

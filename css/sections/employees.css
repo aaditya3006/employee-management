@@ -1,0 +1,104 @@
+/* ==========================================================================
+   RAILSAATHI - EMPLOYEE MANAGEMENT SECTION STYLES
+   css/sections/employees.css
+   ========================================================================== */
+      font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+    }
+
+    .dash-header-title h2 {
+      font-size: clamp(1.1rem, 4vw, 1.7rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 0.04em;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+    }
+
+    .dash-header-title p {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 4px;
+    }
+
+    .i-dash-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      max-width: 820px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      .i-dash-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+    }
+
+    .i-dash-card {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 4/3;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+      transition: transform 0.18s, box-shadow 0.18s;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: center;
+    }
+
+    .i-dash-card:hover {
+      transform: translateY(-5px) scale(1.04);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .i-dash-card:active {
+      transform: scale(0.97);
+    }
+
+    .i-card-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.5);
+      transition: filter 0.2s;
+    }
+
+    .i-dash-card:hover .i-card-bg {
+      filter: brightness(0.68);
+    }
+
+    .i-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(10, 30, 80, 0.5) 0%, rgba(0, 60, 140, 0.55) 100%);
+    }
+
+    .i-card-body {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 12px;
+    }
+
+    .i-card-icon {
+      font-size: 2rem;
+      margin-bottom: 7px;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.7));
+    }
+
+    .i-card-hi {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    }
+
+    .i-card-en {
+      font-size: 0.72rem;

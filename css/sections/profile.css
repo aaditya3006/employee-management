@@ -1,0 +1,34 @@
+/* ==========================================================================
+   RAILSAATHI - PROFILE SECTION STYLES
+   css/sections/profile.css
+   ========================================================================== */
+      bottom: 30px;
+      right: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 8px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.2s;
+      z-index: 10;
+    }
+
+    #skip-intro-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .stn-suggest-list {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      background: #fff;
+      border: 1.5px solid #6366f1;
+      border-radius: 0 0 8px 8px;
+      max-height: 200px;
+      overflow-y: auto;
+      z-index: 9999;
+      margin: 0;

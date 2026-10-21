@@ -1,0 +1,516 @@
+/* ==========================================================================
+   RAILSAATHI - TA JOURNAL SECTION STYLES
+   css/sections/ta-journal.css
+   ========================================================================== */
+    /* ============================================
+   TA JOURNAL PRINT STYLES
+   ============================================ */
+    .ta-journal-page {
+      width: 100%;
+      background: white;
+      font-family: Arial, 'Noto Sans Devanagari', sans-serif;
+      font-size: 8pt;
+      color: #000;
+      line-height: 1.05;
+    }
+
+    .ta-j-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      margin-bottom: 0;
+    }
+
+    .ta-j-table th,
+    .ta-j-table td {
+      border: 1px solid #000;
+      padding: 3px 2px;
+      text-align: center;
+      vertical-align: middle;
+      font-family: Arial, 'Noto Sans Devanagari', sans-serif;
+      overflow: hidden;
+      word-break: break-word;
+      font-size: 12pt;
+    }
+
+    .ta-j-table th {
+      font-weight: bold;
+      font-size: 13pt !important;
+      line-height: 1.25;
+      background: white;
+    }
+
+    .ta-j-table td {
+      height: 44px !important;
+      margin: 0;
+    }
+
+    .ta-obj-cell {
+      border: 1px solid #000;
+      padding: 0 !important;
+      text-align: left;
+      vertical-align: middle;
+      overflow: hidden !important;
+      box-sizing: border-box;
+    }
+
+    .ta-obj-container {
+      padding: 2px 3px;
+      font-size: 8.5pt !important;
+      font-family: 'Times New Roman', serif;
+      font-weight: bold;
+      line-height: 1.15 !important;
+      overflow: hidden !important;
+      word-wrap: break-word;
+      word-break: break-word;
+      white-space: normal;
+      box-sizing: border-box;
+      height: 36px !important;
+      max-height: 36px !important;
+    }
+
+    .ta-certificate>div {
+      word-spacing: 7px !important;
+      letter-spacing: 0.15px;
+      text-align: justify !important;
+      text-align-last: justify !important;
+    }
+
+    .ta-certificate-notes,
+    .ta-certificate-notes>div {
+      word-spacing: normal !important;
+      letter-spacing: normal;
+    }
+
+    .ta-certificate>div.ta-certificate-no-word-spacing,
+    .ta-certificate-notes>div.ta-certificate-no-word-spacing {
+      word-spacing: normal !important;
+      letter-spacing: normal !important;
+      text-align: left !important;
+      text-align-last: left !important;
+    }
+
+    .ta-certificate>div.ta-certificate-no-word-spacing.ta-certificate-wide-word-spacing,
+    .ta-certificate-notes>div.ta-certificate-no-word-spacing.ta-certificate-wide-word-spacing {
+      word-spacing: 8px !important;
+    }
+
+    .ta-certificate>div.ta-certificate-duty-line {
+      word-spacing: 7px !important;
+    }
+
+    .ta-certificate .ta-certificate-notes>div.ta-certificate-note-one {
+      word-spacing: 6px !important;
+    }
+
+    .ta-certificate .ta-certificate-notes>div.ta-certificate-note-one-english {
+      word-spacing: 4.5px !important;
+    }
+
+    #ta-journal-wrapper {
+      position: relative;
+      padding: 4px;
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(239, 246, 255, 0.9));
+      box-shadow: 0 18px 48px rgba(15, 23, 42, 0.12);
+    }
+
+    #ta-journal-wrapper > .w-full {
+      display: grid;
+      gap: 18px;
+    }
+
+    #ta-journal-wrapper .ta-section-card {
+      margin: 0;
+      padding: clamp(16px, 2vw, 24px);
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.07);
+    }
+
+    #ta-journal-wrapper .ta-section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #1e3a8a;
+    }
+
+    #ta-journal-wrapper .ta-section-title::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: #2563eb;
+      box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.12);
+    }
+
+    #ta-journal-wrapper .ta-input {
+      min-height: 46px;
+      border-color: #cbd5e1;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+
+    #ta-journal-wrapper .ta-input:hover {
+      border-color: #93c5fd;
+    }
+
+    #ta-journal-wrapper .ta-input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.13);
+    }
+
+    #ta-journal-wrapper button {
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    #ta-journal-wrapper button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+    }
+
+
+
+    /* Mobile responsive preview - fits full screen on Android */
+    @media (max-width: 768px) {
+
+      #preview-section,
+      #attendance-preview-section,
+      #ta-preview-section {
+        padding: 16px 10px 24px;
+        gap: 12px;
+      }
+
+      #pdf-content,
+      #att-pdf-content,
+      #ta-pdf-content {
+        width: 100% !important;
+        max-width: 100vw;
+        padding: 8px 6px 6px 6px;
+        margin: 0;
+        box-shadow: none;
+        border-radius: 20px;
+      }
+
+      #ta-report-content {
+        width: 100% !important;
+        max-width: 100vw;
+        padding: 8px 6px 6px 6px;
+        margin: 0;
+        box-shadow: none;
+        border-radius: 0px !important;
+      }
+
+      .preview-toolbar {
+        padding: 14px 14px 16px;
+        border-radius: 22px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .preview-toolbar__actions {
+        justify-content: stretch;
+      }
+
+      .preview-toolbar__actions .preview-btn {
+        flex: 1 1 calc(50% - 5px);
+        min-width: 0;
+      }
+    }
+
+    /* Ensure mobile styles don't interfere with print */
+    @media print {
+      #pdf-content {
+        width: 210mm !important;
+        padding: 14mm 12mm 12mm 12mm !important;
+        margin: 0 auto !important;
+        box-shadow: none !important;
+        border: none !important;
+        max-width: none !important;
+      }
+    }
+
+    #dynamic-pdf-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+      color: #000;
+    }
+
+    #dynamic-pdf-table th,
+    #dynamic-pdf-table td {
+      border: 2px solid #000;
+      text-align: center;
+      overflow: hidden;
+      font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+    }
+
+    #dynamic-pdf-table th {
+      font-weight: bold;
+      padding: 8px 4px;
+    }
+
+    #dynamic-pdf-table td {
+      vertical-align: middle;
+      height: 58px;
+    }
+
+    /* Mobile responsive table - shrink for mobile screens */
+    @media (max-width: 768px) {
+
+      #dynamic-pdf-table th,
+      #dynamic-pdf-table td {
+        border: 1px solid #000 !important;
+        padding: 4px 2px !important;
+        font-size: 9pt !important;
+      }
+
+      #dynamic-pdf-table th {
+        font-size: 8pt !important;
+      }
+
+      #dynamic-pdf-table td {
+        height: auto;
+        min-height: 28px;
+      }
+    }
+
+    /* Restore print-friendly table styles */
+    @media print {
+
+      #dynamic-pdf-table th,
+      #dynamic-pdf-table td {
+        border: 2px solid #000 !important;
+        padding: 8px 4px !important;
+        font-size: 11pt !important;
+      }
+
+      #dynamic-pdf-table th {
+        font-size: 11pt !important;
+      }
+
+      #dynamic-pdf-table td {
+        height: 58px !important;
+        vertical-align: middle !important;
+      }
+    }
+
+    .patrol-title {
+      border: 2px solid #000;
+      text-align: center;
+      font-weight: bold;
+      font-size: 15pt;
+      font-family: 'Poppins', sans-serif;
+      padding: 7px 4px;
+      background: white;
+      width: 100%;
+      letter-spacing: 0.04em;
+
+
+
+    .ta-section-card {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 8px;
+    }
+
+    .ta-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1e40af;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .ta-input {
+      width: 100%;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 14px;
+      color: #1e293b;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .ta-input:focus {
+      border-color: #3b82f6;
+    }
+
+    .ta-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 2px;
+      display: block;
+    }
+
+    .ta-radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 3px;
+    }
+
+    .ta-radio-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      color: #334155;
+    }
+
+    .ta-day-card {
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ta-day-card.editing {
+      border-color: #f59e0b;
+      background: #fffbeb;
+    }
+
+    #sidebar-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 99998;
+      display: none;
+    }
+
+    #bg-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://www.livemint.com/lm-img/img/2023/09/21/600x338/ANI-20230708344-0_1692243128024_1695279868901.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    #sidebar-backdrop.active {
+      display: block;
+    }
+
+    .intro-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: 99999;
+      background-color: #000;
+      transition: opacity 0.5s ease-out;
+    }
+
+    .intro-bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+        url('https://images.unsplash.com/photo-1474487548417-781cb71495f3?q=80&w=2000');
+      background-size: cover;
+      background-position: center;
+      z-index: 1;
+      animation: slowZoom 10s infinite alternate ease-in-out;
+    }
+
+    #intro-brand {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s ease;
+    }
+
+    .glass-overlay {
+      position: relative;
+      z-index: 2;
+      padding: 3rem 4rem;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      animation: slideUpIntro 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    }
+
+    .modern-text {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.2rem, 6vw, 2.5rem);
+      font-weight: 200;
+      letter-spacing: 0.5em;
+      color: #ffffff;
+      margin: 0;
+      text-transform: uppercase;
+      animation: textFade 0.6s ease-out;
+    }
+
+    .line-reveal {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.5);
+      width: 0;
+      margin: 20px auto 0;
+      animation: growLine 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards 0.2s;
+    }
+
+    #intro-dashboard {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      overflow-y: auto;
+    }
+
+    #intro-dashboard.active {
+      display: flex;
+      animation: fadeInDash 0.2s ease forwards;
+    }
+
+    @keyframes fadeInDash {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .dash-header-title {
+      text-align: center;
+      margin-bottom: 28px;

@@ -1,0 +1,17 @@
+/* ==========================================================================
+   RAILSAATHI - USER MANAGEMENT & APPROVAL STYLES
+   css/sections/user-management.css
+   ========================================================================== */
+
+    .stn-suggest-list li .stn-code {
+      font-weight: 700;
+      color: #4f46e5;
+      min-width: 54px;
+      font-size: 13px;
+    }
+
+    .stn-suggest-list li .stn-name {
+      color: #475569;
+      font-size: 12px;
+    }
+  </style>

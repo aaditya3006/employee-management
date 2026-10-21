@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>System Maintenance | RailSaathi - Railway Workflow Portal</title>
+  <meta name="description"
+    content="RailSaathi is currently undergoing scheduled system maintenance and database optimization. Services will resume shortly.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap"
+    rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-dark: #070c18;
+      --card-bg: rgba(15, 23, 42, 0.78);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-glow: rgba(56, 189, 248, 0.12);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-amber: #f59e0b;
+      --accent-cyan: #06b6d4;
+      --accent-emerald: #10b981;
+      --railway-blue: #1e3a8a;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem 1rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Animated Background */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .ambient-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.35;
+      animation: orbFloat 14s ease-in-out infinite alternate;
+    }
+
+    .orb-1 {
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, #0284c7 0%, rgba(2, 132, 199, 0) 70%);
+      top: -100px;
+      left: -80px;
+    }
+
+    .orb-2 {
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, #d97706 0%, rgba(217, 119, 6, 0) 70%);
+      bottom: -120px;
+      right: -80px;
+      animation-delay: -7s;
+    }
+
+    .orb-3 {
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, #059669 0%, rgba(5, 150, 105, 0) 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.15;
+    }
+
+    @keyframes orbFloat {
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(30px) scale(1.08); }
+      100% { transform: translateY(-20px) scale(0.95); }
+    }
+
+    /* Grid Overlay */
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Main Container */
+    .maintenance-container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 580px;
+      margin: auto;
+    }
+
+    /* Card */
+    .maintenance-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: 2.5rem 2rem;
+      box-shadow: 
+        0 20px 50px -10px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    /* Top Bar & Language Selector */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .brand-icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #0284c7, #1e3a8a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+    }
+
+    .brand-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 40%, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .lang-switcher {
+      display: flex;
+      gap: 4px;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 3px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .lang-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .lang-btn.active {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Icon Graphic */
+    .icon-wrapper {
+      position: relative;
+      width: 104px;
+      height: 104px;
+      margin: 0 auto 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-pulse-ring {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 2px dashed rgba(245, 158, 11, 0.35);
+      animation: rotateRing 20s linear infinite;
+    }
+
+    .icon-glow-bg {
+      position: absolute;
+      inset: 4px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(245, 158, 11, 0) 70%);
+      animation: pulseGlow 3s ease-in-out infinite alternate;
+    }
+
+    .icon-core {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .icon-core svg {
+      width: 42px;
+      height: 42px;
+      color: var(--accent-amber);
+    }
+
+    @keyframes rotateRing {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(0.92); opacity: 0.4; }
+      100% { transform: scale(1.15); opacity: 0.8; }
+    }
+
+    /* Status Pill */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 0.35rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #fbbf24;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 1.25rem;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #fbbf24;
+      box-shadow: 0 0 10px #fbbf24;
+      animation: pulseDot 1.6s ease-in-out infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    /* Typography */
+    .maintenance-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.85rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 0.85rem;
+    }
+
+    .maintenance-desc {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      margin-bottom: 1.75rem;
+    }
+
+    /* Modules Status Strip */
+    .modules-strip {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      text-align: left;
+    }
+
+    .module-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.84rem;
+    }
+
+    .module-name {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+
+    .module-state {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .state-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-amber);
+    }
+
+    /* Action Buttons */
+    .actions-group {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.4rem;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: #ffffff;
+      box-shadow: 0 4px 16px rgba(2, 132, 199, 0.35);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0369a1, #075985);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Footer */
+    .maintenance-footer {
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .refresh-spinner {
+      display: none;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Mobile Adaptations */
+    @media (max-width: 480px) {
+      .maintenance-card {
+        padding: 2rem 1.25rem;
+        border-radius: 22px;
+      }
+      .maintenance-title {
+        font-size: 1.5rem;
+      }
+      .maintenance-desc {
+        font-size: 0.88rem;
+      }
+      .actions-group {
+        flex-direction: column;
+      }
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Ambient Orbs -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
+  </div>
+
+  <!-- Background Grid -->
+  <div class="grid-overlay" aria-hidden="true"></div>
+
+  <!-- Content Container -->
+  <main class="maintenance-container">
+    <div class="maintenance-card">
+
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <div class="brand-group">
+          <div class="brand-icon-box" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:#ffffff;">
+              <rect x="4" y="3" width="16" height="16" rx="2"></rect>
+              <path d="M4 11h16"></path>
+              <path d="M12 3v8"></path>
+              <path d="m8 19-2 3"></path>
+              <path d="m16 19 2 3"></path>
+              <circle cx="8" cy="15" r="1"></circle>
+              <circle cx="16" cy="15" r="1"></circle>
+            </svg>
+          </div>
+          <span class="brand-name">RailSaathi</span>
+        </div>
+
+        <!-- Language Selector -->
+        <div class="lang-switcher" role="radiogroup" aria-label="Language selection">
+          <button type="button" class="lang-btn active" data-lang="en" onclick="setMaintenanceLang('en')">EN</button>
+          <button type="button" class="lang-btn" data-lang="hi" onclick="setMaintenanceLang('hi')">हिन्दी</button>
+          <button type="button" class="lang-btn" data-lang="mr" onclick="setMaintenanceLang('mr')">मराठी</button>
+        </div>
+      </div>
+
+      <!-- Animated Icon Graphic -->
+      <div class="icon-wrapper">
+        <div class="icon-pulse-ring" aria-hidden="true"></div>
+        <div class="icon-glow-bg" aria-hidden="true"></div>
+        <div class="icon-core">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Status Badge -->
+      <div class="status-badge" id="m-status-badge">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span id="m-status-text">Scheduled System Upgrade</span>
+      </div>
+
+      <!-- Title & Copy -->
+      <h1 class="maintenance-title" id="m-title">Under Scheduled Maintenance</h1>
+      <p class="maintenance-desc" id="m-desc">
+        We are optimizing database performance, synchronizing railway duty records, and rolling out portal enhancements. Services will resume shortly.
+      </p>
+
+      <!-- Modules Status Strip -->
+      <div class="modules-strip" aria-label="Module status">
+        <div class="module-item">
+          <span class="module-name">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent-cyan);"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+            <span id="m-mod-night">Night Patrolling & Keyman</span>
+          </span>
+          <span class="module-state"><span class="state-dot"></span> <span id="m-state-sync">Optimizing</span></span>
+        </div>
+        <div class="module-item">
+          <span class="module-name">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent-cyan);"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
+            <span id="m-mod-att">Attendance & TA Journal</span>
+          </span>
+          <span class="module-state"><span class="state-dot"></span> <span id="m-state-sec">Securing DB</span></span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions-group">
+        <button type="button" class="btn btn-primary" id="refresh-btn" onclick="checkPortalStatus()">
+          <svg class="refresh-spinner" id="refresh-spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+          </svg>
+          <svg id="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+            <path d="M21 3v5h-5"></path>
+            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+            <path d="M8 16H3v5"></path>
+          </svg>
+          <span id="m-btn-refresh">Check System Status</span>
+        </button>
+
+        <a href="mailto:support@railsaathi.local" class="btn btn-secondary" id="m-btn-contact">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+          </svg>
+          <span id="m-btn-contact-text">Contact Support</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Footer Note -->
+    <footer class="maintenance-footer">
+      <p id="m-footer-1">RailSaathi Railway Operations & Field Workflow Portal</p>
+      <p id="m-footer-2">Thank you for your patience while we upgrade your experience.</p>
+    </footer>
+  </main>
+
+  <script>
+    const COPY = {
+      en: {
+        status: 'Scheduled System Upgrade',
+        title: 'Under Scheduled Maintenance',
+        desc: 'We are optimizing database performance, synchronizing railway duty records, and rolling out portal enhancements. Services will resume shortly.',
+        modNight: 'Night Patrolling & Keyman',
+        modAtt: 'Attendance & TA Journal',
+        stateSync: 'Optimizing',
+        stateSec: 'Securing DB',
+        btnRefresh: 'Check System Status',
+        btnContact: 'Contact Support',
+        footer1: 'RailSaathi Railway Operations & Field Workflow Portal',
+        footer2: 'Thank you for your patience while we upgrade your experience.'
+      },
+      hi: {
+        status: 'सिस्टम रखरखाव प्रगति पर है',
+        title: 'सिस्टम में सुधार कार्य जारी है',
+        desc: 'हम डेटाबेस क्षमता को बेहतर बना रहे हैं और रेल ड्यूटी रिकॉर्ड्स को सुगम कर रहे हैं. सभी सेवाएं शीघ्र ही दोबारा शुरू हो जाएंगी.',
+        modNight: 'रात्रि गश्त एवं की-मैन ड्यूटी',
+        modAtt: 'उपस्थिति एवं यात्रा भत्ता (TA)',
+        stateSync: 'सुधार जारी',
+        stateSec: 'सुरक्षा जांच',
+        btnRefresh: 'सिस्टम स्थिति जांचें',
+        btnContact: 'सहायता से संपर्क करें',
+        footer1: 'रेलसाथी - रेलवे परिचालन एवं फील्ड वर्कफ़्लो पोर्टल',
+        footer2: 'आपके सहयोग और धैर्य के लिए धन्यवाद.'
+      },
+      mr: {
+        status: 'प्रणाली देखभाल प्रगतीपथावर',
+        title: 'प्रणाली सुधारणा कार्य सुरू आहे',
+        desc: 'आम्ही डेटाबेस गती वाढवत आहोत आणि रेल्वे ड्युटी नोंदी अद्ययावत करत आहोत. सेवा लवकरच पूर्ववत सुरू होतील.',
+        modNight: 'रात्र गस्त आणि की-मॅन ड्युटी',
+        modAtt: 'उपस्थिती आणि प्रवास भत्ता (TA)',
+        stateSync: 'सुधारणा सुरू',
+        stateSec: 'डेटाबेस सुरक्षा',
+        btnRefresh: 'प्रणाली स्थिती तपासा',
+        btnContact: 'मदतीसाठी संपर्क करा',
+        footer1: 'रेलसाथी - रेल्वे फील्ड वर्कफ्लो पोर्टल',
+        footer2: 'आपल्या सहकार्याबद्दल धन्यवाद.'
+      }
+    };
+
+    function setMaintenanceLang(lang) {
+      const data = COPY[lang] || COPY.en;
+      document.getElementById('m-status-text').textContent = data.status;
+      document.getElementById('m-title').textContent = data.title;
+      document.getElementById('m-desc').textContent = data.desc;
+      document.getElementById('m-mod-night').textContent = data.modNight;
+      document.getElementById('m-mod-att').textContent = data.modAtt;
+      document.getElementById('m-state-sync').textContent = data.stateSync;
+      document.getElementById('m-state-sec').textContent = data.stateSec;
+      document.getElementById('m-btn-refresh').textContent = data.btnRefresh;
+      document.getElementById('m-btn-contact-text').textContent = data.btnContact;
+      document.getElementById('m-footer-1').textContent = data.footer1;
+      document.getElementById('m-footer-2').textContent = data.footer2;
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+      document.documentElement.lang = lang;
+    }
+
+    async function checkPortalStatus() {
+      const icon = document.getElementById('refresh-icon');
+      const spinner = document.getElementById('refresh-spinner');
+      const btn = document.getElementById('refresh-btn');
+      
+      icon.style.display = 'none';
+      spinner.style.display = 'inline-block';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('index.html?t=' + Date.now(), { method: 'HEAD' });
+        setTimeout(() => {
+          spinner.style.display = 'none';
+          icon.style.display = 'inline-block';
+          btn.disabled = false;
+          if (res.ok) {
+            window.location.href = 'index.html?skip_splash=1#login';
+          }
+        }, 1200);
+      } catch (e) {
+        setTimeout(() => {
+          spinner.style.display = 'none';
+          icon.style.display = 'inline-block';
+          btn.disabled = false;
+        }, 1000);
+      }
+    }
+
+    // Auto-detect browser/stored language
+    (function () {
+      try {
+        const saved = localStorage.getItem('railsaathiLandingLang');
+        if (saved && COPY[saved]) {
+          setMaintenanceLang(saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
+</body>
+
+</html>
