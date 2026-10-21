@@ -294,22 +294,13 @@
       countNodes.forEach((node) => animateMarketingLandingCount(node, options));
     }
 
-    function startMarketingHeadlineTyping() {
-      const node = document.querySelector('[data-typing-brand]');
-      if (node) {
-        clearTimeout(marketingHeadlineTypingTimer);
-        const targetText = 'Railsaathi';
-        node.innerHTML = Array.from(targetText).map((letter, index) => (
-          `<span data-typing-letter style="animation-delay:${index * 0.08}s">${letter}</span>`
-        )).join('');
-        node.dataset.originalText = targetText;
-      }
-
+    function startMarketingManifestoTyping() {
       const manifesto = document.getElementById('landing-manifesto');
       if (!manifesto) return;
 
       clearTimeout(marketingManifestoTypingTimer);
       const manifestoText = manifesto.textContent.trim();
+      manifesto.setAttribute('aria-label', manifestoText);
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         manifesto.textContent = manifestoText;
         manifesto.classList.remove('is-typing');
@@ -324,13 +315,27 @@
         characterIndex += 1;
         manifesto.textContent = manifestoText.slice(0, characterIndex);
         if (characterIndex < manifestoText.length) {
-          marketingManifestoTypingTimer = setTimeout(typeNextCharacter, 32);
+          marketingManifestoTypingTimer = setTimeout(typeNextCharacter, 36);
         } else {
           manifesto.classList.remove('is-typing');
         }
       };
 
-      typeNextCharacter();
+      marketingManifestoTypingTimer = setTimeout(typeNextCharacter, 180);
+    }
+
+    window.startMarketingManifestoTyping = startMarketingManifestoTyping;
+
+    function startMarketingHeadlineTyping() {
+      const node = document.querySelector('[data-typing-brand]');
+      if (!node) return;
+
+      clearTimeout(marketingHeadlineTypingTimer);
+      const targetText = 'Railsaathi';
+      node.innerHTML = Array.from(targetText).map((letter, index) => (
+        `<span data-typing-letter style="animation-delay:${index * 0.08}s">${letter}</span>`
+      )).join('');
+      node.dataset.originalText = targetText;
     }
 
 

@@ -192,6 +192,9 @@ let marketingLandingRequiresLanguageChoice = false;
       updateMarketingText('landing-nav-copy', copy.navCopy);
       updateMarketingText('landing-topbar-login', copy.topbarLogin);
       updateMarketingText('landing-manifesto', copy.manifesto);
+      if (typeof window.startMarketingManifestoTyping === 'function') {
+        window.startMarketingManifestoTyping();
+      }
       updateMarketingText('landing-hero-login', copy.heroLogin);
       updateMarketingText('landing-hero-download', copy.heroDownload);
       updateMarketingText('landing-metric-route-value', copy.metricRouteValue);
