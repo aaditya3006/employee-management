@@ -301,6 +301,7 @@
       clearTimeout(marketingManifestoTypingTimer);
       const manifestoText = manifesto.textContent.trim();
       manifesto.setAttribute('aria-label', manifestoText);
+      manifesto.classList.add('is-visible');
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         manifesto.textContent = manifestoText;
         manifesto.classList.remove('is-typing');
