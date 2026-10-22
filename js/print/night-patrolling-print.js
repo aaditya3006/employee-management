@@ -14,23 +14,25 @@
         }
 
         const range = dateDisplay.innerText || '';
-        const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: false });
         const type = currentDutyType === 'keyman' ? 'keyman' : 'night';
-        const prefix = type === 'keyman' ? 'Keyman: ' : 'Night Patrol: ';
-        const fullRange = prefix + range;
+        const dutyName = type === 'keyman' ? 'Keyman' : 'Night Patrolling';
 
-        console.log('🖨️ Print triggered for:', fullRange, 'type:', type);
+        console.log('Print triggered for:', dutyName, range, 'type:', type);
 
-        // Try to save print history
+        // Archive the same high-resolution A4 PDF used by the share action.
         try {
-          const { data, error } = await db.from("print_history").insert([{ range: fullRange, timestamp, serverTime: new Date().toISOString() }]).select();
-          if (!error && data && data[0]) {
-            printHistory.unshift({ id: data[0].id, range: fullRange, timestamp });
-            renderHistory();
-          }
-        } catch (dbError) {
-          console.warn("Could not save print history:", dbError);
-          // Don't fail if database is unavailable
+          const blob = await window.createDutyPdfBlob();
+          const safeDate = range.replace(/[^\d-]+/g, '-').replace(/^-|-$/g, '');
+          const fileType = type === 'keyman' ? 'Keyman' : 'Night-Patrolling';
+          await window.saveDutyPdfHistory?.({
+            blob,
+            filename: `${fileType}-Duty${safeDate ? `-${safeDate}` : ''}.pdf`,
+            dutyName,
+            dutyDate: range,
+            action: 'Printed'
+          });
+        } catch (archiveError) {
+          console.warn('Could not archive the printed PDF:', archiveError);
         }
 
         // Match the supplied duty-sheet format: A4 portrait with preserved cell colors.
@@ -116,6 +118,7 @@
             }
             .preview-actions,
             .preview-toolbar,
+            .duty-preview-bottom-actions,
             .duty-pdf-watermark,
             #legacy-containers,
             #top-nav,

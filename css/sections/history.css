@@ -2,6 +2,51 @@
    RAILSAATHI - HISTORY SECTION STYLES
    css/sections/history.css
    ========================================================================== */
+
+.history-pdf-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-left: 4px solid #f97316;
+}
+
+.history-pdf-details {
+  min-width: 0;
+}
+
+.history-pdf-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 7px;
+}
+
+.history-pdf-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  color: #334155;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .history-pdf-card {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .history-pdf-actions {
+    align-self: flex-end;
+  }
+}
       font-weight: 700;
       color: rgba(255, 255, 255, 0.85);
       letter-spacing: 0.08em;

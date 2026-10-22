@@ -524,7 +524,7 @@
 
         const canvas = await window.html2canvas(page, {
           backgroundColor: '#ffffff',
-          scale: 2,
+          scale: 3,
           useCORS: true,
           logging: false,
           width: page.scrollWidth,
@@ -532,7 +532,7 @@
         });
         const Pdf = window.jspdf.jsPDF;
         const pdf = new Pdf({ orientation: 'portrait', unit: 'mm', format: 'a4', compress: true });
-        pdf.addImage(canvas.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, 210, 297, undefined, 'FAST');
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, 297, undefined, 'FAST');
         return pdf.output('blob');
       } finally {
         if (oldStyle === null) page.removeAttribute('style');
@@ -561,8 +561,16 @@
       try {
         const blob = await createDutyPdfBlob();
         const type = currentDutyType === 'keyman' ? 'Keyman' : 'Night-Patrolling';
-        const date = (document.getElementById('pdf-date-display')?.textContent || '').replace(/[^\d-]+/g, '-').replace(/^-|-$/g, '');
+        const dutyDate = document.getElementById('pdf-date-display')?.textContent?.trim() || '';
+        const date = dutyDate.replace(/[^\d-]+/g, '-').replace(/^-|-$/g, '');
         const filename = `${type}-Duty${date ? `-${date}` : ''}.pdf`;
+        await window.saveDutyPdfHistory?.({
+          blob,
+          filename,
+          dutyName: currentDutyType === 'keyman' ? 'Keyman' : 'Night Patrolling',
+          dutyDate,
+          action: 'Shared'
+        });
         const file = new File([blob], filename, { type: 'application/pdf' });
 
         if (typeof navigator.share === 'function' &&
@@ -672,6 +680,7 @@ window.setDutyMode = setDutyMode;
 window.setupForm = setupForm;
 window.saveGpsNumbers = saveGpsNumbers;
 window.resetGpsNumbers = resetGpsNumbers;
+window.createDutyPdfBlob = createDutyPdfBlob;
 window.filterDropdownEmployees = filterDropdownEmployees;
 window.selectEmployeeRow = selectEmployeeRow;
 window.formatDateDisplay = formatDateDisplay;

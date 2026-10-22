@@ -22,7 +22,7 @@
 }
 
 .duty-subtitle-input::placeholder {
-  color: #9ca3af !important;
+  color: #cbd5e1 !important;
   font-size: 0.85em;
   opacity: 1;
 }
@@ -102,6 +102,62 @@
 #sidebar button:hover,
 #sidebar button:focus-visible {
   background: rgba(255, 255, 255, 0.1) !important;
+}
+
+#preview-section {
+  padding-bottom: 92px !important;
+}
+
+.duty-preview-bottom-actions {
+  position: fixed;
+  z-index: 1200;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  box-sizing: border-box;
+  width: min(520px, 100vw);
+  padding: 7px 12px max(7px, env(safe-area-inset-bottom));
+  border: 1px solid rgba(148, 163, 184, 0.34);
+  border-bottom: 0;
+  border-radius: 16px 16px 0 0;
+  background: rgba(248, 250, 252, 0.96);
+  box-shadow: 0 -8px 28px rgba(15, 23, 42, 0.12);
+  backdrop-filter: blur(16px);
+}
+
+.duty-preview-bottom-actions .preview-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 0;
+  min-height: 36px;
+  padding: 0 9px;
+  font-size: 12px;
+}
+
+.duty-preview-bottom-actions .preview-btn .ui-icon {
+  font-size: 15px;
+}
+
+.duty-preview-bottom-actions .preview-btn--whatsapp {
+  border-color: #128c4a;
+  background: #128c4a;
+  color: #fff;
+}
+
+.duty-preview-bottom-actions .preview-btn--whatsapp:hover {
+  background: #0d773e;
+  border-color: #0d773e;
+}
+
+@media print {
+  .duty-preview-bottom-actions {
+    display: none !important;
+  }
 }
 
 @media screen and (max-width: 768px) {

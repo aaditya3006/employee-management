@@ -432,8 +432,10 @@ window.startAppDownload = function () {
       try {
         if (pendingAction === 'clearHistory') {
           // Fetch all records to know count for logging
+          let allRecords = [];
           try {
-            const { data: allRecords, error: fetchErr } = await window.db.from("print_history").select("*");
+            const { data, error: fetchErr } = await window.db.from("print_history").select("*");
+            allRecords = data || [];
             // Delete all records
             if (!fetchErr) {
               const { error: deleteErr } = await window.db.from("print_history").delete().neq('id', null);
@@ -442,12 +444,13 @@ window.startAppDownload = function () {
             // Silently ignore if print_history table doesn't exist
           }
           printHistory = [];
+          await window.clearLocalDutyPdfHistory?.();
           renderHistory();
           showToast("History Purged.");
 
           // Log activity
           await logActivity('history_cleared', {
-            recordsDeleted: allRecords ? allRecords.length : 0
+            recordsDeleted: allRecords.length
           });
         }
       } catch (error) {

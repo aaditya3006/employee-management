@@ -30,23 +30,20 @@
       const container = document.getElementById('admin-employee-list');
       if (!container) return;
       if (employeeList.length === 0) {
-        container.innerHTML = `<div class="p-8 text-center text-slate-400 italic bg-white rounded-xl shadow-sm">No personnel found. Add some above.</div>`;
+        container.innerHTML = `<div class="employee-list-card p-4 text-center text-slate-400 italic text-xs">No personnel found. Add some above.</div>`;
         return;
       }
-      container.innerHTML = employeeList.map((emp, index) => `
-    <div class="dashboard-card-light flex items-center justify-between hover:border-blue-300 transition-colors">
-      <div class="flex items-center gap-4">
-        <div class="avatar-light text-sm">${emp.name ? emp.name.charAt(0) : '?'}</div>
-        <div>
-          <div class="font-bold text-slate-800 text-sm md:text-base">${emp.name}</div>
-          <div class="text-[11px] md:text-xs text-slate-500 font-mono mt-0.5">${emp.phone}</div>
-        </div>
+      container.innerHTML = `<div class="employee-list-card">${employeeList.map((emp, index) => `
+    <div class="employee-list-row">
+      <div class="employee-list-person">
+        <span class="employee-list-name">${emp.name || ''}</span>
+        <span class="employee-list-phone">${emp.phone || ''}</span>
       </div>
-      <div class="flex gap-2">
-        <button onclick="editEmployeeDirect(${index})" class="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors" aria-label="Edit employee"><svg class="ui-icon"><use href="#icon-edit"></use></svg></button>
-        <button onclick="deleteEmployeeDirect(${index})" class="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors" aria-label="Delete employee"><svg class="ui-icon"><use href="#icon-trash"></use></svg></button>
+      <div class="employee-list-actions">
+        <button onclick="editEmployeeDirect(${index})" class="employee-list-action bg-blue-50 text-blue-600 hover:bg-blue-100" aria-label="Edit employee"><svg class="ui-icon"><use href="#icon-edit"></use></svg></button>
+        <button onclick="deleteEmployeeDirect(${index})" class="employee-list-action bg-red-50 text-red-600 hover:bg-red-100" aria-label="Delete employee"><svg class="ui-icon"><use href="#icon-trash"></use></svg></button>
       </div>
-    </div>`).join('');
+    </div>`).join('')}</div>`;
     }
 
 

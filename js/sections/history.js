@@ -4,6 +4,164 @@
    ========================================================================== */
 
 let printHistory = [];
+let localDutyPdfHistory = [];
+
+const DUTY_PDF_HISTORY_DB = 'railsaathi-duty-pdf-history';
+const DUTY_PDF_HISTORY_STORE = 'pdf-files';
+
+function openDutyPdfHistoryDb() {
+  return new Promise((resolve, reject) => {
+    if (!window.indexedDB) {
+      reject(new Error('Local PDF history is unavailable in this browser.'));
+      return;
+    }
+
+    const request = window.indexedDB.open(DUTY_PDF_HISTORY_DB, 1);
+    request.onupgradeneeded = () => {
+      const db = request.result;
+      if (!db.objectStoreNames.contains(DUTY_PDF_HISTORY_STORE)) {
+        db.createObjectStore(DUTY_PDF_HISTORY_STORE, { keyPath: 'id' });
+      }
+    };
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error || new Error('Could not open local PDF history.'));
+  });
+}
+
+function readLocalDutyPdfHistory() {
+  return openDutyPdfHistoryDb().then(db => new Promise((resolve, reject) => {
+    const request = db.transaction(DUTY_PDF_HISTORY_STORE, 'readonly')
+      .objectStore(DUTY_PDF_HISTORY_STORE).getAll();
+    request.onsuccess = () => {
+      db.close();
+      resolve((request.result || []).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)));
+    };
+    request.onerror = () => {
+      db.close();
+      reject(request.error || new Error('Could not read local PDF history.'));
+    };
+  }));
+}
+
+window.saveDutyPdfHistory = async function ({ blob, filename, dutyName, dutyDate, action }) {
+  const timestamp = new Date().toISOString();
+  const dutyLabel = `${dutyName} Duty - ${dutyDate}`;
+  const remoteRange = `${action} PDF: ${dutyLabel}`;
+  const record = {
+    id: `duty-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+    blob,
+    filename,
+    dutyName,
+    dutyDate,
+    dutyLabel,
+    action,
+    timestamp,
+    remoteRange
+  };
+
+  try {
+    const db = await openDutyPdfHistoryDb();
+    try {
+      await new Promise((resolve, reject) => {
+        const transaction = db.transaction(DUTY_PDF_HISTORY_STORE, 'readwrite');
+        transaction.objectStore(DUTY_PDF_HISTORY_STORE).put(record);
+        transaction.oncomplete = resolve;
+        transaction.onerror = () => reject(transaction.error || new Error('Could not save the PDF locally.'));
+        transaction.onabort = () => reject(transaction.error || new Error('Saving the PDF was cancelled.'));
+      });
+    } finally {
+      db.close();
+    }
+    localDutyPdfHistory.unshift(record);
+  } catch (error) {
+    console.warn('Could not save this PDF in local history:', error);
+    localDutyPdfHistory.unshift(record);
+  }
+
+  renderHistory();
+
+  try {
+    const insert = window.db?.from('print_history').insert([{
+      range: remoteRange,
+      timestamp: new Date(timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+      serverTime: timestamp
+    }]);
+    if (insert?.then) {
+      Promise.resolve(insert).then(({ error }) => {
+        if (error) console.warn('Could not sync PDF history metadata:', error);
+      }).catch(error => console.warn('Could not sync PDF history metadata:', error));
+    }
+  } catch (error) {
+    console.warn('Could not sync PDF history metadata:', error);
+  }
+
+  return record;
+};
+
+window.openDutyPdfFromHistory = async function (id) {
+  let record = localDutyPdfHistory.find(item => item.id === id);
+  if (!record) {
+    try {
+      const records = await readLocalDutyPdfHistory();
+      localDutyPdfHistory = records;
+      record = records.find(item => item.id === id);
+    } catch (error) {
+      console.warn('Could not open archived PDF:', error);
+    }
+  }
+  if (!record?.blob) {
+    showToast('This saved PDF is not available on this device.');
+    return;
+  }
+
+  const url = URL.createObjectURL(record.blob);
+  window.open(url, '_blank', 'noopener');
+  window.setTimeout(() => URL.revokeObjectURL(url), 60000);
+};
+
+window.downloadDutyPdfFromHistory = async function (id) {
+  let record = localDutyPdfHistory.find(item => item.id === id);
+  if (!record) {
+    try {
+      const records = await readLocalDutyPdfHistory();
+      localDutyPdfHistory = records;
+      record = records.find(item => item.id === id);
+    } catch (error) {
+      console.warn('Could not download archived PDF:', error);
+    }
+  }
+  if (!record?.blob) {
+    showToast('This saved PDF is not available on this device.');
+    return;
+  }
+
+  const url = URL.createObjectURL(record.blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = record.filename || 'Railsaathi-duty.pdf';
+  link.style.display = 'none';
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 60000);
+};
+
+window.clearLocalDutyPdfHistory = async function () {
+  try {
+    const db = await openDutyPdfHistoryDb();
+    await new Promise((resolve, reject) => {
+      const transaction = db.transaction(DUTY_PDF_HISTORY_STORE, 'readwrite');
+      transaction.objectStore(DUTY_PDF_HISTORY_STORE).clear();
+      transaction.oncomplete = resolve;
+      transaction.onerror = () => reject(transaction.error || new Error('Could not clear PDF history.'));
+      transaction.onabort = () => reject(transaction.error || new Error('Clearing PDF history was cancelled.'));
+    });
+    db.close();
+  } catch (error) {
+    console.warn('Could not clear local PDF history:', error);
+  }
+  localDutyPdfHistory = [];
+};
 
     async function loadDataFromDB() {
       try {
@@ -55,7 +213,7 @@ let printHistory = [];
 
 
 
-    async function loadHistoryFromDB() {
+    async function legacyLoadHistoryFromDB() {
       try {
         const c = document.getElementById('history-list-container');
         if (c) {
@@ -99,7 +257,7 @@ let printHistory = [];
       }
     }
 
-    function renderHistory() {
+    function legacyRenderHistory() {
       const c = document.getElementById('history-list-container');
       c.innerHTML = printHistory.length
         ? printHistory.map(h => `
@@ -114,6 +272,95 @@ let printHistory = [];
     }
 
 
+
+    async function loadHistoryFromDB() {
+      const container = document.getElementById('history-list-container');
+      if (container) container.innerHTML = '<div class="p-8 text-center text-slate-400 text-xs">Loading history...</div>';
+
+      try {
+        const { data, error } = await db.from('print_history').select('*');
+        if (error) throw error;
+        (data || []).sort((a, b) => {
+          const timeA = new Date(a.printed_at || a.serverTime || a.timestamp || 0).getTime();
+          const timeB = new Date(b.printed_at || b.serverTime || b.timestamp || 0).getTime();
+          return timeB - timeA;
+        });
+        printHistory = (data || []).map(h => {
+          let range = '';
+          let timestamp = '';
+          if (h.document_type) {
+            range = `<svg class="ui-icon"><use href="#icon-list"></use></svg> ${h.document_type} - ${h.month || ''} ${h.year || ''} (Rs. ${h.total_amount || 0})`;
+            timestamp = h.printed_at ? new Date(h.printed_at).toLocaleString() : new Date().toLocaleString();
+          } else {
+            range = `<svg class="ui-icon"><use href="#icon-file"></use></svg> ${h.range || 'Document'}`;
+            timestamp = h.timestamp || (h.serverTime ? new Date(h.serverTime).toLocaleString() : '');
+          }
+          return {
+            id: h.id,
+            range,
+            timestamp,
+            timestampValue: new Date(h.serverTime || h.printed_at || h.timestamp || 0).getTime(),
+            rawRange: h.range || ''
+          };
+        });
+      } catch (error) {
+        console.error('Error fetching print history:', error);
+        printHistory = [];
+      }
+
+      try {
+        localDutyPdfHistory = await readLocalDutyPdfHistory();
+      } catch (error) {
+        console.warn('Could not load local PDF history:', error);
+        localDutyPdfHistory = [];
+      }
+      renderHistory();
+    }
+
+    function renderHistory() {
+      const c = document.getElementById('history-list-container');
+      if (!c) return;
+
+      const syncedRanges = new Set(localDutyPdfHistory.map(record => record.remoteRange));
+      const databaseHistory = printHistory.filter(record => !syncedRanges.has(record.rawRange));
+      const items = [
+        ...localDutyPdfHistory.map(record => ({ isPdf: true, timestampValue: new Date(record.timestamp).getTime(), record })),
+        ...databaseHistory.map(record => ({ isPdf: false, timestampValue: record.timestampValue || new Date(record.timestamp || 0).getTime(), record }))
+      ].sort((a, b) => b.timestampValue - a.timestampValue);
+
+      c.innerHTML = items.length ? items.map(item => {
+        if (item.isPdf) {
+          const record = item.record;
+          const id = String(record.id).replace(/[^a-zA-Z0-9_-]/g, '');
+          const time = new Date(record.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+          const label = `${record.dutyName || 'Duty'} Duty - ${record.dutyDate || ''}`;
+          return `<div class="dashboard-card-light history-pdf-card">
+            <div class="history-pdf-details">
+              <div class="font-bold text-slate-800 text-sm">${escapeHistoryText(label)}</div>
+              <div class="text-[10px] text-slate-500">${escapeHistoryText(record.action || 'Generated')} PDF · ${escapeHistoryText(time)}</div>
+            </div>
+            <div class="history-pdf-actions">
+              <button type="button" onclick="openDutyPdfFromHistory('${id}')" class="history-pdf-action"><svg class="ui-icon"><use href="#icon-eye"></use></svg><span>Open</span></button>
+              <button type="button" onclick="downloadDutyPdfFromHistory('${id}')" class="history-pdf-action"><svg class="ui-icon"><use href="#icon-download"></use></svg><span>Save</span></button>
+            </div>
+          </div>`;
+        }
+        const record = item.record;
+        return `<div class="dashboard-card-light flex items-center justify-between border-l-4 border-l-orange-500">
+          <div>
+            <div class="font-bold text-slate-800 text-sm md:text-base">${record.range}</div>
+            <div class="text-[10px] text-slate-400 font-medium">${record.timestamp || ''}</div>
+          </div>
+          <div class="text-green-600 font-bold text-[10px] bg-green-50 px-3 py-1 rounded-full border border-green-100"><svg class="ui-icon"><use href="#icon-check"></use></svg> Saved</div>
+        </div>`;
+      }).join('') : '<div class="p-12 text-center text-slate-400 italic">No history found.</div>';
+    }
+
+    function escapeHistoryText(value) {
+      return String(value ?? '').replace(/[&<>"']/g, char => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[char]));
+    }
 
 window.printHistory = printHistory;
 window.loadDataFromDB = loadDataFromDB;
