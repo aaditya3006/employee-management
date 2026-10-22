@@ -124,10 +124,10 @@
             .duty-pdf-watermark {
               display: block !important;
               position: absolute !important;
-              left: auto !important;
-              right: 5mm !important;
+              left: 50% !important;
+              right: auto !important;
               bottom: 5mm !important;
-              transform: none !important;
+              transform: translateX(-50%) !important;
               color: #9ca3af !important;
               font-size: 8pt !important;
               font-weight: 400 !important;

@@ -21,6 +21,12 @@
   padding: 8px 12px !important;
 }
 
+.duty-subtitle-input::placeholder {
+  color: #9ca3af !important;
+  font-size: 0.85em;
+  opacity: 1;
+}
+
 #pdf-content {
   position: relative;
   box-sizing: border-box;
@@ -34,10 +40,10 @@
 
 .duty-pdf-watermark {
   position: absolute;
-  left: auto;
-  right: 5mm;
+  left: 50%;
+  right: auto;
   bottom: 5mm;
-  transform: none;
+  transform: translateX(-50%);
   color: #9ca3af;
   font-size: 8pt;
   line-height: 1.2;
@@ -125,8 +131,8 @@
   }
 
   #pdf-content .duty-pdf-watermark {
-    left: auto !important;
-    right: 5mm !important;
-    transform: none !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
   }
 }

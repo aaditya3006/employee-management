@@ -23,6 +23,41 @@
     let dutyEmployeesLoading = null;
     let dutyPdfExportLibraries = null;
 
+    const dutySubtitleInput = document.getElementById('duty-subtitle');
+    if (dutySubtitleInput) {
+      const subtitlePlaceholder = 'Type subtitle ...';
+      let placeholderLength = 0;
+      let typingForward = true;
+      let pauseTicks = 0;
+
+      dutySubtitleInput.placeholder = '';
+      window.setInterval(() => {
+        if (dutySubtitleInput.value) return;
+        if (pauseTicks > 0) {
+          pauseTicks--;
+          return;
+        }
+
+        if (typingForward) {
+          placeholderLength++;
+          if (placeholderLength >= subtitlePlaceholder.length) {
+            placeholderLength = subtitlePlaceholder.length;
+            typingForward = false;
+            pauseTicks = 10;
+          }
+        } else {
+          placeholderLength--;
+          if (placeholderLength <= 0) {
+            placeholderLength = 0;
+            typingForward = true;
+            pauseTicks = 3;
+          }
+        }
+
+        dutySubtitleInput.placeholder = subtitlePlaceholder.slice(0, placeholderLength);
+      }, 100);
+    }
+
     const previewEl = document.getElementById('preview-section');
     const attPreviewEl = document.getElementById('attendance-preview-section');
     const taPreviewEl = document.getElementById('ta-preview-section');
@@ -377,9 +412,6 @@
       phoneInput.value = phone || '';
       document.getElementById(`emp-list-${i}`).classList.add('hidden');
       updateGpsVisibility(i);
-
-      const nextSearchInput = document.getElementById(`emp-search-${i + 1}`);
-      if (nextSearchInput) nextSearchInput.focus();
     }
 
     document.querySelectorAll('#fromDate, #toDate').forEach((input) => {
