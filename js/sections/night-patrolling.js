@@ -591,13 +591,13 @@
           : '';
 
         if (type === 'night') {
-          titleEl.innerHTML = `Night&nbsp;&nbsp;Patrolling&nbsp;&nbsp;&nbsp;&nbsp;@<span id="pdf-date-display">${displayDate}</span>`;
+          titleEl.innerHTML = `Night&nbsp;&nbsp;Patrolling&nbsp;&nbsp;&nbsp;&nbsp;@<span id="pdf-date-display">${displayDate}</span>${subtitleLineHTML}`;
           colgroupHTML = `<col style="width:13%;"><col style="width:19%;"><col style="width:39%;"><col style="width:13%;"><col style="width:16%;">`;
-          theadHTML = `<tr><th class="th-bit">Bit No.${subtitleLineHTML}</th><th class="th-range">From........ To</th><th class="th-rail">रेल कर्मचारी</th><th class="th-rail">Duty No.</th><th class="th-contract">कॉन्ट्रैक्ट लेबर &amp; मोब. न.</th></tr>`;
+          theadHTML = `<tr><th class="th-bit">Bit No.</th><th class="th-range">From........ To</th><th class="th-rail">रेल कर्मचारी</th><th class="th-rail">Duty No.</th><th class="th-contract">कॉन्ट्रैक्ट लेबर &amp; मोब. न.</th></tr>`;
         } else {
-          titleEl.innerHTML = `Keyman&nbsp;Duty&nbsp;&nbsp;&nbsp;&nbsp;@<span id="pdf-date-display">${displayDate}</span>`;
+          titleEl.innerHTML = `Keyman&nbsp;Duty&nbsp;&nbsp;&nbsp;&nbsp;@<span id="pdf-date-display">${displayDate}</span>${subtitleLineHTML}`;
           colgroupHTML = `<col style="width:13%;"><col style="width:35%;"><col style="width:39%;"><col style="width:13%;">`;
-          theadHTML = `<tr><th class="th-bit">Bit No.${subtitleLineHTML}</th><th class="th-range">From........ To</th><th class="th-rail">रेल कर्मचारी</th><th class="th-gps">GPS NO.</th></tr>`;
+          theadHTML = `<tr><th class="th-bit">Bit No.</th><th class="th-range">From........ To</th><th class="th-rail">रेल कर्मचारी</th><th class="th-gps">GPS NO.</th></tr>`;
         }
 
         tbodyRows = currentBitData.map((bit, i) => {
@@ -615,7 +615,7 @@
         }).join('');
 
         tableEl.innerHTML = `<colgroup>${colgroupHTML}</colgroup><thead>${theadHTML}</thead><tbody>${tbodyRows}</tbody>`;
-        if (subtitleText) tableEl.querySelector('.duty-pdf-subtitle-cell').textContent = subtitleText;
+        if (subtitleText) titleEl.querySelector('.duty-pdf-subtitle-cell').textContent = subtitleText;
         console.log('✅ Preview generated successfully');
         showSection('preview-section');
       } catch (error) {

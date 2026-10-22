@@ -45,16 +45,17 @@
   white-space: nowrap;
 }
 
-#pdf-content #dynamic-pdf-table .duty-pdf-subtitle-cell {
+#pdf-content .patrol-title .duty-pdf-subtitle-cell {
   background: transparent !important;
   color: #334155 !important;
   font-family: "Times New Roman", Times, serif !important;
   font-size: calc(var(--duty-title-font-size) - 2px) !important;
+  display: block;
   font-style: italic;
   font-weight: 700 !important;
   line-height: 1.2;
   overflow-wrap: anywhere;
-  padding: 4px !important;
+  padding: 2px 0 0 !important;
   text-align: center;
   white-space: normal;
 }
@@ -64,12 +65,25 @@
   font-family: "Times New Roman", Times, serif !important;
 }
 
-#pdf-content #dynamic-pdf-table .th-range,
-#pdf-content #dynamic-pdf-table .td-range {
+#pdf-content #dynamic-pdf-table .th-bit,
+#pdf-content #dynamic-pdf-table .th-range {
   font-size: 12pt !important;
 }
 
+#pdf-content #dynamic-pdf-table .td-bit,
+#pdf-content #dynamic-pdf-table .td-range {
+  font-size: 10pt !important;
+}
+
 #pdf-content #dynamic-pdf-table thead th {
+  font-size: 12pt !important;
+}
+
+#pdf-content #dynamic-pdf-table thead th:nth-child(3) {
+  font-size: 14pt !important;
+}
+
+#pdf-content #dynamic-pdf-table tbody td:nth-child(3) {
   font-size: 12pt !important;
 }
 
