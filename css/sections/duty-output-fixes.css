@@ -5,8 +5,8 @@
 #legacy-containers[data-duty-type="keyman"] .duty-search-input,
 #legacy-containers[data-duty-type="keyman"] .duty-mobile-input,
 #legacy-containers[data-duty-type="keyman"] .duty-gps-input {
-  color: #9ca3af !important;
-  -webkit-text-fill-color: #9ca3af !important;
+  color: #6b7280 !important;
+  -webkit-text-fill-color: #6b7280 !important;
 }
 
 #legacy-containers[data-duty-type="night"] .duty-mobile-input,
@@ -16,6 +16,9 @@
 
 .duty-subtitle-input {
   max-width: 360px;
+  height: 40px !important;
+  min-height: 40px !important;
+  padding: 8px 12px !important;
 }
 
 #pdf-content {
@@ -31,10 +34,10 @@
 
 .duty-pdf-watermark {
   position: absolute;
-  left: 50%;
-  right: auto;
+  left: auto;
+  right: 5mm;
   bottom: 5mm;
-  transform: translateX(-50%);
+  transform: none;
   color: #9ca3af;
   font-size: 8pt;
   line-height: 1.2;
@@ -43,7 +46,7 @@
 }
 
 #pdf-content #dynamic-pdf-table .duty-pdf-subtitle-cell {
-  background: #fff !important;
+  background: transparent !important;
   color: #334155 !important;
   font-family: "Times New Roman", Times, serif !important;
   font-size: calc(var(--duty-title-font-size) - 2px) !important;
@@ -63,6 +66,10 @@
 
 #pdf-content #dynamic-pdf-table .th-range,
 #pdf-content #dynamic-pdf-table .td-range {
+  font-size: 12pt !important;
+}
+
+#pdf-content #dynamic-pdf-table thead th {
   font-size: 12pt !important;
 }
 
@@ -104,8 +111,8 @@
   }
 
   #pdf-content .duty-pdf-watermark {
-    left: 50% !important;
-    right: auto !important;
-    transform: translateX(-50%) !important;
+    left: auto !important;
+    right: 5mm !important;
+    transform: none !important;
   }
 }

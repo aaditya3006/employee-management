@@ -377,6 +377,9 @@
       phoneInput.value = phone || '';
       document.getElementById(`emp-list-${i}`).classList.add('hidden');
       updateGpsVisibility(i);
+
+      const nextSearchInput = document.getElementById(`emp-search-${i + 1}`);
+      if (nextSearchInput) nextSearchInput.focus();
     }
 
     document.querySelectorAll('#fromDate, #toDate').forEach((input) => {
@@ -583,21 +586,19 @@
         }
 
         let colgroupHTML = '', theadHTML = '', tbodyRows = '';
+        const subtitleLineHTML = subtitleText
+          ? '<br><span class="duty-pdf-subtitle-cell"></span>'
+          : '';
 
         if (type === 'night') {
           titleEl.innerHTML = `Night&nbsp;&nbsp;Patrolling&nbsp;&nbsp;&nbsp;&nbsp;@<span id="pdf-date-display">${displayDate}</span>`;
           colgroupHTML = `<col style="width:13%;"><col style="width:19%;"><col style="width:39%;"><col style="width:13%;"><col style="width:16%;">`;
-          theadHTML = `<tr><th class="th-bit">Bit No.</th><th class="th-range">From........ To</th><th class="th-rail">रेल कर्मचारी</th><th class="th-rail">Duty No.</th><th class="th-contract">कॉन्ट्रैक्ट लेबर &amp; मोब. न.</th></tr>`;
+          theadHTML = `<tr><th class="th-bit">Bit No.${subtitleLineHTML}</th><th class="th-range">From........ To</th><th class="th-rail">रेल कर्मचारी</th><th class="th-rail">Duty No.</th><th class="th-contract">कॉन्ट्रैक्ट लेबर &amp; मोब. न.</th></tr>`;
         } else {
           titleEl.innerHTML = `Keyman&nbsp;Duty&nbsp;&nbsp;&nbsp;&nbsp;@<span id="pdf-date-display">${displayDate}</span>`;
           colgroupHTML = `<col style="width:13%;"><col style="width:35%;"><col style="width:39%;"><col style="width:13%;">`;
-          theadHTML = `<tr><th class="th-bit">Bit No.</th><th class="th-range">From........ To</th><th class="th-rail">रेल कर्मचारी</th><th class="th-gps">GPS NO.</th></tr>`;
+          theadHTML = `<tr><th class="th-bit">Bit No.${subtitleLineHTML}</th><th class="th-range">From........ To</th><th class="th-rail">रेल कर्मचारी</th><th class="th-gps">GPS NO.</th></tr>`;
         }
-
-        const subtitleEmptyCells = Array.from({ length: type === 'night' ? 4 : 3 }, () => '<td class="duty-pdf-subtitle-empty"></td>').join('');
-        const subtitleRowHTML = subtitleText
-          ? `<tr><td class="duty-pdf-subtitle-cell"></td>${subtitleEmptyCells}</tr>`
-          : '';
 
         tbodyRows = currentBitData.map((bit, i) => {
           const searchInput = document.getElementById(`emp-search-${i}`);
@@ -613,7 +614,7 @@
           }
         }).join('');
 
-        tableEl.innerHTML = `<colgroup>${colgroupHTML}</colgroup><thead>${subtitleRowHTML}${theadHTML}</thead><tbody>${tbodyRows}</tbody>`;
+        tableEl.innerHTML = `<colgroup>${colgroupHTML}</colgroup><thead>${theadHTML}</thead><tbody>${tbodyRows}</tbody>`;
         if (subtitleText) tableEl.querySelector('.duty-pdf-subtitle-cell').textContent = subtitleText;
         console.log('✅ Preview generated successfully');
         showSection('preview-section');
