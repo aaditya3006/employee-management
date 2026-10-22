@@ -14,10 +14,15 @@
   font-weight: 400 !important;
 }
 
+.duty-subtitle-input {
+  max-width: 360px;
+}
+
 #pdf-content {
   position: relative;
   box-sizing: border-box;
   --duty-title-font-size: 15pt;
+  padding: 16mm 12mm 18mm;
   height: 297mm;
   min-height: 297mm;
   max-height: 297mm;
@@ -26,25 +31,50 @@
 
 .duty-pdf-watermark {
   position: absolute;
-  right: 7mm;
+  left: 50%;
+  right: auto;
   bottom: 5mm;
+  transform: translateX(-50%);
   color: #9ca3af;
   font-size: 8pt;
   line-height: 1.2;
-  text-align: right;
+  text-align: center;
   white-space: nowrap;
 }
 
 #pdf-content #dynamic-pdf-table .duty-pdf-subtitle-cell {
   background: #fff !important;
   color: #334155 !important;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Times New Roman", Times, serif !important;
   font-size: calc(var(--duty-title-font-size) - 2px) !important;
   font-style: italic;
-  font-weight: 500;
+  font-weight: 700 !important;
   line-height: 1.2;
+  overflow-wrap: anywhere;
   padding: 4px !important;
   text-align: center;
+  white-space: normal;
+}
+
+#pdf-content,
+#pdf-content * {
+  font-family: "Times New Roman", Times, serif !important;
+}
+
+#pdf-content #dynamic-pdf-table .th-range,
+#pdf-content #dynamic-pdf-table .td-range {
+  font-size: 12pt !important;
+}
+
+#sidebar button {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#sidebar button:hover,
+#sidebar button:focus-visible {
+  background: rgba(255, 255, 255, 0.1) !important;
 }
 
 @media screen and (max-width: 768px) {
@@ -71,5 +101,11 @@
     max-height: 297mm !important;
     break-inside: avoid !important;
     page-break-inside: avoid !important;
+  }
+
+  #pdf-content .duty-pdf-watermark {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
   }
 }

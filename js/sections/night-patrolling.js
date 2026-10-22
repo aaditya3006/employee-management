@@ -425,8 +425,11 @@
       }
     };
 
-    window.shareDutyPreview = function (generateFromForm = false) {
-      if (generateFromForm) generatePreview();
+    window.shareDutyPreview = async function (generateFromForm = false) {
+      if (generateFromForm) {
+        generatePreview();
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      }
       return shareDutyPdf();
     };
 
@@ -442,12 +445,29 @@
       });
     }
 
+    function ensureDutyPdfExportLibraries() {
+      if (!dutyPdfExportLibraries) {
+        dutyPdfExportLibraries = Promise.all([
+          loadDutyPdfScript('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js', () => typeof window.html2canvas === 'function'),
+          loadDutyPdfScript('https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js', () => Boolean(window.jspdf?.jsPDF))
+        ]).catch(error => {
+          dutyPdfExportLibraries = null;
+          throw error;
+        });
+      }
+      return dutyPdfExportLibraries;
+    }
+
+    function preloadDutyPdfExportLibraries() {
+      const preload = () => { ensureDutyPdfExportLibraries().catch(error => console.warn('PDF sharing libraries are not ready yet:', error)); };
+      if (typeof window.requestIdleCallback === 'function') window.requestIdleCallback(preload, { timeout: 2500 });
+      else window.setTimeout(preload, 800);
+    }
+
+    preloadDutyPdfExportLibraries();
+
     async function createDutyPdfBlob() {
-      dutyPdfExportLibraries ||= Promise.all([
-        loadDutyPdfScript('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js', () => typeof window.html2canvas === 'function'),
-        loadDutyPdfScript('https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js', () => Boolean(window.jspdf?.jsPDF))
-      ]);
-      await dutyPdfExportLibraries;
+      await ensureDutyPdfExportLibraries();
 
       const page = document.getElementById('pdf-content');
       if (!page) throw new Error('Duty preview page was not found.');
@@ -460,7 +480,7 @@
         page.style.setProperty('height', '297mm', 'important');
         page.style.setProperty('max-height', '297mm', 'important');
         page.style.setProperty('box-sizing', 'border-box', 'important');
-        page.style.setProperty('padding', '12mm 12mm 18mm', 'important');
+        page.style.setProperty('padding', '16mm 12mm 18mm', 'important');
         page.style.setProperty('border', '0', 'important');
         page.style.setProperty('border-radius', '0', 'important');
         page.style.setProperty('box-shadow', 'none', 'important');
@@ -574,8 +594,9 @@
           theadHTML = `<tr><th class="th-bit">Bit No.</th><th class="th-range">From........ To</th><th class="th-rail">रेल कर्मचारी</th><th class="th-gps">GPS NO.</th></tr>`;
         }
 
+        const subtitleEmptyCells = Array.from({ length: type === 'night' ? 4 : 3 }, () => '<td class="duty-pdf-subtitle-empty"></td>').join('');
         const subtitleRowHTML = subtitleText
-          ? `<tr><td class="duty-pdf-subtitle-cell" colspan="${type === 'night' ? 5 : 4}"></td></tr>`
+          ? `<tr><td class="duty-pdf-subtitle-cell"></td>${subtitleEmptyCells}</tr>`
           : '';
 
         tbodyRows = currentBitData.map((bit, i) => {

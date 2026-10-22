@@ -73,7 +73,7 @@
               min-height: 297mm !important;
               max-height: 297mm !important;
               margin: 0 !important;
-              padding: 12mm 12mm 18mm !important;
+              padding: 16mm 12mm 18mm !important;
               border: 0 !important;
               border-radius: 0 !important;
               overflow: hidden !important;
@@ -124,8 +124,10 @@
             .duty-pdf-watermark {
               display: block !important;
               position: absolute !important;
-              right: 7mm !important;
+              left: 50% !important;
+              right: auto !important;
               bottom: 5mm !important;
+              transform: translateX(-50%) !important;
               color: #9ca3af !important;
               font-size: 8pt !important;
               font-weight: 400 !important;

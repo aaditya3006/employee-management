@@ -792,7 +792,7 @@
       <span class="text-white font-bold text-lg">Menu</span>
       <button onclick="closeSidebar()" class="text-white text-3xl hover:text-gray-300">&times;</button>
     </div>
-    <div class="flex flex-col p-4 gap-2 text-white font-semibold flex-grow">
+    <div id="sidebar-nav-links" class="flex flex-col p-4 gap-2 text-white font-semibold flex-grow">
       <button onclick="handleMenuSelect('night')" class="text-left p-3 hover:bg-blue-800 rounded transition">Night
         Patrolling</button>
       <button onclick="handleMenuSelect('keyman')"
@@ -1077,8 +1077,8 @@
 
         <div class="night-duty-date-field mb-6">
           <label for="duty-subtitle" class="block text-sm font-semibold text-gray-600 mb-1">SUB-TITLE</label>
-          <input type="text" id="duty-subtitle" maxlength="120" autocomplete="off"
-            class="w-full border-2 border-blue-100 p-3 rounded-xl shadow-sm focus:border-blue-500 outline-none">
+          <input type="text" id="duty-subtitle" maxlength="120" autocomplete="off" placeholder="type subtitle ...."
+            class="duty-subtitle-input w-full border-2 border-blue-100 p-3 rounded-xl shadow-sm focus:border-blue-500 outline-none">
         </div>
 
         <div id="bit-assignment-list" class="space-y-3 mb-4"></div>
