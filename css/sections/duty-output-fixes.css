@@ -1,0 +1,75 @@
+/* Duty form fields and single-page A4 Keyman/Night Patrolling output. */
+#legacy-containers[data-duty-type="night"] .duty-search-input,
+#legacy-containers[data-duty-type="night"] .duty-mobile-input,
+#legacy-containers[data-duty-type="night"] .duty-gps-input,
+#legacy-containers[data-duty-type="keyman"] .duty-search-input,
+#legacy-containers[data-duty-type="keyman"] .duty-mobile-input,
+#legacy-containers[data-duty-type="keyman"] .duty-gps-input {
+  color: #9ca3af !important;
+  -webkit-text-fill-color: #9ca3af !important;
+}
+
+#legacy-containers[data-duty-type="night"] .duty-mobile-input,
+#legacy-containers[data-duty-type="keyman"] .duty-mobile-input {
+  font-weight: 400 !important;
+}
+
+#pdf-content {
+  position: relative;
+  box-sizing: border-box;
+  --duty-title-font-size: 15pt;
+  height: 297mm;
+  min-height: 297mm;
+  max-height: 297mm;
+  overflow: hidden;
+}
+
+.duty-pdf-watermark {
+  position: absolute;
+  right: 7mm;
+  bottom: 5mm;
+  color: #9ca3af;
+  font-size: 8pt;
+  line-height: 1.2;
+  text-align: right;
+  white-space: nowrap;
+}
+
+#pdf-content #dynamic-pdf-table .duty-pdf-subtitle-cell {
+  background: #fff !important;
+  color: #334155 !important;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: calc(var(--duty-title-font-size) - 2px) !important;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 4px !important;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  #pdf-content {
+    --duty-title-font-size: 12pt;
+  }
+}
+
+#dynamic-pdf-table tbody td {
+  height: 55px;
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  #pdf-content {
+    --duty-title-font-size: 15pt;
+    width: 210mm !important;
+    height: 297mm !important;
+    min-height: 297mm !important;
+    max-height: 297mm !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}

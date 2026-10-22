@@ -21,6 +21,7 @@
     let currentDutyType = 'keyman';
     let dutyEmployeesLoaded = false;
     let dutyEmployeesLoading = null;
+    let dutyPdfExportLibraries = null;
 
     const previewEl = document.getElementById('preview-section');
     const attPreviewEl = document.getElementById('attendance-preview-section');
@@ -426,8 +427,106 @@
 
     window.shareDutyPreview = function (generateFromForm = false) {
       if (generateFromForm) generatePreview();
-      return window.shareRailsaathiContent('Railsaathi Duty Preview', 'pdf-content');
+      return shareDutyPdf();
     };
+
+    function loadDutyPdfScript(src, isLoaded) {
+      if (isLoaded()) return Promise.resolve();
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.async = true;
+        script.onload = () => isLoaded() ? resolve() : reject(new Error('PDF export library did not initialize.'));
+        script.onerror = () => reject(new Error('Could not load PDF export library.'));
+        document.head.appendChild(script);
+      });
+    }
+
+    async function createDutyPdfBlob() {
+      dutyPdfExportLibraries ||= Promise.all([
+        loadDutyPdfScript('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js', () => typeof window.html2canvas === 'function'),
+        loadDutyPdfScript('https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js', () => Boolean(window.jspdf?.jsPDF))
+      ]);
+      await dutyPdfExportLibraries;
+
+      const page = document.getElementById('pdf-content');
+      if (!page) throw new Error('Duty preview page was not found.');
+
+      const oldStyle = page.getAttribute('style');
+      try {
+        page.style.setProperty('width', '210mm', 'important');
+        page.style.setProperty('min-width', '210mm', 'important');
+        page.style.setProperty('max-width', '210mm', 'important');
+        page.style.setProperty('height', '297mm', 'important');
+        page.style.setProperty('max-height', '297mm', 'important');
+        page.style.setProperty('box-sizing', 'border-box', 'important');
+        page.style.setProperty('padding', '12mm 12mm 18mm', 'important');
+        page.style.setProperty('border', '0', 'important');
+        page.style.setProperty('border-radius', '0', 'important');
+        page.style.setProperty('box-shadow', 'none', 'important');
+        page.style.setProperty('overflow', 'hidden', 'important');
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+        const canvas = await window.html2canvas(page, {
+          backgroundColor: '#ffffff',
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          width: page.scrollWidth,
+          height: page.scrollHeight
+        });
+        const Pdf = window.jspdf.jsPDF;
+        const pdf = new Pdf({ orientation: 'portrait', unit: 'mm', format: 'a4', compress: true });
+        pdf.addImage(canvas.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, 210, 297, undefined, 'FAST');
+        return pdf.output('blob');
+      } finally {
+        if (oldStyle === null) page.removeAttribute('style');
+        else page.setAttribute('style', oldStyle);
+      }
+    }
+
+    function downloadDutyPdf(blob, filename) {
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    async function shareDutyPdf() {
+      if (!document.querySelector('#dynamic-pdf-table tbody')) {
+        showToast('Generate the preview before sharing it.');
+        return;
+      }
+
+      try {
+        const blob = await createDutyPdfBlob();
+        const type = currentDutyType === 'keyman' ? 'Keyman' : 'Night-Patrolling';
+        const date = (document.getElementById('pdf-date-display')?.textContent || '').replace(/[^\d-]+/g, '-').replace(/^-|-$/g, '');
+        const filename = `${type}-Duty${date ? `-${date}` : ''}.pdf`;
+        const file = new File([blob], filename, { type: 'application/pdf' });
+
+        if (typeof navigator.share === 'function' &&
+            (!navigator.canShare || navigator.canShare({ files: [file] }))) {
+          try {
+            await navigator.share({ title: `${type} Duty`, files: [file] });
+            return;
+          } catch (error) {
+            if (error.name === 'AbortError') return;
+          }
+        }
+
+        downloadDutyPdf(blob, filename);
+        showToast('PDF downloaded. Share the PDF file from your downloads.');
+      } catch (error) {
+        console.error('Could not create duty PDF for sharing:', error);
+        showToast('Could not create the PDF. Check your connection and try again.');
+      }
+    }
 
     function formatDateDisplay(d1, d2, type) {
       if (type === 'keyman') {
@@ -454,6 +553,7 @@
         const from = document.getElementById('fromDate').value;
         const to = document.getElementById('toDate').value;
         const displayDate = formatDateDisplay(from, to, type);
+        const subtitleText = document.getElementById('duty-subtitle')?.value.trim() || '';
         const titleEl = document.querySelector('.patrol-title');
         const tableEl = document.getElementById('dynamic-pdf-table');
 
@@ -469,10 +569,14 @@
           colgroupHTML = `<col style="width:13%;"><col style="width:19%;"><col style="width:39%;"><col style="width:13%;"><col style="width:16%;">`;
           theadHTML = `<tr><th class="th-bit">Bit No.</th><th class="th-range">From........ To</th><th class="th-rail">रेल कर्मचारी</th><th class="th-rail">Duty No.</th><th class="th-contract">कॉन्ट्रैक्ट लेबर &amp; मोब. न.</th></tr>`;
         } else {
-          titleEl.innerHTML = `Railsaathi keyman duty&nbsp;&nbsp;&nbsp;&nbsp;@<span id="pdf-date-display">${displayDate}</span>`;
+          titleEl.innerHTML = `Keyman&nbsp;Duty&nbsp;&nbsp;&nbsp;&nbsp;@<span id="pdf-date-display">${displayDate}</span>`;
           colgroupHTML = `<col style="width:13%;"><col style="width:35%;"><col style="width:39%;"><col style="width:13%;">`;
           theadHTML = `<tr><th class="th-bit">Bit No.</th><th class="th-range">From........ To</th><th class="th-rail">रेल कर्मचारी</th><th class="th-gps">GPS NO.</th></tr>`;
         }
+
+        const subtitleRowHTML = subtitleText
+          ? `<tr><td class="duty-pdf-subtitle-cell" colspan="${type === 'night' ? 5 : 4}"></td></tr>`
+          : '';
 
         tbodyRows = currentBitData.map((bit, i) => {
           const searchInput = document.getElementById(`emp-search-${i}`);
@@ -488,7 +592,8 @@
           }
         }).join('');
 
-        tableEl.innerHTML = `<colgroup>${colgroupHTML}</colgroup><thead>${theadHTML}</thead><tbody>${tbodyRows}</tbody>`;
+        tableEl.innerHTML = `<colgroup>${colgroupHTML}</colgroup><thead>${subtitleRowHTML}${theadHTML}</thead><tbody>${tbodyRows}</tbody>`;
+        if (subtitleText) tableEl.querySelector('.duty-pdf-subtitle-cell').textContent = subtitleText;
         console.log('✅ Preview generated successfully');
         showSection('preview-section');
       } catch (error) {

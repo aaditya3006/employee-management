@@ -38,24 +38,57 @@
         const printStyle = document.createElement('style');
         printStyle.id = 'dynamic-print-style';
         printStyle.textContent = `
-          @page { size: A4 portrait; margin: 10mm; }
+          @page { size: A4 portrait; margin: 0; }
           @media print {
-            html, body { width: 210mm !important; background: #fff !important; }
+            html, body {
+              width: 210mm !important;
+              height: 297mm !important;
+              min-height: 297mm !important;
+              max-height: 297mm !important;
+              margin: 0 !important;
+              padding: 0 !important;
+              overflow: hidden !important;
+              background: #fff !important;
+            }
+            body > *:not(#preview-section) { display: none !important; }
+            #preview-section {
+              display: block !important;
+              position: static !important;
+              width: 210mm !important;
+              height: 297mm !important;
+              min-height: 297mm !important;
+              max-height: 297mm !important;
+              margin: 0 !important;
+              padding: 0 !important;
+              overflow: hidden !important;
+              break-after: avoid !important;
+              page-break-after: avoid !important;
+            }
             #pdf-content {
               display: block !important;
-              width: 190mm !important;
-              min-height: 277mm !important;
-              margin: 0 auto !important;
-              padding: 8mm !important;
+              position: relative !important;
+              box-sizing: border-box !important;
+              width: 210mm !important;
+              height: 297mm !important;
+              min-height: 297mm !important;
+              max-height: 297mm !important;
+              margin: 0 !important;
+              padding: 12mm 12mm 18mm !important;
               border: 0 !important;
               border-radius: 0 !important;
+              overflow: hidden !important;
               box-shadow: none !important;
+              break-inside: avoid !important;
+              page-break-inside: avoid !important;
             }
             #dynamic-pdf-table {
               width: 100% !important;
               border-collapse: collapse !important;
               table-layout: fixed !important;
+              break-inside: avoid !important;
+              page-break-inside: avoid !important;
             }
+            #dynamic-pdf-table tr { break-inside: avoid !important; page-break-inside: avoid !important; }
             #dynamic-pdf-table th,
             #dynamic-pdf-table td {
               border: 2px solid #000 !important;
@@ -70,7 +103,7 @@
               font-size: 10pt !important;
             }
             #dynamic-pdf-table td {
-              height: 45px !important;
+              height: 55px !important;
               font-size: 10pt !important;
             }
             #dynamic-pdf-table .td-name-green {
@@ -82,10 +115,21 @@
               font-weight: 700 !important;
             }
             .preview-actions,
+            .preview-toolbar,
+            .duty-pdf-watermark,
             #legacy-containers,
             #top-nav,
             #sidebar,
             #sidebar-backdrop { display: none !important; }
+            .duty-pdf-watermark {
+              display: block !important;
+              position: absolute !important;
+              right: 7mm !important;
+              bottom: 5mm !important;
+              color: #9ca3af !important;
+              font-size: 8pt !important;
+              font-weight: 400 !important;
+            }
           }
         `;
         document.head.appendChild(printStyle);

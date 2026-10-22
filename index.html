@@ -114,6 +114,7 @@
   <link rel="stylesheet" href="css/sections/settings.css">
   <link rel="stylesheet" href="css/sections/user-management.css">
   <link rel="stylesheet" href="css/sections/preview-mobile-fixes.css">
+  <link rel="stylesheet" href="css/sections/duty-output-fixes.css">
 </head>
 
 <body id="app-body" class="show-marketing-landing">
@@ -810,7 +811,7 @@
     </div>
     <div class="border-t border-blue-700 mt-auto p-4 bg-blue-800 rounded-lg">
       <button onclick="toggleUserMenu()"
-        class="w-full flex items-center gap-3 p-3 rounded-lg bg-blue-700/50 hover:bg-blue-700/70 transition cursor-pointer">
+        class="w-full flex items-center gap-3 p-3 rounded-lg bg-transparent hover:bg-blue-700/50 transition cursor-pointer">
         <div
           class="w-10 h-10 bg-gradient-to-br from-green-400 to-teal-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
           id="sidebar-user-avatar">U</div>
@@ -1072,6 +1073,12 @@
               <span class="date-placeholder" aria-hidden="true">Select Date</span>
             </div>
           </div>
+        </div>
+
+        <div class="night-duty-date-field mb-6">
+          <label for="duty-subtitle" class="block text-sm font-semibold text-gray-600 mb-1">SUB-TITLE</label>
+          <input type="text" id="duty-subtitle" maxlength="120" autocomplete="off"
+            class="w-full border-2 border-blue-100 p-3 rounded-xl shadow-sm focus:border-blue-500 outline-none">
         </div>
 
         <div id="bit-assignment-list" class="space-y-3 mb-4"></div>
@@ -1839,6 +1846,7 @@
       <div class="patrol-title">Night&nbsp;&nbsp;Patrolling&nbsp;&nbsp;&nbsp;&nbsp;@<span id="pdf-date-display">14 -
           15/02/2026</span></div>
       <table id="dynamic-pdf-table"></table>
+      <div class="duty-pdf-watermark">Generated through Railsaathi - rgdtiaportal.live</div>
     </div>
     <div class="no-print" hidden style="display:none !important;">
       <button onclick="showSection('form-section')"
