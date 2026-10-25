@@ -171,9 +171,16 @@ window.clearLocalDutyPdfHistory = async function () {
           return;
         }
 
-        // Load employees from sample_employees table WITHOUT orderBy to avoid index errors
-        const { data: employees, error: empErr } = await window.db.from("sample_employees").select("*");
-        employeeList = employees || [];
+        // Load only the signed-in user's employee records.
+        const ownerId = window.getEmployeeOwnerId?.();
+        if (!ownerId) throw new Error('Please sign in to load your employees.');
+        window.replaceEmployeeList([]);
+        renderEmployeeTable();
+        const { data: employees, error: empErr } = await window.db.from("sample_employees")
+          .select("*").eq('user_id', ownerId);
+        if (empErr) throw empErr;
+        if (window.getEmployeeOwnerId?.() !== ownerId) return;
+        window.replaceEmployeeList(employees || []);
         // Sort in JavaScript
         employeeList.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
 

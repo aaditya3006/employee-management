@@ -3,7 +3,7 @@
    js/core/theme.js
    ========================================================================== */
 
-let currentMarketingLandingTheme = 'dark';
+let currentMarketingLandingTheme = 'light';
 
     function applyMarketingLandingTheme(theme) {
       const nextTheme = theme === 'dark' ? 'dark' : 'light';
@@ -31,7 +31,7 @@ let currentMarketingLandingTheme = 'dark';
       });
 
       try {
-        localStorage.setItem('railsaathiLandingTheme', nextTheme);
+        localStorage.setItem('railsaathiLandingThemeV2', nextTheme);
       } catch (error) {
         console.warn('Unable to persist landing theme:', error);
       }

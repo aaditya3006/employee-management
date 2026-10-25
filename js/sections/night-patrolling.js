@@ -21,42 +21,9 @@
     let currentDutyType = 'keyman';
     let dutyEmployeesLoaded = false;
     let dutyEmployeesLoading = null;
+    let dutyEmployeesLoadedForUserId = null;
+    let dutyEmployeesLoadingForUserId = null;
     let dutyPdfExportLibraries = null;
-
-    const dutySubtitleInput = document.getElementById('duty-subtitle');
-    if (dutySubtitleInput) {
-      const subtitlePlaceholder = 'Type subtitle ...';
-      let placeholderLength = 0;
-      let typingForward = true;
-      let pauseTicks = 0;
-
-      dutySubtitleInput.placeholder = '';
-      window.setInterval(() => {
-        if (dutySubtitleInput.value) return;
-        if (pauseTicks > 0) {
-          pauseTicks--;
-          return;
-        }
-
-        if (typingForward) {
-          placeholderLength++;
-          if (placeholderLength >= subtitlePlaceholder.length) {
-            placeholderLength = subtitlePlaceholder.length;
-            typingForward = false;
-            pauseTicks = 10;
-          }
-        } else {
-          placeholderLength--;
-          if (placeholderLength <= 0) {
-            placeholderLength = 0;
-            typingForward = true;
-            pauseTicks = 3;
-          }
-        }
-
-        dutySubtitleInput.placeholder = subtitlePlaceholder.slice(0, placeholderLength);
-      }, 100);
-    }
 
     const previewEl = document.getElementById('preview-section');
     const attPreviewEl = document.getElementById('attendance-preview-section');
@@ -77,17 +44,20 @@
     }
 
     async function loadDutyEmployeesFromDB() {
-      if (dutyEmployeesLoaded) return;
-      if (dutyEmployeesLoading) return dutyEmployeesLoading;
+      const ownerId = window.getEmployeeOwnerId?.();
+      if (!ownerId) return;
+      if (dutyEmployeesLoaded && dutyEmployeesLoadedForUserId === ownerId) return;
+      if (dutyEmployeesLoading && dutyEmployeesLoadingForUserId === ownerId) return dutyEmployeesLoading;
 
-      dutyEmployeesLoading = (async () => {
+      const loadingRequest = (async () => {
         try {
           if (!window.db) return;
 
           const { data, error } = await window.db
             .from('sample_employees')
-            .select('id, name, phone');
+            .select('id, name, phone').eq('user_id', ownerId);
           if (error) throw error;
+          if (window.getEmployeeOwnerId?.() !== ownerId) return;
 
           const employees = (data || [])
             .filter((employee) => employee.name)
@@ -98,18 +68,25 @@
             }))
             .sort((a, b) => a.name.localeCompare(b.name));
 
-          if (Array.isArray(window.employeeList) && employees.length) {
+          if (Array.isArray(window.employeeList)) {
             window.employeeList.length = 0;
             window.employeeList.push(...employees);
+            window.renderEmployeeTable?.();
             dutyEmployeesLoaded = true;
+            dutyEmployeesLoadedForUserId = ownerId;
           }
         } catch (error) {
           console.error('Could not load employee names for duty forms:', error);
-        } finally {
-          dutyEmployeesLoading = null;
         }
-      })();
+      })().finally(() => {
+        if (dutyEmployeesLoading === loadingRequest) {
+          dutyEmployeesLoading = null;
+          dutyEmployeesLoadingForUserId = null;
+        }
+      });
 
+      dutyEmployeesLoading = loadingRequest;
+      dutyEmployeesLoadingForUserId = ownerId;
       return dutyEmployeesLoading;
     }
 
@@ -283,9 +260,12 @@
     function setupForm() {
       const type = currentDutyType || 'night';
       setDutyMode(type);
-      loadDutyEmployeesFromDB().then(() => {
-        if (dutyEmployeesLoaded) setupForm();
-      });
+      const ownerId = window.getEmployeeOwnerId?.();
+      if (ownerId && (!dutyEmployeesLoaded || dutyEmployeesLoadedForUserId !== ownerId)) {
+        loadDutyEmployeesFromDB().then(() => {
+          if (dutyEmployeesLoaded && dutyEmployeesLoadedForUserId === window.getEmployeeOwnerId?.()) setupForm();
+        });
+      }
 
       const currentBitData = type === 'night' ? nightBitData : keymanBitData;
       const toContainer = document.getElementById('to-container');

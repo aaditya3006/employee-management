@@ -768,9 +768,9 @@
         console.warn('Unable to read saved landing language:', error);
       }
 
-      let savedLandingTheme = 'dark';
+      let savedLandingTheme = 'light';
       try {
-        const storedLandingTheme = localStorage.getItem('railsaathiLandingTheme');
+        const storedLandingTheme = localStorage.getItem('railsaathiLandingThemeV2');
         if (storedLandingTheme === 'dark' || storedLandingTheme === 'light') {
           savedLandingTheme = storedLandingTheme;
         }

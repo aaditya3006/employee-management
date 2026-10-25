@@ -826,9 +826,18 @@ window.safeToggleLoginModal = function (id, show) {
     // 🔄 Clear all browser caches and storage
     async function clearAllCaches() {
       try {
-        // Clear localStorage
+        // Preserve Supabase's persisted session when clearing app storage. The
+        // login flow calls this immediately after sign-in, so removing this key
+        // leaves the in-memory UI signed in while database requests get 401s.
+        const supabaseAuthStorageKey = 'supabase.auth.token';
+        const supabaseAuthSession = localStorage.getItem(supabaseAuthStorageKey);
+
+        // Clear local app state without discarding the active Supabase session.
         localStorage.clear();
-        console.log('✅ LocalStorage cleared');
+        if (supabaseAuthSession !== null) {
+          localStorage.setItem(supabaseAuthStorageKey, supabaseAuthSession);
+        }
+        console.log('✅ LocalStorage cleared; Supabase session preserved');
 
         // Clear sessionStorage
         sessionStorage.clear();
@@ -857,13 +866,23 @@ window.safeToggleLoginModal = function (id, show) {
     }
 
     function updateSidebarUserDisplay(name, phone) {
-      const initials = name ? name.split(' ').map(n => n.charAt(0)).join('').toUpperCase().slice(0, 2) : 'U';
+      const rawMetadataName = window.currentUserAuth?.user_metadata?.full_name || window.currentUserAuth?.user_metadata?.name || '';
+      const metadataName = String(rawMetadataName).trim();
+      const validMetadataName = metadataName && !/^not\s+set$/i.test(metadataName) ? metadataName : '';
+      const suppliedName = String(name || '').trim();
+      const displayName = suppliedName && !/^not\s+set$/i.test(suppliedName)
+        ? suppliedName
+        : (validMetadataName || 'Railway Employee');
+      window.currentEmployeeName = displayName;
+      if (typeof window.syncTaLockedName === 'function') window.syncTaLockedName();
+       if (typeof window.updateHomeWelcomeTitle === 'function') window.updateHomeWelcomeTitle();
+      const initials = displayName.trim().split(/\s+/).filter(Boolean).slice(0, 2).map(n => n.charAt(0)).join('').toUpperCase();
       const avatarEl = document.getElementById('sidebar-user-avatar');
       const nameEl = document.getElementById('sidebar-user-name');
       const emailEl = document.getElementById('sidebar-user-email');
 
-      if (avatarEl) avatarEl.textContent = initials || 'U';
-      if (nameEl) nameEl.textContent = name || 'Railway Employee';
+      if (avatarEl) avatarEl.textContent = initials || 'RE';
+      if (nameEl) nameEl.textContent = displayName;
       if (emailEl) emailEl.textContent = phone ? `+91 ${phone}` : 'Active Session';
     }
 

@@ -22,8 +22,17 @@
       { id: 'seed-16', name: 'Rahul Kumar', phone: '9876543225' },
       { id: 'seed-17', name: 'Ajay Kumar', phone: '9876543226' }
     ];
-    let employeeList = [...defaultSeedEmployees];
+    let employeeList = [];
     window.employeeList = employeeList;
+
+    window.getEmployeeOwnerId = function () {
+      return window.currentUserAuth?.id || null;
+    };
+
+    function replaceEmployeeList(employees) {
+      employeeList.splice(0, employeeList.length, ...(employees || []));
+      window.employeeList = employeeList;
+    }
 
 
     function renderEmployeeTable() {
@@ -70,11 +79,16 @@
       }
       if (!confirm(`Delete "${employeeList[index].name}"? This cannot be undone.`)) return;
       try {
+        const ownerId = window.getEmployeeOwnerId();
+        if (!ownerId) throw new Error('Please sign in to manage your employees.');
         const dbId = employeeList[index].id;
         const employeeName = employeeList[index].name;
         const employeePhone = employeeList[index].phone;
 
-        await window.db.from("sample_employees").delete().eq('id', dbId);
+        const { error } = await window.db.from("sample_employees")
+          .delete().eq('id', dbId).eq('user_id', ownerId);
+        if (error) throw error;
+        if (window.getEmployeeOwnerId() !== ownerId) return;
         employeeList.splice(index, 1);
 
         // Log activity
@@ -102,12 +116,17 @@
       const idx = document.getElementById('editIndex').value;
       const dbId = document.getElementById('editDbId').value;
       try {
+        const ownerId = window.getEmployeeOwnerId();
+        if (!ownerId) throw new Error('Please sign in to manage your employees.');
         if (idx !== "") {
           // Update existing record in sample_employees
           const oldName = employeeList[idx].name;
           const oldPhone = employeeList[idx].phone;
 
-          await window.db.from("sample_employees").update({ name, phone }).eq('id', dbId);
+          const { error } = await window.db.from("sample_employees")
+            .update({ name, phone }).eq('id', dbId).eq('user_id', ownerId);
+          if (error) throw error;
+          if (window.getEmployeeOwnerId() !== ownerId) return;
           employeeList[idx].name = name; employeeList[idx].phone = phone;
 
           // Log activity
@@ -120,10 +139,12 @@
           });
         } else {
           // Insert new record into sample_employees
-          const { data: newRecord, error } = await window.db.from("sample_employees").insert([{ name, phone }]).select();
+          const { data: newRecord, error } = await window.db.from("sample_employees")
+            .insert([{ name, phone, user_id: ownerId }]).select();
           if (error) throw error;
+          if (window.getEmployeeOwnerId() !== ownerId) return;
           if (newRecord && newRecord[0]) {
-            employeeList.push({ id: newRecord[0].id, name, phone });
+            employeeList.push({ id: newRecord[0].id, name, phone, user_id: ownerId });
 
             // Log activity
             await logActivity('employee_added', {
@@ -228,10 +249,12 @@
     async function processBulkAdd() {
       if (validBulkData.length === 0) throw new Error("Validation Failed");
       try {
+        const ownerId = window.getEmployeeOwnerId();
+        if (!ownerId) throw new Error('Please sign in to manage your employees.');
         let tempEmployees = [];
         for (let item of validBulkData) {
           let hindiName = await transliterateToHindi(item.name);
-          tempEmployees.push({ name: hindiName, phone: item.phone });
+          tempEmployees.push({ name: hindiName, phone: item.phone, user_id: ownerId });
         }
         if (tempEmployees.length > 0) {
           const { data, error } = await window.db.from('sample_employees').insert(tempEmployees).select();
@@ -240,6 +263,7 @@
             customAlert('❌ Error saving to database: ' + error.message);
             return;
           }
+          if (window.getEmployeeOwnerId() !== ownerId) return;
           employeeList.push(...(data || tempEmployees));
           renderEmployeeTable();
           setupForm();
@@ -256,24 +280,22 @@
     // Load sample employees from sample_employees table directly into memory
     async function loadSampleEmployees() {
       try {
-        const { data: sampleData, error } = await window.db.from('sample_employees').select('*');
+        const ownerId = window.getEmployeeOwnerId();
+        if (!ownerId) throw new Error('Please sign in to load your employees.');
+        const { data: sampleData, error } = await window.db.from('sample_employees')
+          .select('*').eq('user_id', ownerId);
+        if (window.getEmployeeOwnerId() !== ownerId) return;
         if (error) {
           console.error('❌ Error loading sample data:', error);
           showToast('❌ Error loading sample data: ' + error.message);
           return;
         }
 
-        if (!sampleData || sampleData.length === 0) {
-          showToast('❌ No sample data found in sample_employees table');
-          return;
-        }
-
-        // Load sample data directly into employeeList (no need to insert to main table)
-        employeeList.push(...sampleData);
+        replaceEmployeeList(sampleData || []);
         renderEmployeeTable();
         setupForm();
-        showToast(`✅ Loaded ${sampleData.length} sample employees!`);
-        console.log('✅ Loaded ' + sampleData.length + ' sample employees to employee list');
+        showToast(`✅ Loaded ${sampleData?.length || 0} employees!`);
+        console.log('✅ Loaded ' + (sampleData?.length || 0) + ' employees for the signed-in account');
       } catch (err) {
         console.error('❌ Error in loadSampleEmployees:', err);
         showToast('❌ Error: ' + err.message);
@@ -397,6 +419,7 @@
 
 
 window.employeeList = employeeList;
+window.replaceEmployeeList = replaceEmployeeList;
 window.defaultSeedEmployees = defaultSeedEmployees;
 window.bulkRowsCount = bulkRowsCount;
 window.bulkRowIdCounter = bulkRowIdCounter;

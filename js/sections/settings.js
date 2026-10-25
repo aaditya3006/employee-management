@@ -221,7 +221,7 @@
 
         if (mainWrapper) mainWrapper.style.display = 'block';
         if (navEl) navEl.style.display = 'block';
-        if (footerEl) footerEl.style.display = 'block';
+        if (footerEl) footerEl.style.display = 'none';
         if (bgEl) bgEl.style.display = 'block';
 
         const settingsEl = document.getElementById('settings-section');

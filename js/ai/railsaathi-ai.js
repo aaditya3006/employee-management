@@ -85,7 +85,7 @@
     // EMPLOYEE DATABASE ACCESS
     // ==========================================
     getEmployeeList() {
-      if (typeof window !== 'undefined' && Array.isArray(window.employeeList) && window.employeeList.length > 0) {
+      if (typeof window !== 'undefined' && Array.isArray(window.employeeList)) {
         return window.employeeList;
       }
       return DEFAULT_EMPLOYEES;

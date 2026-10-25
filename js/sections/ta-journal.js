@@ -149,10 +149,60 @@
     let taPageEntries = {};
     let taEditingKey = null;
 
+    function getLoggedInTaEmployeeName() {
+      const user = window.currentUserAuth || {};
+      const metadata = user.user_metadata || {};
+      const profileName = typeof userProfileData !== 'undefined'
+        ? [userProfileData?.name, userProfileData?.full_name, userProfileData?.employee_name,
+          [userProfileData?.first_name, userProfileData?.last_name].filter(Boolean).join(' ')].find(Boolean)
+        : '';
+      const sidebarName = document.getElementById('sidebar-user-name')?.textContent || '';
+      const candidates = [window.currentEmployeeName, profileName, metadata.full_name, metadata.name, sidebarName];
+      return candidates.map(value => String(value || '').trim())
+        .find(value => value && !/^not\s+set$/i.test(value) && !/^(user|railway employee)$/i.test(value)) || 'Railway Employee';
+    }
+
+    function syncTaLockedName() {
+      const nameInput = document.getElementById('ta-name-locked');
+      if (nameInput) nameInput.value = getLoggedInTaEmployeeName();
+    }
+    window.syncTaLockedName = syncTaLockedName;
+
+    function arrangeTaDocumentFields() {
+      const grid = document.querySelector('#ta-journal-wrapper .ta-document-grid');
+      if (!grid) return;
+      const controls = [
+        '#ta-first-line', '#ta-branch-input', '#ta-hq-input', '#ta-name-locked',
+        '#ta-claimed-type', '#ta-post', '#ta-pay-custom', '#ta-scale-custom',
+        '#ta-level', '#ta-appt-fixed-row', 'input[readonly][value="SR"]',
+        '#ta-report-unit', '#ta-month-sel'
+      ];
+      const fields = controls.map(selector => {
+        const control = grid.querySelector(selector);
+        return control && Array.from(grid.children).find(child => child.contains(control));
+      }).filter((field, index, all) => field && all.indexOf(field) === index);
+      fields.forEach(field => grid.appendChild(field));
+      const allowanceField = Array.from(grid.children).find(child => child.contains(document.getElementById('ta-month-sel')));
+      if (allowanceField) allowanceField.classList.add('ta-allowance-field');
+    }
+
     async function initTaJournal() {
+      syncTaLockedName();
+      arrangeTaDocumentFields();
       if (Object.keys(taPageEntries).length === 0) resetTaSingleForm();
       await loadTaJournalFromDB();
       renderTaSavedDays();
+      // Auto-select current year so saved entries can be filtered by month without a visible Year control
+      const yearSelect = document.getElementById('ta-filter-year-selector');
+      if (yearSelect) {
+        const currentYear = String(new Date().getFullYear());
+        if (Array.from(yearSelect.options).some(option => option.value === currentYear)) {
+          yearSelect.value = currentYear;
+        } else if (yearSelect.options.length > 1) {
+          yearSelect.value = yearSelect.options[1].value;
+        }
+      }
+      if (typeof showMonthDropdown === 'function') showMonthDropdown();
       calcTaAmountSingle();
     }
 
@@ -164,6 +214,16 @@
         if (error) throw error;
         if (data && data.length > 0) {
           const lastEntry = data[0];
+          const restoredRestDates = parseTaDateArray(lastEntry.restDates);
+          const restoredLeaveDates = parseTaDateArray(lastEntry.leaveDates);
+          const restoredCrDates = parseTaDateArray(lastEntry.crDetails);
+          document.getElementById('ta-rest-dates-json').value = JSON.stringify(restoredRestDates);
+          document.getElementById('ta-leave-dates-json').value = JSON.stringify(restoredLeaveDates);
+          document.getElementById('ta-cr-details-json').value = JSON.stringify(restoredCrDates);
+          renderRestDateTags(restoredRestDates);
+          renderLeaveDateTags(restoredLeaveDates);
+          renderCrDetailTags(restoredCrDates); updateTaDatePickerDisplay('ta-rest-date-picker'); updateTaDatePickerDisplay('ta-leave-date-picker'); updateTaDatePickerDisplay('ta-cr-date-header');
+          refreshOpenTaDateCalendars();
           if (lastEntry.entries && Array.isArray(lastEntry.entries)) {
             taPageEntries = {};
             lastEntry.entries.forEach(e => {
@@ -209,6 +269,7 @@
 
     function resetTaSingleForm() {
       document.getElementById('ta-date-single').value = '';
+      updateTaDatePickerDisplay('ta-date-single');
       document.querySelector('input[name="ta-mode-single"][value="byroad"]').checked = true;
       document.getElementById('ta-train-no-single').classList.add('hidden');
       document.getElementById('ta-train-no-single').value = '';
@@ -231,6 +292,7 @@
       document.getElementById('ta-entry-form-title').innerHTML = '<svg class="ui-icon"><use href="#icon-calendar"></use></svg> Journey Entry';
       document.getElementById('ta-add-page-btn').innerHTML = '<svg class="ui-icon"><use href="#icon-plus"></use></svg> Add to Page';
       document.getElementById('ta-cancel-edit-btn').classList.add('hidden');
+      refreshOpenTaDateCalendars();
     }
 
     function toggleTrainNoSingle() {
@@ -291,7 +353,12 @@
     function addTaEntryToPage() {
       const dateVal = document.getElementById('ta-date-single').value;
       if (!dateVal) { customAlert("Please select a date for this entry."); return; }
-      if (!taEditingKey && taPageEntries[dateVal]) {
+      const specialDate = getTaSpecialDateMap()[dateVal];
+      if (specialDate && dateVal !== taEditingKey) {
+        customAlert(`${formatTaDate(dateVal)} is already marked as ${specialDate.label}. Choose another date.`);
+        return;
+      }
+      if (taPageEntries[dateVal] && dateVal !== taEditingKey) {
         customAlert(`Entry for ${formatTaDate(dateVal)} already exists. Click Edit on that entry to modify it.`);
         return;
       }
@@ -321,6 +388,7 @@
         leftSrc, arrDest, leftDest, arrSrc, fromStn, toStn,
         pct, obj, km, rate, rs, paise
       };
+      refreshOpenTaDateCalendars();
       showToast(taEditingKey ? `Entry for ${formatTaDate(dateVal)} updated!` : `Entry for ${formatTaDate(dateVal)} added to page!`);
       resetTaSingleForm();
       renderTaSavedDays();
@@ -334,12 +402,204 @@
       return `${d}/${m}/${y}`;
     }
 
+    const taDatePickerFields = {
+      'ta-rest-date-picker': { type: 'rest', label: 'Rest', triggerId: 'ta-rest-date-trigger', calendarId: 'ta-rest-date-calendar' },
+      'ta-leave-date-picker': { type: 'leave', label: 'Leave', triggerId: 'ta-leave-date-trigger', calendarId: 'ta-leave-date-calendar' },
+      'ta-cr-date-header': { type: 'cr', label: 'CR', triggerId: 'ta-cr-date-trigger', calendarId: 'ta-cr-date-calendar' },
+      'ta-date-single': { type: 'journey', label: 'Journey', triggerId: 'ta-date-single-trigger', calendarId: 'ta-date-single-calendar' }
+    };
+
+    function parseTaDateArray(value) {
+      if (Array.isArray(value)) return value.filter(date => typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date));
+      if (typeof value === 'string') {
+        try {
+          const parsed = JSON.parse(value || '[]');
+          return Array.isArray(parsed) ? parsed.filter(date => typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date)) : [];
+        } catch (error) {
+          return [];
+        }
+      }
+      return [];
+    }
+
+    function getTaSpecialDateMap() {
+      const map = {};
+      [
+        { type: 'rest', label: 'Rest', id: 'ta-rest-dates-json' },
+        { type: 'leave', label: 'Leave', id: 'ta-leave-dates-json' },
+        { type: 'cr', label: 'CR', id: 'ta-cr-details-json' }
+      ].forEach(({ type, label, id }) => {
+        parseTaDateArray(document.getElementById(id)?.value).forEach(date => {
+          map[date] = { type, label };
+        });
+      });
+      return map;
+    }
+
+    function updateTaDatePickerDisplay(inputId) {
+      const input = document.getElementById(inputId);
+      const field = taDatePickerFields[inputId];
+      if (!input || !field) return;
+      const trigger = document.getElementById(field.triggerId);
+      if (!trigger) return;
+      if (field.type === 'journey') {
+        trigger.textContent = input.value ? formatTaDate(input.value) : 'Choose date';
+      } else {
+        const jsonId = field.type === 'rest' ? 'ta-rest-dates-json' : (field.type === 'leave' ? 'ta-leave-dates-json' : 'ta-cr-details-json');
+        const dates = parseTaDateArray(document.getElementById(jsonId)?.value);
+        if (dates.length === 0) {
+          trigger.textContent = 'Choose date';
+        } else if (dates.length === 1) {
+          trigger.textContent = formatTaDate(dates[0]);
+        } else {
+          trigger.textContent = `${dates.length} dates selected`;
+        }
+      }
+    }
+
+    function openTaDatePicker(inputId) {
+      const input = document.getElementById(inputId);
+      const wrapper = input?.closest('.ta-date-picker');
+      const field = taDatePickerFields[inputId];
+      const calendar = field ? document.getElementById(field.calendarId) : null;
+      if (!input || !wrapper || !calendar) return;
+
+      document.querySelectorAll('.ta-date-calendar:not([hidden])').forEach(openCalendar => {
+        openCalendar.hidden = true;
+        openCalendar.closest('.ta-date-picker')?.classList.remove('is-open');
+      });
+
+      const now = new Date();
+      const initialDate = input.value || `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+      const [year, month] = initialDate.split('-').map(Number);
+      wrapper.dataset.viewYear = String(year);
+      wrapper.dataset.viewMonth = String(month - 1);
+      calendar.hidden = false;
+      wrapper.classList.add('is-open');
+      renderTaDateCalendar(inputId);
+      const rect = calendar.getBoundingClientRect();
+      calendar.classList.toggle('align-right', rect.right > window.innerWidth - 8);
+      calendar.classList.toggle('align-left', rect.left < 8);
+    }
+
+    function closeTaDatePickers() {
+      document.querySelectorAll('.ta-date-calendar:not([hidden])').forEach(calendar => {
+        calendar.hidden = true;
+        calendar.closest('.ta-date-picker')?.classList.remove('is-open');
+      });
+    }
+
+    function changeTaCalendarMonth(inputId, offset) {
+      const wrapper = document.getElementById(inputId)?.closest('.ta-date-picker');
+      if (!wrapper) return;
+      const view = new Date(Number(wrapper.dataset.viewYear), Number(wrapper.dataset.viewMonth) + offset, 1);
+      wrapper.dataset.viewYear = String(view.getFullYear());
+      wrapper.dataset.viewMonth = String(view.getMonth());
+      renderTaDateCalendar(inputId);
+    }
+
+    function renderTaDateCalendar(inputId) {
+      const input = document.getElementById(inputId);
+      const wrapper = input?.closest('.ta-date-picker');
+      const field = taDatePickerFields[inputId];
+      const calendar = field ? document.getElementById(field.calendarId) : null;
+      if (!input || !wrapper || !calendar || !field) return;
+
+      const year = Number(wrapper.dataset.viewYear);
+      const month = Number(wrapper.dataset.viewMonth);
+      const firstWeekday = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const specialDates = getTaSpecialDateMap();
+      const journeyDates = new Set(Object.keys(taPageEntries));
+      const activeDate = input.value;
+      const monthLabel = new Date(year, month, 1).toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
+      const weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+      let daysHtml = weekdays.map(day => `<span class="ta-calendar-weekday">${day}</span>`).join('');
+      for (let blank = 0; blank < firstWeekday; blank += 1) daysHtml += '<span class="ta-calendar-empty" aria-hidden="true"></span>';
+      for (let day = 1; day <= daysInMonth; day += 1) {
+        const dateValue = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        const special = specialDates[dateValue];
+        const hasJourney = journeyDates.has(dateValue);
+        const isCurrentJourneyEdit = field.type === 'journey' && taEditingKey === dateValue;
+        const isOwnSpecialDate = Boolean(special && special.type === field.type);
+        const unavailable = Boolean(special && !isOwnSpecialDate) || (hasJourney && !isCurrentJourneyEdit);
+        const classes = ['ta-calendar-day'];
+        if (special) classes.push(`is-${special.type}`);
+        else if (hasJourney) classes.push('is-journey');
+        if (activeDate === dateValue) classes.push('is-active');
+        if (unavailable) classes.push('is-unavailable');
+        const markerLabel = special ? special.label : (hasJourney ? 'Journey already added' : '');
+        const markerText = special ? ({ rest: 'R', leave: 'L', cr: 'C' }[special.type] || '') : (hasJourney ? 'J' : '');
+        const title = markerLabel ? ` title="${markerLabel}"` : '';
+        const disabled = unavailable ? ' disabled aria-disabled="true"' : '';
+        const action = unavailable ? '' : ` onclick="selectTaCalendarDate('${inputId}', '${dateValue}')"`;
+        daysHtml += `<button type="button" class="${classes.join(' ')}"${title}${disabled}${action}><span>${day}</span>${markerText ? `<span class="ta-calendar-mark" aria-hidden="true">${markerText}</span>` : ''}</button>`;
+      }
+
+      const isMulti = field.type !== 'journey';
+      calendar.innerHTML = `
+        <div class="ta-calendar-header">
+          <button type="button" class="ta-calendar-nav" aria-label="Previous month" onclick="changeTaCalendarMonth('${inputId}', -1)">‹</button>
+          <strong>${monthLabel}</strong>
+          <button type="button" class="ta-calendar-nav" aria-label="Next month" onclick="changeTaCalendarMonth('${inputId}', 1)">›</button>
+        </div>
+        <div class="ta-calendar-grid">${daysHtml}</div>
+        <div class="ta-calendar-legend"><span class="rest"><b>R</b> Rest</span><span class="leave"><b>L</b> Leave</span><span class="cr"><b>C</b> CR</span><span class="journey"><b>J</b> Journey</span></div>
+        ${isMulti ? `<div class="ta-calendar-footer"><button type="button" class="ta-calendar-done-btn" onclick="closeTaDatePickers()">Done</button></div>` : ''}
+      `;
+    }
+
+    function selectTaCalendarDate(inputId, dateValue) {
+      const input = document.getElementById(inputId);
+      const field = taDatePickerFields[inputId];
+      if (!input || !field) return;
+
+      if (field.type === 'journey') {
+        input.value = dateValue;
+        updateTaDatePickerDisplay(inputId);
+        closeTaDatePickers();
+        refreshOpenTaDateCalendars();
+        return;
+      }
+
+      // Rest, Leave, CR: Multi-tap selection without closing!
+      const existingSpecial = getTaSpecialDateMap()[dateValue];
+      if (existingSpecial && existingSpecial.type === field.type) {
+        // Toggle OFF
+        if (field.type === 'rest') removeRestDate(dateValue);
+        else if (field.type === 'leave') removeleaveDate(dateValue);
+        else if (field.type === 'cr') removeCrDetail(dateValue);
+      } else if (!existingSpecial && !taPageEntries[dateValue]) {
+        // Toggle ON
+        input.value = dateValue;
+        if (field.type === 'rest') addRestDate();
+        else if (field.type === 'leave') addLeaveDate();
+        else if (field.type === 'cr') addCrDetail();
+      } else {
+        customAlert(`${formatTaDate(dateValue)} is already assigned. Choose another date.`);
+      }
+
+      // Keep calendar open and re-render tapped states in real time
+      renderTaDateCalendar(inputId);
+      refreshOpenTaDateCalendars();
+    }
+
+    function refreshOpenTaDateCalendars() {
+      Object.entries(taDatePickerFields).forEach(([inputId, field]) => {
+        const calendar = document.getElementById(field.calendarId);
+        if (calendar && !calendar.hidden) renderTaDateCalendar(inputId);
+      });
+    }
+
+    // Calendar closing is handled explicitly by Done (multi-select) or date selection (single date).
+
     function editTaEntry(dateKey) {
       const e = taPageEntries[dateKey];
       if (!e) return;
       taEditingKey = dateKey;
       document.getElementById('ta-editing-date-key').value = dateKey;
       document.getElementById('ta-date-single').value = e.dateRaw;
+      updateTaDatePickerDisplay('ta-date-single');
       const modeVal = e.mode || 'byroad';
       document.querySelector(`input[name="ta-mode-single"][value="${modeVal}"]`).checked = true;
       toggleTrainNoSingle();
@@ -379,23 +639,31 @@
       const picker = document.getElementById('ta-rest-date-picker');
       const dateVal = picker.value;
       if (!dateVal) { customAlert("Please select a date to add as Rest."); return; }
-      const existing = JSON.parse(document.getElementById('ta-rest-dates-json').value || '[]');
+      const existing = parseTaDateArray(document.getElementById('ta-rest-dates-json').value);
       if (existing.includes(dateVal)) { customAlert("This rest date is already added."); return; }
+      if (getTaSpecialDateMap()[dateVal] || taPageEntries[dateVal]) { customAlert(`${formatTaDate(dateVal)} is already assigned. Choose another date.`); return; }
       existing.push(dateVal); existing.sort();
       document.getElementById('ta-rest-dates-json').value = JSON.stringify(existing);
-      picker.value = '';
+      updateTaDatePickerDisplay('ta-rest-date-picker');
       renderRestDateTags(existing);
+      refreshOpenTaDateCalendars();
     }
 
     function removeRestDate(dateVal) {
-      const existing = JSON.parse(document.getElementById('ta-rest-dates-json').value || '[]');
+      const existing = parseTaDateArray(document.getElementById('ta-rest-dates-json').value);
       const updated = existing.filter(d => d !== dateVal);
       document.getElementById('ta-rest-dates-json').value = JSON.stringify(updated);
-      renderRestDateTags(updated);
+      renderRestDateTags(updated); updateTaDatePickerDisplay('ta-rest-date-picker');
+      if (document.getElementById('ta-rest-date-picker').value === dateVal) {
+        document.getElementById('ta-rest-date-picker').value = '';
+        updateTaDatePickerDisplay('ta-rest-date-picker');
+      }
+      refreshOpenTaDateCalendars();
     }
 
     function renderRestDateTags(dates) {
       const container = document.getElementById('ta-rest-dates-list');
+      if (!container) return;
       if (!dates || dates.length === 0) { container.innerHTML = ''; return; }
       container.innerHTML = dates.map(d => {
         const [y, m, day] = d.split('-');
@@ -410,23 +678,31 @@
       const picker = document.getElementById('ta-leave-date-picker');
       const dateVal = picker.value;
       if (!dateVal) { customAlert("Please select a date to add as Leave."); return; }
-      const existing = JSON.parse(document.getElementById('ta-leave-dates-json').value || '[]');
+      const existing = parseTaDateArray(document.getElementById('ta-leave-dates-json').value);
       if (existing.includes(dateVal)) { customAlert("This leave date is already added."); return; }
+      if (getTaSpecialDateMap()[dateVal] || taPageEntries[dateVal]) { customAlert(`${formatTaDate(dateVal)} is already assigned. Choose another date.`); return; }
       existing.push(dateVal); existing.sort();
       document.getElementById('ta-leave-dates-json').value = JSON.stringify(existing);
-      picker.value = '';
+      updateTaDatePickerDisplay('ta-leave-date-picker');
       renderLeaveDateTags(existing);
+      refreshOpenTaDateCalendars();
     }
 
     function removeleaveDate(dateVal) {
-      const existing = JSON.parse(document.getElementById('ta-leave-dates-json').value || '[]');
+      const existing = parseTaDateArray(document.getElementById('ta-leave-dates-json').value);
       const updated = existing.filter(d => d !== dateVal);
       document.getElementById('ta-leave-dates-json').value = JSON.stringify(updated);
-      renderLeaveDateTags(updated);
+      renderLeaveDateTags(updated); updateTaDatePickerDisplay('ta-leave-date-picker');
+      if (document.getElementById('ta-leave-date-picker').value === dateVal) {
+        document.getElementById('ta-leave-date-picker').value = '';
+        updateTaDatePickerDisplay('ta-leave-date-picker');
+      }
+      refreshOpenTaDateCalendars();
     }
 
     function renderLeaveDateTags(dates) {
       const container = document.getElementById('ta-leave-dates-list');
+      if (!container) return;
       if (!dates || dates.length === 0) { container.innerHTML = ''; return; }
       container.innerHTML = dates.map(d => {
         const [y, m, day] = d.split('-');
@@ -441,23 +717,31 @@
       const dateInput = document.getElementById('ta-cr-date-header');
       const crDate = dateInput.value;
       if (!crDate) { customAlert("Please select a CR date"); return; }
-      const existing = JSON.parse(document.getElementById('ta-cr-details-json').value || '[]');
+      const existing = parseTaDateArray(document.getElementById('ta-cr-details-json').value);
       if (existing.includes(crDate)) { customAlert("This CR date is already added."); return; }
-      existing.push(crDate);
+      if (getTaSpecialDateMap()[crDate] || taPageEntries[crDate]) { customAlert(`${formatTaDate(crDate)} is already assigned. Choose another date.`); return; }
+      existing.push(crDate); existing.sort();
       document.getElementById('ta-cr-details-json').value = JSON.stringify(existing);
-      dateInput.value = '';
+      updateTaDatePickerDisplay('ta-cr-date-header');
       renderCrDetailTags(existing);
+      refreshOpenTaDateCalendars();
     }
 
     function removeCrDetail(dateVal) {
-      const existing = JSON.parse(document.getElementById('ta-cr-details-json').value || '[]');
+      const existing = parseTaDateArray(document.getElementById('ta-cr-details-json').value);
       const updated = existing.filter(d => d !== dateVal);
       document.getElementById('ta-cr-details-json').value = JSON.stringify(updated);
-      renderCrDetailTags(updated);
+      renderCrDetailTags(updated); updateTaDatePickerDisplay('ta-cr-date-header');
+      if (document.getElementById('ta-cr-date-header').value === dateVal) {
+        document.getElementById('ta-cr-date-header').value = '';
+        updateTaDatePickerDisplay('ta-cr-date-header');
+      }
+      refreshOpenTaDateCalendars();
     }
 
     function renderCrDetailTags(crArray) {
       const container = document.getElementById('ta-cr-details-list');
+      if (!container) return;
       if (!crArray || crArray.length === 0) { container.innerHTML = ''; return; }
       container.innerHTML = crArray.map(dateVal => {
         const [y, m, day] = dateVal.split('-');
@@ -473,6 +757,7 @@
         delete taPageEntries[dateKey];
         if (taEditingKey === dateKey) resetTaSingleForm();
         renderTaSavedDays();
+        refreshOpenTaDateCalendars();
         showToast('Entry removed.');
       }
     }
@@ -483,6 +768,7 @@
         taPageEntries = {};
         resetTaSingleForm();
         renderTaSavedDays();
+        refreshOpenTaDateCalendars();
         showToast("All entries cleared.");
       }
     }
@@ -551,6 +837,7 @@
           // Populate form fields with entry data
           document.getElementById('ta-editing-date-key').value = dateKey;
           document.getElementById('ta-date-single').value = dateKey;
+          updateTaDatePickerDisplay('ta-date-single');
 
           const modeVal = entry.mode || 'byroad';
           document.querySelector(`input[name="ta-mode-single"][value="${modeVal}"]`).checked = true;
@@ -914,9 +1201,7 @@
     }
 
     function getTaHeaderData() {
-      const nameSelect = document.getElementById('ta-name-select').value;
-      const isOther = nameSelect === 'other';
-      const name = isOther ? document.getElementById('ta-name-other').value.trim() : nameSelect;
+      const name = getLoggedInTaEmployeeName();
       const restDatesRaw = JSON.parse(document.getElementById('ta-rest-dates-json').value || '[]');
       const restDatesFmt = restDatesRaw.map(d => { const [y, m, day] = d.split('-'); return `${day}/${m}/${y}`; });
       const leaveDatesRaw = JSON.parse(document.getElementById('ta-leave-dates-json').value || '[]');
@@ -955,14 +1240,12 @@
       const firstLine = 'ENGINEERING';
       const postSelect = document.getElementById('ta-post').value;
       const post = postSelect === 'other' ? document.getElementById('ta-post-custom').value.trim() : postSelect;
-      const pay = isOther ? (document.getElementById('ta-pay-custom').value || '25,600') : '25,600';
+      const pay = document.getElementById('ta-pay-custom').value || '25,600';
       const scale = document.getElementById('ta-scale-custom').value || '5200-20200';
       const level = document.getElementById('ta-level').value;
-      let apptDate = '24/07/2014';
-      if (isOther) {
-        const apptRaw = document.getElementById('ta-appointment-date') ? document.getElementById('ta-appointment-date').value : '';
-        apptDate = apptRaw ? apptRaw.split('-').reverse().join('/') : '';
-      }
+      const apptRaw = document.getElementById('ta-appointment-date')?.value || '';
+      const fixedApptDate = document.getElementById('ta-appt-fixed-row')?.textContent.trim() || '24/07/2014';
+      const apptDate = apptRaw ? apptRaw.split('-').reverse().join('/') : fixedApptDate;
       const reportUnit = document.getElementById('ta-report-unit').value;
       const claimedType = document.getElementById('ta-claimed-type').value || 'T.A';
       return {
@@ -1398,11 +1681,10 @@
         };
         const sp = `<span style="flex-shrink:0;width:2px;"></span>`;
 
-        const isNandKishor = (header.name === 'NAND KISHOR');
-        const pdfName = isNandKishor ? 'NAND KISHOR' : header.name;
-        const pdfPay = isNandKishor ? '25,600' : header.pay;
+        const pdfName = header.name;
+        const pdfPay = header.pay;
         const pdfScale = header.level;
-        const pdfApptDate = isNandKishor ? '24/07/2014' : header.apptDate;
+        const pdfApptDate = header.apptDate;
 
         const metaRow1 = `<div style="${rowStyle}margin-bottom:4px;">
     <span style="display:inline-flex;flex-direction:column;align-items:center;flex:0 0 auto;min-width:130px;max-width:190px;">
@@ -1562,6 +1844,10 @@
           user_id: currentUser.id,
           user_email: currentUser.email,
           entries: entries,
+          header,
+          restDates: parseTaDateArray(document.getElementById('ta-rest-dates-json').value),
+          leaveDates: parseTaDateArray(document.getElementById('ta-leave-dates-json').value),
+          crDetails: parseTaDateArray(document.getElementById('ta-cr-details-json').value),
           month: month,
           year: year,
           total_amount: parseFloat(grandTotal.toFixed(2)),
@@ -1617,15 +1903,7 @@
     }
 
     function updateTaName() {
-      const sel = document.getElementById('ta-name-select').value;
-      const isOther = sel === 'other';
-      document.getElementById('ta-name-other').classList.toggle('hidden', !isOther);
-      document.getElementById('ta-appt-fixed-row').classList.toggle('hidden', isOther);
-      document.getElementById('ta-appt-picker-row').classList.toggle('hidden', !isOther);
-      if (isOther) {
-        const apptEl = document.getElementById('ta-appointment-date');
-        if (apptEl) apptEl.value = '';
-      }
+      syncTaLockedName();
     }
 
     function updateTaPay() { }
@@ -1914,6 +2192,10 @@ window.calcTaAmountSingle = calcTaAmountSingle;
 window.addTaEntryToPage = addTaEntryToPage;
 window.cancelTaEdit = cancelTaEdit;
 window.formatTaDate = formatTaDate;
+window.openTaDatePicker = openTaDatePicker;
+window.closeTaDatePickers = closeTaDatePickers;
+window.changeTaCalendarMonth = changeTaCalendarMonth;
+window.selectTaCalendarDate = selectTaCalendarDate;
 window.editTaEntry = editTaEntry;
 window.addRestDate = addRestDate;
 window.removeRestDate = removeRestDate;

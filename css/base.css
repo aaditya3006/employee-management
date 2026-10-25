@@ -6,6 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@200;300;400;600;700&family=Italiana&family=Noto+Sans+Devanagari:wght@400;700&family=Poppins:wght@300;400;600&family=Sora:wght@400;500;600;700;800&display=swap');
 
 :root {
+  color-scheme: light;
   --yellow: #ffff00;
   --light-green: #90ee90;
   --vibrant-bg: #f8fafc;

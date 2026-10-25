@@ -20,7 +20,7 @@
             window.location.replace('k.html');
           }
         }
-      } catch (e) {}
+      } catch (e) { }
     })();
   </script>
   <meta name="description"
@@ -28,7 +28,7 @@
   <link rel="canonical" href="https://www.rgdtiaportal.live/">
   <link rel="icon" type="image/png" href="https://www.rgdtiaportal.live/railsaathi-logo.png">
   <meta name="robots" content="index, follow, max-image-preview:large">
-  <meta name="theme-color" content="#0b1d31">
+  <meta name="theme-color" content="#f8fafc">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Railsaathi">
   <meta property="og:title" content="Online TA Journal for Railway Employees | Railway TA Journal">
@@ -92,9 +92,9 @@
   ]
 }
 </script>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/tailwind-utilities.css">
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -120,62 +120,159 @@
 <body id="app-body" class="show-marketing-landing">
   <div id="toast" class="no-print" aria-live="polite"></div>
   <svg class="dashboard-icon-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
-    <symbol id="icon-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></symbol>
-    <symbol id="icon-logout" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3"/><path d="M12 3h6a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-6"/></symbol>
-    <symbol id="icon-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1 1.2 1-1.4 2.4-1.5-.6a8 8 0 0 1-1.7 1l-.3 1.6h-2.8l-.3-1.6a8 8 0 0 1-1.7-1l-1.5.6-1.4-2.4 1.2-1a8 8 0 0 1 0-2l-1.2-1 1.4-2.4 1.5.6a8 8 0 0 1 1.7-1l.3-1.6h2.8l.3 1.6a8 8 0 0 1 1.7 1l1.5-.6 1.4 2.4-1.2 1a8 8 0 0 1 0 2Z" transform="translate(-1 -1)"/></symbol>
-    <symbol id="icon-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9a2.5 2.5 0 1 1 4.7 1.2c-.8 1.1-2.3 1.4-2.3 3M12 17h.01"/></symbol>
-    <symbol id="icon-alert" viewBox="0 0 24 24"><path d="m12 3 10 18H2L12 3Z"/><path d="M12 9v5m0 3h.01"/></symbol>
-    <symbol id="icon-phone" viewBox="0 0 24 24"><path d="M7 3H4a1 1 0 0 0-1 1c0 9.4 7.6 17 17 17a1 1 0 0 0 1-1v-3l-5-2-2 3a15 15 0 0 1-7-7l3-2-2-5Z"/></symbol>
-    <symbol id="icon-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></symbol>
-    <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
-    <symbol id="icon-save" viewBox="0 0 24 24"><path d="M5 3h12l4 4v14H3V3h2Z"/><path d="M7 3v6h10V3M7 21v-8h10v8"/></symbol>
-    <symbol id="icon-train" viewBox="0 0 24 24"><path d="M6 3h12a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Z"/><path d="M7 7h10v5H7zM7 22l3-3m7 3-3-3M7 16h.01m10 0h.01"/></symbol>
-    <symbol id="icon-moon" viewBox="0 0 24 24"><path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5 8.5 8.5 0 1 0 20.5 15.2Z"/></symbol>
-    <symbol id="icon-tools" viewBox="0 0 24 24"><path d="M14 7a5 5 0 0 0-6.4 6.4L3 18l3 3 4.6-4.6A5 5 0 0 0 17 10l-3 3-3-3 3-3Z"/><path d="m15 4 5 5"/></symbol>
-    <symbol id="icon-clipboard" viewBox="0 0 24 24"><path d="M9 4h6l1 2h3v15H5V6h3l1-2Z"/><path d="M9 4V3h6v1M8 11h8M8 15h8"/></symbol>
-    <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01"/></symbol>
-    <symbol id="icon-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></symbol>
-    <symbol id="icon-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
-    <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2m3 0-1 15H6L5 6m4 4v7m6-7v7"/></symbol>
-    <symbol id="icon-print" viewBox="0 0 24 24"><path d="M7 8V3h10v5M7 17H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-3"/><path d="M7 14h10v7H7zM18 11h.01"/></symbol>
-    <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M4 20V4m0 16h17M8 16l4-5 3 2 5-7"/></symbol>
-    <symbol id="icon-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2M16 5a3 3 0 0 1 0 6m2 3a5 5 0 0 1 3 4v2"/></symbol>
-    <symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
-    <symbol id="icon-edit" viewBox="0 0 24 24"><path d="m4 16-.8 4.8L8 20l11-11-4-4L4 16Z"/><path d="m13.5 6.5 4 4"/></symbol>
-    <symbol id="icon-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.5 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.5-3"/></symbol>
-    <symbol id="icon-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 18v3h16v-3"/></symbol>
-    <symbol id="icon-list" viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12M4 6h.01M4 12h.01M4 18h.01"/></symbol>
-    <symbol id="icon-inbox" viewBox="0 0 24 24"><path d="M4 4h16l2 11v5H2v-5L4 4Z"/><path d="M2 15h6l2 3h4l2-3h6M8 8h8"/></symbol>
-    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
-    <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
-    <symbol id="icon-road" viewBox="0 0 24 24"><path d="M7 3 4 21m13-18 3 18M12 4v3m0 3v3m0 3v3"/></symbol>
-    <symbol id="icon-calculator" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8v4H8zM8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></symbol>
-    <symbol id="icon-money" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 7H9.5a2.5 2.5 0 0 0 0 5h5a2.5 2.5 0 0 1 0 5H8m4-12v14"/></symbol>
-    <symbol id="icon-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h3a4 4 0 0 0 4-4V10a4 4 0 0 1 4-4"/></symbol>
-    <symbol id="icon-share" viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-8 8"/><path d="M19 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></symbol>
-    <symbol id="icon-whatsapp" viewBox="0 0 24 24"><path d="M20.4 11.7a8.4 8.4 0 0 1-12.2 7.5L3 20l.8-4.9A8.4 8.4 0 1 1 20.4 11.7Z"/><path d="M8.3 7.5c.2-.5.5-.5.8-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.5.6c-.2.2-.2.4-.1.6.5.9 1.2 1.6 2.1 2.1.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.3.3.3.5 0 .5-.2 1-.6 1.3-.4.4-1 .6-1.5.5-1.1-.2-2.4-.8-3.6-1.8-1.3-1.1-2.2-2.4-2.5-3.5-.2-.8 0-1.7.5-2.3Z"/></symbol>
+    <symbol id="icon-lock" viewBox="0 0 24 24">
+      <rect x="4" y="10" width="16" height="11" rx="2" />
+      <path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3" />
+    </symbol>
+    <symbol id="icon-logout" viewBox="0 0 24 24">
+      <path d="M10 17l5-5-5-5M15 12H3" />
+      <path d="M12 3h6a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-6" />
+    </symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="3" />
+      <path
+        d="m19.4 15 .1.1 1.2 1-1.4 2.4-1.5-.6a8 8 0 0 1-1.7 1l-.3 1.6h-2.8l-.3-1.6a8 8 0 0 1-1.7-1l-1.5.6-1.4-2.4 1.2-1a8 8 0 0 1 0-2l-1.2-1 1.4-2.4 1.5.6a8 8 0 0 1 1.7-1l.3-1.6h2.8l.3 1.6a8 8 0 0 1 1.7 1l1.5-.6 1.4 2.4-1.2 1a8 8 0 0 1 0 2Z"
+        transform="translate(-1 -1)" />
+    </symbol>
+    <symbol id="icon-help" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M9.6 9a2.5 2.5 0 1 1 4.7 1.2c-.8 1.1-2.3 1.4-2.3 3M12 17h.01" />
+    </symbol>
+    <symbol id="icon-alert" viewBox="0 0 24 24">
+      <path d="m12 3 10 18H2L12 3Z" />
+      <path d="M12 9v5m0 3h.01" />
+    </symbol>
+    <symbol id="icon-phone" viewBox="0 0 24 24">
+      <path d="M7 3H4a1 1 0 0 0-1 1c0 9.4 7.6 17 17 17a1 1 0 0 0 1-1v-3l-5-2-2 3a15 15 0 0 1-7-7l3-2-2-5Z" />
+    </symbol>
+    <symbol id="icon-file" viewBox="0 0 24 24">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
+      <path d="M14 2v6h6M8 13h8M8 17h8" />
+    </symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24">
+      <path d="M12 5v14M5 12h14" />
+    </symbol>
+    <symbol id="icon-save" viewBox="0 0 24 24">
+      <path d="M5 3h12l4 4v14H3V3h2Z" />
+      <path d="M7 3v6h10V3M7 21v-8h10v8" />
+    </symbol>
+    <symbol id="icon-train" viewBox="0 0 24 24">
+      <path d="M6 3h12a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Z" />
+      <path d="M7 7h10v5H7zM7 22l3-3m7 3-3-3M7 16h.01m10 0h.01" />
+    </symbol>
+    <symbol id="icon-moon" viewBox="0 0 24 24">
+      <path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5 8.5 8.5 0 1 0 20.5 15.2Z" />
+    </symbol>
+    <symbol id="icon-tools" viewBox="0 0 24 24">
+      <path d="M14 7a5 5 0 0 0-6.4 6.4L3 18l3 3 4.6-4.6A5 5 0 0 0 17 10l-3 3-3-3 3-3Z" />
+      <path d="m15 4 5 5" />
+    </symbol>
+    <symbol id="icon-clipboard" viewBox="0 0 24 24">
+      <path d="M9 4h6l1 2h3v15H5V6h3l1-2Z" />
+      <path d="M9 4V3h6v1M8 11h8M8 15h8" />
+    </symbol>
+    <symbol id="icon-calendar" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="16" rx="2" />
+      <path d="M16 3v4M8 3v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01" />
+    </symbol>
+    <symbol id="icon-eye" viewBox="0 0 24 24">
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" />
+      <circle cx="12" cy="12" r="3" />
+    </symbol>
+    <symbol id="icon-pin" viewBox="0 0 24 24">
+      <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </symbol>
+    <symbol id="icon-trash" viewBox="0 0 24 24">
+      <path d="M3 6h18M8 6V4h8v2m3 0-1 15H6L5 6m4 4v7m6-7v7" />
+    </symbol>
+    <symbol id="icon-print" viewBox="0 0 24 24">
+      <path d="M7 8V3h10v5M7 17H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-3" />
+      <path d="M7 14h10v7H7zM18 11h.01" />
+    </symbol>
+    <symbol id="icon-chart" viewBox="0 0 24 24">
+      <path d="M4 20V4m0 16h17M8 16l4-5 3 2 5-7" />
+    </symbol>
+    <symbol id="icon-users" viewBox="0 0 24 24">
+      <circle cx="9" cy="8" r="3" />
+      <path d="M3 20v-2a6 6 0 0 1 12 0v2M16 5a3 3 0 0 1 0 6m2 3a5 5 0 0 1 3 4v2" />
+    </symbol>
+    <symbol id="icon-user" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 21a8 8 0 0 1 16 0" />
+    </symbol>
+    <symbol id="icon-edit" viewBox="0 0 24 24">
+      <path d="m4 16-.8 4.8L8 20l11-11-4-4L4 16Z" />
+      <path d="m13.5 6.5 4 4" />
+    </symbol>
+    <symbol id="icon-refresh" viewBox="0 0 24 24">
+      <path d="M20 7v5h-5M4 17v-5h5" />
+      <path d="M5.5 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.5-3" />
+    </symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24">
+      <path d="M12 3v12m-5-5 5 5 5-5M4 18v3h16v-3" />
+    </symbol>
+    <symbol id="icon-list" viewBox="0 0 24 24">
+      <path d="M9 6h12M9 12h12M9 18h12M4 6h.01M4 12h.01M4 18h.01" />
+    </symbol>
+    <symbol id="icon-inbox" viewBox="0 0 24 24">
+      <path d="M4 4h16l2 11v5H2v-5L4 4Z" />
+      <path d="M2 15h6l2 3h4l2-3h6M8 8h8" />
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24">
+      <path d="m5 12 4 4L19 6" />
+    </symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24">
+      <path d="m6 6 12 12M18 6 6 18" />
+    </symbol>
+    <symbol id="icon-road" viewBox="0 0 24 24">
+      <path d="M7 3 4 21m13-18 3 18M12 4v3m0 3v3m0 3v3" />
+    </symbol>
+    <symbol id="icon-calculator" viewBox="0 0 24 24">
+      <rect x="4" y="2" width="16" height="20" rx="2" />
+      <path d="M8 6h8v4H8zM8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01" />
+    </symbol>
+    <symbol id="icon-money" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M15 7H9.5a2.5 2.5 0 0 0 0 5h5a2.5 2.5 0 0 1 0 5H8m4-12v14" />
+    </symbol>
+    <symbol id="icon-route" viewBox="0 0 24 24">
+      <circle cx="6" cy="18" r="2" />
+      <circle cx="18" cy="6" r="2" />
+      <path d="M8 18h3a4 4 0 0 0 4-4V10a4 4 0 0 1 4-4" />
+    </symbol>
+    <symbol id="icon-share" viewBox="0 0 24 24">
+      <path d="M14 5h5v5M19 5l-8 8" />
+      <path d="M19 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5" />
+    </symbol>
+    <symbol id="icon-whatsapp" viewBox="0 0 24 24">
+      <path d="M20.4 11.7a8.4 8.4 0 0 1-12.2 7.5L3 20l.8-4.9A8.4 8.4 0 1 1 20.4 11.7Z" />
+      <path
+        d="M8.3 7.5c.2-.5.5-.5.8-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.5.6c-.2.2-.2.4-.1.6.5.9 1.2 1.6 2.1 2.1.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.3.3.3.5 0 .5-.2 1-.6 1.3-.4.4-1 .6-1.5.5-1.1-.2-2.4-.8-3.6-1.8-1.3-1.1-2.2-2.4-2.5-3.5-.2-.8 0-1.7.5-2.3Z" />
+    </symbol>
   </svg>
 
   <!-- ==========================================
    MARKETING LANDING
 ============================================= -->
-    <!-- ==========================================
+  <!-- ==========================================
        RAILSAATHI MARKETING LANDING PAGE
        Next-Gen Railway Workforce Management System
   ============================================= -->
-    <!-- ==========================================
+  <!-- ==========================================
        RAILSAATHI MARKETING LANDING PAGE
        Next-Gen Railway Workforce Management System
   ============================================= -->
-    <!-- ==========================================
+  <!-- ==========================================
        RAILSAATHI MARKETING LANDING PAGE
        Next-Gen Railway Workforce Management System
   ============================================= -->
-  <div id="railsaathi-landing" class="no-print" data-theme="dark" aria-hidden="false">
+  <div id="railsaathi-landing" class="no-print" data-theme="light" aria-hidden="false">
     <div id="landing-scroll-progress" class="landing-scroll-progress"></div>
     <div class="landing-ambient"></div>
     <div class="landing-grid"></div>
-    <button type="button" class="landing-theme-toggle" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false">
+    <button type="button" class="landing-theme-toggle" data-theme-toggle aria-label="Switch to dark theme"
+      aria-pressed="false">
       <svg data-theme-icon viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5 8.5 8.5 0 1 0 20.5 15.2Z"></path>
       </svg>
@@ -210,7 +307,8 @@
           <button type="button" data-lang-option="hi" aria-pressed="false">हिं</button>
           <button type="button" data-lang-option="mr" aria-pressed="false">मर</button>
         </div>
-        <a href="#login" class="landing-topbar__cta" id="landing-topbar-login" onclick="return window.openMarketingLogin(event)">
+        <a href="#login" class="landing-topbar__cta" id="landing-topbar-login"
+          onclick="return window.openMarketingLogin(event)">
           <i class="fa-solid fa-lock" style="font-size:0.75rem;"></i>
           <span>Login</span>
         </a>
@@ -220,12 +318,18 @@
 
     <!-- Mobile Drawer -->
     <div class="landing-mobile-drawer" id="landing-mobile-drawer">
-      <a href="#landing-home" onclick="document.getElementById('landing-mobile-drawer').classList.remove('is-open')">Home</a>
-      <a href="#features" onclick="document.getElementById('landing-mobile-drawer').classList.remove('is-open')">Features & Modules</a>
-      <a href="#workflow" onclick="document.getElementById('landing-mobile-drawer').classList.remove('is-open')">Workforce Flow</a>
-      <a href="#online-ta-journal" onclick="document.getElementById('landing-mobile-drawer').classList.remove('is-open')">TA Journal Guidelines</a>
-      <a href="#faq" onclick="document.getElementById('landing-mobile-drawer').classList.remove('is-open')">Frequently Asked Questions</a>
-      <a href="#download" onclick="document.getElementById('landing-mobile-drawer').classList.remove('is-open')">Android APK Download</a>
+      <a href="#landing-home"
+        onclick="document.getElementById('landing-mobile-drawer').classList.remove('is-open')">Home</a>
+      <a href="#features"
+        onclick="document.getElementById('landing-mobile-drawer').classList.remove('is-open')">Features & Modules</a>
+      <a href="#workflow"
+        onclick="document.getElementById('landing-mobile-drawer').classList.remove('is-open')">Workforce Flow</a>
+      <a href="#online-ta-journal"
+        onclick="document.getElementById('landing-mobile-drawer').classList.remove('is-open')">TA Journal Guidelines</a>
+      <a href="#faq" onclick="document.getElementById('landing-mobile-drawer').classList.remove('is-open')">Frequently
+        Asked Questions</a>
+      <a href="#download" onclick="document.getElementById('landing-mobile-drawer').classList.remove('is-open')">Android
+        APK Download</a>
     </div>
 
     <!-- Main Content Shell -->
@@ -235,15 +339,18 @@
       <section class="landing-hero" id="landing-home">
         <div class="landing-hero__content landing-reveal is-visible">
           <p class="landing-manifesto" id="landing-manifesto">
-            A smarter way to manage railway field operations—attendance, patrols, TA journals, reports, and everything in between.
+            A smarter way to manage railway field operations—attendance, patrols, TA journals, reports, and everything
+            in between.
           </p>
 
           <div class="landing-cta-row">
-            <a href="#login" class="landing-button landing-button--primary" onclick="return window.openMarketingLogin(event)">
+            <a href="#login" class="landing-button landing-button--primary"
+              onclick="return window.openMarketingLogin(event)">
               <i class="fa-solid fa-lock"></i>
               <span id="landing-hero-login">Continue to Login</span>
             </a>
-            <a href="https://github.com/aaditya3006/Railsaathi/releases/download/Railsaathi/Railsaathi.apk" class="landing-button landing-button--ghost" onclick="return window.startMarketingDownload(event)">
+            <a href="https://github.com/aaditya3006/Railsaathi/releases/download/Railsaathi/Railsaathi.apk"
+              class="landing-button landing-button--ghost" onclick="return window.startMarketingDownload(event)">
               <i class="fa-solid fa-download"></i>
               <span id="landing-hero-download">Download APK</span>
             </a>
@@ -255,7 +362,8 @@
           <div class="landing-hero__panel">
             <figure class="landing-marvel-gallery is-animating" id="landing-marvel-gallery" aria-live="polite">
               <span class="landing-marvel-category-badge" id="landing-marvel-category">VANDE BHARAT EXPRESS</span>
-              <img id="landing-marvel-image" src="images/train0.png" alt="Indian railway train" loading="eager" decoding="async">
+              <img id="landing-marvel-image" src="images/train0.png" alt="Indian railway train" loading="eager"
+                decoding="async">
               <figcaption class="landing-hero__media-caption">
                 <span id="landing-marvel-title">Vande Bharat Express</span>
                 <strong id="landing-marvel-copy">A faster, brighter way to move across India.</strong>
@@ -362,7 +470,8 @@
 
         <div class="landing-seo-grid landing-reveal">
           <p class="landing-seo-copy">
-            Create a digital journal with employee details, an allowance month, journey entries, and any relevant Rest, Leave or CR details.
+            Create a digital journal with employee details, an allowance month, journey entries, and any relevant Rest,
+            Leave or CR details.
           </p>
           <ul class="landing-seo-list">
             <li>
@@ -394,35 +503,43 @@
         <div class="landing-faq">
           <details>
             <summary>What is a TA Journal?</summary>
-            <p>A TA Journal is a detailed record of official journeys, dates, routes, travel mode, timings, distance and allowance details used to prepare a travelling allowance claim.</p>
+            <p>A TA Journal is a detailed record of official journeys, dates, routes, travel mode, timings, distance and
+              allowance details used to prepare a travelling allowance claim.</p>
           </details>
           <details>
             <summary>What is a Railway TA Journal?</summary>
-            <p>It organizes the journey and allowance information a railway employee may need for a travelling allowance record, including journey dates, stations, timings, mode and applicable rates.</p>
+            <p>It organizes the journey and allowance information a railway employee may need for a travelling allowance
+              record, including journey dates, stations, timings, mode and applicable rates.</p>
           </details>
           <details>
             <summary>Can railway employees maintain a TA Journal online?</summary>
-            <p>Yes. An online TA Journal can help employees enter journeys, maintain monthly records, review calculations and generate a printable record.</p>
+            <p>Yes. An online TA Journal can help employees enter journeys, maintain monthly records, review
+              calculations and generate a printable record.</p>
           </details>
           <details>
             <summary>What information is required in a Railway TA Journal?</summary>
-            <p>Typical fields include employee and posting details, month, date, origin and destination stations, departure and arrival times, mode of travel, distance, allowance rate and journey purpose.</p>
+            <p>Typical fields include employee and posting details, month, date, origin and destination stations,
+              departure and arrival times, mode of travel, distance, allowance rate and journey purpose.</p>
           </details>
           <details>
             <summary>What is the difference between a TA Journal and a TA Bill?</summary>
-            <p>The TA Journal is the detailed movement and journey record. The TA Bill is the claim submitted for payment, usually supported by the journal and required certifications.</p>
+            <p>The TA Journal is the detailed movement and journey record. The TA Bill is the claim submitted for
+              payment, usually supported by the journal and required certifications.</p>
           </details>
           <details>
             <summary>Can I download my TA Journal?</summary>
-            <p>Railsaathi provides a printable journal preview that can be saved or printed as a PDF through the browser print workflow.</p>
+            <p>Railsaathi provides a printable journal preview that can be saved or printed as a PDF through the browser
+              print workflow.</p>
           </details>
           <details>
             <summary>Can I calculate travel allowance using an online TA Journal?</summary>
-            <p>The tool organizes rates and journey entries for calculation, but employees should verify eligibility, applicable rules and final amounts with their controlling office.</p>
+            <p>The tool organizes rates and journey entries for calculation, but employees should verify eligibility,
+              applicable rules and final amounts with their controlling office.</p>
           </details>
           <details>
             <summary>Is this an official Indian Railways system?</summary>
-            <p>No. Railsaathi is an independent digital workflow tool and is not an official Indian Railways website or authorized government submission system unless explicitly approved by the relevant authority.</p>
+            <p>No. Railsaathi is an independent digital workflow tool and is not an official Indian Railways website or
+              authorized government submission system unless explicitly approved by the relevant authority.</p>
           </details>
         </div>
       </section>
@@ -437,11 +554,13 @@
             </span>
             <h2 class="landing-download__heading" id="landing-download-heading">Direct Android Download</h2>
             <div class="landing-download__actions">
-              <a href="https://github.com/aaditya3006/Railsaathi/releases/download/Railsaathi/Railsaathi.apk" class="landing-button landing-button--secondary" onclick="return window.startMarketingDownload(event)">
+              <a href="https://github.com/aaditya3006/Railsaathi/releases/download/Railsaathi/Railsaathi.apk"
+                class="landing-button landing-button--secondary" onclick="return window.startMarketingDownload(event)">
                 <i class="fa-solid fa-download"></i>
                 <span id="landing-download-primary">Download APK</span>
               </a>
-              <a href="#login" class="landing-button landing-button--ghost" onclick="return window.openMarketingLogin(event)">
+              <a href="#login" class="landing-button landing-button--ghost"
+                onclick="return window.openMarketingLogin(event)">
                 <i class="fa-solid fa-arrow-right-to-bracket"></i>
                 <span id="landing-download-secondary">Go to Login</span>
               </a>
@@ -454,7 +573,8 @@
 
           <div class="landing-story-card">
             <span class="landing-section-label" id="landing-steps-label">Install Steps</span>
-            <h3 class="landing-section-title" id="landing-steps-title" style="font-size:clamp(1.3rem,2.2vw,1.8rem);">Short, Clear, and Phone-Ready</h3>
+            <h3 class="landing-section-title" id="landing-steps-title" style="font-size:clamp(1.3rem,2.2vw,1.8rem);">
+              Short, Clear, and Phone-Ready</h3>
             <ol class="landing-install-steps">
               <li>
                 <b>1</b>
@@ -482,14 +602,18 @@
 
         <div class="landing-leadership-grid">
           <article class="landing-leader-card">
-            <img src="https://newsonair.gov.in/wp-content/uploads/2026/01/Screenshot-2026-01-10-075157.jpg" alt="Railway Minister Ashwini Vaishnaw" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='https://images.financialexpressdigital.com/2025/06/Chenab-Bridge-2.jpg?w=1600';">
+            <img src="https://newsonair.gov.in/wp-content/uploads/2026/01/Screenshot-2026-01-10-075157.jpg"
+              alt="Railway Minister Ashwini Vaishnaw" loading="lazy" decoding="async"
+              onerror="this.onerror=null; this.src='https://images.financialexpressdigital.com/2025/06/Chenab-Bridge-2.jpg?w=1600';">
             <div>
               <strong>Ashwini Vaishnaw</strong>
               <span>Hon'ble Railway Minister</span>
             </div>
           </article>
           <article class="landing-leader-card">
-            <img src="https://static.pib.gov.in/WriteReadData/Gallery/PhotoGallery/2021/Oct/T20211012102549.JPG" alt="Prime Minister Narendra Modi" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='https://images.financialexpressdigital.com/2025/06/Chenab-Bridge-2.jpg?w=1600';">
+            <img src="https://static.pib.gov.in/WriteReadData/Gallery/PhotoGallery/2021/Oct/T20211012102549.JPG"
+              alt="Prime Minister Narendra Modi" loading="lazy" decoding="async"
+              onerror="this.onerror=null; this.src='https://images.financialexpressdigital.com/2025/06/Chenab-Bridge-2.jpg?w=1600';">
             <div>
               <strong>Narendra Modi</strong>
               <span>Hon'ble Prime Minister of India</span>
@@ -554,7 +678,8 @@
       </div>
 
       <div class="landing-footer-bottom">
-        <span>© 2026 Railsaathi. All Rights Reserved. | Independent Employee Workflow Platform | Not an Official Indian Railways Service | Official Use Subject to Authorization by the Competent Authority.</span>
+        <span>© 2026 Railsaathi. All Rights Reserved. | Independent Employee Workflow Platform | Not an Official Indian
+          Railways Service | Official Use Subject to Authorization by the Competent Authority.</span>
       </div>
     </footer>
   </div>
@@ -566,7 +691,10 @@
     <button type="button" class="login-back-button" aria-label="Back to landing page"
       onclick="return window.navigatePreAuthSurface('landing', { updateUrl: true, historyMode: 'push' })">
       <svg viewBox="0 0 24 24" aria-hidden="true" width="19" height="19" fill="none" stroke="currentColor"
-        stroke-width="2"><path d="M15 18 9 12l6-6"></path><path d="M9 12h10"></path></svg>
+        stroke-width="2">
+        <path d="M15 18 9 12l6-6"></path>
+        <path d="M9 12h10"></path>
+      </svg>
     </button>
     <div id="login-particles-container"></div>
     <div class="track-container">
@@ -590,9 +718,13 @@
       <form id="loginForm" class="space-y-4">
         <div class="space-y-1">
           <label for="login-email"
-            style="color:#d1d5db;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-left:4px;">Email Address</label>
+            style="color:#d1d5db;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-left:4px;">Email
+            Address</label>
           <div class="login-input-with-icon">
-            <svg class="login-input-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z"></path><path d="m4 7 8 6 8-6"></path></svg>
+            <svg class="login-input-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 6h16v12H4z"></path>
+              <path d="m4 7 8 6 8-6"></path>
+            </svg>
             <input type="email" id="login-email" required
               style="width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 12px 8px 38px;font-size:14px;color:white;outline:none;font-family:'Inter',sans-serif;"
               placeholder="Enter your email address" class="login-input-focus">
@@ -603,7 +735,11 @@
           <label for="login-password"
             style="color:#d1d5db;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-left:4px;">Password</label>
           <div style="position:relative;">
-            <svg class="login-input-icon login-password-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path><path d="M12 14v3"></path></svg>
+            <svg class="login-input-icon login-password-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="4" y="10" width="16" height="10" rx="2"></rect>
+              <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+              <path d="M12 14v3"></path>
+            </svg>
             <input type="password" id="login-password" required
               style="width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 40px 8px 38px;font-size:14px;color:white;outline:none;font-family:'Inter',sans-serif;"
               placeholder="••••••••" class="login-input-focus">
@@ -698,13 +834,16 @@
             <input type="text" id="reg-name" required
               style="width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 12px;font-size:14px;color:white;outline:none;"
               class="login-input-focus" placeholder="Type your name">
-            <small id="reg-name-hint" style="display:none;color:#fbbf24;font-size:9px;"><svg class="ui-icon"><use href="#icon-alert"></use></svg> Only letters, spaces, and
+            <small id="reg-name-hint" style="display:none;color:#fbbf24;font-size:9px;"><svg class="ui-icon">
+                <use href="#icon-alert"></use>
+              </svg> Only letters, spaces, and
               hyphens allowed</small>
           </div>
 
           <div class="space-y-1">
             <label for="reg-division"
-              style="color:#d1d5db;font-size:10px;font-weight:600;text-transform:uppercase;display:block;">Working Division</label>
+              style="color:#d1d5db;font-size:10px;font-weight:600;text-transform:uppercase;display:block;">Working
+              Division</label>
             <input type="text" id="reg-division" required
               style="width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 12px;font-size:14px;color:white;outline:none;"
               class="login-input-focus" placeholder="Enter your working division" maxlength="120">
@@ -713,7 +852,8 @@
           <!-- Email Field -->
           <div class="space-y-1">
             <label for="reg-email"
-              style="color:#d1d5db;font-size:10px;font-weight:600;text-transform:uppercase;display:block;">Email Address</label>
+              style="color:#d1d5db;font-size:10px;font-weight:600;text-transform:uppercase;display:block;">Email
+              Address</label>
             <input type="email" id="reg-email" required
               style="width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 12px;font-size:14px;color:white;outline:none;"
               class="login-input-focus" placeholder="Enter your email address">
@@ -756,7 +896,9 @@
               <input type="password" id="reg-confirm" required
                 style="width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 12px;font-size:14px;color:white;outline:none;"
                 class="login-input-focus" placeholder="Confirm password">
-            <small id="pw-match" style="display:none;color:#10b981;font-size:9px;"><svg class="ui-icon"><use href="#icon-check"></use></svg> Passwords match</small>
+              <small id="pw-match" style="display:none;color:#10b981;font-size:9px;"><svg class="ui-icon">
+                  <use href="#icon-check"></use>
+                </svg> Passwords match</small>
             </div>
           </div>
 
@@ -768,7 +910,9 @@
           <!-- Security Requirements -->
           <small
             style="color:#d1d5db;font-size:9px;border:1px solid rgba(139,92,246,0.2);padding:8px;border-radius:6px;display:block;background:rgba(139,92,246,0.05);">
-            <svg class="ui-icon"><use href="#icon-lock"></use></svg> <strong>Password must have:</strong><br>
+            <svg class="ui-icon">
+              <use href="#icon-lock"></use>
+            </svg> <strong>Password must have:</strong><br>
             • At least 8 characters<br>
             • Uppercase & lowercase letters<br>
             • Numbers & special characters (!@#$%^&*)<br>
@@ -794,20 +938,36 @@
       <button onclick="closeSidebar()" class="text-white text-3xl hover:text-gray-300">&times;</button>
     </div>
     <div id="sidebar-nav-links" class="flex flex-col p-4 gap-2 text-white font-semibold flex-grow">
+      <button onclick="showSection('home-section'); loadDashboardRailwayNews(); closeSidebar()"
+        class="text-left p-3 hover:bg-blue-800 rounded transition">Home</button>
       <button onclick="handleMenuSelect('night')" class="text-left p-3 hover:bg-blue-800 rounded transition">Night
         Patrolling</button>
       <button onclick="handleMenuSelect('keyman')"
         class="text-left p-3 hover:bg-blue-800 rounded transition">Keyman</button>
-      <button onclick="handleMenuSelect('unit')" class="text-left p-3 hover:bg-blue-800 rounded transition">Unit
-        Assign</button>
-      <button onclick="handleMenuSelect('lc')" class="text-left p-3 hover:bg-blue-800 rounded transition">LC
-        Management</button>
-      <button onclick="handleMenuSelect('trolley')" class="text-left p-3 hover:bg-blue-800 rounded transition">Trolley
-        Man</button>
-      <button onclick="handleMenuSelect('blacksmith')"
-        class="text-left p-3 hover:bg-blue-800 rounded transition">BlackSmith</button>
       <button onclick="handleMenuSelect('tajournal')" class="text-left p-3 hover:bg-blue-800 rounded transition">TA
         Journal</button>
+      <div class="sidebar-attendance-group">
+        <button type="button" id="sidebar-attendance-toggle" aria-expanded="false"
+          aria-controls="sidebar-attendance-submenu" onclick="toggleAttendanceMenu()"
+          class="w-full text-left p-3 hover:bg-blue-800 rounded transition flex items-center justify-between">
+          <span>Attendance</span><svg class="sidebar-submenu-arrow" aria-hidden="true" viewBox="0 0 24 24">
+            <path d="m7 10 5 5 5-5"></path>
+          </svg>
+        </button>
+        <div id="sidebar-attendance-submenu" class="hidden ml-4 pl-4 border-l border-blue-700 flex flex-col gap-1">
+          <button onclick="handleMenuSelect('attendance-coming-soon')"
+            class="text-left p-2 pl-3 text-sm hover:bg-blue-800 rounded transition">Unit Assignment</button>
+          <button onclick="handleMenuSelect('attendance-coming-soon')"
+            class="text-left p-2 pl-3 text-sm hover:bg-blue-800 rounded transition">Trolley Man</button>
+          <button onclick="handleMenuSelect('attendance-coming-soon')"
+            class="text-left p-2 pl-3 text-sm hover:bg-blue-800 rounded transition">LC Management</button>
+          <button onclick="handleMenuSelect('attendance-coming-soon')"
+            class="text-left p-2 pl-3 text-sm hover:bg-blue-800 rounded transition">Black Smith</button>
+        </div>
+      </div>
+
+      <button onclick="closeSidebar(); showSection('admin-section')"
+        class="text-left p-3 hover:bg-blue-800 rounded transition">Employees</button>
 
     </div>
     <div class="border-t border-blue-700 mt-auto p-4 bg-blue-800 rounded-lg">
@@ -827,18 +987,22 @@
       </button>
       <div id="user-menu-options" class="hidden mt-2 flex flex-col gap-0 border-t border-blue-600 pt-2">
         <button onclick="showSettingsPage(); closeSidebar();"
-        class="w-full text-left p-2 text-sm text-white hover:bg-blue-600 rounded transition"><svg class="ui-icon"><use href="#icon-settings"></use></svg> Settings</button>
+          class="w-full text-left p-2 text-sm text-white hover:bg-blue-600 rounded transition"><svg class="ui-icon">
+            <use href="#icon-settings"></use>
+          </svg> Settings</button>
         <button onclick="customAlert('Help feature coming soon!')"
-          class="w-full text-left p-2 text-sm text-white hover:bg-blue-600 rounded transition"><svg class="ui-icon"><use href="#icon-help"></use></svg> Help</button>
-        <button onclick="handleLogout(); closeSidebar();"
-          class="w-full text-left p-2 text-sm text-white hover:bg-red-600 rounded transition"><svg class="ui-icon"><use href="#icon-logout"></use></svg> Log out</button>
+          class="w-full text-left p-2 text-sm text-white hover:bg-blue-600 rounded transition"><svg class="ui-icon">
+            <use href="#icon-help"></use>
+          </svg> Help</button>
       </div>
     </div>
   </div>
 
   <div id="pw-modal-overlay" class="no-print">
     <div class="pw-modal">
-      <h3 class="text-xl font-bold text-slate-800 mb-4"><svg class="ui-icon"><use href="#icon-lock"></use></svg> Security Check</h3>
+      <h3 class="text-xl font-bold text-slate-800 mb-4"><svg class="ui-icon">
+          <use href="#icon-lock"></use>
+        </svg> Security Check</h3>
       <p id="pw-modal-msg" class="text-sm text-slate-500 mb-6">Enter password to continue.</p>
       <label for="pw-input" class="block text-sm font-bold text-gray-600 mb-2">Password</label>
       <input type="password" id="pw-input" placeholder="Password"
@@ -855,7 +1019,9 @@
 
   <div id="alert-modal-overlay" class="no-print">
     <div class="pw-modal">
-      <h3 class="text-xl font-bold text-slate-800 mb-4"><svg class="ui-icon"><use href="#icon-alert"></use></svg> Notice</h3>
+      <h3 class="text-xl font-bold text-slate-800 mb-4"><svg class="ui-icon">
+          <use href="#icon-alert"></use>
+        </svg> Notice</h3>
       <p id="alert-modal-msg" class="text-sm text-slate-500 mb-6 font-medium">Message goes here.</p>
       <button onclick="document.getElementById('alert-modal-overlay').style.display='none'"
         class="w-full py-3 rounded-xl font-bold bg-blue-600 text-white shadow-lg transition-all active:scale-95 hover:bg-blue-700">OK</button>
@@ -866,7 +1032,9 @@
     style="display:none;position:fixed;inset:0;z-index:9999999;background:rgba(0,0,0,0.6);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;">
     <div class="pw-modal"
       style="background:white;border-radius:16px;padding:24px;max-width:380px;box-shadow:0 20px 40px rgba(0,0,0,0.3);">
-      <h3 class="text-xl font-bold text-slate-800 mb-2"><svg class="ui-icon"><use href="#icon-logout"></use></svg> Logout</h3>
+      <h3 class="text-xl font-bold text-slate-800 mb-2"><svg class="ui-icon">
+          <use href="#icon-logout"></use>
+        </svg> Logout</h3>
       <p class="text-sm text-slate-600 mb-8 font-medium">Are you sure you want to logout?</p>
       <div class="flex gap-3">
         <button onclick="closeLogoutModal()"
@@ -880,7 +1048,9 @@
   <!-- CHANGE PASSWORD MODAL -->
   <div id="change-password-modal" class="login-modal-container" style="display:none;">
     <div class="login-glass-card">
-      <h3 class="text-xl font-bold text-slate-800 mb-4"><svg class="ui-icon"><use href="#icon-lock"></use></svg> Change Password</h3>
+      <h3 class="text-xl font-bold text-slate-800 mb-4"><svg class="ui-icon">
+          <use href="#icon-lock"></use>
+        </svg> Change Password</h3>
       <div class="space-y-4">
         <div>
           <label for="current-password" class="block text-sm font-bold text-gray-600 mb-1">Current Password</label>
@@ -910,7 +1080,9 @@
   <!-- UPDATE EMAIL/PHONE MODAL -->
   <div id="update-contact-modal" class="login-modal-container" style="display:none;">
     <div class="login-glass-card">
-      <h3 class="text-xl font-bold text-slate-800 mb-4"><svg class="ui-icon"><use href="#icon-phone"></use></svg> Update Contact Info</h3>
+      <h3 class="text-xl font-bold text-slate-800 mb-4"><svg class="ui-icon">
+          <use href="#icon-phone"></use>
+        </svg> Update Contact Info</h3>
       <div class="space-y-4">
         <div>
           <label for="update-email" class="block text-sm font-bold text-gray-600 mb-1">Email Address</label>
@@ -934,14 +1106,19 @@
 
   <div id="bulk-modal-overlay" class="no-print">
     <div class="bulk-modal">
-      <h3 class="text-xl font-bold text-slate-800 mb-1 flex items-center gap-2"><svg class="ui-icon"><use href="#icon-file"></use></svg> Bulk Add Personnel</h3>
+      <h3 class="text-xl font-bold text-slate-800 mb-1 flex items-center gap-2"><svg class="ui-icon">
+          <use href="#icon-file"></use>
+        </svg> Bulk Add Personnel</h3>
       <p class="text-[11px] md:text-xs text-slate-500 mb-4 leading-snug">Add multiple employees at once. Names in
         English will automatically translate to Hindi on save.</p>
       <div class="flex-grow overflow-y-auto mb-4 border border-slate-200 rounded-xl p-2 bg-slate-50"
         id="bulk-rows-container"></div>
       <div class="flex justify-between items-center mb-6">
         <button onclick="addBulkRow()"
-          class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-200 transition-all flex items-center gap-1 shadow-sm"><svg class="ui-icon"><use href="#icon-plus"></use></svg>
+          class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-200 transition-all flex items-center gap-1 shadow-sm"><svg
+            class="ui-icon">
+            <use href="#icon-plus"></use>
+          </svg>
           Add Row</button>
         <span class="text-sm text-slate-500 font-bold bg-white px-3 py-1 rounded-full border border-slate-200 shadow-sm"
           id="bulk-row-count">Total: 1</span>
@@ -950,7 +1127,10 @@
         <button onclick="closeBulkModal()"
           class="flex-1 py-3 rounded-xl font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all">Cancel</button>
         <button onclick="processBulkAddDirect()" id="save-batch-btn"
-          class="flex-1 py-3 rounded-xl font-bold bg-green-600 hover:bg-green-700 text-white flex justify-center items-center gap-2 shadow-lg transition-all"><svg class="ui-icon"><use href="#icon-save"></use></svg>
+          class="flex-1 py-3 rounded-xl font-bold bg-green-600 hover:bg-green-700 text-white flex justify-center items-center gap-2 shadow-lg transition-all"><svg
+            class="ui-icon">
+            <use href="#icon-save"></use>
+          </svg>
           Save All</button>
       </div>
     </div>
@@ -976,74 +1156,68 @@
           </div>
         </h2>
       </div>
-      <div class="flex gap-1 text-xs md:text-sm items-center">
-        <button onclick="showSection('admin-section')"
-          class="px-3 py-2 rounded-full hover:bg-white/20 transition font-medium">Employees</button>
+      <div class="flex gap-1 sm:gap-2 text-[11px] md:text-sm items-center">
         <button onclick="showSection('history-section')"
-          class="px-3 py-2 rounded-full hover:bg-white/20 transition font-medium">History</button>
-
+          class="px-3 py-2 rounded-full bg-blue-600 hover:bg-blue-700 transition font-semibold text-white text-[11px] md:text-sm">History</button>
+        <button onclick="handleLogout()"
+          class="logout-nav-btn px-3 py-2 rounded-full bg-red-600 hover:bg-red-700 transition font-semibold text-white text-[11px] md:text-sm">Log out</button>
       </div>
     </div>
   </nav>
 
 
   <div id="home-section" class="no-print" style="display:none;">
-    <div class="dash-home-header">
-      <h2><svg class="ui-icon"><use href="#icon-train"></use></svg> Night Patrolling System</h2>
-      <p>Select a module to get started</p>
+    <div class="rail-home-banner">
+      <img class="rail-home-banner-bg" src="images/homecard.png" alt="Indian Railway">
+      <div class="rail-home-banner-text">
+        <h2 id="home-welcome-title">Welcome</h2>
+        <p>Quick actions</p>
+      </div>
     </div>
     <div class="dash-grid">
-      <button class="dash-card" onclick="handleMenuSelect('night')">
-        <div class="dash-card-bg"
-          style="background-image:url('https://images.unsplash.com/photo-1474487548417-781cb71495f3?q=80&w=800');">
-        </div>
-        <div class="dash-card-overlay"></div>
-        <div class="dash-card-body">
-          <div class="dash-card-icon"><svg class="ui-icon"><use href="#icon-moon"></use></svg></div>
-          <div class="dash-card-title-hi">रात्रि गश्त</div>
-          <div class="dash-card-title-en">Night Patrolling</div>
-        </div>
+      <button class="dash-card quick-action quick-action-ta" onclick="handleMenuSelect('tajournal')"
+        aria-label="Open TA Journal">
+        <img src="images/tajournal.png" alt="" class="dash-card-img" loading="eager" decoding="async" onerror="this.style.display='none'">
+        <span class="dash-card-body"><span class="dash-card-title-en">TA Journal</span></span>
       </button>
-      <button class="dash-card" onclick="handleMenuSelect('keyman')">
-        <div class="dash-card-bg"
-          style="background-image:url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=800');">
-        </div>
-        <div class="dash-card-overlay"></div>
-        <div class="dash-card-body">
-          <div class="dash-card-icon"><svg class="ui-icon"><use href="#icon-tools"></use></svg></div>
-          <div class="dash-card-title-hi">की-मैन</div>
-          <div class="dash-card-title-en">Keyman Duty</div>
-        </div>
+      <button class="dash-card quick-action quick-action-night" onclick="handleMenuSelect('night')"
+        aria-label="Open Night Patrolling">
+        <img src="images/nightpatrolling.png" alt="" class="dash-card-img" loading="eager" decoding="async" onerror="this.style.display='none'">
+        <span class="dash-card-body"><span class="dash-card-title-en">Night Patrolling</span></span>
       </button>
-      <button class="dash-card" onclick="handleMenuSelect('tajournal')">
-        <div class="dash-card-bg"
-          style="background-image:url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=800');"></div>
-        <div class="dash-card-overlay"></div>
-        <div class="dash-card-body">
-          <div class="dash-card-icon"><svg class="ui-icon"><use href="#icon-clipboard"></use></svg></div>
-          <div class="dash-card-title-hi">यात्रा भत्ता</div>
-          <div class="dash-card-title-en">TA Journal</div>
-        </div>
+      <button class="dash-card quick-action quick-action-keyman" onclick="handleMenuSelect('keyman')"
+        aria-label="Open Keyman Duty">
+        <img src="images/keymanduty.png" alt="" class="dash-card-img" loading="eager" decoding="async" onerror="this.style.display='none'">
+        <span class="dash-card-body"><span class="dash-card-title-en">Keyman Duty</span></span>
       </button>
-      <button class="dash-card" onclick="handleMenuSelect('unit')">
-        <div class="dash-card-bg"
-          style="background-image:url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=800');">
-        </div>
-        <div class="dash-card-overlay"></div>
-        <div class="dash-card-body">
-          <div class="dash-card-icon"><svg class="ui-icon"><use href="#icon-calendar"></use></svg></div>
-          <div class="dash-card-title-hi">उपस्थिति</div>
-          <div class="dash-card-title-en">Attendance</div>
-        </div>
+      <button class="dash-card quick-action quick-action-attendance" onclick="handleMenuSelect('attendance')"
+        aria-label="Attendance">
+        <img src="images/attendance.png" alt="" class="dash-card-img" loading="eager" decoding="async" onerror="this.style.display='none'">
+        <span class="dash-card-body"><span class="dash-card-title-en">Attendance</span></span>
       </button>
     </div>
+    <section id="dashboard-railway-news" class="dashboard-news-card" aria-live="polite">
+      <div class="dashboard-news-heading">
+        <div>
+          <h3>Indian Railway News</h3>
+          <p>Latest railway updates</p>
+        </div>
+        <button type="button" onclick="loadDashboardRailwayNews(true)"
+          aria-label="Refresh railway news">Refresh</button>
+      </div>
+      <div id="dashboard-railway-news-list" class="dashboard-news-list">
+        <p class="dashboard-news-state">Loading news...</p>
+      </div>
+    </section>
   </div>
 
   <main id="main-wrapper" class="no-print flex-grow container mx-auto py-4 md:py-8 px-2 md:px-4">
 
     <section id="form-section" class="max-w-5xl mx-auto glass p-2 md:p-8 rounded-2xl md:rounded-3xl shadow-2xl">
       <div class="flex items-center gap-3 mb-4 border-b pb-4" style="display:none !important;">
-        <div class="bg-blue-100 p-2 rounded-lg text-blue-800 text-xl"><svg class="ui-icon"><use href="#icon-clipboard"></use></svg></div>
+        <div class="bg-blue-100 p-2 rounded-lg text-blue-800 text-xl"><svg class="ui-icon">
+            <use href="#icon-clipboard"></use>
+          </svg></div>
         <h2 id="section-heading-text" class="railway-typing-heading" data-heading-text="Night Patrolling"
           aria-label="Night Patrolling">Night Patrolling</h2>
       </div>
@@ -1086,11 +1260,15 @@
         <div id="duty-preview-actions" class="duty-preview-actions" style="display:none;">
           <button onclick="generatePreview()" id="generate-btn"
             class="bg-blue-700 text-white py-4 rounded-2xl font-bold hover:bg-blue-800 shadow-xl transition-all active:scale-95 flex items-center justify-center gap-2">
-            <svg class="ui-icon"><use href="#icon-file"></use></svg> Generate Preview
+            <svg class="ui-icon">
+              <use href="#icon-file"></use>
+            </svg> Generate Preview
           </button>
-          <button type="button" onclick="shareDutyPreview(true)" id="share-duty-btn"
-            class="duty-share-btn" aria-label="Generate and share duty preview">
-            <svg class="ui-icon"><use href="#icon-whatsapp"></use></svg> Share
+          <button type="button" onclick="shareDutyPreview(true)" id="share-duty-btn" class="duty-share-btn"
+            aria-label="Generate and share duty preview">
+            <svg class="ui-icon">
+              <use href="#icon-whatsapp"></use>
+            </svg> Share
           </button>
         </div>
       </div>
@@ -1169,65 +1347,70 @@
               </div>
             </div>
             <button type="submit"
-              class="w-full bg-blue-700 text-white py-4 rounded-2xl font-bold hover:bg-blue-800 shadow-xl transition-all active:scale-95 flex items-center justify-center gap-2 mt-4"><svg class="ui-icon"><use href="#icon-eye"></use></svg>
+              class="w-full bg-blue-700 text-white py-4 rounded-2xl font-bold hover:bg-blue-800 shadow-xl transition-all active:scale-95 flex items-center justify-center gap-2 mt-4"><svg
+                class="ui-icon">
+                <use href="#icon-eye"></use>
+              </svg>
               Preview Entries</button>
           </form>
         </div>
       </div>
 
       <!-- TA JOURNAL FORM -->
-      <div id="ta-journal-wrapper" class="hidden w-full mt-4">
+      <div id="ta-journal-wrapper" class="hidden w-full mt-0">
         <div class="w-full">
           <!-- Form title removed -->
           <div class="ta-section-card">
             <div class="ta-section-title">Header Details</div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="ta-header-grid grid grid-cols-2 gap-3">
               <div>
-                <label class="ta-label">Rest (optional)</label>
-                <div class="flex gap-2 mb-2">
-                  <div class="date-input-wrapper flex-1"><input type="date" id="ta-rest-date-picker" class="ta-input"
-                      style="padding:8px 36px 8px 10px;"></div>
-                  <button type="button" onclick="addRestDate()"
-                    class="bg-blue-600 text-white px-3 py-2 rounded-lg font-bold text-sm hover:bg-blue-700 transition-all whitespace-nowrap">+
-                    Add Rest</button>
+                <label class="ta-label" for="ta-pf-number">PF Number</label>
+                <input type="text" id="ta-pf-number" value="27314402580" placeholder="PF Number" class="ta-input">
+              </div>
+              <div class="ta-special-date-field">
+                <label for="ta-rest-date-trigger" class="ta-label">Rest</label>
+                <div class="date-input-wrapper ta-date-picker">
+                  <input type="hidden" id="ta-rest-date-picker">
+                  <button type="button" id="ta-rest-date-trigger" class="ta-date-trigger" aria-haspopup="dialog"
+                    aria-label="Choose Rest dates" onclick="openTaDatePicker('ta-rest-date-picker')">Choose
+                    date</button>
+                  <div class="ta-date-calendar" id="ta-rest-date-calendar" role="dialog" aria-label="Choose Rest date"
+                    hidden></div>
                 </div>
-                <div id="ta-rest-dates-list" class="flex flex-wrap gap-1 mt-1"></div>
                 <input type="hidden" id="ta-rest-dates-json" value="[]">
               </div>
-              <div>
-                <label class="ta-label">Leave (optional)</label>
-                <div class="flex gap-2 mb-2">
-                  <div class="date-input-wrapper flex-1"><input type="date" id="ta-leave-date-picker" class="ta-input"
-                      style="padding:8px 36px 8px 10px;"></div>
-                  <button type="button" onclick="addLeaveDate()"
-                    class="bg-orange-500 text-white px-3 py-2 rounded-lg font-bold text-sm hover:bg-orange-600 transition-all whitespace-nowrap">+
-                    Add Leave</button>
+              <div class="ta-special-date-field">
+                <label for="ta-leave-date-trigger" class="ta-label">Leave</label>
+                <div class="date-input-wrapper ta-date-picker">
+                  <input type="hidden" id="ta-leave-date-picker">
+                  <button type="button" id="ta-leave-date-trigger" class="ta-date-trigger" aria-haspopup="dialog"
+                    aria-label="Choose Leave dates" onclick="openTaDatePicker('ta-leave-date-picker')">Choose
+                    date</button>
+                  <div class="ta-date-calendar" id="ta-leave-date-calendar" role="dialog" aria-label="Choose Leave date"
+                    hidden></div>
                 </div>
-                <div id="ta-leave-dates-list" class="flex flex-wrap gap-1 mt-1"></div>
                 <input type="hidden" id="ta-leave-dates-json" value="[]">
-                <p class="text-xs text-slate-400 mt-1"></p>
               </div>
-              <div>
-                <label class="ta-label">CR Details (optional)</label>
-                <div class="flex gap-2 mb-2">
-                  <div class="date-input-wrapper flex-1"><input type="date" id="ta-cr-date-header" class="ta-input"
-                      style="padding:8px 36px 8px 10px;"></div>
-                  <button type="button" onclick="addCrDetail()"
-                    class="bg-purple-600 text-white px-3 py-2 rounded-lg font-bold text-sm hover:bg-purple-700 transition-all whitespace-nowrap">+
-                    Add Date</button>
+              <div class="ta-special-date-field">
+                <label for="ta-cr-date-trigger" class="ta-label">CR</label>
+                <div class="date-input-wrapper ta-date-picker">
+                  <input type="hidden" id="ta-cr-date-header">
+                  <button type="button" id="ta-cr-date-trigger" class="ta-date-trigger" aria-haspopup="dialog"
+                    aria-label="Choose CR dates" onclick="openTaDatePicker('ta-cr-date-header')">Choose date</button>
+                  <div class="ta-date-calendar" id="ta-cr-date-calendar" role="dialog" aria-label="Choose CR date"
+                    hidden></div>
                 </div>
-                <div id="ta-cr-details-list" class="flex flex-wrap gap-1 mt-1"></div>
                 <input type="hidden" id="ta-cr-details-json" value="[]">
               </div>
-              <div>
-                <label class="ta-label">PF Number</label>
-                <input type="text" id="ta-pf-number" value="27314402580" placeholder="PF Number" class="ta-input">
+              <div class="ta-date-legend" aria-label="Calendar letters: R Rest, L Leave, C CR">
+                <span class="rest"><b>R</b> Rest</span><span class="leave"><b>L</b> Leave</span><span
+                  class="cr"><b>C</b> CR</span>
               </div>
             </div>
           </div>
           <div class="ta-section-card">
             <div class="ta-section-title">Document Fields</div>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="ta-document-grid grid grid-cols-2 gap-3">
               <div>
                 <label class="ta-label">Department</label>
                 <div style="position:relative;">
@@ -1244,19 +1427,14 @@
                 <label class="ta-label">Headquarter At</label>
                 <input type="text" id="ta-hq-input" value="NES" class="ta-input">
               </div>
-              <div class="col-span-2 md:col-span-1">
+              <div>
                 <label class="ta-label">Name</label>
-                <div class="flex gap-2">
-                  <select id="ta-name-select" onchange="updateTaName()" class="ta-input flex-1">
-                    <option value="NAND KISHOR">NAND KISHOR</option>
-                    <option value="other">Other...</option>
-                  </select>
-                  <input type="text" id="ta-name-other" placeholder="Enter name" class="ta-input flex-1 hidden">
-                </div>
+                <input type="text" id="ta-name-locked" class="ta-input" readonly aria-readonly="true"
+                  placeholder="Signed-in employee">
               </div>
-              <div class="col-span-2 md:col-span-1">
+              <div class="ta-allowance-field col-span-2 md:col-span-1">
                 <label class="ta-label">Allowance For</label>
-                <div class="flex gap-2">
+                <div class="flex gap-2 ta-month-year-fields">
                   <select id="ta-month-sel" class="ta-input flex-1">
                     <option value="JAN.">January</option>
                     <option value="FEB.">February</option>
@@ -1337,14 +1515,24 @@
 
           <div class="ta-section-card" id="ta-single-entry-card">
             <div class="ta-section-title flex justify-between items-center">
-              <span id="ta-entry-form-title"><svg class="ui-icon"><use href="#icon-calendar"></use></svg> Journey Entry</span>
+              <span id="ta-entry-form-title"><svg class="ui-icon">
+                  <use href="#icon-calendar"></use>
+                </svg> Journey Entry</span>
               <span id="ta-editing-badge"
-                class="hidden bg-amber-500 text-white text-xs px-2 py-1 rounded-full font-bold"><svg class="ui-icon"><use href="#icon-edit"></use></svg> Editing</span>
+                class="hidden bg-amber-500 text-white text-xs px-2 py-1 rounded-full font-bold"><svg class="ui-icon">
+                  <use href="#icon-edit"></use>
+                </svg> Editing</span>
             </div>
             <input type="hidden" id="ta-editing-date-key">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2" id="ta-single-entry-fields">
-              <div><label class="ta-label"><svg class="ui-icon"><use href="#icon-calendar"></use></svg> Date</label>
-                <div class="date-input-wrapper"><input type="date" id="ta-date-single" class="ta-input" required></div>
+              <div><label for="ta-date-single-trigger" class="ta-label">Date</label>
+                <div class="date-input-wrapper ta-date-picker">
+                  <input type="hidden" id="ta-date-single">
+                  <button type="button" id="ta-date-single-trigger" class="ta-date-trigger" aria-haspopup="dialog"
+                    aria-label="Choose journey date" onclick="openTaDatePicker('ta-date-single')">Choose date</button>
+                  <div class="ta-date-calendar" id="ta-date-single-calendar" role="dialog"
+                    aria-label="Choose journey date" hidden></div>
+                </div>
               </div>
               <div>
                 <label class="ta-label">Mode of Travel</label>
@@ -1360,44 +1548,40 @@
               <!-- Row 1: Time Left from Source & Time Arrived at Destination -->
               <div class="grid grid-cols-2 gap-2 col-span-1 md:col-span-2">
                 <div>
-                  <label class="ta-label text-xs font-bold text-gray-600 block truncate"
-                    title="Time Left from Source Station">Time Left from Source Station</label>
+                  <label class="ta-label">Time Left from Source Station</label>
                   <input type="text" id="ta-left-src" placeholder="HH:MM" class="ta-input" maxlength="5"
-                    style="font-size:15px;font-weight:bold;">
+>
                 </div>
                 <div>
-                  <label class="ta-label text-xs font-bold text-gray-600 block truncate"
-                    title="Time Arrived at Destination">Time Arrived at Destination</label>
+                  <label class="ta-label">Time Arrived at Destination</label>
                   <input type="text" id="ta-arr-dest" placeholder="HH:MM" class="ta-input" maxlength="5"
-                    style="font-size:15px;font-weight:bold;">
+>
                 </div>
               </div>
               <!-- Row 2: Time Left from Destination (Return) & Time Arrived back at Source -->
               <div class="grid grid-cols-2 gap-2 col-span-1 md:col-span-2">
                 <div>
-                  <label class="ta-label text-xs font-bold text-gray-600 block truncate"
-                    title="Time Left from Destination (Return)">Time Left from Destination (Return)</label>
+                  <label class="ta-label">Time Left from Destination (Return)</label>
                   <input type="text" id="ta-left-dest" placeholder="HH:MM" class="ta-input" maxlength="5"
-                    style="font-size:15px;font-weight:bold;">
+>
                 </div>
                 <div>
-                  <label class="ta-label text-xs font-bold text-gray-600 block truncate"
-                    title="Time Arrived back at Source">Time Arrived back at Source</label>
+                  <label class="ta-label">Time Arrived back at Source</label>
                   <input type="text" id="ta-arr-src" placeholder="HH:MM" class="ta-input" maxlength="5"
-                    style="font-size:15px;font-weight:bold;">
+>
                 </div>
               </div>
               <!-- Row 3: From Station & To Station -->
               <div class="grid grid-cols-2 gap-2 col-span-1 md:col-span-2">
                 <div style="position:relative;">
-                  <label class="ta-label text-xs font-bold text-gray-600 block truncate"><svg class="ui-icon"><use href="#icon-pin"></use></svg> From Station</label>
+                  <label class="ta-label">From Station</label>
                   <input type="text" id="ta-from-stn-single" value="NES" class="ta-input" autocomplete="off"
                     oninput="showStnSuggestions(this,'stn-from-list')" onkeydown="stnKeyNav(event,'stn-from-list')"
                     onblur="setTimeout(()=>hideStnList('stn-from-list'),200)">
                   <ul id="stn-from-list" class="stn-suggest-list" style="display:none;"></ul>
                 </div>
                 <div style="position:relative;">
-                  <label class="ta-label text-xs font-bold text-gray-600 block truncate"><svg class="ui-icon"><use href="#icon-pin"></use></svg> To Station</label>
+                  <label class="ta-label">To Station</label>
                   <input type="text" id="ta-to-stn-single" placeholder="e.g. DNR" class="ta-input" autocomplete="off"
                     oninput="showStnSuggestions(this,'stn-to-list')" onkeydown="stnKeyNav(event,'stn-to-list')"
                     onblur="setTimeout(()=>hideStnList('stn-to-list'),200)">
@@ -1406,7 +1590,7 @@
               </div>
               <div>
                 <label class="ta-label">Percentage (%)</label>
-                <div class="ta-radio-group">
+                <div class="ta-radio-group ta-percentage-options">
                   <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="30"
                       onchange="calcTaAmountSingle()"> 30%</label>
                   <label class="ta-radio-label"><input type="radio" name="ta-pct-single" value="70"
@@ -1419,17 +1603,17 @@
                       onchange="calcTaAmountSingle()"> 70%+30%</label>
                 </div>
               </div>
-              <div><label class="ta-label">Object of Journey</label>
+              <div class="ta-objective-field"><label class="ta-label">Object of Journey</label>
                 <div style="position:relative;"><textarea id="ta-obj-single" placeholder="Purpose of journey"
                     class="ta-input"
-                    style="font-size:12px;padding:15px 10px;height:80px;width:100%;resize:none;overflow:hidden;white-space:normal;word-wrap:break-word;font-family:inherit;"
+                    style="font-size:14px;padding:15px 10px;height:80px;width:100%;resize:none;overflow:hidden;white-space:normal;word-wrap:break-word;font-family:inherit;"
                     maxlength="95" oninput="updateCharCount()"></textarea><span id="ta-char-count"
                     style="position:absolute;bottom:15px;right:8px;font-size:11px;color:#999;font-weight:bold;">0/95</span>
                 </div>
               </div>
               <div>
                 <label class="ta-label">Rate</label>
-                <div class="ta-radio-group">
+                <div class="ta-radio-group ta-rate-options">
                   <label class="ta-radio-label"><input type="radio" name="ta-rate-single" value="625"
                       onchange="handleRateChange()" checked> 625</label>
                   <label class="ta-radio-label"><input type="radio" name="ta-rate-single" value="1000"
@@ -1439,7 +1623,7 @@
                 </div>
                 <input type="number" id="ta-rate-custom" placeholder="Enter custom rate" class="ta-input hidden"
                   onchange="calcTaAmountSingle()" oninput="calcTaAmountSingle()"
-                  style="font-size:15px;font-weight:bold;margin-top:2px;">
+                  style="margin-top:2px;">
               </div>
               <div class="md:col-span-2">
                 <label class="ta-label">Calculated Amount</label>
@@ -1453,7 +1637,10 @@
             </div>
             <div class="flex gap-2 mt-2">
               <button onclick="addTaEntryToPage()" id="ta-add-page-btn"
-                class="flex-1 bg-blue-600 text-white py-2 rounded-xl font-bold hover:bg-blue-700 shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2"><svg class="ui-icon"><use href="#icon-plus"></use></svg>
+                class="ta-action-btn ta-btn-add flex-1 bg-blue-600 text-white py-2 rounded-xl font-bold hover:bg-blue-700 shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2"><svg
+                  class="ui-icon">
+                  <use href="#icon-plus"></use>
+                </svg>
                 Add to Page</button>
               <button onclick="cancelTaEdit()" id="ta-cancel-edit-btn"
                 class="hidden flex-1 bg-slate-200 text-slate-700 py-2 rounded-xl font-bold hover:bg-slate-300 shadow transition-all active:scale-95">✕
@@ -1464,12 +1651,12 @@
           <div class="ta-section-card" id="ta-saved-days-card">
             <div class="ta-section-title flex justify-between items-center flex-wrap gap-2">
               <div class="flex items-center gap-3">
-                <span><svg class="ui-icon"><use href="#icon-clipboard"></use></svg> Saved Entries (<span id="ta-days-count">0</span> days)</span>
+                <span><svg class="ui-icon">
+                    <use href="#icon-clipboard"></use>
+                  </svg> Saved Entries (<span id="ta-days-count">0</span> days)</span>
                 <div class="flex gap-3 items-center">
                   <div class="flex gap-1 items-center">
-                    <label class="text-xs font-bold text-slate-600 whitespace-nowrap">Year:</label>
-                    <select id="ta-filter-year-selector" onchange="showMonthDropdown()"
-                      class="text-xs font-bold px-1 py-1 rounded-md border border-blue-400 bg-white hover:border-blue-500 transition cursor-pointer bg-blue-50 w-20">
+                    <select id="ta-filter-year-selector" onchange="showMonthDropdown()" hidden>
                       <option value="">--</option>
                       <option value="2026">2026</option>
                       <option value="2025">2025</option>
@@ -1500,7 +1687,10 @@
                 </div>
               </div>
               <button onclick="clearAllTaEntries()"
-                class="text-red-500 text-xs font-bold hover:text-red-700 bg-red-50 px-2 py-1 rounded-lg border border-red-100"><svg class="ui-icon"><use href="#icon-trash"></use></svg>
+                class="text-red-500 text-xs font-bold hover:text-red-700 bg-red-50 px-2 py-1 rounded-lg border border-red-100"><svg
+                  class="ui-icon">
+                  <use href="#icon-trash"></use>
+                </svg>
                 Clear All</button>
             </div>
             <div id="ta-saved-days-list" class="space-y-2">
@@ -1508,59 +1698,78 @@
             </div>
           </div>
 
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
+          <div class="ta-journal-actions" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
             <button onclick="saveTaJournalToDB()"
               style="background:linear-gradient(135deg,#059669,#047857);color:white;padding:12px 8px;border-radius:14px;font-weight:700;font-size:13px;border:none;cursor:pointer;box-shadow:0 4px 12px rgba(5,150,105,0.3);transition:all 0.2s;"
-              onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''"> <svg class="ui-icon"><use href="#icon-save"></use></svg> Save to
-              Database</button>
+              onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''"> <svg
+                class="ui-icon">
+                <use href="#icon-save"></use>
+              </svg> Save
+            </button>
             <button onclick="generateTaPreview(); printCurrentTaView()"
               style="background:linear-gradient(135deg,#d97706,#b45309);color:white;padding:12px 8px;border-radius:14px;font-weight:700;font-size:13px;border:none;cursor:pointer;box-shadow:0 4px 12px rgba(217,119,6,0.3);transition:all 0.2s;"
-              onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''"> <svg class="ui-icon"><use href="#icon-print"></use></svg> Print
+              onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''"> <svg
+                class="ui-icon">
+                <use href="#icon-print"></use>
+              </svg> Print
               Journal</button>
           </div>
           <div class="ta-report-actions" style="margin-top:8px;">
             <button onclick="generateTaPreview(); switchToTaReport()"
-              style="background:linear-gradient(135deg,#7c3aed,#5b21b6);color:white;padding:12px 8px;border-radius:14px;font-weight:700;font-size:13px;border:none;cursor:pointer;box-shadow:0 4px 12px rgba(124,58,237,0.3);transition:all 0.2s;"
-              onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''"> <svg class="ui-icon"><use href="#icon-chart"></use></svg> Generate TA
+              class="ta-action-btn ta-btn-report" style="cursor:pointer;padding:12px 8px !important;border-radius:14px !important;height:auto !important;min-height:0 !important;"> <svg
+                class="ui-icon">
+                <use href="#icon-chart"></use>
+              </svg> Generate TA
               Report</button>
-            <button type="button" onclick="shareTaPreview(true)" class="ta-share-btn"><svg class="ui-icon"><use href="#icon-share"></use></svg> Share</button>
+            <button type="button" onclick="shareTaPreview(true)" class="ta-share-btn" style="padding:12px 8px !important;border-radius:14px !important;height:auto !important;min-height:0 !important;"><svg class="ui-icon">
+                <use href="#icon-share"></use>
+              </svg> Share</button>
           </div>
         </div>
       </div>
     </section>
 
     <section id="admin-section" class="hidden max-w-4xl mx-auto dashboard-light" style="display:none;">
-      <div class="flex items-center justify-between mb-8">
-        <div class="flex items-center gap-3">
-          <div class="bg-blue-600 p-2 rounded-xl text-white text-xl shadow-lg"><svg class="ui-icon"><use href="#icon-users"></use></svg></div>
-          <h2 class="text-2xl font-bold text-slate-800 tracking-tight">Personnel Manager</h2>
+      <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center gap-2">
+          <div class="bg-blue-600 p-1.5 rounded-lg text-white text-sm shadow-sm"><svg class="ui-icon">
+              <use href="#icon-users"></use>
+            </svg></div>
+          <h2 class="text-base md:text-lg font-bold text-slate-800 tracking-tight">Personnel Manager</h2>
         </div>
-        <div class="flex gap-2 flex-wrap">
+        <div class="flex gap-1.5 flex-wrap">
           <button onclick="openBulkModal()"
-            class="bg-green-100 text-green-700 border border-green-200 px-4 py-2 rounded-xl text-xs font-bold hover:bg-green-200 transition-all flex items-center gap-1 shadow-sm"><svg class="ui-icon"><use href="#icon-file"></use></svg>
+            class="bg-green-100 text-green-700 border border-green-200 px-2.5 py-1 rounded-lg text-[11px] font-bold hover:bg-green-200 transition-all flex items-center gap-1 shadow-sm"><svg
+              class="ui-icon">
+              <use href="#icon-file"></use>
+            </svg>
             Bulk Add</button>
         </div>
       </div>
-      <div class="flex flex-col md:flex-row gap-4 mb-10 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+      <div class="flex flex-col md:flex-row gap-2.5 mb-4 bg-white p-3 rounded-xl shadow-sm border border-slate-100">
         <input type="hidden" id="editIndex">
         <input type="hidden" id="editDbId">
-        <div class="flex-1 flex flex-col gap-1 relative">
-          <label for="newName" class="text-[10px] uppercase font-bold text-slate-400 ml-2">Name</label>
+        <div class="flex-1 flex flex-col gap-0.5 relative">
+          <label for="newName" class="text-[9px] uppercase font-bold text-slate-400 ml-1">Name</label>
           <input type="text" id="newName" placeholder="Enter Full Name" class="light-input" autocomplete="off">
           <ul id="nameSuggestions"
             class="absolute top-full mt-1 left-0 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50 hidden max-h-40 overflow-y-auto text-slate-800">
           </ul>
         </div>
-        <div class="flex-1 flex flex-col gap-1">
-          <label for="newPhone" class="text-[10px] uppercase font-bold text-slate-400 ml-2">Phone</label>
+        <div class="flex-1 flex flex-col gap-0.5">
+          <label for="newPhone" class="text-[9px] uppercase font-bold text-slate-400 ml-1">Phone</label>
           <input type="number" id="newPhone" placeholder="10-Digit Mobile" class="light-input">
         </div>
         <div class="flex gap-2 self-end">
           <button onclick="cancelEdit()" id="cancelBtn"
-            class="hidden bg-slate-200 text-slate-600 px-6 py-3 rounded-xl font-bold">Cancel</button>
+            class="hidden bg-slate-200 text-slate-600 px-3 py-1.5 rounded-lg text-xs font-bold">Cancel</button>
           <button onclick="saveEmployeeDirect()"
-            class="bg-blue-600 hover:bg-blue-700 text-white px-10 py-3 rounded-xl font-bold shadow-lg transition-all active:scale-95"><span
-              id="btnText"><svg class="ui-icon"><use href="#icon-user"></use></svg><svg class="ui-icon"><use href="#icon-plus"></use></svg> Add Record</span></button>
+            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded-lg text-xs font-bold shadow transition-all active:scale-95"><span
+              id="btnText"><svg class="ui-icon">
+                <use href="#icon-user"></use>
+              </svg><svg class="ui-icon">
+                <use href="#icon-plus"></use>
+              </svg> Add Record</span></button>
         </div>
       </div>
       <div id="admin-employee-list"></div>
@@ -1569,7 +1778,9 @@
     <section id="history-section" class="hidden max-w-4xl mx-auto dashboard-light" style="display:none;">
       <div class="flex items-center justify-between mb-8 border-b border-slate-200 pb-4">
         <div class="flex items-center gap-3">
-          <div class="bg-orange-500 p-2 rounded-xl text-white text-xl shadow-lg"><svg class="ui-icon"><use href="#icon-file"></use></svg></div>
+          <div class="bg-orange-500 p-2 rounded-xl text-white text-xl shadow-lg"><svg class="ui-icon">
+              <use href="#icon-file"></use>
+            </svg></div>
           <h2 class="text-2xl font-bold text-slate-800">Print History</h2>
         </div>
         <button onclick="openPwModal('clearHistory')"
@@ -1586,7 +1797,9 @@
       <section id="data-section" class="hidden max-w-4xl mx-auto dashboard-light" style="display:none;">
         <div class="flex items-center justify-between mb-8 border-b border-slate-200 pb-4">
           <div class="flex items-center gap-3">
-            <div class="bg-purple-500 p-2 rounded-xl text-white text-xl shadow-lg"><svg class="ui-icon"><use href="#icon-chart"></use></svg></div>
+            <div class="bg-purple-500 p-2 rounded-xl text-white text-xl shadow-lg"><svg class="ui-icon">
+                <use href="#icon-chart"></use>
+              </svg></div>
             <h2 class="text-2xl font-bold text-slate-800">Database Records</h2>
           </div>
           <div class="flex gap-2">
@@ -1605,7 +1818,9 @@
       <section id="profile-section" class="hidden max-w-4xl mx-auto dashboard-light" style="display:none;">
         <div class="flex items-center justify-between mb-8 border-b border-slate-200 pb-4">
           <div class="flex items-center gap-3">
-            <div class="bg-blue-100 p-2 rounded-lg text-blue-800 text-xl"><svg class="ui-icon"><use href="#icon-user"></use></svg></div>
+            <div class="bg-blue-100 p-2 rounded-lg text-blue-800 text-xl"><svg class="ui-icon">
+                <use href="#icon-user"></use>
+              </svg></div>
             <div>
               <h2 class="text-2xl font-bold text-slate-800">My Profile</h2>
               <p class="text-sm text-slate-500 mt-1"><span id="profile-email-header"
@@ -1614,16 +1829,24 @@
           </div>
           <div class="flex gap-2">
             <button onclick="handleEditProfile()"
-              class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-700"><svg class="ui-icon"><use href="#icon-edit"></use></svg> Edit</button>
+              class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-700"><svg
+                class="ui-icon">
+                <use href="#icon-edit"></use>
+              </svg> Edit</button>
             <button onclick="handleLogout()"
-              class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-red-700"><svg class="ui-icon"><use href="#icon-logout"></use></svg> Logout</button>
+              class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-red-700"><svg
+                class="ui-icon">
+                <use href="#icon-logout"></use>
+              </svg> Logout</button>
           </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div class="md:col-span-1 text-center">
             <div
               class="w-32 h-32 mx-auto mb-4 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white text-5xl shadow-lg"
-              id="profile-avatar"><svg class="ui-icon"><use href="#icon-user"></use></svg></div>
+              id="profile-avatar"><svg class="ui-icon">
+                <use href="#icon-user"></use>
+              </svg></div>
             <button onclick="uploadProfilePhoto()"
               class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-700">Upload
               Photo</button>
@@ -1681,7 +1904,9 @@
       <!-- SETTINGS SECTION -->
       <section id="settings-section" class="max-w-4xl mx-auto dashboard-light" style="display:none;">
         <div class="flex items-center gap-3 mb-8 border-b border-slate-200 pb-4">
-          <div class="bg-amber-100 p-2 rounded-lg text-amber-800 text-xl"><svg class="ui-icon"><use href="#icon-settings"></use></svg></div>
+          <div class="bg-amber-100 p-2 rounded-lg text-amber-800 text-xl"><svg class="ui-icon">
+              <use href="#icon-settings"></use>
+            </svg></div>
           <h2 class="text-2xl font-bold text-slate-800">Settings</h2>
         </div>
 
@@ -1724,7 +1949,9 @@
 
         <!-- Appearance Settings -->
         <div class="mb-8 p-6 bg-white border-2 border-slate-100 rounded-xl">
-          <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2"><svg class="ui-icon"><use href="#icon-settings"></use></svg> Appearance Settings</h3>
+          <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2"><svg class="ui-icon">
+              <use href="#icon-settings"></use>
+            </svg> Appearance Settings</h3>
 
           <!-- Theme Mode -->
           <div class="mb-6">
@@ -1732,7 +1959,7 @@
             <div class="flex gap-3">
               <label
                 class="flex items-center gap-2 cursor-pointer p-3 border-2 border-slate-200 rounded-lg hover:border-blue-400 transition">
-                <input type="radio" name="theme" value="light" onchange="applyTheme('light')" class="w-4 h-4">
+                <input type="radio" name="theme" value="light" onchange="applyTheme('light')" class="w-4 h-4" checked>
                 <span class="font-medium">Light Mode</span>
               </label>
               <label
@@ -1800,21 +2027,31 @@
           <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Security & Activity Logs</h3>
           <div class="flex gap-2 mb-4">
             <button onclick="loadActivityLogs()"
-              class="bg-blue-50 text-blue-600 px-4 py-2 rounded-lg text-xs font-bold hover:bg-blue-100 border border-blue-100"><svg class="ui-icon"><use href="#icon-refresh"></use></svg>
+              class="bg-blue-50 text-blue-600 px-4 py-2 rounded-lg text-xs font-bold hover:bg-blue-100 border border-blue-100"><svg
+                class="ui-icon">
+                <use href="#icon-refresh"></use>
+              </svg>
               Refresh Logs</button>
             <button onclick="exportActivityLogs()"
-              class="bg-green-50 text-green-600 px-4 py-2 rounded-lg text-xs font-bold hover:bg-green-100 border border-green-100"><svg class="ui-icon"><use href="#icon-download"></use></svg>
+              class="bg-green-50 text-green-600 px-4 py-2 rounded-lg text-xs font-bold hover:bg-green-100 border border-green-100"><svg
+                class="ui-icon">
+                <use href="#icon-download"></use>
+              </svg>
               Export Logs</button>
           </div>
           <div class="mb-4">
-            <h4 class="font-bold text-slate-700 mb-2"><svg class="ui-icon"><use href="#icon-clipboard"></use></svg> Activity Logs</h4>
+            <h4 class="font-bold text-slate-700 mb-2"><svg class="ui-icon">
+                <use href="#icon-clipboard"></use>
+              </svg> Activity Logs</h4>
             <div id="activity-logs-container"
               class="space-y-2 max-h-[400px] overflow-y-auto bg-slate-50 p-3 rounded-lg border border-slate-200">
               <p class="text-slate-500 text-center py-4">Loading activity logs...</p>
             </div>
           </div>
           <div>
-            <h4 class="font-bold text-slate-700 mb-2"><svg class="ui-icon"><use href="#icon-users"></use></svg> User Roles Management</h4>
+            <h4 class="font-bold text-slate-700 mb-2"><svg class="ui-icon">
+                <use href="#icon-users"></use>
+              </svg> User Roles Management</h4>
             <div id="user-roles-container"
               class="space-y-2 max-h-[400px] overflow-y-auto bg-slate-50 p-3 rounded-lg border border-slate-200">
               <p class="text-slate-500 text-center py-4">Loading user roles...</p>
@@ -1823,7 +2060,9 @@
         </div>
 
         <button onclick="saveSettings()"
-          class="bg-green-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-700"><svg class="ui-icon"><use href="#icon-save"></use></svg> Save Settings</button>
+          class="bg-green-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-700"><svg class="ui-icon">
+            <use href="#icon-save"></use>
+          </svg> Save Settings</button>
       </section>
 
   </main>
@@ -1843,16 +2082,27 @@
       <div class="duty-pdf-watermark">Generated by Railsaathi - rgdtiaportal.live</div>
     </div>
     <div class="duty-preview-bottom-actions no-print" aria-label="PDF actions">
-      <button type="button" onclick="showSection('form-section')" class="preview-btn preview-btn--ghost"><svg class="ui-icon"><use href="#icon-edit"></use></svg><span>Edit</span></button>
-      <button type="button" onclick="handlePrint()" class="preview-btn preview-btn--primary"><svg class="ui-icon"><use href="#icon-print"></use></svg><span>Print</span></button>
-      <button type="button" onclick="shareDutyPreview()" class="preview-btn preview-btn--whatsapp" aria-label="Share PDF via WhatsApp"><svg class="ui-icon"><use href="#icon-whatsapp"></use></svg><span>Share</span></button>
+      <button type="button" onclick="showSection('form-section')" class="preview-btn preview-btn--ghost"><svg
+          class="ui-icon">
+          <use href="#icon-edit"></use>
+        </svg><span>Edit</span></button>
+      <button type="button" onclick="handlePrint()" class="preview-btn preview-btn--primary"><svg class="ui-icon">
+          <use href="#icon-print"></use>
+        </svg><span>Print</span></button>
+      <button type="button" onclick="shareDutyPreview()" class="preview-btn preview-btn--whatsapp"
+        aria-label="Share PDF via WhatsApp"><svg class="ui-icon">
+          <use href="#icon-whatsapp"></use>
+        </svg><span>Share</span></button>
     </div>
     <div class="no-print" hidden style="display:none !important;">
       <button onclick="showSection('form-section')"
         style="background:white;border:2px solid #d1d5db;padding:13px 30px;border-radius:50px;font-weight:bold;font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;">←
         Edit Form</button>
       <button onclick="handlePrint()"
-        style="background:#dc2626;color:white;padding:13px 34px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(220,38,38,0.35);cursor:pointer;"><svg class="ui-icon"><use href="#icon-print"></use></svg>
+        style="background:#dc2626;color:white;padding:13px 34px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(220,38,38,0.35);cursor:pointer;"><svg
+          class="ui-icon">
+          <use href="#icon-print"></use>
+        </svg>
         Print PDF</button>
     </div>
   </section>
@@ -1871,7 +2121,9 @@
         <button onclick="printAtt('today')" class="preview-btn preview-btn--primary">Print Today</button>
         <button onclick="printAtt('tillnow')" id="btn-till-now-toolbar" class="preview-btn preview-btn--danger">Print
           Till Now</button>
-        <button onclick="shareAttendancePreview()" class="preview-btn preview-btn--ghost"><svg class="ui-icon"><use href="#icon-share"></use></svg> Share</button>
+        <button onclick="shareAttendancePreview()" class="preview-btn preview-btn--ghost"><svg class="ui-icon">
+            <use href="#icon-share"></use>
+          </svg> Share</button>
       </div>
     </div>
     <div id="att-pdf-content" class="pdf-page-landscape">
@@ -1884,10 +2136,16 @@
         style="background:white;border:2px solid #d1d5db;padding:13px 30px;border-radius:50px;font-weight:bold;font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;">←
         Edit Form</button>
       <button onclick="printAtt('today')"
-        style="background:#1d4ed8;color:white;padding:13px 30px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(29,78,216,0.35);cursor:pointer;"><svg class="ui-icon"><use href="#icon-print"></use></svg>
+        style="background:#1d4ed8;color:white;padding:13px 30px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(29,78,216,0.35);cursor:pointer;"><svg
+          class="ui-icon">
+          <use href="#icon-print"></use>
+        </svg>
         Print Today</button>
       <button onclick="printAtt('tillnow')" id="btn-till-now"
-        style="background:#dc2626;color:white;padding:13px 34px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(220,38,38,0.35);cursor:pointer;"><svg class="ui-icon"><use href="#icon-print"></use></svg>
+        style="background:#dc2626;color:white;padding:13px 34px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(220,38,38,0.35);cursor:pointer;"><svg
+          class="ui-icon">
+          <use href="#icon-print"></use>
+        </svg>
         Print Till Now</button>
     </div>
   </section>
@@ -1908,7 +2166,9 @@
           class="preview-btn preview-btn--mode">Generate Report</button>
         <button onclick="printCurrentTaView()" id="btn-ta-print-toolbar"
           class="preview-btn preview-btn--success">Print</button>
-        <button onclick="shareTaPreview()" class="preview-btn preview-btn--ghost"><svg class="ui-icon"><use href="#icon-share"></use></svg> Share</button>
+        <button onclick="shareTaPreview()" class="preview-btn preview-btn--ghost"><svg class="ui-icon">
+            <use href="#icon-share"></use>
+          </svg> Share</button>
       </div>
     </div>
     <div id="ta-pdf-content"
@@ -1923,7 +2183,10 @@
         style="background:#7c3aed;color:white;padding:13px 24px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(124,58,237,0.35);cursor:pointer;">Generate
         Report</button>
       <button onclick="printCurrentTaView()" id="btn-ta-print"
-        style="background:#059669;color:white;padding:13px 24px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(5,150,105,0.35);cursor:pointer;"><svg class="ui-icon"><use href="#icon-print"></use></svg>
+        style="background:#059669;color:white;padding:13px 24px;border-radius:50px;border:none;font-weight:bold;font-size:15px;box-shadow:0 4px 16px rgba(5,150,105,0.35);cursor:pointer;"><svg
+          class="ui-icon">
+          <use href="#icon-print"></use>
+        </svg>
         Print</button>
     </div>
   </section>
@@ -1998,7 +2261,8 @@
   </section>
 
   <footer id="main-footer" class="no-print bg-black/80 text-white text-center py-6 text-[10px] md:text-xs opacity-70">
-    <p>© 2026 Railsaathi. All Rights Reserved. | Independent Employee Workflow Platform | Not an Official Indian Railways Service | Official Use Subject to Authorization by the Competent Authority.</p>
+    <p>© 2026 Railsaathi. All Rights Reserved. | Independent Employee Workflow Platform | Not an Official Indian
+      Railways Service | Official Use Subject to Authorization by the Competent Authority.</p>
   </footer>
 
   <!-- Core Architecture Scripts -->
@@ -2038,7 +2302,9 @@
     </div>
     <div id="intro-dashboard">
       <div class="dash-header-title">
-        <h2><svg class="ui-icon"><use href="#icon-train"></use></svg> Night Patrolling System</h2>
+        <h2><svg class="ui-icon">
+            <use href="#icon-train"></use>
+          </svg> Night Patrolling System</h2>
         <p>Select a module to get started</p>
       </div>
       <div class="i-dash-grid">
@@ -2048,7 +2314,9 @@
           </div>
           <div class="i-card-overlay"></div>
           <div class="i-card-body">
-            <div class="i-card-icon"><svg class="ui-icon"><use href="#icon-moon"></use></svg></div>
+            <div class="i-card-icon"><svg class="ui-icon">
+                <use href="#icon-moon"></use>
+              </svg></div>
             <div class="i-card-hi">रात्रि गश्त</div>
             <div class="i-card-en">Night Patrolling</div>
           </div>
@@ -2059,7 +2327,9 @@
           </div>
           <div class="i-card-overlay"></div>
           <div class="i-card-body">
-            <div class="i-card-icon"><svg class="ui-icon"><use href="#icon-tools"></use></svg></div>
+            <div class="i-card-icon"><svg class="ui-icon">
+                <use href="#icon-tools"></use>
+              </svg></div>
             <div class="i-card-hi">की-मैन</div>
             <div class="i-card-en">Keyman Duty</div>
           </div>
@@ -2069,7 +2339,9 @@
             style="background-image:url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=800');"></div>
           <div class="i-card-overlay"></div>
           <div class="i-card-body">
-            <div class="i-card-icon"><svg class="ui-icon"><use href="#icon-clipboard"></use></svg></div>
+            <div class="i-card-icon"><svg class="ui-icon">
+                <use href="#icon-clipboard"></use>
+              </svg></div>
             <div class="i-card-hi">यात्रा भत्ता</div>
             <div class="i-card-en">TA Journal</div>
           </div>
@@ -2080,7 +2352,9 @@
           </div>
           <div class="i-card-overlay"></div>
           <div class="i-card-body">
-            <div class="i-card-icon"><svg class="ui-icon"><use href="#icon-calendar"></use></svg></div>
+            <div class="i-card-icon"><svg class="ui-icon">
+                <use href="#icon-calendar"></use>
+              </svg></div>
             <div class="i-card-hi">उपस्थिति</div>
             <div class="i-card-en">Attendance</div>
           </div>
@@ -2091,7 +2365,9 @@
           </div>
           <div class="i-card-overlay"></div>
           <div class="i-card-body">
-            <div class="i-card-icon"><svg class="ui-icon"><use href="#icon-users"></use></svg></div>
+            <div class="i-card-icon"><svg class="ui-icon">
+                <use href="#icon-users"></use>
+              </svg></div>
             <div class="i-card-hi">कर्मचारी</div>
             <div class="i-card-en">Employees</div>
           </div>
@@ -2102,7 +2378,9 @@
           </div>
           <div class="i-card-overlay"></div>
           <div class="i-card-body">
-            <div class="i-card-icon"><svg class="ui-icon"><use href="#icon-list"></use></svg></div>
+            <div class="i-card-icon"><svg class="ui-icon">
+                <use href="#icon-list"></use>
+              </svg></div>
             <div class="i-card-hi">इतिहास</div>
             <div class="i-card-en">History</div>
           </div>
@@ -2509,10 +2787,13 @@
     }
 
     @keyframes jmBadgePulse {
-      0%, 100% {
+
+      0%,
+      100% {
         box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6), 0 0 10px rgba(250, 204, 21, 0.3);
         transform: scale(1);
       }
+
       50% {
         box-shadow: 0 4px 22px rgba(0, 0, 0, 0.7), 0 0 20px rgba(250, 204, 21, 0.65);
         transform: scale(1.04);
@@ -2531,6 +2812,7 @@
       .jm-banner-container {
         height: 240px;
       }
+
       .jm-sound-toggle {
         bottom: 10px;
         right: 10px;
@@ -2615,7 +2897,7 @@
             video.muted = true;
             video.play().then(function () {
               ensureSpeed();
-            }).catch(function () {});
+            }).catch(function () { });
             updateSoundUI(false);
           });
         }
@@ -2634,7 +2916,7 @@
             ensureSpeed();
             updateSoundUI(true);
             removeActivationListeners();
-          }).catch(function () {});
+          }).catch(function () { });
         }
       }
 

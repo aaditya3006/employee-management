@@ -71,11 +71,57 @@
 
     let activeAttContext = { cat: '', sub: '' };
 
+    function showAttendanceComingSoon(closeMenu = true) {
+      if (closeMenu) closeSidebar();
+      const formSection = document.getElementById('form-section');
+      if (formSection) {
+        formSection.classList.remove('hidden');
+        formSection.style.display = 'block';
+      }
+      showSection('form-section');
+
+      document.getElementById('legacy-containers').style.display = 'none';
+      document.getElementById('legacy-containers').classList.add('hidden');
+      document.getElementById('ta-journal-wrapper').style.display = 'none';
+      document.getElementById('ta-journal-wrapper').classList.add('hidden');
+
+      const attendanceWrapper = document.getElementById('new-attendance-wrapper');
+      const subCategories = document.getElementById('sub-cat-container');
+      const formContainer = document.getElementById('att-form-container');
+      attendanceWrapper.classList.remove('hidden');
+      attendanceWrapper.style.display = 'block';
+      formContainer.classList.add('hidden');
+      subCategories.innerHTML = `
+        <div class="attendance-coming-soon-card">
+          <strong>Attendance</strong>
+          <span>Coming soon — under development</span>
+        </div>`;
+
+      setSectionHeading('Attendance');
+      const subtitle = document.getElementById('nav-section-subtitle');
+      if (subtitle) subtitle.innerText = 'Attendance';
+    }
+
+    function toggleAttendanceMenu() {
+      const submenu = document.getElementById('sidebar-attendance-submenu');
+      const toggle = document.getElementById('sidebar-attendance-toggle');
+      if (!submenu || !toggle) return;
+      const isOpening = submenu.classList.contains('hidden');
+      submenu.classList.toggle('hidden', !isOpening);
+      toggle.setAttribute('aria-expanded', String(isOpening));
+      if (isOpening) showAttendanceComingSoon(false);
+    }
+
     function handleMenuSelect(cat) {
       // Handle admin approval section
       if (cat === 'approve') {
         showSection('approve-section');
         showApproveSection();
+        return;
+      }
+
+      if (cat === 'attendance' || cat === 'attendance-coming-soon') {
+        showAttendanceComingSoon(true);
         return;
       }
 
@@ -266,6 +312,7 @@ window.attendanceRecords = attendanceRecords;
 window.loadAllAttendanceRecords = loadAllAttendanceRecords;
 window.showAllAttendanceRecords = showAllAttendanceRecords;
 window.handleMenuSelect = handleMenuSelect;
+window.toggleAttendanceMenu = toggleAttendanceMenu;
 window.renderSubCategories = renderSubCategories;
 window.openAttForm = openAttForm;
 window.toggleLeaveType = toggleLeaveType;

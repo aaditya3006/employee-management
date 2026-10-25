@@ -16,13 +16,16 @@
 
         // Fetch user profile from database
         const { data: profileData, error } = await db.from('users').select('*').eq('uid', user.id).single();
+        const rawMetadataName = user.user_metadata?.full_name || user.user_metadata?.name || '';
+        const metadataName = String(rawMetadataName).trim();
+        const validMetadataName = metadataName && !/^not\s+set$/i.test(metadataName) ? metadataName : '';
 
         if (!error && profileData) {
           userProfileData = profileData;
         } else {
-          // Create default profile from auth email
+          // Use the name supplied with the authenticated account when no profile row exists.
           userProfileData = {
-            name: user.email.split('@')[0],
+            name: validMetadataName || 'Railway Employee',
             email: user.email,
             pfNumber: 'Not Set',
             designation: 'Not Set',
@@ -35,7 +38,16 @@
 
         // Display profile data
         const userEmail = userProfileData.email || user.email;
-        const userName = userProfileData.name || 'Not Set';
+        const profileName = [
+          userProfileData.name,
+          userProfileData.full_name,
+          userProfileData.employee_name,
+          [userProfileData.first_name, userProfileData.last_name].filter(Boolean).join(' ')
+        ].map(value => String(value || '').trim()).find(value => value && !/^not\s+set$/i.test(value));
+        const userName = profileName || validMetadataName || 'Railway Employee';
+        window.currentEmployeeName = userName;
+        if (typeof window.syncTaLockedName === 'function') window.syncTaLockedName();
+       if (typeof window.updateHomeWelcomeTitle === 'function') window.updateHomeWelcomeTitle();
 
         // Update profile section if it exists
         const profileNameEl = document.getElementById('profile-name');
@@ -62,7 +74,7 @@
         if (profileHeaderEl) profileHeaderEl.textContent = userEmail;
 
         // Update sidebar user info
-        const initials = userName.split(' ').map(n => n.charAt(0)).join('').toUpperCase().slice(0, 2);
+        const initials = userName.trim().split(/\s+/).filter(Boolean).slice(0, 2).map(n => n.charAt(0)).join('').toUpperCase();
         const avatarEl = document.getElementById('sidebar-user-avatar');
         const nameEl = document.getElementById('sidebar-user-name');
         const emailEl = document.getElementById('sidebar-user-email');

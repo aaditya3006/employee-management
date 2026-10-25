@@ -123,7 +123,7 @@ window.startAppDownload = function () {
         // EXPLICITLY show all main app elements
         document.getElementById('main-wrapper').style.display = 'block';
         document.getElementById('top-nav').style.display = 'block';
-        document.getElementById('main-footer').style.display = 'block';
+        document.getElementById('main-footer').style.display = 'none';
         document.getElementById('bg-image').style.display = 'block';
 
         // Hide preview sections FIRST before showing form-section to prevent flashing
@@ -131,7 +131,7 @@ window.startAppDownload = function () {
         document.getElementById('attendance-preview-section').style.display = 'none';
         document.getElementById('ta-preview-section').style.display = 'none';
 
-        // Initialize and hide form-section temporarily while setting up
+        // Keep form-section available but do not show it as the default landing screen.
         const formSection = document.getElementById('form-section');
         if (formSection) {
           formSection.style.display = 'none';
@@ -147,34 +147,34 @@ window.startAppDownload = function () {
         // Setup form BEFORE showing it to prevent flashing
         setupForm();
 
-        // NOW show form-section after setup is complete
-        if (formSection) {
-          formSection.classList.remove('hidden');
-          formSection.style.display = 'block';
-        }
-
-        // Note: loadProfileData() and loadSettings() disabled - tables not found in Supabase
-        // Uncomment if you create user_settings and users tables
-        loadProfileData();  // Load profile data for sidebar display
-        // loadSettings();     // Load and apply user's theme, font size, and layout settings
-
         // If user is admin, start real-time listener for new account approvals
         const currentUser = window.currentUserAuth;
         if (currentUser && currentUser.email === 'nandkishor24714@gmail.com') {
           console.log('👨‍💼 Admin detected - initializing real-time listener for pending accounts');
-          // Start immediately showing pending accounts
           setTimeout(() => {
-            loadAdminUsers('pending');
+            if (typeof loadAdminUsers === 'function') loadAdminUsers('pending');
             console.log('✅ Real-time listener initialized - watching for new approval requests');
           }, 100);
         }
+        if (typeof window.loadProfileData === 'function') window.loadProfileData();
 
         console.log('Dashboard fully loaded');
+        setTimeout(() => {
+          if (!window.currentUserAuth) return;
+          showSection('home-section');
+          if (typeof window.updateHomeWelcomeTitle === 'function') window.updateHomeWelcomeTitle();
+          if (typeof window.loadDashboardRailwayNews === 'function') window.loadDashboardRailwayNews();
+        }, 50);
       }, 300);
     }
 
     function showIntroDashboard() {
       dismissIntroToApp();
+      setTimeout(() => {
+        if (!window.currentUserAuth) return;
+        showSection('home-section');
+        if (typeof window.loadDashboardRailwayNews === 'function') window.loadDashboardRailwayNews();
+      }, 350);
     }
 
     function launchModule(cat) {
@@ -213,7 +213,7 @@ window.startAppDownload = function () {
 
         if (mainWrapper) mainWrapper.style.display = 'block';
         if (navEl) navEl.style.display = 'block';
-        if (footerEl) footerEl.style.display = 'block';
+        if (footerEl) footerEl.style.display = 'none';
         if (bgEl) bgEl.style.display = 'block';
 
         const settingsEl = document.getElementById('settings-section');
@@ -340,6 +340,8 @@ window.startAppDownload = function () {
         footerEl.style.display = ''; bgEl.style.display = '';
         previewEl.style.display = 'none'; attPreviewEl.style.display = 'none'; taPreviewEl.style.display = 'none';
         if (homeEl) homeEl.style.display = 'block';
+         if (typeof window.updateHomeWelcomeTitle === 'function') window.updateHomeWelcomeTitle();
+         if (typeof window.loadDashboardRailwayNews === 'function') window.loadDashboardRailwayNews();
       } else if (id === 'preview-section') {
         mainWrapper.style.display = 'none'; navEl.style.display = 'none';
         footerEl.style.display = 'none'; bgEl.style.display = 'none';
@@ -355,7 +357,7 @@ window.startAppDownload = function () {
         updateTaPreviewModeUI();
       } else {
         mainWrapper.style.display = 'block'; navEl.style.display = 'block';
-        footerEl.style.display = 'block'; bgEl.style.display = 'block';
+        footerEl.style.display = 'none'; bgEl.style.display = 'block';
         previewEl.style.display = 'none'; attPreviewEl.style.display = 'none'; taPreviewEl.style.display = 'none';
         const target = document.getElementById(id);
         if (target) {

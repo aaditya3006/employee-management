@@ -66,7 +66,34 @@ var monthMap = window.monthMap;
 
         // 🔒 Dashboard security check - show login if no valid session
         window.auth.onAuthStateChange(async (event, session) => {
-          if (event === 'SIGNED_IN' && session) {
+          if (event === 'INITIAL_SESSION' && session) {
+            // Supabase emits INITIAL_SESSION when a saved login is restored after
+            // refresh. Open the app for that user just as we do after sign-in.
+            window.currentUserAuth = session.user;
+            window.hideMarketingLanding?.();
+
+            const loginScreen = document.getElementById('login-screen');
+            if (loginScreen) loginScreen.style.display = 'none';
+
+            // Defer database work until after the auth callback has returned.
+            setTimeout(async () => {
+              if (window.currentUserAuth?.id !== session.user.id) return;
+
+              try {
+                if (typeof initializeUserRole === 'function') {
+                  await initializeUserRole(session.user);
+                }
+                if (window.currentUserAuth?.id !== session.user.id) return;
+
+                if (typeof updateAdminUIVisibility === 'function') updateAdminUIVisibility();
+                if (typeof updateSidebarForAdmin === 'function') updateSidebarForAdmin(session.user);
+                if (typeof startMainApp === 'function') startMainApp();
+                if (typeof loadDataFromDB === 'function') loadDataFromDB();
+              } catch (error) {
+                console.error('Could not restore the signed-in dashboard:', error);
+              }
+            }, 0);
+          } else if (event === 'SIGNED_IN' && session) {
             window.hideMarketingLanding?.();
             window.currentUserAuth = session.user;
             // Initialize user role on login
@@ -74,6 +101,9 @@ var monthMap = window.monthMap;
               await initializeUserRole(session.user);
             }
           } else if (event === 'SIGNED_OUT' || !session) {
+            window.replaceEmployeeList?.([]);
+            window.renderEmployeeTable?.();
+
             // Check for direct phone auth session
             const savedPhoneUser = localStorage.getItem('railsaathi_auth_user');
             if (savedPhoneUser) {
