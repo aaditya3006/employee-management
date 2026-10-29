@@ -103,6 +103,15 @@
     el.textContent = name ? "Welcome, " + name : "Welcome";
   }
 
+  function updateHomeWelcomeDateTime() {
+    const el = document.getElementById("home-welcome-datetime");
+    if (!el) return;
+    const now = new Date();
+    el.textContent = now.toLocaleString();
+  }
+  setInterval(updateHomeWelcomeDateTime, 1000);
+  updateHomeWelcomeDateTime();
+
   window.updateHomeWelcomeTitle = updateHomeWelcomeTitle;
   setTimeout(updateHomeWelcomeTitle, 0);
   setTimeout(() => {
