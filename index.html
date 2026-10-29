@@ -115,6 +115,7 @@
   <link rel="stylesheet" href="css/sections/user-management.css">
   <link rel="stylesheet" href="css/sections/preview-mobile-fixes.css">
   <link rel="stylesheet" href="css/sections/duty-output-fixes.css">
+  <link rel="stylesheet" href="css/responsive-global.css">
 </head>
 
 <body id="app-body" class="show-marketing-landing">
@@ -3025,6 +3026,21 @@
       });
     })();
   </script>
+<script>
+(function(){
+  const hero=document.getElementById('landing-home');
+  if(!hero) return;
+  const rm=window.matchMedia('(prefers-reduced-motion: reduce)');
+  let ticking=false;
+  function update(){
+    if(rm.matches){ hero.style.transform=''; ticking=false; return; }
+    const y=window.scrollY||0;
+    hero.style.transform='translate3d(0,'+(y*0.15)+'px,0)';
+    ticking=false;
+  }
+  window.addEventListener('scroll',function(){ if(!ticking){ requestAnimationFrame(update); ticking=true; } },{passive:true});
+})();
+</script>
 </body>
 
 </html>

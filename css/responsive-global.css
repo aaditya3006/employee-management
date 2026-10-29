@@ -1,0 +1,16 @@
+/* Global responsive safety baseline - does not alter PDF code */
+html, body { max-width: 100%; overflow-x: hidden; }
+*, *::before, *::after { box-sizing: border-box; }
+img, video, iframe, svg, canvas { max-width: 100%; height: auto; }
+table { max-width: 100%; }
+.flex, [class*="flex"] { min-width: 0; }
+.grid, [class*="grid"] { min-width: 0; }
+input, select, textarea, button { max-width: 100%; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+/* Touch targets */
+button, a, [role="button"] { min-height: 44px; }
+@media (max-width: 767px) {
+  body { font-size: 14px; }
+}
