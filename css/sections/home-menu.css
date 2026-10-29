@@ -212,7 +212,7 @@
    COMPACT HOME PAGE REDESIGN
    ========================================================================== */
 #home-section {
-  padding: 6px 4px 16px;
+  padding: 8px 8px 16px;
   max-width: 100%;
   margin: 0 auto;
 }
@@ -266,7 +266,7 @@
 .dash-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 4px;
+  gap: 8px;
   max-width: 100%;
   margin: 0 auto 12px;
 }
@@ -517,21 +517,15 @@
 }
 
 @media (min-width: 768px) {
+  #home-section {
+    max-width: 100%;
+  }
   .dash-grid {
-    grid-template-columns: repeat(3, 1fr);
-    max-width: 520px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 100%;
   }
   .dash-card {
     height: 90px;
-  }
-}
-
-@media (min-width: 768px) {
-  #home-section {
-    max-width: 520px;
-  }
-  .dash-grid {
-    max-width: 480px;
   }
   .dashboard-news-card {
     max-width: 480px;
