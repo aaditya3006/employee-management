@@ -3,7 +3,7 @@
    js/core/config.js
    ========================================================================== */
 
-window.MARKETING_DOWNLOAD_URL = window.MARKETING_DOWNLOAD_URL || 'https://rgdtiaportal.live/app-release.apk';
+window.MARKETING_DOWNLOAD_URL = window.MARKETING_DOWNLOAD_URL || 'https://www.railsaarthi.tech/app-release.apk';
 var MARKETING_DOWNLOAD_URL = window.MARKETING_DOWNLOAD_URL;
 
 window.LOGIN_RATE_LIMIT = window.LOGIN_RATE_LIMIT || {

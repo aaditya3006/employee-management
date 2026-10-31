@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.rgdtiaportal.live/sitemap.xml
+Sitemap: https://www.railsaarthi.tech/sitemap.xml

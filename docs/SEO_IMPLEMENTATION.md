@@ -33,7 +33,7 @@ No doorway pages were created. This project is a single static application with 
 
 Public indexable URL:
 
-- `https://www.rgdtiaportal.live/`
+- `https://www.railsaarthi.tech/`
 
 The `#login` fragment is an in-page login state, not a separate sitemap URL.
 
@@ -59,7 +59,7 @@ The homepage has one public SEO H1: `Online TA Journal for Railway Employees`.
 
 ## Canonical strategy
 
-The canonical URL is `https://www.rgdtiaportal.live/`.
+The canonical URL is `https://www.railsaarthi.tech/`.
 
 All public SEO references use the `www` HTTPS hostname. The apex domain should continue redirecting to this canonical hostname at Vercel. Private dashboard and login-only states are not included in the sitemap.
 
@@ -105,8 +105,8 @@ Remaining performance opportunities:
 
 ## Google Search Console setup
 
-1. Verify `www.rgdtiaportal.live` in Google Search Console using a DNS or HTML verification method.
-2. Submit `https://www.rgdtiaportal.live/sitemap.xml`.
+1. Verify `www.railsaarthi.tech` in Google Search Console using a DNS or HTML verification method.
+2. Submit `https://www.railsaarthi.tech/sitemap.xml`.
 3. Use URL Inspection for the homepage and request indexing after the production deployment is live.
 4. Confirm the canonical Google selected matches the `www` URL.
 5. Monitor indexing, Core Web Vitals, mobile usability and any security/manual-action reports.
@@ -123,9 +123,9 @@ No `lint` script exists in `package.json`.
 Recommended production checks:
 
 ```powershell
-curl -I https://www.rgdtiaportal.live/
-curl -I https://www.rgdtiaportal.live/robots.txt
-curl -I https://www.rgdtiaportal.live/sitemap.xml
+curl -I https://www.railsaarthi.tech/
+curl -I https://www.railsaarthi.tech/robots.txt
+curl -I https://www.railsaarthi.tech/sitemap.xml
 ```
 
 Then inspect the homepage source for title, description, canonical, H1 and JSON-LD. Validate the JSON-LD with Google's Rich Results Test or Schema Markup Validator. Search visibility and ranking cannot be guaranteed; indexing depends on Google crawling, quality signals, competition and domain history.

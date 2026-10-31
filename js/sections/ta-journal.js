@@ -107,7 +107,7 @@
 
       const isReport = currentTaViewMode === 'report';
       return window.shareRailsaathiContent(
-        isReport ? 'Railsaathi TA Report' : 'Railsaathi TA Journal',
+        isReport ? 'RailSaarthi TA Report' : 'RailSaarthi TA Journal',
         isReport ? 'ta-report-content' : 'ta-pdf-content'
       );
     }

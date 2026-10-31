@@ -320,5 +320,5 @@ window.showAttPreview = showAttPreview;
 window.buildAttTable = buildAttTable;
 window.showTillNow = showTillNow;
 window.shareAttendancePreview = function () {
-  return window.shareRailsaathiContent('Railsaathi Attendance Report', 'att-pdf-content');
+  return window.shareRailsaathiContent('RailSaarthi Attendance Report', 'att-pdf-content');
 };

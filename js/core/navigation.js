@@ -41,7 +41,7 @@ let pendingIndex = null;
       clearTimeout(downloadStatusTimerB);
       clearTimeout(downloadStatusTimerC);
 
-      showAppDownloadStatus('Preparing download', 'Opening the Railsaathi APK download now.', 20);
+      showAppDownloadStatus('Preparing download', 'Opening the RailSaarthi APK download now.', 20);
 
       const link = document.createElement('a');
       link.href = downloadUrl;
@@ -61,7 +61,7 @@ let pendingIndex = null;
       }, 1800);
 
       downloadStatusTimerC = setTimeout(() => {
-        showAppDownloadStatus('Thank you', 'Thank you for downloading Railsaathi.', 100, true);
+        showAppDownloadStatus('Thank you', 'Thank you for downloading RailSaarthi.', 100, true);
         setTimeout(hideAppDownloadStatus, 2500);
       }, 3200);
     }

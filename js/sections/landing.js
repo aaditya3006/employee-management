@@ -332,7 +332,7 @@
       if (!node) return;
 
       clearTimeout(marketingHeadlineTypingTimer);
-      const targetText = 'Railsaathi';
+      const targetText = 'RailSaarthi';
       node.innerHTML = Array.from(targetText).map((letter, index) => (
         `<span data-typing-letter style="animation-delay:${index * 0.08}s">${letter}</span>`
       )).join('');

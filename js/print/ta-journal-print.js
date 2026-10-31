@@ -10,10 +10,10 @@
 
     window.shareCurrentTaView = async function () {
       const source = document.getElementById('ta-preview-content') || document.getElementById('ta-journal-section');
-      const text = source?.innerText?.trim() || 'Railsaathi TA Journal';
+      const text = source?.innerText?.trim() || 'RailSaarthi TA Journal';
       if (navigator.share) {
         try {
-          await navigator.share({ title: 'Railsaathi TA Journal', text });
+          await navigator.share({ title: 'RailSaarthi TA Journal', text });
           return;
         } catch (error) {
           if (error.name === 'AbortError') return;
