@@ -17,7 +17,7 @@ let marketingLandingRequiresLanguageChoice = false;
 
     const MARKETING_LANDING_COPY = {
       en: {
-        navCopy: 'Duty, attendance and report workflows',
+        navCopy: 'TA banao, aasani se!!',
         topbarLogin: 'Login',
         stickyDownload: 'Download APK',
         stickyContinue: 'Login',

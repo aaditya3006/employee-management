@@ -3,11 +3,11 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>Online TA Journal for Railway Employees | Railway TA Journal</title>
+  <title>RailSaarthi – Online Railway TA Journal | रेलसारथी – ऑनलाइन टीए जर्नल</title>
   <script>
     // Show festive Janmashtami page (k.html) before landing page loads
     (function checkJanmashtamiPreLanding() {
@@ -24,21 +24,26 @@
     })();
   </script>
   <meta name="description"
-    content="Create, manage and maintain your Railway TA Journal online. Record journeys, calculate travel allowance, manage TA entries and generate professional TA Journal records digitally.">
+    content="RailSaarthi helps railway field staff create online TA Journals, record journeys, review allowances and export printable reports. स्वतंत्र डिजिटल टूल।">
+  <meta name="description" lang="hi"
+    content="रेलसारथी रेलवे फील्ड स्टाफ के लिए ऑनलाइन टीए जर्नल, यात्रा प्रविष्टियां और प्रिंट योग्य रिपोर्ट बनाने का स्वतंत्र डिजिटल टूल है।">
   <link rel="canonical" href="https://www.railsaarthi.tech/">
+  <link rel="alternate" hreflang="en-IN" href="https://www.railsaarthi.tech/">
+  <link rel="alternate" hreflang="hi-IN" href="https://www.railsaarthi.tech/hi/">
+  <link rel="alternate" hreflang="x-default" href="https://www.railsaarthi.tech/">
   <link rel="icon" type="image/png" href="https://www.railsaarthi.tech/railsaathi-logo.png">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#f8fafc">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="RailSaarthi">
-  <meta property="og:title" content="Online TA Journal for Railway Employees | Railway TA Journal">
+  <meta property="og:title" content="RailSaarthi – Online Railway TA Journal">
   <meta property="og:description"
     content="Record railway journeys, organize travel allowance entries and generate a digital TA Journal for railway employee workflows.">
   <meta property="og:url" content="https://www.railsaarthi.tech/">
   <meta property="og:image" content="https://www.railsaarthi.tech/railsaathi-logo.png">
   <meta property="og:image:alt" content="RailSaarthi online TA Journal logo">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Online TA Journal for Railway Employees">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RailSaarthi – Online Railway TA Journal">
   <meta name="twitter:description"
     content="A practical digital Railway TA Journal for recording journeys, travel allowance entries and printable records.">
   <meta name="twitter:image" content="https://www.railsaarthi.tech/railsaathi-logo.png">
@@ -51,27 +56,42 @@
       "@type": "WebSite",
       "@id": "https://www.railsaarthi.tech/#website",
       "url": "https://www.railsaarthi.tech/",
-      "name": "RailSaarthi Online TA Journal",
+      "name": "RailSaarthi",
       "description": "An independent digital tool for maintaining Railway TA Journal records."
     },
     {
-      "@type": "WebApplication",
+      "@type": "SoftwareApplication",
       "@id": "https://www.railsaarthi.tech/#application",
-      "url": "https://www.railsaarthi.tech/",
-      "name": "RailSaarthi Online TA Journal",
-      "description": "Record railway journeys, organize travel allowance entries and generate digital TA Journal records.",
+      "url": "https://github.com/aaditya3006/Railsaathi",
+      "name": "RailSaarthi Android App",
+      "description": "Android workflow app for railway field operations, TA journals, attendance and duty records.",
       "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Web",
+      "operatingSystem": "Android",
       "isAccessibleForFree": true,
-      "browserRequirements": "Requires JavaScript"
+      "downloadUrl": "https://github.com/aaditya3006/Railsaathi/releases",
+      "provider": { "@id": "https://www.railsaarthi.tech/#organization" }
     },
     {
       "@type": "Organization",
       "@id": "https://www.railsaarthi.tech/#organization",
       "name": "RailSaarthi",
+      "alternateName": [
+        "Rail Saarthi", "RailSaathi", "Rail Saathi", "रेलसारथी",
+        "रेल सारथी", "रेलसाथी", "रेल साथी"
+      ],
       "url": "https://www.railsaarthi.tech/",
       "logo": "https://www.railsaarthi.tech/railsaathi-logo.png",
-      "description": "Independent digital workflow software for railway employee teams; not an official Indian Railways service."
+      "description": "Independent digital workflow software for railway employee teams; not an official Indian Railways service.",
+      "sameAs": [
+        "https://github.com/aaditya3006/Railsaathi"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.railsaarthi.tech/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.railsaarthi.tech/" }
+      ]
     },
     {
       "@type": "FAQPage",
@@ -93,6 +113,7 @@
 }
 </script>
   <link rel="stylesheet" href="css/tailwind-utilities.css">
+  <link rel="stylesheet" href="css/page-loader.css">
 
   <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -119,6 +140,7 @@
 </head>
 
 <body id="app-body" class="show-marketing-landing">
+  <div class="rs-page-loader" role="status" aria-live="polite" aria-label="RailSaarthi loading"><div class="rs-page-loader__content"><img class="rs-page-loader__logo" src="railsaathi-logo.png" alt=""><p class="rs-page-loader__name">RailSaarthi</p><p class="rs-page-loader__tag" lang="hi">TA banao, aasani se!!</p><div class="rs-page-loader__bar" aria-hidden="true"></div></div></div>
   <div id="toast" class="no-print" aria-live="polite"></div>
   <div id="playstore-coming-soon-popup" class="playstore-coming-soon-popup no-print" role="status"
     aria-live="polite" aria-atomic="true" hidden>
@@ -300,7 +322,7 @@
         </div>
         <div class="landing-brand__meta">
           <h1 class="landing-brand__name" data-typing-brand aria-label="RailSaarthi">RailSaarthi</h1>
-          <p class="landing-brand__copy" id="landing-nav-copy">Duty, attendance and report workflows</p>
+          <p class="landing-brand__copy" id="landing-nav-copy" lang="hi">TA banao, aasani se!!</p>
         </div>
       </a>
 
@@ -607,34 +629,7 @@
         </div>
       </section>
 
-      <!-- LEADERSHIP & TRUST SECTION -->
-      <section class="landing-section" id="landing-leadership">
-        <div class="landing-section-header">
-          <span class="landing-section-label">National Rail Leadership</span>
-          <h2 class="landing-section-title">Guiding Modern Indian Railways</h2>
-        </div>
-
-        <div class="landing-leadership-grid">
-          <article class="landing-leader-card">
-            <img src="https://newsonair.gov.in/wp-content/uploads/2026/01/Screenshot-2026-01-10-075157.jpg"
-              alt="Railway Minister Ashwini Vaishnaw" loading="lazy" decoding="async"
-              onerror="this.onerror=null; this.src='https://images.financialexpressdigital.com/2025/06/Chenab-Bridge-2.jpg?w=1600';">
-            <div>
-              <strong>Ashwini Vaishnaw</strong>
-              <span>Hon'ble Railway Minister</span>
-            </div>
-          </article>
-          <article class="landing-leader-card">
-            <img src="https://static.pib.gov.in/WriteReadData/Gallery/PhotoGallery/2021/Oct/T20211012102549.JPG"
-              alt="Prime Minister Narendra Modi" loading="lazy" decoding="async"
-              onerror="this.onerror=null; this.src='https://images.financialexpressdigital.com/2025/06/Chenab-Bridge-2.jpg?w=1600';">
-            <div>
-              <strong>Narendra Modi</strong>
-              <span>Hon'ble Prime Minister of India</span>
-            </div>
-          </article>
-        </div>
-
+      <section class="landing-section" id="landing-support">
         <div class="landing-contact-card">
           <span>Developer Support</span>
           <strong>Direct Feedback & Engineering Support</strong>
@@ -2270,6 +2265,7 @@
 
   <!-- Core Architecture Scripts -->
   <script src="js/core/config.js"></script>
+  <script src="js/page-loader.js"></script>
   <script src="js/core/i18n.js"></script>
   <script src="js/core/theme.js"></script>
   <script src="js/core/navigation.js"></script>
