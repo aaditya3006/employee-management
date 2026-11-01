@@ -203,6 +203,65 @@
       display: none;
     }
 
+    .auth-welcome-toast {
+      position: fixed;
+      top: 76px;
+      right: 20px;
+      z-index: 1000000;
+      width: min(320px, calc(100vw - 32px));
+      padding: 14px 42px 14px 16px;
+      border: 1px solid rgba(249, 115, 22, 0.55);
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(7, 20, 43, 0.98), rgba(15, 23, 42, 0.96));
+      box-shadow: 0 16px 36px rgba(2, 6, 23, 0.35);
+      color: #fff;
+      animation: authWelcomeIn 0.35s ease-out;
+    }
+
+    .auth-welcome-toast[hidden] {
+      display: none;
+    }
+
+    .auth-welcome-toast__title {
+      color: #fb923c;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .auth-welcome-toast__message {
+      margin-top: 3px;
+      color: #e2e8f0;
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .auth-welcome-toast__close {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      border: 0;
+      background: transparent;
+      color: #cbd5e1;
+      cursor: pointer;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    @keyframes authWelcomeIn {
+      from { transform: translate3d(24px, -8px, 0); opacity: 0; }
+      to { transform: translate3d(0, 0, 0); opacity: 1; }
+    }
+
+    @media (max-width: 640px) {
+      .auth-welcome-toast {
+        top: 64px;
+        right: 16px;
+        left: 16px;
+        width: auto;
+      }
+    }
+
     .login-download-status {
       position: fixed;
       right: 18px;

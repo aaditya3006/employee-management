@@ -8,6 +8,25 @@ let downloadStatusTimerB = null;
 let downloadStatusTimerC = null;
 let pendingAction = null;
 let pendingIndex = null;
+let playStorePopupTimer = null;
+
+function hidePlayStoreComingSoon() {
+  const popup = document.getElementById('playstore-coming-soon-popup');
+  if (!popup) return;
+  popup.hidden = true;
+  if (playStorePopupTimer) clearTimeout(playStorePopupTimer);
+  playStorePopupTimer = null;
+}
+
+function showPlayStoreComingSoon() {
+  const popup = document.getElementById('playstore-coming-soon-popup');
+  if (!popup) return;
+  popup.hidden = false;
+  if (playStorePopupTimer) clearTimeout(playStorePopupTimer);
+  playStorePopupTimer = setTimeout(hidePlayStoreComingSoon, 4000);
+}
+
+window.hidePlayStoreComingSoon = hidePlayStoreComingSoon;
 
     function hideAppDownloadStatus() {
       const status = document.getElementById('login-download-status');
@@ -35,35 +54,11 @@ let pendingIndex = null;
     }
 
     function triggerAppDownload() {
-      const downloadUrl = MARKETING_DOWNLOAD_URL;
-
       clearTimeout(downloadStatusTimerA);
       clearTimeout(downloadStatusTimerB);
       clearTimeout(downloadStatusTimerC);
 
-      showAppDownloadStatus('Preparing download', 'Opening the RailSaarthi APK download now.', 20);
-
-      const link = document.createElement('a');
-      link.href = downloadUrl;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      link.style.display = 'none';
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-
-      downloadStatusTimerA = setTimeout(() => {
-        showAppDownloadStatus('Download started', 'Your browser is opening the APK file.', 55);
-      }, 700);
-
-      downloadStatusTimerB = setTimeout(() => {
-        showAppDownloadStatus('Almost done', 'Please confirm the download prompt if it appears.', 82);
-      }, 1800);
-
-      downloadStatusTimerC = setTimeout(() => {
-        showAppDownloadStatus('Thank you', 'Thank you for downloading RailSaarthi.', 100, true);
-        setTimeout(hideAppDownloadStatus, 2500);
-      }, 3200);
+      showPlayStoreComingSoon();
     }
 
 

@@ -101,6 +101,7 @@ var monthMap = window.monthMap;
               await initializeUserRole(session.user);
             }
           } else if (event === 'SIGNED_OUT' || !session) {
+            window.lastWelcomeAuthUserId = null;
             window.replaceEmployeeList?.([]);
             window.renderEmployeeTable?.();
 

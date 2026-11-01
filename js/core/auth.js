@@ -233,6 +233,64 @@ window.safeToggleLoginModal = function (id, show) {
       return normalized.replace(/[\s\u200B-\u200D\uFEFF]/g, '').trim().toLowerCase();
     }
 
+    let welcomeToastTimer = null;
+
+    function dismissWelcomeToast() {
+      const toast = document.getElementById('auth-welcome-toast');
+      if (!toast) return;
+      toast.hidden = true;
+      if (welcomeToastTimer) clearTimeout(welcomeToastTimer);
+      welcomeToastTimer = null;
+    }
+
+    function showWelcomeToast(user) {
+      const userId = user?.id;
+      if (!userId || window.lastWelcomeAuthUserId === userId) return;
+
+      const metadata = user.user_metadata || {};
+      const displayName = metadata.full_name || metadata.name || metadata.display_name;
+      const toast = document.getElementById('auth-welcome-toast');
+      const title = document.getElementById('auth-welcome-title');
+      if (!toast || !title) return;
+
+      window.lastWelcomeAuthUserId = userId;
+      title.textContent = displayName ? `Welcome, ${displayName}! 👋` : 'Welcome to RailSaarthi!';
+      toast.hidden = false;
+      if (welcomeToastTimer) clearTimeout(welcomeToastTimer);
+      welcomeToastTimer = setTimeout(dismissWelcomeToast, 4000);
+    }
+
+    window.dismissWelcomeToast = dismissWelcomeToast;
+    window.showWelcomeToast = showWelcomeToast;
+
+    function getAuthErrorMessage(error) {
+      const code = error?.code || error?.error_code;
+      const message = String(error?.message || '').toLowerCase();
+
+      if (code === 'email_not_confirmed') {
+        return 'Please verify your email address using the confirmation link before signing in.';
+      }
+      if (code === 'invalid_credentials' || code === 'invalid_login_credentials') {
+        return 'Incorrect email or password. Please check both values and try again.';
+      }
+      if (code === 'user_not_found') {
+        return 'No account was found with this email. Please create an account first.';
+      }
+      if (code === 'user_banned' || code === 'user_disabled') {
+        return 'This account has been disabled. Contact an administrator.';
+      }
+      if (code === 'too_many_requests' || code === 'over_request_rate_limit' || error?.status === 429) {
+        return 'Too many authentication attempts. Please wait and try again later.';
+      }
+      if (message.includes('fetch') || message.includes('network') || message.includes('failed to fetch')) {
+        return 'Authentication service is unavailable. Check your connection and try again.';
+      }
+      if (message.includes('jwt') || message.includes('apikey') || message.includes('api key')) {
+        return 'Authentication is temporarily unavailable due to a configuration issue. Please contact support.';
+      }
+      return 'Login failed. Please try again or contact support if the problem continues.';
+    }
+
     // 🔐 Initialize user role on page load
     async function initializeUserRole(user) {
       console.log('🔐 initializeUserRole called for:', user?.email);
@@ -769,8 +827,9 @@ window.safeToggleLoginModal = function (id, show) {
 
 
 
-    function sendPasswordReset() {
+    async function sendPasswordReset() {
       const emailInput = document.getElementById('forgot-email').value.trim();
+      const submitButton = document.getElementById('password-reset-submit');
 
       // 🔒 Validate email format
       if (!emailInput || !isValidEmail(emailInput)) {
@@ -803,24 +862,52 @@ window.safeToggleLoginModal = function (id, show) {
       // 📝 Log password reset attempt
       console.log('🔑 Password reset requested for:', sanitizeInput(email));
 
-      window.auth.resetPasswordForEmail(email)
-        .then(() => {
-          customAlert('✅ Password reset email sent!\n\nCheck your inbox (and spam folder) for the reset link.\n\n⏱️ The link will expire in 1 hour.');
-          toggleLoginModal('forgotLoginModal', false);
-        })
-        .catch(err => {
-          console.error('❌ Password reset error:', err.code);
-          let msg = 'Error sending password reset email.';
-          if (err.code === 'auth/user-not-found') {
-            // For security, don't reveal if email exists
-            msg = '✅ If this email is registered, you will receive a password reset link.';
-          } else if (err.code === 'auth/invalid-email') {
-            msg = 'Invalid email address format.';
-          } else if (err.code === 'auth/too-many-requests') {
-            msg = 'Too many attempts. Please try again later.';
+      if (!window.auth) {
+        customAlert('Authentication service is not ready. Please refresh the page and try again.');
+        return;
+      }
+
+      const originalButtonText = submitButton?.textContent || 'SEND RESET LINK';
+      let counter = 3;
+      let counterTimer = null;
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = `SENDING MAIL... ${counter}`;
+        counterTimer = setInterval(() => {
+          counter -= 1;
+          submitButton.textContent = counter > 0 ? `SENDING MAIL... ${counter}` : 'SENDING MAIL...';
+        }, 1000);
+      }
+
+      try {
+        await window.auth.resetPasswordForEmail(email);
+        if (counterTimer) clearInterval(counterTimer);
+        if (submitButton) submitButton.textContent = 'MAIL SENT';
+        setTimeout(() => {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
           }
-          customAlert(msg);
-        });
+        }, 1800);
+        customAlert('✅ Password reset email sent!\n\nCheck your inbox (and spam folder) for the reset link.\n\n⏱️ The link will expire in 1 hour.');
+        toggleLoginModal('forgotLoginModal', false);
+      } catch (err) {
+        if (counterTimer) clearInterval(counterTimer);
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = originalButtonText;
+        }
+        console.error('❌ Password reset error:', err.code);
+        let msg = 'Error sending password reset email.';
+        if (err.code === 'user_not_found') {
+          msg = '✅ If this email is registered, you will receive a password reset link.';
+        } else if (err.code === 'invalid_email') {
+          msg = 'Invalid email address format.';
+        } else if (err.code === 'over_request_rate_limit' || err.status === 429) {
+          msg = 'Too many attempts. Please try again later.';
+        }
+        customAlert(msg);
+      }
     }
 
     // 🔄 Clear all browser caches and storage
@@ -890,6 +977,7 @@ window.safeToggleLoginModal = function (id, show) {
 
     // Initialize form listeners when DOM is ready
     function setupAuthFormListeners() {
+      if (window.authFormsInitialized) return;
       console.log('Setting up auth form listeners...');
 
       const loginForm = document.getElementById('loginForm');
@@ -902,6 +990,7 @@ window.safeToggleLoginModal = function (id, show) {
         console.error('❌ Auth forms not found in DOM');
         return;
       }
+      window.authFormsInitialized = true;
 
       // LOGIN FORM - using addEventListener for reliability
       loginForm.addEventListener('submit', async function (e) {
@@ -910,7 +999,7 @@ window.safeToggleLoginModal = function (id, show) {
         hideLoginError();
 
         const rawInput = document.getElementById('login-email').value.trim();
-        const email = rawInput.toLowerCase();
+        const email = normalizeEmailForAuth(rawInput);
 
         const password = document.getElementById('login-password').value;
         const btnText = document.getElementById('loginBtnText');
@@ -958,7 +1047,7 @@ window.safeToggleLoginModal = function (id, show) {
 
           const adminEmail = 'nandkishor24714@gmail.com';
 
-          // Initialize user role
+          // Initialize user role only after Supabase has returned an authenticated user.
           window.currentUserAuth = userCredential;
           await initializeUserRole(userCredential);
           console.log('🔑 User role initialized:', window.currentUserRole);
@@ -989,6 +1078,7 @@ window.safeToggleLoginModal = function (id, show) {
             }, 100);
 
             dismissLoginScreen();
+            showWelcomeToast(userCredential);
           } else {
             // For non-admin users, allow them to login
             console.log('✅ User is logged in - allowing access');
@@ -1010,6 +1100,7 @@ window.safeToggleLoginModal = function (id, show) {
             }, 100);
 
             dismissLoginScreen();
+            showWelcomeToast(userCredential);
           }
         } catch (err) {
           console.error('❌ LOGIN ERROR:', err.code, err.message);
@@ -1021,15 +1112,7 @@ window.safeToggleLoginModal = function (id, show) {
           loader.style.display = 'none';
           submitBtn.disabled = false;
 
-          let msg = '❌ Login failed. Please check your credentials.';
-          if (err.code === 'auth/user-not-found') msg = '⚠️ No account found with this email. Please create an account first.';
-          else if (err.code === 'auth/wrong-password') msg = '⚠️ Incorrect password. Please try again.';
-          else if (err.code === 'auth/invalid-email') msg = '⚠️ Invalid email address format.';
-          else if (err.code === 'auth/too-many-requests') msg = '⛔ Too many failed attempts. Please try again later.';
-          else if (err.code === 'auth/invalid-credential') msg = '❌ Invalid credentials. Check email and password.';
-          else if (err.code === 'auth/user-disabled') msg = '⛔ This account has been disabled. Contact admin.';
-
-          showLoginError(msg);
+          showLoginError(getAuthErrorMessage(err));
         }
       });
 
@@ -1100,22 +1183,38 @@ window.safeToggleLoginModal = function (id, show) {
           // Create the optional employee record when the current session permits it.
           try {
             if (authData.session) {
-              await window.db.from('employees').upsert({
+              const { error: employeeError } = await window.db.from('employees').upsert({
                 email: email.toLowerCase(),
                 status: 'approved'
               });
+              if (employeeError) {
+                console.error('Employee profile sync failed after authentication:', employeeError);
+                showToast('Account created, but employee profile setup needs attention.');
+              }
             }
-          } catch (e) {
-            console.warn('⚠️ Employee table sync skipped (non-critical):', e);
+          } catch (profileError) {
+            console.error('Employee profile sync failed after authentication:', profileError);
+            showToast('Account created, but employee profile setup needs attention.');
           }
 
           console.log('✅ ADMIN NOTIFIED - USER READY FOR APPROVAL');
 
-          // 🔹 STEP 4: Email verification handled by Supabase
-          console.log('📧 Supabase will handle email verification if configured');
+          // A session means Supabase authenticated the new account immediately.
+          if (authData.session) {
+            window.currentUserAuth = authData.session.user;
+            await initializeUserRole(authData.session.user);
+            updateAdminUIVisibility();
+            updateSidebarForAdmin(authData.session.user);
+            dismissLoginScreen();
+            showWelcomeToast(authData.session.user);
+            console.log('✅ ACCOUNT CREATED AND SIGNED IN');
+            return;
+          }
 
-          // 🔹 SUCCESS: Account creation complete
-          console.log('✅ ACCOUNT FULLY CREATED AND ACTIVE');
+          // No session means the project requires email confirmation. Do not
+          // treat the user as authenticated until Supabase restores a session.
+          console.log('📧 Email verification is required before sign-in');
+          window.pendingVerificationEmail = email;
           createForm.reset();
           errEl.style.display = 'none';
 
@@ -1126,8 +1225,12 @@ window.safeToggleLoginModal = function (id, show) {
             <div style="text-align: center;">
               <div style="font-size: 13px; margin-bottom: 8px;">✅ Account Created Successfully!</div>
               <div style="font-size: 11px; line-height: 1.5;">
-                <strong>Your account is now active and ready to use.</strong><br><br>
-                Please login with your credentials below.
+                <strong>Your account was created.</strong><br><br>
+                Please verify your email, then sign in with the same password.
+                <button type="button" onclick="window.resendSignupVerification()"
+                  style="margin-top:10px;color:#fb923c;background:none;border:0;text-decoration:underline;cursor:pointer;">
+                  Resend verification email
+                </button>
               </div>
             </div>
           `;
@@ -1163,7 +1266,7 @@ window.safeToggleLoginModal = function (id, show) {
           if (error.code === 'user_already_exists' || error.code === 'auth/email-already-in-use' || error.message?.includes('already registered')) msg = 'This email is already registered. Please login or use a different email.';
           else if (error.code === 'weak_password' || error.code === 'auth/weak-password') msg = 'Password is too weak. Use at least 6 characters.';
           else if (error.code === 'invalid_email' || error.code === 'auth/invalid-email' || error.code === 'email_address_invalid') msg = 'Invalid email address format. Remove spaces or hidden characters and try again.';
-          else if (error.code === 'auth/operation-not-allowed') msg = 'Account creation is not enabled. Please contact admin.';
+          else if (error.code === 'auth/operation-not-allowed' || error.code === 'signup_disabled') msg = 'Account creation is not enabled. Please contact admin.';
           else if (error.code === 'over_email_send_rate_limit' || error.message?.includes('429')) msg = '⏳ Too many registration attempts. Please wait 15-60 minutes before trying again.';
           else if (error.message?.includes('Error sending confirmation email') || error.error_code === 'unexpected_failure' || error.message?.includes('confirmation email')) msg = '⚠️ Email confirmation limit reached. In Supabase Dashboard -> Authentication -> Providers -> Email, please disable "Confirm email" or set up custom SMTP.';
           else if (error.code === 'permission-denied' || error.message?.includes('row-level security')) msg = 'Database configuration error. Please contact admin. (RLS Policy Issue)';
@@ -1181,6 +1284,19 @@ window.safeToggleLoginModal = function (id, show) {
 
       console.log('✅ Auth forms initialized successfully');
     }
+
+    window.resendSignupVerification = async function (email) {
+      email = email || window.pendingVerificationEmail;
+      if (!window.auth || !email) return;
+      try {
+        const { error } = await window.auth.resend({ type: 'signup', email });
+        if (error) throw error;
+        showLoginError('Verification email sent. Please check your inbox and spam folder.');
+      } catch (error) {
+        console.error('Could not resend verification email:', error);
+        showLoginError(getAuthErrorMessage(error));
+      }
+    };
 
     // Original login code (kept for backward compatibility)
 
@@ -1237,6 +1353,7 @@ window.safeToggleLoginModal = function (id, show) {
         closeLogoutModal();
         // Reset main app flag
         window.mainAppStarted = false;
+        window.lastWelcomeAuthUserId = null;
 
         // Show login screen again
         const loginScreen = document.getElementById('login-screen');

@@ -50,6 +50,65 @@
       animation: slideUp 0.3s ease-out;
     }
 
+    .playstore-coming-soon-popup {
+      position: fixed;
+      top: 76px;
+      right: 20px;
+      z-index: 1000000;
+      width: min(340px, calc(100vw - 32px));
+      padding: 16px 42px 16px 18px;
+      border: 1px solid rgba(249, 115, 22, 0.6);
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(7, 20, 43, 0.98), rgba(15, 23, 42, 0.97));
+      box-shadow: 0 16px 36px rgba(2, 6, 23, 0.35);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.45;
+      animation: playStorePopupIn 0.3s ease-out;
+    }
+
+    .playstore-coming-soon-popup[hidden] {
+      display: none;
+    }
+
+    .playstore-coming-soon-popup__close {
+      position: absolute;
+      top: 7px;
+      right: 9px;
+      border: 0;
+      background: transparent;
+      color: #cbd5e1;
+      cursor: pointer;
+      font-size: 21px;
+      line-height: 1;
+    }
+
+    .playstore-coming-soon-popup__close:hover {
+      color: #fb923c;
+    }
+
+    @keyframes playStorePopupIn {
+      from {
+        opacity: 0;
+        transform: translate3d(22px, -8px, 0);
+      }
+
+      to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .playstore-coming-soon-popup {
+        top: 64px;
+        right: 16px;
+        left: 16px;
+        width: auto;
+      }
+    }
+
     @keyframes slideUp {
       from {
         transform: translateY(100%);

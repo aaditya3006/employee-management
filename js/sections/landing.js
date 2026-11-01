@@ -810,8 +810,6 @@
 
       if (typeof triggerAppDownload === 'function') {
         triggerAppDownload();
-      } else {
-        window.open(MARKETING_DOWNLOAD_URL, '_blank', 'noopener,noreferrer');
       }
 
       return false;

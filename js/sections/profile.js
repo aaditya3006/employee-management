@@ -316,51 +316,6 @@
       }
     }
 
-    // Check auth state on load
-    window.auth?.onAuthStateChange(async (event, session) => {
-      if (session?.user) {
-        window.hideMarketingLanding?.();
-        const user = session.user;
-        console.log('User already logged in:', user.email);
-
-        const adminEmail = 'nandkishor24714@gmail.com';
-        const isAdmin = user.email === adminEmail;
-
-        // Initialize user role FIRST before anything else
-        await initializeUserRole();
-        console.log('🔑 Role initialized:', currentUserRole);
-
-        // Call this after role is initialized
-        updateAdminUIVisibility();
-
-        // If admin, skip to app
-        if (isAdmin) {
-          console.log('✅ Admin user detected - allowing access');
-          updateSidebarForAdmin(user);
-          loadAdminUsers('active');
-          const loginScreen = document.getElementById('login-screen');
-          loginScreen.style.display = 'none';
-          loadDataFromDB();
-          startMainApp();
-        } else {
-          // For non-admin users, allow direct access
-          console.log('✅ User is authorized - loading app');
-          updateSidebarForAdmin(user);
-          const loginScreen = document.getElementById('login-screen');
-          loginScreen.style.display = 'none';
-          await loadDataFromDB();
-          startMainApp();
-        }
-      } else {
-        console.log('User not logged in - showing login screen');
-        const loginScreen = document.getElementById('login-screen');
-        loginScreen.style.display = 'flex';
-        window.resolvePreAuthExperience?.();
-      }
-    });
-
-
-
 window.userProfileData = userProfileData;
 window.loadProfileData = loadProfileData;
 window.handleEditProfile = handleEditProfile;

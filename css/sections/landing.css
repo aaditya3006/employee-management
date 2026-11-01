@@ -805,6 +805,7 @@ body.show-marketing-landing[data-landing-theme="dark"] {
 
 #railsaathi-landing .landing-manifesto {
   max-width: 440px;
+  min-height: 3.4em;
   margin: 0;
   color: #10253d;
   font-family: 'Poppins', 'Segoe UI', sans-serif;
@@ -835,6 +836,12 @@ body.show-marketing-landing[data-landing-theme="dark"] {
 #railsaathi-landing[data-theme="dark"] .landing-manifesto {
   color: #f1f5f9;
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.72);
+}
+
+@media (max-width: 640px) {
+  #railsaathi-landing .landing-manifesto {
+    min-height: 6.8em;
+  }
 }
 
 #railsaathi-landing .landing-headline {

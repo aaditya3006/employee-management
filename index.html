@@ -120,6 +120,19 @@
 
 <body id="app-body" class="show-marketing-landing">
   <div id="toast" class="no-print" aria-live="polite"></div>
+  <div id="playstore-coming-soon-popup" class="playstore-coming-soon-popup no-print" role="status"
+    aria-live="polite" aria-atomic="true" hidden>
+    <button type="button" class="playstore-coming-soon-popup__close" aria-label="Close message"
+      onclick="window.hidePlayStoreComingSoon?.()">×</button>
+    <span>RailSaarthi is coming soon on the Play Store.</span>
+  </div>
+  <div id="auth-welcome-toast" class="auth-welcome-toast no-print" role="status" aria-live="polite"
+    aria-atomic="true" hidden>
+    <button type="button" class="auth-welcome-toast__close" aria-label="Dismiss welcome message"
+      onclick="window.dismissWelcomeToast?.()">×</button>
+    <div class="auth-welcome-toast__title" id="auth-welcome-title"></div>
+    <div class="auth-welcome-toast__message">You’re successfully signed in to RailSaarthi.</div>
+  </div>
   <svg class="dashboard-icon-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
     <symbol id="icon-lock" viewBox="0 0 24 24">
       <rect x="4" y="10" width="16" height="11" rx="2" />
@@ -810,7 +823,7 @@
               style="width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px 12px;font-size:14px;color:white;outline:none;"
               placeholder="name@example.com" class="login-input-focus">
           </div>
-          <button onclick="sendPasswordReset()"
+          <button id="password-reset-submit" onclick="sendPasswordReset()"
             style="width:100%;background:#2563eb;padding:8px;border-radius:8px;color:white;font-weight:700;font-size:12px;border:none;cursor:pointer;">SEND
             RESET LINK</button>
         </div>
@@ -907,18 +920,6 @@
           <div id="reg-error-msg"
             style="display:none;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.4);color:#fca5a5;padding:8px 12px;border-radius:8px;font-size:11px;text-align:center;line-height:1.4;">
           </div>
-
-          <!-- Security Requirements -->
-          <small
-            style="color:#d1d5db;font-size:9px;border:1px solid rgba(139,92,246,0.2);padding:8px;border-radius:6px;display:block;background:rgba(139,92,246,0.05);">
-            <svg class="ui-icon">
-              <use href="#icon-lock"></use>
-            </svg> <strong>Password must have:</strong><br>
-            • At least 8 characters<br>
-            • Uppercase & lowercase letters<br>
-            • Numbers & special characters (!@#$%^&*)<br>
-            • No repeated characters (333...)
-          </small>
 
           <button type="submit" class="login-btn-primary"
             style="width:100%;padding:10px;border-radius:8px;color:white;font-weight:700;font-size:12px;border:none;cursor:pointer;margin-top:8px;font-family:'Inter',sans-serif;">CREATE
@@ -2424,16 +2425,6 @@
   </div>
 
   <script>
-    // Load DB only after login
-    if (window.auth) {
-      window.auth.onAuthStateChange((event, session) => {
-        if (session?.user) {
-          console.log('✅ User session detected, loading database');
-          loadDataFromDB();
-        }
-      });
-    }
-
     let _clockFieldId = '', _clockFieldLabel = '', _clockHour = -1, _clockMinute = -1, _clockMode = 'hour', _clockIsDragging = false;
     const CLOCK_R = 128, CLOCK_R_OUT = 96, CLOCK_R_IN = 64;
 
