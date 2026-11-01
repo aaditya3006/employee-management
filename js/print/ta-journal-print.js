@@ -161,25 +161,33 @@
       wrapper.style.position = 'relative';
       wrapper.style.boxSizing = 'border-box';
 
-      var MAX_HEIGHT = 1020; // content height for A4 (~1028px)
-      var fontSize = 26.0;
-      var MIN_FONT = 9.0; // Keep font size legible (min 9pt)
-      var step = 0.3;
+      var MAX_HEIGHT = 1020;
+      var MIN_FONT = 9.0;
+      var largestFont = 26.0;
+      var smallestFont = MIN_FONT;
+      var titleElements = wrapper.querySelectorAll('.ta-report-title');
+      var headerElements = wrapper.querySelectorAll('.ta-report-header-line');
+      var cellElements = wrapper.querySelectorAll('.ta-report-cell');
+      var applyFontSize = function (fontSize) {
+        var px = fontSize.toFixed(1) + 'pt';
+        var titleSize = (fontSize + 8.0).toFixed(1) + 'pt';
+        titleElements.forEach(function (el) { el.style.fontSize = titleSize; });
+        headerElements.forEach(function (el) { el.style.fontSize = px; });
+        cellElements.forEach(function (el) { el.style.fontSize = px; });
+      };
 
-      // Set initial font sizes
-      var px = fontSize.toFixed(1) + 'pt';
-      var titleSize = (fontSize + 8.0).toFixed(1) + 'pt';
-      wrapper.querySelectorAll('.ta-report-title').forEach(function (el) { el.style.fontSize = titleSize; });
-      wrapper.querySelectorAll('.ta-report-header-line').forEach(function (el) { el.style.fontSize = px; });
-      wrapper.querySelectorAll('.ta-report-cell').forEach(function (el) { el.style.fontSize = px; });
-
-      while (wrapper.scrollHeight > MAX_HEIGHT && fontSize > MIN_FONT) {
-        fontSize = Math.max(MIN_FONT, fontSize - step);
-        px = fontSize.toFixed(1) + 'pt';
-        titleSize = (fontSize + 8.0).toFixed(1) + 'pt';
-        wrapper.querySelectorAll('.ta-report-title').forEach(function (el) { el.style.fontSize = titleSize; });
-        wrapper.querySelectorAll('.ta-report-header-line').forEach(function (el) { el.style.fontSize = px; });
-        wrapper.querySelectorAll('.ta-report-cell').forEach(function (el) { el.style.fontSize = px; });
+      applyFontSize(largestFont);
+      if (wrapper.scrollHeight > MAX_HEIGHT) {
+        while (largestFont - smallestFont > 0.1) {
+          var midpoint = (largestFont + smallestFont) / 2;
+          applyFontSize(midpoint);
+          if (wrapper.scrollHeight > MAX_HEIGHT) {
+            largestFont = midpoint;
+          } else {
+            smallestFont = midpoint;
+          }
+        }
+        applyFontSize(smallestFont);
       }
 
       // Restore original styles

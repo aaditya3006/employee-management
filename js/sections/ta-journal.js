@@ -164,7 +164,7 @@
 
     function syncTaLockedName() {
       const nameInput = document.getElementById('ta-name-locked');
-      if (nameInput) nameInput.value = getLoggedInTaEmployeeName();
+      if (nameInput && !nameInput.value.trim()) nameInput.value = getLoggedInTaEmployeeName();
     }
     window.syncTaLockedName = syncTaLockedName;
 
@@ -280,6 +280,8 @@
       document.getElementById('ta-from-stn-single').value = 'NES';
       document.getElementById('ta-to-stn-single').value = '';
       document.querySelector('input[name="ta-pct-single"][value="70"]').checked = true;
+      document.getElementById('ta-pct-custom').value = '';
+      document.getElementById('ta-pct-custom').classList.add('hidden');
       document.getElementById('ta-obj-single').value = '';
       document.querySelector('input[name="ta-rate-single"][value="625"]').checked = true;
       document.getElementById('ta-rate-custom').value = '';
@@ -312,6 +314,15 @@
       calcTaAmountSingle();
     }
 
+    function handlePercentageChange() {
+      const selectedPercentage = document.querySelector('input[name="ta-pct-single"]:checked').value;
+      const customPercentageInput = document.getElementById('ta-pct-custom');
+      const isCustom = selectedPercentage === 'other';
+      customPercentageInput.classList.toggle('hidden', !isCustom);
+      if (isCustom) customPercentageInput.focus();
+      calcTaAmountSingle();
+    }
+
     function updateCharCount() {
       const input = document.getElementById('ta-obj-single');
       const counter = document.getElementById('ta-char-count');
@@ -339,6 +350,14 @@
       // Handle combination percentages
       if (pct === '30+70' || pct === '70+30') {
         pct = 1.0; // Both combinations equal 100%
+      } else if (pct === 'other') {
+        const customPercentage = parseFloat(document.getElementById('ta-pct-custom').value);
+        if (isNaN(customPercentage) || customPercentage < 0 || customPercentage > 100) {
+          document.getElementById('ta-rs-single').value = '';
+          document.getElementById('ta-paise-single').value = '';
+          return;
+        }
+        pct = customPercentage / 100;
       } else {
         pct = parseFloat(pct) / 100;
       }
@@ -370,7 +389,10 @@
       const arrSrc = document.getElementById('ta-arr-src').value || '';
       const fromStn = document.getElementById('ta-from-stn-single').value || 'NES';
       const toStn = document.getElementById('ta-to-stn-single').value;
-      const pct = document.querySelector('input[name="ta-pct-single"]:checked').value;
+      const pctSelection = document.querySelector('input[name="ta-pct-single"]:checked').value;
+      const pct = pctSelection === 'other'
+        ? document.getElementById('ta-pct-custom').value
+        : pctSelection;
       const obj = document.getElementById('ta-obj-single').value;
       const km = 0;
 
@@ -611,7 +633,14 @@
       document.getElementById('ta-from-stn-single').value = e.fromStn || 'NES';
       document.getElementById('ta-to-stn-single').value = e.toStn || '';
       const pctEl = document.querySelector(`input[name="ta-pct-single"][value="${e.pct}"]`);
-      if (pctEl) pctEl.checked = true;
+      if (pctEl) {
+        pctEl.checked = true;
+        document.getElementById('ta-pct-custom').classList.add('hidden');
+      } else {
+        document.querySelector('input[name="ta-pct-single"][value="other"]').checked = true;
+        document.getElementById('ta-pct-custom').classList.remove('hidden');
+        document.getElementById('ta-pct-custom').value = e.pct || '';
+      }
       document.getElementById('ta-obj-single').value = e.obj || '';
       updateCharCount();
 
@@ -852,7 +881,14 @@
           document.getElementById('ta-to-stn-single').value = entry.toStn || '';
 
           const pctEl = document.querySelector(`input[name="ta-pct-single"][value="${entry.pct}"]`);
-          if (pctEl) pctEl.checked = true;
+          if (pctEl) {
+            pctEl.checked = true;
+            document.getElementById('ta-pct-custom').classList.add('hidden');
+          } else {
+            document.querySelector('input[name="ta-pct-single"][value="other"]').checked = true;
+            document.getElementById('ta-pct-custom').classList.remove('hidden');
+            document.getElementById('ta-pct-custom').value = entry.pct || '';
+          }
 
           document.getElementById('ta-obj-single').value = entry.obj || '';
           updateCharCount();
@@ -1201,7 +1237,8 @@
     }
 
     function getTaHeaderData() {
-      const name = getLoggedInTaEmployeeName();
+      const nameInput = document.getElementById('ta-name-locked');
+      const name = nameInput?.value.trim() || getLoggedInTaEmployeeName();
       const restDatesRaw = JSON.parse(document.getElementById('ta-rest-dates-json').value || '[]');
       const restDatesFmt = restDatesRaw.map(d => { const [y, m, day] = d.split('-'); return `${day}/${m}/${y}`; });
       const leaveDatesRaw = JSON.parse(document.getElementById('ta-leave-dates-json').value || '[]');

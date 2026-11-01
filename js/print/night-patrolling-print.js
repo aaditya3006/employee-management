@@ -19,22 +19,6 @@
 
         console.log('Print triggered for:', dutyName, range, 'type:', type);
 
-        // Archive the same high-resolution A4 PDF used by the share action.
-        try {
-          const blob = await window.createDutyPdfBlob();
-          const safeDate = range.replace(/[^\d-]+/g, '-').replace(/^-|-$/g, '');
-          const fileType = type === 'keyman' ? 'Keyman' : 'Night-Patrolling';
-          await window.saveDutyPdfHistory?.({
-            blob,
-            filename: `${fileType}-Duty${safeDate ? `-${safeDate}` : ''}.pdf`,
-            dutyName,
-            dutyDate: range,
-            action: 'Printed'
-          });
-        } catch (archiveError) {
-          console.warn('Could not archive the printed PDF:', archiveError);
-        }
-
         // Match the supplied duty-sheet format: A4 portrait with preserved cell colors.
         clearDynamicPrintStyles();
         const printStyle = document.createElement('style');
@@ -138,6 +122,22 @@
           }
         `;
         document.head.appendChild(printStyle);
+        window.addEventListener('afterprint', async function archivePrintedPdf() {
+          try {
+            const blob = await window.createDutyPdfBlob();
+            const safeDate = range.replace(/[^\d-]+/g, '-').replace(/^-|-$/g, '');
+            const fileType = type === 'keyman' ? 'Keyman' : 'Night-Patrolling';
+            await window.saveDutyPdfHistory?.({
+              blob,
+              filename: `${fileType}-Duty${safeDate ? `-${safeDate}` : ''}.pdf`,
+              dutyName,
+              dutyDate: range,
+              action: 'Printed'
+            });
+          } catch (archiveError) {
+            console.warn('Could not archive the printed PDF:', archiveError);
+          }
+        }, { once: true });
         window.print();
       } catch (error) {
         console.error("Error in handlePrint:", error);

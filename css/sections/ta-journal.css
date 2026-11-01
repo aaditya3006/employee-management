@@ -411,7 +411,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url('https://www.livemint.com/lm-img/img/2023/09/21/600x338/ANI-20230708344-0_1692243128024_1695279868901.jpg');
+      background-image: url('../../images/bg.png');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
@@ -693,4 +693,3 @@
   min-height: 32px !important;
   padding: 4px 8px !important;
 }
-

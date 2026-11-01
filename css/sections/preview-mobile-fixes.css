@@ -10,15 +10,6 @@
   background-color: #b91c1c !important;
   border-color: #b91c1c !important;
 }
-#home-section button.quick-action-ta,
-#home-section button.quick-action-ta:hover {
-  background-color: transparent !important;
-  background-image: url('../../images/tajournal.jpg'), url('../../images/tajournal.png') !important;
-  background-size: cover !important;
-  background-position: center !important;
-  background-repeat: no-repeat !important;
-  border: none !important;
-}
 .dashboard-icon-sprite {
   position: absolute;
   width: 0;
@@ -61,6 +52,54 @@
   background-image: none !important;
   border-color: #0437f2 !important;
   box-shadow: 0 4px 12px rgba(4, 55, 242, 0.18) !important;
+}
+
+#top-nav #top-nav-menu-toggle,
+#top-nav #top-nav-menu-toggle:hover,
+#top-nav #top-nav-menu-toggle:focus-visible {
+  color: #ffffff !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+#top-nav #top-nav-history-btn,
+#top-nav #top-nav-history-btn:hover,
+#top-nav #top-nav-history-btn:focus-visible,
+#top-nav #top-nav-logout-btn,
+#top-nav #top-nav-logout-btn:hover,
+#top-nav #top-nav-logout-btn:focus-visible {
+  color: #ffffff !important;
+  min-height: 30px !important;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+  background: rgba(37, 99, 235, 0.3) !important;
+  border: 1px solid rgba(147, 197, 253, 0.8) !important;
+  box-shadow: 0 0 10px rgba(96, 165, 250, 0.18) !important;
+}
+
+#top-nav #top-nav-logout-btn,
+#top-nav #top-nav-logout-btn:hover,
+#top-nav #top-nav-logout-btn:focus-visible {
+  background: rgba(239, 68, 68, 0.3) !important;
+  border-color: rgba(252, 165, 165, 0.85) !important;
+  box-shadow: 0 0 10px rgba(248, 113, 113, 0.18) !important;
+}
+
+#top-nav #top-nav-history-btn:hover,
+#top-nav #top-nav-history-btn:focus-visible {
+  background: rgba(37, 99, 235, 0.48) !important;
+}
+
+#top-nav #top-nav-logout-btn:hover,
+#top-nav #top-nav-logout-btn:focus-visible {
+  background: rgba(239, 68, 68, 0.48) !important;
+}
+
+#top-nav .app-brand-mark {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
 #main-wrapper button:hover,

@@ -504,7 +504,7 @@
 
         const canvas = await window.html2canvas(page, {
           backgroundColor: '#ffffff',
-          scale: 3,
+          scale: 2,
           useCORS: true,
           logging: false,
           width: page.scrollWidth,

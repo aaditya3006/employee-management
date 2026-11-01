@@ -4,17 +4,24 @@
   let railwayNewsLoaded = false;
   let railwayNewsRequest = null;
 
-  const FALLBACK_RAILWAY_NEWS = [
-    { title: "Indian Railways official updates and announcements", url: "https://indianrailways.gov.in/", source: "Indian Railways", publishedAt: "" },
-    { title: "Press Information Bureau railway news", url: "https://pib.gov.in/allRel.aspx?reg=3&lang=1", source: "PIB", publishedAt: "" },
-    { title: "IRCTC latest railway travel updates", url: "https://www.irctc.co.in/", source: "IRCTC", publishedAt: "" },
-    { title: "Indian Railway news search", url: "https://news.google.com/search?q=Indian+Railway&hl=en-IN&gl=IN&ceid=IN:en", source: "Google News", publishedAt: "" },
-    { title: "Ministry of Railways updates", url: "https://rlycms.gov.in/", source: "Railway Board", publishedAt: "" }
-  ];
+  const RAILWAY_TERMS = /\b(?:indian railways?|ministry of railways?|railway board|irctc|indian railway traffic|railway station|railway train|railway track|railway zone|railway ministry|northern railway|eastern railway|western railway|central railway|southern railway|north eastern railway|north central railway|north western railway|south eastern railway|south central railway|east central railway|east coast railway|west central railway|vande bharat|memu|blw)\b/i;
+
+  function isIndianRailwayArticle(article) {
+    const text = [
+      article?.title,
+      article?.description,
+      article?.content,
+      typeof article?.source === "string" ? article.source : article?.source?.name,
+      article?.source_name
+    ]
+      .filter(Boolean)
+      .join(" ");
+    return RAILWAY_TERMS.test(text);
+  }
 
   function renderRailwayNewsArticles(list, articles) {
     list.replaceChildren();
-    articles.forEach(article => {
+    articles.filter(isIndianRailwayArticle).forEach(article => {
       let url;
       try { url = new URL(article.url); } catch { return; }
       if (!["https:", "http:"].includes(url.protocol)) return;
@@ -70,29 +77,22 @@
         if (!data || !Array.isArray(data.articles)) {
           throw new Error("Unable to load railway news");
         }
-        return data.articles;
+        return data.articles.filter(isIndianRailwayArticle);
       })
       .then(articles => {
-        const count = renderRailwayNewsArticles(list, (articles && articles.length) ? articles : FALLBACK_RAILWAY_NEWS);
-        if (!count) list.textContent = "No Indian Railway news articles were found.";
+        const count = renderRailwayNewsArticles(list, articles || []);
+        if (!count) list.textContent = "No Indian Railway news available.";
         railwayNewsLoaded = true;
       })
-      .catch(() => {
+      .catch(error => {
         railwayNewsLoaded = false;
-        renderRailwayNewsArticles(list, FALLBACK_RAILWAY_NEWS);
-        const retry = document.createElement("button");
-        retry.type = "button";
-        retry.className = "dashboard-news-retry";
-        retry.textContent = "Retry";
-        retry.addEventListener("click", () => loadDashboardRailwayNews(true));
-        list.appendChild(retry);
+        console.error("Could not load Indian Railway news:", error);
+        list.textContent = "Indian Railway news is temporarily unavailable.";
       })
       .finally(() => {
         railwayNewsRequest = null;
         if (refreshBtn) refreshBtn.disabled = false;
       });
-    return railwayNewsRequest;
-  }
     return railwayNewsRequest;
   }
 
@@ -107,7 +107,17 @@
     const el = document.getElementById("home-welcome-datetime");
     if (!el) return;
     const now = new Date();
-    el.textContent = now.toLocaleString();
+    const dateLabel = now.toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+    const timeLabel = now.toLocaleTimeString("en-IN", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true
+    });
+    el.innerHTML = `<span class="home-date-line">${dateLabel}</span><span class="home-time-line">${timeLabel}</span>`;
   }
   setInterval(updateHomeWelcomeDateTime, 1000);
   updateHomeWelcomeDateTime();
